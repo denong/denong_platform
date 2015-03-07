@@ -1,7 +1,7 @@
 class TlTradesController < ApplicationController
   before_action :set_tl_trade, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @tl_trades = TlTrade.all
