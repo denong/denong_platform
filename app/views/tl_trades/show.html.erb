@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @tl_trade.phone %>
+</p>
+
+<p>
+  <strong>Card:</strong>
+  <%= @tl_trade.card %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @tl_trade.price %>
+</p>
+
+<p>
+  <strong>Trade time:</strong>
+  <%= @tl_trade.trade_time %>
+</p>
+
+<p>
+  <strong>Pos ind:</strong>
+  <%= @tl_trade.pos_ind %>
+</p>
+
+<p>
+  <strong>Shop ind:</strong>
+  <%= @tl_trade.shop_ind %>
+</p>
+
+<p>
+  <strong>Trade ind:</strong>
+  <%= @tl_trade.trade_ind %>
+</p>
+
+<%= link_to 'Edit', edit_tl_trade_path(@tl_trade) %> |
+<%= link_to 'Back', tl_trades_path %>
