@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_ios_rails_for :users
   resources :tl_trades, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.

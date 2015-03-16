@@ -32,6 +32,7 @@ gem "responders"
 
 # for Authentication
 gem 'devise'
+gem 'devise-ios-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
