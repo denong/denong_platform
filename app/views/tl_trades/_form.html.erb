@@ -1,0 +1,45 @@
+<%= form_for(@tl_trade) do |f| %>
+  <% if @tl_trade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tl_trade.errors.count, "error") %> prohibited this tl_trade from being saved:</h2>
+
+      <ul>
+      <% @tl_trade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :card %><br>
+    <%= f.text_field :card %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :trade_time %><br>
+    <%= f.datetime_select :trade_time %>
+  </div>
+  <div class="field">
+    <%= f.label :pos_ind %><br>
+    <%= f.text_field :pos_ind %>
+  </div>
+  <div class="field">
+    <%= f.label :shop_ind %><br>
+    <%= f.text_field :shop_ind %>
+  </div>
+  <div class="field">
+    <%= f.label :trade_ind %><br>
+    <%= f.text_field :trade_ind %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
