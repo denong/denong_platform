@@ -30,6 +30,9 @@ gem 'spring',        group: :development
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem "responders"
 
+# for Authentication
+gem 'devise'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
