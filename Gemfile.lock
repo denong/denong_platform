@@ -68,6 +68,7 @@ GEM
     mime-types (2.4.3)
     minitest (5.5.1)
     multi_json (1.11.0)
+    mustache (0.99.8)
     orm_adapter (0.5.0)
     rack (1.5.2)
     rack-test (0.6.3)
@@ -91,6 +92,10 @@ GEM
     rdoc (4.2.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
     rspec-core (3.2.1)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.0)
@@ -108,6 +113,11 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
+    rspec_api_documentation (4.3.0)
+      activesupport (>= 3.0.0)
+      json (~> 1.4, >= 1.4.6)
+      mustache (~> 0.99, >= 0.99.4)
+      rspec (>= 3.0.0)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -157,6 +167,7 @@ DEPENDENCIES
   rails (= 4.1.8)
   responders
   rspec-rails (~> 3.0)
+  rspec_api_documentation
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
