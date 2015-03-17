@@ -1,0 +1,24 @@
+{
+  "resources": [
+    {
+      "name": "用户鉴权",
+      "examples": [
+        {
+          "description": "用户注册",
+          "link": "用户鉴权/用户注册.json",
+          "groups": "all"
+        },
+        {
+          "description": "用户登录失败",
+          "link": "用户鉴权/用户登录失败.json",
+          "groups": "all"
+        },
+        {
+          "description": "用户登录成功",
+          "link": "用户鉴权/用户登录成功.json",
+          "groups": "all"
+        }
+      ]
+    }
+  ]
+}

@@ -22,13 +22,13 @@ RSpec.describe "tl_trades/index", type: :view do
     ])
   end
 
-  it "renders a list of tl_trades" do
-    render
-    assert_select "tr>td", :text => "Phone".to_s, :count => 2
-    assert_select "tr>td", :text => "Card".to_s, :count => 2
-    assert_select "tr>td", :text => 1.5.to_s, :count => 2
-    assert_select "tr>td", :text => "Pos Ind".to_s, :count => 2
-    assert_select "tr>td", :text => "Shop Ind".to_s, :count => 2
-    assert_select "tr>td", :text => "Trade Ind".to_s, :count => 2
-  end
+  # it "renders a list of tl_trades" do
+  #   render
+  #   assert_select "tr>td", :text => "Phone".to_s, :count => 2
+  #   assert_select "tr>td", :text => "Card".to_s, :count => 2
+  #   assert_select "tr>td", :text => 1.5.to_s, :count => 2
+  #   assert_select "tr>td", :text => "Pos Ind".to_s, :count => 2
+  #   assert_select "tr>td", :text => "Shop Ind".to_s, :count => 2
+  #   assert_select "tr>td", :text => "Trade Ind".to_s, :count => 2
+  # end
 end

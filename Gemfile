@@ -38,6 +38,13 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
 
+# Rspec Api Doc generator
+gem 'rspec_api_documentation'
+
+# i18n
+gem 'rails-i18n', '~> 4.0.0'
+gem 'devise-i18n'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
