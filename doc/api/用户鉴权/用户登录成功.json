@@ -37,19 +37,19 @@
       "request_content_type": "application/json",
       "response_status": 201,
       "response_status_text": "Created",
-      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-17T07:19:24.363Z\",\"updated_at\":\"2015-03-17T07:19:24.377Z\",\"phone\":\"138138138138\",\"authentication_token\":\"JSno_27aWrx6fAn-_ben\"}",
+      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-17T15:26:39.422+08:00\",\"updated_at\":\"2015-03-17T15:26:39.438+08:00\",\"phone\":\"138138138138\",\"authentication_token\":\"zrMJ7CPHDLvmmercKW_9\"}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Location": "/",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"53493868435dfc8040bb88675bd10d6f\"",
+        "ETag": "\"151fa7d15c2e382e1d62f8f1fe064f63\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=c1ZxdTlMalRvZlBLSllFTlY2bW9SZkV2MGxqVkY5V0U0SXlXVW00dDJNamJoeGJUanNabk1EdXFmamJWalFZNlkyUDBvMWZWUnJ4dG50eml1NDFVdnFHUkFncUN3bXdabmU2SUxQUm1wa0NqK1pRSGlqbnZYNVBkVWdja09YQWdzNGl4SHJ6UGpUNWVpdmVpaG45dWJnPT0tLXcrWVlKQ1VxRVFUWk4xTkJzTmNSK0E9PQ%3D%3D--182ac74d3168c27fc8ccfa4f501c695896f1bd0e; path=/; HttpOnly",
-        "X-Request-Id": "b1a3965f-4716-458f-8512-73b573d9060a",
-        "X-Runtime": "0.015682",
-        "Content-Length": "168"
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=U1IxamEyL0IxTjZJRkVCUTB1NVVBekRGYmZYMFVHa1JPQUpSTFRSMlBiMy9wRzNqMm5tSlVvdGovT1BBSWpYdHNnOVFFUVlhdW9aaUNIdXFIcE5aVTMvend0cVYxS2w2TUhWLzloc2pMZGhBWTJYZW8rK0s1bmdwNStJYzF2TWp5U1dJN3R2Ym42d0pGbHVUS3hibTBnPT0tLWJOamZSSkNCUHRUY28vYXBSKzgvMEE9PQ%3D%3D--c1555d5f613c0978ad07ca48d9df7b15e354e762; path=/; HttpOnly",
+        "X-Request-Id": "696097f6-9539-4420-a7dc-fc2c8798f26c",
+        "X-Runtime": "0.019466",
+        "Content-Length": "178"
       },
       "response_content_type": "application/json; charset=utf-8",
       "curl": "curl \"http://localhost:4444/users/sign_in\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
