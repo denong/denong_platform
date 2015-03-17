@@ -44,116 +44,116 @@ RSpec.describe TlTradesController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested tl_trade as @tl_trade" do
-      tl_trade = TlTrade.create! valid_attributes
-      get :show, {:id => tl_trade.to_param}, valid_session
-      expect(assigns(:tl_trade)).to eq(tl_trade)
-    end
-  end
+  # describe "GET #show" do
+  #   it "assigns the requested tl_trade as @tl_trade" do
+  #     tl_trade = TlTrade.create! valid_attributes
+  #     get :show, {:id => tl_trade.to_param}, valid_session
+  #     expect(assigns(:tl_trade)).to eq(tl_trade)
+  #   end
+  # end
 
-  describe "GET #new" do
-    it "assigns a new tl_trade as @tl_trade" do
-      get :new, {}, valid_session
-      expect(assigns(:tl_trade)).to be_a_new(TlTrade)
-    end
-  end
+  # describe "GET #new" do
+  #   it "assigns a new tl_trade as @tl_trade" do
+  #     get :new, {}, valid_session
+  #     expect(assigns(:tl_trade)).to be_a_new(TlTrade)
+  #   end
+  # end
 
-  describe "GET #edit" do
-    it "assigns the requested tl_trade as @tl_trade" do
-      tl_trade = TlTrade.create! valid_attributes
-      get :edit, {:id => tl_trade.to_param}, valid_session
-      expect(assigns(:tl_trade)).to eq(tl_trade)
-    end
-  end
+  # describe "GET #edit" do
+  #   it "assigns the requested tl_trade as @tl_trade" do
+  #     tl_trade = TlTrade.create! valid_attributes
+  #     get :edit, {:id => tl_trade.to_param}, valid_session
+  #     expect(assigns(:tl_trade)).to eq(tl_trade)
+  #   end
+  # end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new TlTrade" do
-        expect {
-          post :create, {:tl_trade => valid_attributes}, valid_session
-        }.to change(TlTrade, :count).by(1)
-      end
+  # describe "POST #create" do
+  #   context "with valid params" do
+  #     it "creates a new TlTrade" do
+  #       expect {
+  #         post :create, {:tl_trade => valid_attributes}, valid_session
+  #       }.to change(TlTrade, :count).by(1)
+  #     end
 
-      it "assigns a newly created tl_trade as @tl_trade" do
-        post :create, {:tl_trade => valid_attributes}, valid_session
-        expect(assigns(:tl_trade)).to be_a(TlTrade)
-        expect(assigns(:tl_trade)).to be_persisted
-      end
+  #     it "assigns a newly created tl_trade as @tl_trade" do
+  #       post :create, {:tl_trade => valid_attributes}, valid_session
+  #       expect(assigns(:tl_trade)).to be_a(TlTrade)
+  #       expect(assigns(:tl_trade)).to be_persisted
+  #     end
 
-      it "redirects to the created tl_trade" do
-        post :create, {:tl_trade => valid_attributes}, valid_session
-        expect(response).to redirect_to(TlTrade.last)
-      end
-    end
+  #     it "redirects to the created tl_trade" do
+  #       post :create, {:tl_trade => valid_attributes}, valid_session
+  #       expect(response).to redirect_to(TlTrade.last)
+  #     end
+  #   end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved tl_trade as @tl_trade" do
-        post :create, {:tl_trade => invalid_attributes}, valid_session
-        expect(assigns(:tl_trade)).to be_a_new(TlTrade)
-      end
+  #   context "with invalid params" do
+  #     it "assigns a newly created but unsaved tl_trade as @tl_trade" do
+  #       post :create, {:tl_trade => invalid_attributes}, valid_session
+  #       expect(assigns(:tl_trade)).to be_a_new(TlTrade)
+  #     end
 
-      it "re-renders the 'new' template" do
-        post :create, {:tl_trade => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
+  #     it "re-renders the 'new' template" do
+  #       post :create, {:tl_trade => invalid_attributes}, valid_session
+  #       expect(response).to render_template("new")
+  #     end
+  #   end
+  # end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  # describe "PUT #update" do
+  #   context "with valid params" do
+  #     let(:new_attributes) {
+  #       skip("Add a hash of attributes valid for your model")
+  #     }
 
-      it "updates the requested tl_trade" do
-        tl_trade = TlTrade.create! valid_attributes
-        put :update, {:id => tl_trade.to_param, :tl_trade => new_attributes}, valid_session
-        tl_trade.reload
-        skip("Add assertions for updated state")
-      end
+  #     it "updates the requested tl_trade" do
+  #       tl_trade = TlTrade.create! valid_attributes
+  #       put :update, {:id => tl_trade.to_param, :tl_trade => new_attributes}, valid_session
+  #       tl_trade.reload
+  #       skip("Add assertions for updated state")
+  #     end
 
-      it "assigns the requested tl_trade as @tl_trade" do
-        tl_trade = TlTrade.create! valid_attributes
-        put :update, {:id => tl_trade.to_param, :tl_trade => valid_attributes}, valid_session
-        expect(assigns(:tl_trade)).to eq(tl_trade)
-      end
+  #     it "assigns the requested tl_trade as @tl_trade" do
+  #       tl_trade = TlTrade.create! valid_attributes
+  #       put :update, {:id => tl_trade.to_param, :tl_trade => valid_attributes}, valid_session
+  #       expect(assigns(:tl_trade)).to eq(tl_trade)
+  #     end
 
-      it "redirects to the tl_trade" do
-        tl_trade = TlTrade.create! valid_attributes
-        put :update, {:id => tl_trade.to_param, :tl_trade => valid_attributes}, valid_session
-        expect(response).to redirect_to(tl_trade)
-      end
-    end
+  #     it "redirects to the tl_trade" do
+  #       tl_trade = TlTrade.create! valid_attributes
+  #       put :update, {:id => tl_trade.to_param, :tl_trade => valid_attributes}, valid_session
+  #       expect(response).to redirect_to(tl_trade)
+  #     end
+  #   end
 
-    context "with invalid params" do
-      it "assigns the tl_trade as @tl_trade" do
-        tl_trade = TlTrade.create! valid_attributes
-        put :update, {:id => tl_trade.to_param, :tl_trade => invalid_attributes}, valid_session
-        expect(assigns(:tl_trade)).to eq(tl_trade)
-      end
+  #   context "with invalid params" do
+  #     it "assigns the tl_trade as @tl_trade" do
+  #       tl_trade = TlTrade.create! valid_attributes
+  #       put :update, {:id => tl_trade.to_param, :tl_trade => invalid_attributes}, valid_session
+  #       expect(assigns(:tl_trade)).to eq(tl_trade)
+  #     end
 
-      it "re-renders the 'edit' template" do
-        tl_trade = TlTrade.create! valid_attributes
-        put :update, {:id => tl_trade.to_param, :tl_trade => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
+  #     it "re-renders the 'edit' template" do
+  #       tl_trade = TlTrade.create! valid_attributes
+  #       put :update, {:id => tl_trade.to_param, :tl_trade => invalid_attributes}, valid_session
+  #       expect(response).to render_template("edit")
+  #     end
+  #   end
+  # end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested tl_trade" do
-      tl_trade = TlTrade.create! valid_attributes
-      expect {
-        delete :destroy, {:id => tl_trade.to_param}, valid_session
-      }.to change(TlTrade, :count).by(-1)
-    end
+  # describe "DELETE #destroy" do
+  #   it "destroys the requested tl_trade" do
+  #     tl_trade = TlTrade.create! valid_attributes
+  #     expect {
+  #       delete :destroy, {:id => tl_trade.to_param}, valid_session
+  #     }.to change(TlTrade, :count).by(-1)
+  #   end
 
-    it "redirects to the tl_trades list" do
-      tl_trade = TlTrade.create! valid_attributes
-      delete :destroy, {:id => tl_trade.to_param}, valid_session
-      expect(response).to redirect_to(tl_trades_url)
-    end
-  end
+  #   it "redirects to the tl_trades list" do
+  #     tl_trade = TlTrade.create! valid_attributes
+  #     delete :destroy, {:id => tl_trade.to_param}, valid_session
+  #     expect(response).to redirect_to(tl_trades_url)
+  #   end
+  # end
 
 end

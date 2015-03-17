@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>用户鉴权 API</title>
+    <meta charset="utf-8">
+    <style>
+      
+body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  color: #404040;
+}
+
+.container {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  zoom: 1;
+}
+
+pre {
+  background-color: #f5f5f5;
+  display: block;
+  padding: 8.5px;
+  margin: 0 0 18px;
+  line-height: 18px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+td.required .name:after {
+  float: right;
+  content: "required";
+  font-weight: normal;
+  color: #F08080;
+}
+
+a{
+  color: #0069d6;
+  text-decoration: none;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+p {
+  padding: 15px;
+  font-size: 130%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  color: #404040;
+}
+
+h1 {
+  margin-bottom: 18px;
+  font-size: 30px;
+  line-height: 36px;
+}
+h2 {
+  font-size: 24px;
+  line-height: 36px;
+}
+h3{
+  font-size: 18px;
+  line-height: 36px;
+}
+h4 {
+  font-size: 16px;
+  line-height: 36px;
+}
+
+table{
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 0;
+  border-collapse: separate;
+  font-size: 13px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+}
+
+table th {
+  padding-top: 9px;
+  font-weight: bold;
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+}
+table th+th, table td+td {
+  border-left: 1px solid #ddd;
+}
+table th, table td {
+  padding: 10px 10px 9px;
+  line-height: 18px;
+  text-align: left;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>用户鉴权 API</h1>
+
+      <div class="article">
+        <h2>用户注册</h2>
+        <h3>POST /users</h3>
+
+          <h3>Parameters</h3>
+          <table class="parameters table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="required">
+                    <span class="name">user[phone]</span>
+                </td>
+                <td>
+                  <span class="description">Employee phone</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">user[password]</span>
+                </td>
+                <td>
+                  <span class="description">Employee password</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <h3>Request</h3>
+
+          <h4>Headers</h4>
+          <pre class="request headers">Accept: application/json
+Content-Type: application/json
+Host: example.org
+Cookie: </pre>
+
+          <h4>Route</h4>
+          <pre class="request route highlight">POST /users</pre>
+
+
+            <h4>Body</h4>
+            <pre class="request body">{"user":{"phone":"138138138138","password":"abcd.1234"}}</pre>
+
+            <h4>cURL</h4>
+            <pre class="request curl">curl &quot;http://localhost:4444/users&quot; -d &#39;{&quot;user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
+	-H &quot;Accept: application/json&quot; \
+	-H &quot;Content-Type: application/json&quot; \
+	-H &quot;Host: example.org&quot; \
+	-H &quot;Cookie: &quot;</pre>
+
+            <h3>Response</h3>
+            <h4>Headers</h4>
+            <pre class="response headers">X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Location: /
+Content-Type: application/json; charset=utf-8
+ETag: &quot;2e83e8b32a3fc8d94f62bc195a1da072&quot;
+Cache-Control: max-age=0, private, must-revalidate
+Set-Cookie: request_method=POST; path=/
+_denong_platform_session=K0RZNWh3bGw0OFhaOHpXUUxSZWd2VTVYUFVINlExM2ZmMkUxNlllaVNvUXAxTnF6bTZrMHc4eTV3c2VuaFZ5a0hUckVZa0poUDRwK05ZeUxPMUJINlZnaWppa054L2piYnIxNis5elJYVkhKZVVEcHArRXFpYnRjaEgzcnhpOW5TS2FVb2RNaVk3aE5PcTBFRFR1cGp3PT0tLWtreG9vcXF2ZldMc2FLVmh3UVlXTHc9PQ%3D%3D--c9b64ad163a5dc48360f21ea6b0877e380dcd04e; path=/; HttpOnly
+X-Request-Id: ec69fc81-42f8-4144-b9a8-24fd51c6f244
+X-Runtime: 0.062241
+Content-Length: 168</pre>
+            <h4>Status</h4>
+            <pre class="response status">201 Created</pre>
+              <h4>Body</h4>
+              <pre class="response body">{&quot;id&quot;:1,&quot;email&quot;:&quot;&quot;,&quot;created_at&quot;:&quot;2015-03-17T07:19:24.333Z&quot;,&quot;updated_at&quot;:&quot;2015-03-17T07:19:24.337Z&quot;,&quot;phone&quot;:&quot;138138138138&quot;,&quot;authentication_token&quot;:&quot;KEhXHg4wYvy2Ps4iFCXG&quot;}</pre>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+用户注册
+----
+
+Parameters:
+  * phone - Employee phone
+  * password - Employee password
+
+Request:
+  POST /users
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"user":{"phone":"138138138138","password":"abcd.1234"}}
+
+Response:
+  Status: 201 Created
+  Cache-Control: max-age=0, private, must-revalidate
+  Content-Length: 168
+  Content-Type: application/json; charset=utf-8
+  ETag: "2e83e8b32a3fc8d94f62bc195a1da072"
+  Location: /
+  Set-Cookie: request_method=POST; path=/
+_denong_platform_session=K0RZNWh3bGw0OFhaOHpXUUxSZWd2VTVYUFVINlExM2ZmMkUxNlllaVNvUXAxTnF6bTZrMHc4eTV3c2VuaFZ5a0hUckVZa0poUDRwK05ZeUxPMUJINlZnaWppa054L2piYnIxNis5elJYVkhKZVVEcHArRXFpYnRjaEgzcnhpOW5TS2FVb2RNaVk3aE5PcTBFRFR1cGp3PT0tLWtreG9vcXF2ZldMc2FLVmh3UVlXTHc9PQ%3D%3D--c9b64ad163a5dc48360f21ea6b0877e380dcd04e; path=/; HttpOnly
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: ec69fc81-42f8-4144-b9a8-24fd51c6f244
+  X-Runtime: 0.062241
+  X-XSS-Protection: 1; mode=block
+
+  {"id":1,"email":"","created_at":"2015-03-17T07:19:24.333Z","updated_at":"2015-03-17T07:19:24.337Z","phone":"138138138138","authentication_token":"KEhXHg4wYvy2Ps4iFCXG"}
+
+
+用户登录成功
+------
+
+Parameters:
+  * phone - Employee phone
+  * password - Employee password
+
+Request:
+  POST /users/sign_in
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"user":{"phone":"138138138138","password":"abcd.1234"}}
+
+Response:
+  Status: 201 Created
+  Cache-Control: max-age=0, private, must-revalidate
+  Content-Length: 168
+  Content-Type: application/json; charset=utf-8
+  ETag: "53493868435dfc8040bb88675bd10d6f"
+  Location: /
+  Set-Cookie: request_method=POST; path=/
+_denong_platform_session=c1ZxdTlMalRvZlBLSllFTlY2bW9SZkV2MGxqVkY5V0U0SXlXVW00dDJNamJoeGJUanNabk1EdXFmamJWalFZNlkyUDBvMWZWUnJ4dG50eml1NDFVdnFHUkFncUN3bXdabmU2SUxQUm1wa0NqK1pRSGlqbnZYNVBkVWdja09YQWdzNGl4SHJ6UGpUNWVpdmVpaG45dWJnPT0tLXcrWVlKQ1VxRVFUWk4xTkJzTmNSK0E9PQ%3D%3D--182ac74d3168c27fc8ccfa4f501c695896f1bd0e; path=/; HttpOnly
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: b1a3965f-4716-458f-8512-73b573d9060a
+  X-Runtime: 0.015682
+  X-XSS-Protection: 1; mode=block
+
+  {"id":1,"email":"","created_at":"2015-03-17T07:19:24.363Z","updated_at":"2015-03-17T07:19:24.377Z","phone":"138138138138","authentication_token":"JSno_27aWrx6fAn-_ben"}
+
+
+用户登录失败
+------
+
+Parameters:
+  * phone - Employee phone
+  * password - Employee password
+
+Request:
+  POST /users/sign_in
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"user":{"password":"abcd.1234"}}
+
+Response:
+  Status: 401 Unauthorized
+  Cache-Control: no-cache
+  Content-Length: 61
+  Content-Type: application/json; charset=utf-8
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: 599fecc1-08ed-453a-a117-b09fba39bc40
+  X-Runtime: 0.007783
+  X-XSS-Protection: 1; mode=block
+
+  {"error":"You need to sign in or sign up before continuing."}

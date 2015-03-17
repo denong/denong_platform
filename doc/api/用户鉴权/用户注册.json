@@ -1,0 +1,58 @@
+{
+  "resource": "用户鉴权",
+  "http_method": "POST",
+  "route": "/users",
+  "description": "用户注册",
+  "explanation": null,
+  "parameters": [
+    {
+      "required": true,
+      "scope": "user",
+      "name": "phone",
+      "description": "Employee phone"
+    },
+    {
+      "required": true,
+      "scope": "user",
+      "name": "password",
+      "description": "Employee password"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/users",
+      "request_body": "{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}",
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 201,
+      "response_status_text": "Created",
+      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-17T07:19:24.333Z\",\"updated_at\":\"2015-03-17T07:19:24.337Z\",\"phone\":\"138138138138\",\"authentication_token\":\"KEhXHg4wYvy2Ps4iFCXG\"}",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Location": "/",
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "\"2e83e8b32a3fc8d94f62bc195a1da072\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=K0RZNWh3bGw0OFhaOHpXUUxSZWd2VTVYUFVINlExM2ZmMkUxNlllaVNvUXAxTnF6bTZrMHc4eTV3c2VuaFZ5a0hUckVZa0poUDRwK05ZeUxPMUJINlZnaWppa054L2piYnIxNis5elJYVkhKZVVEcHArRXFpYnRjaEgzcnhpOW5TS2FVb2RNaVk3aE5PcTBFRFR1cGp3PT0tLWtreG9vcXF2ZldMc2FLVmh3UVlXTHc9PQ%3D%3D--c9b64ad163a5dc48360f21ea6b0877e380dcd04e; path=/; HttpOnly",
+        "X-Request-Id": "ec69fc81-42f8-4144-b9a8-24fd51c6f244",
+        "X-Runtime": "0.062241",
+        "Content-Length": "168"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
