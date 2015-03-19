@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319034607) do
+ActiveRecord::Schema.define(version: 20150319064943) do
 
   create_table "merchant_busi_reg_infos", force: true do |t|
     t.string   "name"
@@ -73,6 +73,25 @@ ActiveRecord::Schema.define(version: 20150319034607) do
   add_index "merchant_users", ["email"], name: "index_merchant_users_on_email"
   add_index "merchant_users", ["phone"], name: "index_merchant_users_on_phone"
   add_index "merchant_users", ["reset_password_token"], name: "index_merchant_users_on_reset_password_token", unique: true
+
+  create_table "merchants", force: true do |t|
+    t.integer  "merchant_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shops", force: true do |t|
+    t.string   "name"
+    t.string   "addr"
+    t.string   "contact_person"
+    t.string   "contact_tel"
+    t.string   "work_time"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "shops", ["merchant_id"], name: "index_shops_on_merchant_id"
 
   create_table "tl_trades", force: true do |t|
     t.string   "phone"
