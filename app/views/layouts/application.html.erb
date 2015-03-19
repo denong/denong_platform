@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DenongPlatform</title>
+  <title>德浓后台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-<%= yield %>
-
+<body class="skin-1">
+  <div id="header">
+    <%= render partial: "share/header" %>
+  </div>
+  <div id="sidebar" class="sidebar responsive">
+    <%= render partial: "share/sidebar" %>
+  </div>
+  <div class="main-content">
+    <div class="page-content">
+      <!-- setting box goes here if needed -->
+      <div class="row">
+        <div class="col-xs-12">
+         <!-- page content goes here -->
+         <%= yield %>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.page-content -->
+   </div><!-- /.main-content -->
 </body>
 </html>

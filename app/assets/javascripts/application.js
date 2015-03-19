@@ -13,4 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
+//= require ace-elements.min
+//= require ace.min
+//= require ace-extra.min
+//= require dropzone.min
+//= require moment
+//= require bootstrap-datetimepicker
+//= require jquery.dataTables.min
+//= require jquery.dataTables.bootstrap
 //= require_tree .
