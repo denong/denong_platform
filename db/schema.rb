@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319075020) do
+ActiveRecord::Schema.define(version: 20150319081919) do
 
   create_table "merchant_busi_reg_infos", force: true do |t|
     t.string   "name"
@@ -21,19 +21,19 @@ ActiveRecord::Schema.define(version: 20150319075020) do
     t.string   "licence"
     t.string   "organize_code"
     t.string   "tax_code"
-    t.integer  "merchant_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "merchant_id"
   end
 
-  add_index "merchant_busi_reg_infos", ["merchant_user_id"], name: "index_merchant_busi_reg_infos_on_merchant_user_id"
+  add_index "merchant_busi_reg_infos", ["merchant_id"], name: "index_merchant_busi_reg_infos_on_merchant_id"
 
   create_table "merchant_sys_reg_infos", force: true do |t|
     t.string   "sys_name"
     t.string   "contact_person"
-    t.string   "contact_tel",      default: "--- []\n"
-    t.string   "service_tel",      default: "--- []\n"
-    t.string   "fax_tel",          default: "--- []\n"
+    t.string   "contact_tel",    default: "--- []\n"
+    t.string   "service_tel",    default: "--- []\n"
+    t.string   "fax_tel",        default: "--- []\n"
     t.string   "email"
     t.string   "company_addr"
     t.string   "region"
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(version: 20150319075020) do
     t.float    "lat"
     t.string   "welcome_string"
     t.text     "comment_text"
-    t.integer  "merchant_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "merchant_id"
   end
 
-  add_index "merchant_sys_reg_infos", ["merchant_user_id"], name: "index_merchant_sys_reg_infos_on_merchant_user_id"
+  add_index "merchant_sys_reg_infos", ["merchant_id"], name: "index_merchant_sys_reg_infos_on_merchant_id"
 
   create_table "merchant_users", force: true do |t|
     t.string   "email",                  default: "", null: false

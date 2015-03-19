@@ -28,8 +28,7 @@ class MerchantUser < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:phone, :email]
 
-  has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
-  has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
+  has_one :merchant
 
   def email_required?
     false
