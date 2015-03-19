@@ -19,17 +19,17 @@ Response:
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "efda3dcd9f9b96c9e926134133df32b8"
+  ETag: "5d1883f5a0930205cb5849926c74decb"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=Qm0zUmdPdzdpNUxyanMzT1A1YXhwbkZURjc2dkovQU8xSUpHVU5scXVTREh6L3IxOFVwWUViVEN3cmppTm55MHhCN292aXh4NzhwV2VGN08yZ0gvSmpBMnJnT0JTeU1FenpGQy96MDJ5cUpUdkdOU1pHR3BDR1d1eGtwQm15TFhmTjN6dmg1UFBqRUR3c1J3STI1VWhRPT0tLTFoYUwyNEMxU2lMaGJIU0JtSlh3dWc9PQ%3D%3D--97e9cb3996d303447f203bd09564ee83075669e3; path=/; HttpOnly
+_denong_platform_session=VUFtZ0xkbFhoUmNCNWNCdnZ5b0FsN2pOaVV5S3lUd3ovaVU5UzdsR3NVTXFtcHhZNnNXWUJONDlRUURWWlpiNy9GSlR0VCtsQi9SREZWKzlQbUZpdGNaS3ZCUXFwS0UvekpJclJxdzJxc2dBMEpLRTA5TTBHT00vRUphd01Nd2FpWG05Sno3QUxtWVFSTjdhc0pNalJ3PT0tLTl3VS9WSlJZRFVLa3JMbUZaclhqSUE9PQ%3D%3D--8a07a037119451a5d45696d3cd34ca410e525d55; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: fa1a0ea4-7924-4b5e-a0ea-2001ca15eea6
-  X-Runtime: 0.068051
+  X-Request-Id: 699b5ab8-5b12-4c00-98c2-13575f8972de
+  X-Runtime: 0.068361
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","created_at":"2015-03-17T15:26:39.391+08:00","updated_at":"2015-03-17T15:26:39.395+08:00","phone":"138138138138","authentication_token":"nqmkza_DV2MTt6vo2ZgL"}
+  {"id":1,"email":"","created_at":"2015-03-19T09:42:37.540+08:00","updated_at":"2015-03-19T09:42:37.543+08:00","phone":"138138138138","authentication_token":"T1nSJxHcNYbCdx9-RDU3"}
 
 
 用户登录成功
@@ -53,17 +53,17 @@ Response:
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "151fa7d15c2e382e1d62f8f1fe064f63"
+  ETag: "7aca8f722501586fba6d8f76f6c6fb43"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=U1IxamEyL0IxTjZJRkVCUTB1NVVBekRGYmZYMFVHa1JPQUpSTFRSMlBiMy9wRzNqMm5tSlVvdGovT1BBSWpYdHNnOVFFUVlhdW9aaUNIdXFIcE5aVTMvend0cVYxS2w2TUhWLzloc2pMZGhBWTJYZW8rK0s1bmdwNStJYzF2TWp5U1dJN3R2Ym42d0pGbHVUS3hibTBnPT0tLWJOamZSSkNCUHRUY28vYXBSKzgvMEE9PQ%3D%3D--c1555d5f613c0978ad07ca48d9df7b15e354e762; path=/; HttpOnly
+_denong_platform_session=Zi9rQWxBU2JVMlFLVXUxUkdWaEl5aTgzL211c1NpSzdtT25WaGFyMkRwVWZGV1BFb0E3NGRxY3ZnR01BUzZoVkl1dTNVbE9FdEF0WmVkU2ZVV0loWW5PTXJhUUZKampVRnJ4SHBPNytOK3Rta0lsYytlTjNIVWNmb0M4MjdSQWVSSWkwbWVxb09PQWNnL1NyaXRxeE9RPT0tLWRScy9tU2JpVGJUdjdLNHBncUN2dGc9PQ%3D%3D--e78a3329895f45ca07d4d90bc751bb7c894f3b1c; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 696097f6-9539-4420-a7dc-fc2c8798f26c
-  X-Runtime: 0.019466
+  X-Request-Id: 3d5dffe3-aec6-4f0c-9f21-5903e238046c
+  X-Runtime: 0.024402
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","created_at":"2015-03-17T15:26:39.422+08:00","updated_at":"2015-03-17T15:26:39.438+08:00","phone":"138138138138","authentication_token":"zrMJ7CPHDLvmmercKW_9"}
+  {"id":1,"email":"","created_at":"2015-03-19T09:42:37.569+08:00","updated_at":"2015-03-19T09:42:37.589+08:00","phone":"138138138138","authentication_token":"czasErg6soosxZjv5NcS"}
 
 
 用户登录失败
@@ -90,8 +90,42 @@ Response:
   Set-Cookie: request_method=POST; path=/
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 1341ab5f-8c43-4bc6-9775-d656cacfb8eb
-  X-Runtime: 0.295996
+  X-Request-Id: e0033eca-9d52-450d-8412-f86f6bd80971
+  X-Runtime: 0.439469
   X-XSS-Protection: 1; mode=block
 
   {"error":"继续操作前请注册或者登录."}
+
+
+用户注册
+----
+
+Parameters:
+  * phone - 商户手机号
+  * password - 商户密码
+
+Request:
+  POST /merchant_users
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"merchant_user":{"phone":"138138138138","password":"abcd.1234"}}
+
+Response:
+  Status: 201 Created
+  Cache-Control: max-age=0, private, must-revalidate
+  Content-Length: 178
+  Content-Type: application/json; charset=utf-8
+  ETag: "9687eb5013e991db494cf58ba54f8c6d"
+  Location: /
+  Set-Cookie: request_method=POST; path=/
+_denong_platform_session=eTlnREhLOFN4M2lTT2IweHErZXFPMk9kbCtFdHVKSEtHSHBldFNnSTBPUmZQcmhGTFlUaFJCRmM2bjhnazltblhGNnVIM0JwMW5FdDJ6U3o1QVpCNVdnajJMd2o1bkdHRHpDT1hLcTUrZU1rNlp2eVU3TUxCci82djBqYkNwY0VYQitqNk1lcDN1WWN6YSs2cWZGVnhBdUREakNuS1NsSFI4UGx0QWpOVlJBPS0ta0s1Q1NzdkNyMWF0VDNRckV2MEY3dz09--6af70eefcb18907a0a52624c7a9e6057c41958b6; path=/; HttpOnly
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: c92dcb78-5d1b-4e72-aa56-bc13c8a67f2c
+  X-Runtime: 0.012961
+  X-XSS-Protection: 1; mode=block
+
+  {"id":1,"email":"","phone":"138138138138","authentication_token":"U3C_ng1yYkkid5BWzePX","created_at":"2015-03-19T09:42:38.050+08:00","updated_at":"2015-03-19T09:42:38.051+08:00"}
