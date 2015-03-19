@@ -10,5 +10,5 @@
 
 class Merchant < ActiveRecord::Base
   belongs_to :merchant_user 
-  has_many :shop
+  has_many :shops
 end

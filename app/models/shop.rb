@@ -15,4 +15,5 @@
 
 class Shop < ActiveRecord::Base
   belongs_to :merchant
+  has_many :pos_machines
 end
