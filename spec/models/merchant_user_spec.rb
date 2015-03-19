@@ -23,4 +23,5 @@ require 'rails_helper'
 
 RSpec.describe MerchantUser, type: :model do
   it { should have_one :busi_reg_info }
+  it { should have_one :sys_reg_info }
 end

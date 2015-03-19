@@ -29,6 +29,7 @@ class MerchantUser < ActiveRecord::Base
          :authentication_keys => [:phone, :email]
 
   has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
+  has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
 
   def email_required?
     false
