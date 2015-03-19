@@ -36,6 +36,7 @@ gem 'devise-ios-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'shoulda-matchers'
 end
 
 # Rspec Api Doc generator

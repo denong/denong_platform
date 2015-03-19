@@ -131,6 +131,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     simple_token_authentication (1.8.0)
       actionmailer (>= 3.2.6, < 5)
       actionpack (>= 3.2.6, < 5)
@@ -176,6 +178,7 @@ DEPENDENCIES
   rspec_api_documentation
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  shoulda-matchers
   spring
   sqlite3
   turbolinks
