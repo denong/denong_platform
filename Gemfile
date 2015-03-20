@@ -34,6 +34,8 @@ gem "responders"
 gem 'devise'
 gem 'devise-ios-rails'
 
+gem 'unicorn'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
