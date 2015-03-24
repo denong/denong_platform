@@ -33,6 +33,7 @@ gem "responders"
 # for Authentication
 gem 'devise'
 gem 'devise-ios-rails'
+gem 'active_model_serializers' 
 
 gem 'unicorn'
 
