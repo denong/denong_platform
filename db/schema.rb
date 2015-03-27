@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319081919) do
+ActiveRecord::Schema.define(version: 20150327015331) do
+
+  create_table "customers", force: true do |t|
+    t.float    "pension"
+    t.float    "jiajin"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customers", ["user_id"], name: "index_customers_on_user_id"
 
   create_table "merchant_busi_reg_infos", force: true do |t|
     t.string   "name"
