@@ -14,4 +14,5 @@ require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
   it { should belong_to :user }
+  it { should have_one :customer_reg_info }
 end
