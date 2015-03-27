@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :phone
   validates_presence_of :phone
+  has_one :customer
 
   # user phone as the authentication key, so email is not required default
   def email_required?

@@ -32,7 +32,6 @@ resource "用户鉴权" do
     example "用户登录成功" do
 
       do_request
-      puts "response_body is:#{response_body}"
       expect(status).to eq(201)
     end
   end
@@ -48,7 +47,6 @@ resource "用户鉴权" do
 
     example "用户登录失败" do
       do_request
-      puts "response_body is:#{response_body}"
       expect(status).to eq(401)
     end
   end
