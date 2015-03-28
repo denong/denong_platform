@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327151704) do
+ActiveRecord::Schema.define(version: 20150328003154) do
 
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
@@ -121,11 +121,11 @@ ActiveRecord::Schema.define(version: 20150327151704) do
   end
 
   create_table "pensions", force: true do |t|
-    t.integer  "account_id"
     t.float    "total"
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account"
   end
 
   add_index "pensions", ["customer_id"], name: "index_pensions_on_customer_id"
