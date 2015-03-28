@@ -14,4 +14,6 @@ class Customer < ActiveRecord::Base
   has_many :member_cards
   has_one :jajin
   has_one :pension
+  has_many :friendships
+  has_many :friends, through: :friendship, dependent: :destroy
 end
