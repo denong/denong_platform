@@ -12,6 +12,6 @@ class Customer < ActiveRecord::Base
   belongs_to :user
   has_one :customer_reg_info
   has_many :member_cards
-  has_many :jajins
-  has_many :pensions
+  has_one :jajin
+  has_one :pension
 end
