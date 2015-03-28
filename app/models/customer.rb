@@ -12,4 +12,5 @@ class Customer < ActiveRecord::Base
   belongs_to :user
   has_one :customer_reg_info
   has_many :member_cards
+  has_many :jajins
 end
