@@ -16,4 +16,6 @@ RSpec.describe Customer, type: :model do
   it { should have_one :jaajin}
   it { should have_one :pension }
   it { should have_many :member_cards }
+  it { should have_many :friendships }
+  # it { should have_many :friends }
 end
