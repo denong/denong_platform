@@ -3,8 +3,6 @@
 # Table name: customers
 #
 #  id         :integer          not null, primary key
-#  pension    :float
-#  jiajin     :float
 #  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
