@@ -17,4 +17,28 @@ RSpec.describe Customer, type: :model do
   it { should have_one :jajin }
   it { should have_one :pension }
   it { should have_many :friendships }
+
+
+  it "should add friend then remove friend" do
+    customer = Customer.create
+    friend = Customer.create
+    customer.add_friend! friend
+    expect(customer.has_friend? friend).to be true
+    customer.remove_friend! friend
+    expect(customer.has_friend? friend).to be false
+  end
+
+  it "should have friend" do
+    customer = Customer.create
+    friend = Customer.create
+    customer.add_friend! friend
+    expect(customer.has_friend? friend).to be true
+  end
+
+  it "should have no friend" do
+    customer = Customer.create
+    friend = Customer.create
+    expect(customer.has_friend? friend).to be false
+  end
+
 end
