@@ -1,0 +1,29 @@
+发送短信验证码
+-------
+
+Parameters:
+  * phone - 发送手机号
+
+Request:
+  POST /sms_tokens
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"sms_token":{"phone":"18616591019"}}
+
+Response:
+  Status: 201 Created
+  Cache-Control: max-age=0, private, must-revalidate
+  Content-Length: 44
+  Content-Type: application/json; charset=utf-8
+  ETag: "9c4e888ca0d760abb7b7a88fc92843f3"
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: e70e9e70-4a93-47ba-baed-f04f776dace3
+  X-Runtime: 0.506252
+  X-XSS-Protection: 1; mode=block
+
+  {"sms_token":{"id":1,"phone":"18616591019"}}

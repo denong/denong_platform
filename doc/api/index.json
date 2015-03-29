@@ -1,13 +1,28 @@
 {
   "resources": [
     {
-      "name": "用户鉴权",
+      "name": "发送短信验证码",
       "examples": [
         {
-          "description": "用户注册",
-          "link": "用户鉴权/用户注册.json",
+          "description": "发送短信验证码",
+          "link": "发送短信验证码/发送短信验证码.json",
           "groups": "all"
-        },
+        }
+      ]
+    },
+    {
+      "name": "商户用户鉴权",
+      "examples": [
+        {
+          "description": "商户用户注册",
+          "link": "商户用户鉴权/商户用户注册.json",
+          "groups": "all"
+        }
+      ]
+    },
+    {
+      "name": "用户鉴权",
+      "examples": [
         {
           "description": "用户注册",
           "link": "用户鉴权/用户注册.json",

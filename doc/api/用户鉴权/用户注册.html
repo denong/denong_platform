@@ -114,7 +114,7 @@ table th, table td {
 
       <div class="article">
         <h2>用户注册</h2>
-        <h3>POST /merchant_users</h3>
+        <h3>POST /users</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -127,18 +127,18 @@ table th, table td {
             <tbody>
               <tr>
                 <td class="required">
-                    <span class="name">merchant_user[phone]</span>
+                    <span class="name">user[phone]</span>
                 </td>
                 <td>
-                  <span class="description">商户手机号</span>
+                  <span class="description">Employee phone</span>
                 </td>
               </tr>
               <tr>
                 <td class="required">
-                    <span class="name">merchant_user[password]</span>
+                    <span class="name">user[password]</span>
                 </td>
                 <td>
-                  <span class="description">商户密码</span>
+                  <span class="description">Employee password</span>
                 </td>
               </tr>
             </tbody>
@@ -154,14 +154,14 @@ Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /merchant_users</pre>
+          <pre class="request route highlight">POST /users</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"merchant_user":{"phone":"138138138138","password":"abcd.1234"}}</pre>
+            <pre class="request body">{"user":{"phone":"138138138138","password":"abcd.1234"}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/merchant_users&quot; -d &#39;{&quot;merchant_user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/users&quot; -d &#39;{&quot;user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
 	-H &quot;Host: example.org&quot; \
@@ -174,17 +174,17 @@ X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
 Location: /
 Content-Type: application/json; charset=utf-8
-ETag: &quot;9687eb5013e991db494cf58ba54f8c6d&quot;
+ETag: &quot;daca9402abfd17c5281fc33921151262&quot;
 Cache-Control: max-age=0, private, must-revalidate
 Set-Cookie: request_method=POST; path=/
-_denong_platform_session=eTlnREhLOFN4M2lTT2IweHErZXFPMk9kbCtFdHVKSEtHSHBldFNnSTBPUmZQcmhGTFlUaFJCRmM2bjhnazltblhGNnVIM0JwMW5FdDJ6U3o1QVpCNVdnajJMd2o1bkdHRHpDT1hLcTUrZU1rNlp2eVU3TUxCci82djBqYkNwY0VYQitqNk1lcDN1WWN6YSs2cWZGVnhBdUREakNuS1NsSFI4UGx0QWpOVlJBPS0ta0s1Q1NzdkNyMWF0VDNRckV2MEY3dz09--6af70eefcb18907a0a52624c7a9e6057c41958b6; path=/; HttpOnly
-X-Request-Id: c92dcb78-5d1b-4e72-aa56-bc13c8a67f2c
-X-Runtime: 0.012961
+_denong_platform_session=Tk1zODJrYkVsOHdETGxmR1JjY3BlUEpKWVJTc3dQMjR2eUxleThKRm0xS3VGOFJQYmIyMWE3RlppcUNLelgxdmszV2R5aWRaYnBFRFFHd2dXbTNPdlpNdlExVFRuSGlzNXJjQW1na3dTdHMwVlJ3V2oyeHBqaUVJZjNIRmdpaDZDWFBlUVhzWnA1T05LZ3NqVnFsbVBBPT0tLXdKZXlnOGViSTV2b2g3aDlCREszZWc9PQ%3D%3D--0259fd338e8b15194658f9cdfadc8c63586c1cfd; path=/; HttpOnly
+X-Request-Id: 4ff82f65-6945-4993-97bf-f9af6145f980
+X-Runtime: 0.075188
 Content-Length: 178</pre>
             <h4>Status</h4>
             <pre class="response status">201 Created</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;id&quot;:1,&quot;email&quot;:&quot;&quot;,&quot;phone&quot;:&quot;138138138138&quot;,&quot;authentication_token&quot;:&quot;U3C_ng1yYkkid5BWzePX&quot;,&quot;created_at&quot;:&quot;2015-03-19T09:42:38.050+08:00&quot;,&quot;updated_at&quot;:&quot;2015-03-19T09:42:38.051+08:00&quot;}</pre>
+              <pre class="response body">{&quot;id&quot;:1,&quot;email&quot;:&quot;&quot;,&quot;created_at&quot;:&quot;2015-03-29T15:24:13.610+08:00&quot;,&quot;updated_at&quot;:&quot;2015-03-29T15:24:13.615+08:00&quot;,&quot;phone&quot;:&quot;138138138138&quot;,&quot;authentication_token&quot;:&quot;tvVSdUxxmA-mhDMfa13_&quot;}</pre>
       </div>
     </div>
   </body>

@@ -1,21 +1,21 @@
 {
   "resource": "用户鉴权",
   "http_method": "POST",
-  "route": "/merchant_users",
+  "route": "/users",
   "description": "用户注册",
   "explanation": null,
   "parameters": [
     {
       "required": true,
-      "scope": "merchant_user",
+      "scope": "user",
       "name": "phone",
-      "description": "商户手机号"
+      "description": "Employee phone"
     },
     {
       "required": true,
-      "scope": "merchant_user",
+      "scope": "user",
       "name": "password",
-      "description": "商户密码"
+      "description": "Employee password"
     }
   ],
   "response_fields": [
@@ -24,8 +24,8 @@
   "requests": [
     {
       "request_method": "POST",
-      "request_path": "/merchant_users",
-      "request_body": "{\"merchant_user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}",
+      "request_path": "/users",
+      "request_body": "{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}",
       "request_headers": {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -37,22 +37,22 @@
       "request_content_type": "application/json",
       "response_status": 201,
       "response_status_text": "Created",
-      "response_body": "{\"id\":1,\"email\":\"\",\"phone\":\"138138138138\",\"authentication_token\":\"U3C_ng1yYkkid5BWzePX\",\"created_at\":\"2015-03-19T09:42:38.050+08:00\",\"updated_at\":\"2015-03-19T09:42:38.051+08:00\"}",
+      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-29T15:24:13.610+08:00\",\"updated_at\":\"2015-03-29T15:24:13.615+08:00\",\"phone\":\"138138138138\",\"authentication_token\":\"tvVSdUxxmA-mhDMfa13_\"}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Location": "/",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"9687eb5013e991db494cf58ba54f8c6d\"",
+        "ETag": "\"daca9402abfd17c5281fc33921151262\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=eTlnREhLOFN4M2lTT2IweHErZXFPMk9kbCtFdHVKSEtHSHBldFNnSTBPUmZQcmhGTFlUaFJCRmM2bjhnazltblhGNnVIM0JwMW5FdDJ6U3o1QVpCNVdnajJMd2o1bkdHRHpDT1hLcTUrZU1rNlp2eVU3TUxCci82djBqYkNwY0VYQitqNk1lcDN1WWN6YSs2cWZGVnhBdUREakNuS1NsSFI4UGx0QWpOVlJBPS0ta0s1Q1NzdkNyMWF0VDNRckV2MEY3dz09--6af70eefcb18907a0a52624c7a9e6057c41958b6; path=/; HttpOnly",
-        "X-Request-Id": "c92dcb78-5d1b-4e72-aa56-bc13c8a67f2c",
-        "X-Runtime": "0.012961",
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=Tk1zODJrYkVsOHdETGxmR1JjY3BlUEpKWVJTc3dQMjR2eUxleThKRm0xS3VGOFJQYmIyMWE3RlppcUNLelgxdmszV2R5aWRaYnBFRFFHd2dXbTNPdlpNdlExVFRuSGlzNXJjQW1na3dTdHMwVlJ3V2oyeHBqaUVJZjNIRmdpaDZDWFBlUVhzWnA1T05LZ3NqVnFsbVBBPT0tLXdKZXlnOGViSTV2b2g3aDlCREszZWc9PQ%3D%3D--0259fd338e8b15194658f9cdfadc8c63586c1cfd; path=/; HttpOnly",
+        "X-Request-Id": "4ff82f65-6945-4993-97bf-f9af6145f980",
+        "X-Runtime": "0.075188",
         "Content-Length": "178"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/merchant_users\" -d '{\"merchant_user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

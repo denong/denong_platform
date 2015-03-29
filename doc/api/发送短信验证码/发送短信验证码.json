@@ -1,0 +1,51 @@
+{
+  "resource": "发送短信验证码",
+  "http_method": "POST",
+  "route": "/sms_tokens",
+  "description": "发送短信验证码",
+  "explanation": null,
+  "parameters": [
+    {
+      "required": true,
+      "scope": "sms_token",
+      "name": "phone",
+      "description": "发送手机号"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/sms_tokens",
+      "request_body": "{\"sms_token\":{\"phone\":\"18616591019\"}}",
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 201,
+      "response_status_text": "Created",
+      "response_body": "{\"sms_token\":{\"id\":1,\"phone\":\"18616591019\"}}",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "\"9c4e888ca0d760abb7b7a88fc92843f3\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Set-Cookie": "request_method=POST; path=/",
+        "X-Request-Id": "e70e9e70-4a93-47ba-baed-f04f776dace3",
+        "X-Runtime": "0.506252",
+        "Content-Length": "44"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/sms_tokens\" -d '{\"sms_token\":{\"phone\":\"18616591019\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

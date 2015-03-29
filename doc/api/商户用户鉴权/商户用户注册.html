@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>用户鉴权 API</title>
+    <title>商户用户鉴权 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -110,11 +110,11 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>用户鉴权 API</h1>
+      <h1>商户用户鉴权 API</h1>
 
       <div class="article">
-        <h2>用户登录失败</h2>
-        <h3>POST /users/sign_in</h3>
+        <h2>商户用户注册</h2>
+        <h3>POST /merchant_users</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -127,18 +127,18 @@ table th, table td {
             <tbody>
               <tr>
                 <td class="required">
-                    <span class="name">user[phone]</span>
+                    <span class="name">merchant_user[phone]</span>
                 </td>
                 <td>
-                  <span class="description">Employee phone</span>
+                  <span class="description">商户手机号</span>
                 </td>
               </tr>
               <tr>
                 <td class="required">
-                    <span class="name">user[password]</span>
+                    <span class="name">merchant_user[password]</span>
                 </td>
                 <td>
-                  <span class="description">Employee password</span>
+                  <span class="description">商户密码</span>
                 </td>
               </tr>
             </tbody>
@@ -154,14 +154,14 @@ Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /users/sign_in</pre>
+          <pre class="request route highlight">POST /merchant_users</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"user":{"password":"abcd.1234"}}</pre>
+            <pre class="request body">{"merchant_user":{"phone":"138138138138","password":"abcd.1234"}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/users/sign_in&quot; -d &#39;{&quot;user&quot;:{&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/merchant_users&quot; -d &#39;{&quot;merchant_user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
 	-H &quot;Host: example.org&quot; \
@@ -172,16 +172,19 @@ Cookie: </pre>
             <pre class="response headers">X-Frame-Options: SAMEORIGIN
 X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
+Location: /
 Content-Type: application/json; charset=utf-8
-Cache-Control: no-cache
+ETag: &quot;a06b9a04c7a88a1d70bd3f508e8c8249&quot;
+Cache-Control: max-age=0, private, must-revalidate
 Set-Cookie: request_method=POST; path=/
-X-Request-Id: 3f3980fb-af0a-485a-a697-115ce45cfaea
-X-Runtime: 0.306056
-Content-Length: 49</pre>
+_denong_platform_session=L21jVVdnakRUelJDNVd4UU0vSXB0SFcwR1RpMTFNRjIzaHY2SjRSSnNkMmZaWERTeGxIWFRjcUZ5c0FBNzQ1ZkhjdEdva05pbjlLbTJ1RlYvbVp3VFlIUWZSakdQK1htOURCdUVFR0U1NWFzTzU5OHVSbjJDUnVmSnlFUnRvOHAwWHBaZk9ja2hIL2lSblIyYWNRVCthNlNPZkd5bXdQeUx3MnBsYURabld3PS0tWmx5aEdhbUpuczFOK3ozcWV4ZmRQdz09--78d5c480df7bfc7f5d92404c2b355e5f0cfe5940; path=/; HttpOnly
+X-Request-Id: 6cd224f2-9e18-41af-8b92-3b25191c6e34
+X-Runtime: 0.013802
+Content-Length: 178</pre>
             <h4>Status</h4>
-            <pre class="response status">401 Unauthorized</pre>
+            <pre class="response status">201 Created</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;error&quot;:&quot;继续操作前请注册或者登录.&quot;}</pre>
+              <pre class="response body">{&quot;id&quot;:1,&quot;email&quot;:&quot;&quot;,&quot;phone&quot;:&quot;138138138138&quot;,&quot;authentication_token&quot;:&quot;K1C_5Mt2a29ieoG6s-jS&quot;,&quot;created_at&quot;:&quot;2015-03-29T15:24:13.987+08:00&quot;,&quot;updated_at&quot;:&quot;2015-03-29T15:24:13.989+08:00&quot;}</pre>
       </div>
     </div>
   </body>

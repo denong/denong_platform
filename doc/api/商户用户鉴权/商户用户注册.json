@@ -1,0 +1,58 @@
+{
+  "resource": "商户用户鉴权",
+  "http_method": "POST",
+  "route": "/merchant_users",
+  "description": "商户用户注册",
+  "explanation": null,
+  "parameters": [
+    {
+      "required": true,
+      "scope": "merchant_user",
+      "name": "phone",
+      "description": "商户手机号"
+    },
+    {
+      "required": true,
+      "scope": "merchant_user",
+      "name": "password",
+      "description": "商户密码"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/merchant_users",
+      "request_body": "{\"merchant_user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}",
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 201,
+      "response_status_text": "Created",
+      "response_body": "{\"id\":1,\"email\":\"\",\"phone\":\"138138138138\",\"authentication_token\":\"K1C_5Mt2a29ieoG6s-jS\",\"created_at\":\"2015-03-29T15:24:13.987+08:00\",\"updated_at\":\"2015-03-29T15:24:13.989+08:00\"}",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Location": "/",
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "\"a06b9a04c7a88a1d70bd3f508e8c8249\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=L21jVVdnakRUelJDNVd4UU0vSXB0SFcwR1RpMTFNRjIzaHY2SjRSSnNkMmZaWERTeGxIWFRjcUZ5c0FBNzQ1ZkhjdEdva05pbjlLbTJ1RlYvbVp3VFlIUWZSakdQK1htOURCdUVFR0U1NWFzTzU5OHVSbjJDUnVmSnlFUnRvOHAwWHBaZk9ja2hIL2lSblIyYWNRVCthNlNPZkd5bXdQeUx3MnBsYURabld3PS0tWmx5aEdhbUpuczFOK3ozcWV4ZmRQdz09--78d5c480df7bfc7f5d92404c2b355e5f0cfe5940; path=/; HttpOnly",
+        "X-Request-Id": "6cd224f2-9e18-41af-8b92-3b25191c6e34",
+        "X-Runtime": "0.013802",
+        "Content-Length": "178"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/merchant_users\" -d '{\"merchant_user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
