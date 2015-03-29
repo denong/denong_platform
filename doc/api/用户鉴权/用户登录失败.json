@@ -9,13 +9,13 @@
       "required": true,
       "scope": "user",
       "name": "phone",
-      "description": "Employee phone"
+      "description": "用户登录的手机号码"
     },
     {
       "required": true,
       "scope": "user",
       "name": "password",
-      "description": "Employee password"
+      "description": "用户登录的密码"
     }
   ],
   "response_fields": [
@@ -45,8 +45,8 @@
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "no-cache",
         "Set-Cookie": "request_method=POST; path=/",
-        "X-Request-Id": "3f3980fb-af0a-485a-a697-115ce45cfaea",
-        "X-Runtime": "0.306056",
+        "X-Request-Id": "4b4dcf1e-6c99-4e84-8ea7-9954bb26e980",
+        "X-Runtime": "0.002706",
         "Content-Length": "49"
       },
       "response_content_type": "application/json; charset=utf-8",

@@ -1,0 +1,62 @@
+{
+  "resource": "用户鉴权",
+  "http_method": "POST",
+  "route": "/users",
+  "description": "用户注册失败（短信验证码错误）",
+  "explanation": null,
+  "parameters": [
+    {
+      "required": true,
+      "scope": "user",
+      "name": "phone",
+      "description": "用户注册的手机号码"
+    },
+    {
+      "required": true,
+      "scope": "user",
+      "name": "password",
+      "description": "用户注册的密码"
+    },
+    {
+      "required": true,
+      "scope": "user",
+      "name": "sms_token",
+      "description": "用户注册的短消息验证码"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/users",
+      "request_body": "{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}",
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 422,
+      "response_status_text": "Unprocessable Entity",
+      "response_body": "{\"error\":\"短信验证码不正确，请重试\"}",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "no-cache",
+        "Set-Cookie": "request_method=POST; path=/",
+        "X-Request-Id": "4c4d57e3-c8d3-4460-9767-0d02f46eee3d",
+        "X-Runtime": "0.301443",
+        "Content-Length": "48"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

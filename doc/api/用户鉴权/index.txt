@@ -1,9 +1,10 @@
-用户注册
-----
+用户注册成功
+------
 
 Parameters:
-  * phone - Employee phone
-  * password - Employee password
+  * phone - 用户注册的手机号码
+  * password - 用户注册的密码
+  * sms_token - 用户注册的短消息验证码
 
 Request:
   POST /users
@@ -12,32 +13,96 @@ Request:
   Cookie: 
   Host: example.org
 
-  {"user":{"phone":"138138138138","password":"abcd.1234"}}
+  {"user":{"phone":"138138138138","password":"abcd.1234","sms_token":"123456"}}
 
 Response:
   Status: 201 Created
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "daca9402abfd17c5281fc33921151262"
+  ETag: "14f8ab0289b4ea5fcad0089ea490a000"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=Tk1zODJrYkVsOHdETGxmR1JjY3BlUEpKWVJTc3dQMjR2eUxleThKRm0xS3VGOFJQYmIyMWE3RlppcUNLelgxdmszV2R5aWRaYnBFRFFHd2dXbTNPdlpNdlExVFRuSGlzNXJjQW1na3dTdHMwVlJ3V2oyeHBqaUVJZjNIRmdpaDZDWFBlUVhzWnA1T05LZ3NqVnFsbVBBPT0tLXdKZXlnOGViSTV2b2g3aDlCREszZWc9PQ%3D%3D--0259fd338e8b15194658f9cdfadc8c63586c1cfd; path=/; HttpOnly
+_denong_platform_session=NVdJZ2gwTGV0WUo4RzlCbnpHelFiQWsrVTBScjZhQ1YzT1NMRXJhK2dza1BHZXAzNUlVM2Q3OFhMd2ltU1dzTkZGSXBpVmYyNy9ycG1tajlicVl1a2ltWjYxbWZZb3BEMDhQdEpzUHZ2bzBIa0ZTL0pzTWd5bmR4Z0tWVWRHZENQRHZLMVR6aThkaHAyTzl2Q3Z5VXFRPT0tLTVhQ3ZuMnhUV0xCK0tJaUZiV2xpTVE9PQ%3D%3D--4908b177d49d0549cec1e00cd413bb6421c7b0d2; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 4ff82f65-6945-4993-97bf-f9af6145f980
-  X-Runtime: 0.075188
+  X-Request-Id: 3ab429b2-037e-45ce-a56c-0059d3270031
+  X-Runtime: 0.065906
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","created_at":"2015-03-29T15:24:13.610+08:00","updated_at":"2015-03-29T15:24:13.615+08:00","phone":"138138138138","authentication_token":"tvVSdUxxmA-mhDMfa13_"}
+  {"id":1,"email":"","created_at":"2015-03-29T17:37:58.413+08:00","updated_at":"2015-03-29T17:37:58.416+08:00","phone":"138138138138","authentication_token":"By14HJXFT8t2s_FeWrQj"}
+
+
+用户注册失败（短信验证码错误）
+---------------
+
+Parameters:
+  * phone - 用户注册的手机号码
+  * password - 用户注册的密码
+  * sms_token - 用户注册的短消息验证码
+
+Request:
+  POST /users
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"user":{"phone":"138138138138","password":"abcd.1234","sms_token":"123456"}}
+
+Response:
+  Status: 422 Unprocessable Entity
+  Cache-Control: no-cache
+  Content-Length: 48
+  Content-Type: application/json; charset=utf-8
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: 4c4d57e3-c8d3-4460-9767-0d02f46eee3d
+  X-Runtime: 0.301443
+  X-XSS-Protection: 1; mode=block
+
+  {"error":"短信验证码不正确，请重试"}
+
+
+用户注册失败（短信验证码不存在）
+----------------
+
+Parameters:
+  * phone - 用户注册的手机号码
+  * password - 用户注册的密码
+  * sms_token - 用户注册的短消息验证码
+
+Request:
+  POST /users
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+
+  {"user":{"phone":"138138138138","password":"abcd.1234","sms_token":"123456"}}
+
+Response:
+  Status: 422 Unprocessable Entity
+  Cache-Control: no-cache
+  Content-Length: 48
+  Content-Type: application/json; charset=utf-8
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: b1d80668-4927-46fb-882e-0f2358e2fbbf
+  X-Runtime: 0.005395
+  X-XSS-Protection: 1; mode=block
+
+  {"error":"短信验证码不正确，请重试"}
 
 
 用户登录成功
 ------
 
 Parameters:
-  * phone - Employee phone
-  * password - Employee password
+  * phone - 用户登录的手机号码
+  * password - 用户登录密码
 
 Request:
   POST /users/sign_in
@@ -53,25 +118,25 @@ Response:
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "f60998cec60c64a5ef93d24b882334b7"
+  ETag: "8ad216e01e8e170a8eff7858c102c685"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=dmhuS1VXWHhpQVd1TWdLajRvc2ZodjZxRTZrem0rVkE4NVRjemtWa2hCY0hSNkxhbDVSVXpKTkpPR2RCU0dwSkZKQ1dKVVVDSkJ5TksxN0haRlRmMEdWL0hjajVhQkptbHExZ2R6cHp0eVhnc0JWRitMRnIvRTc5V0NLVlhsMU5SUWkwT3Bvb2w5MkFvTy9xOWJiYTdnPT0tLW9paW83eXk3TmJGMWQxU25HVVFVeGc9PQ%3D%3D--b2261b228b849a12f322ab9fffdcbf2772d31996; path=/; HttpOnly
+_denong_platform_session=VXhaMjhzeGlkdDJhUjhIdjNoSWR4Z1hISVUycEViVTlsZElGWjZUd3FNbXBkME5NOG1TS3ZXcnQzS29pYVB4TU04TUFCN1R6UUtITXk5QVM1aDV6MW4xQ1FDdlJLSlFrSVNRY0kzWVdsVXBrNGVCNEtiVDRUd0FtSXFUWGs4aUxLOXFEMFRuQ0s1V2xua1RHUDYvY0FBPT0tLWRRbFZsVjl6TWpYeXpqOXJuNlpqK0E9PQ%3D%3D--eff9c550d68f2c9646cb4b7df4331207f3bf3bbb; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: bc174556-cb38-41f1-80ea-ae9bc0eaa9f2
-  X-Runtime: 0.022900
+  X-Request-Id: 1d0b2644-968a-4bd4-910a-cd026a80b55a
+  X-Runtime: 0.015522
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","created_at":"2015-03-29T15:24:13.641+08:00","updated_at":"2015-03-29T15:24:13.659+08:00","phone":"138138138138","authentication_token":"uSCzWzZBzx2rHaciyi9T"}
+  {"id":1,"email":"","created_at":"2015-03-29T17:37:58.758+08:00","updated_at":"2015-03-29T17:37:58.770+08:00","phone":"138138138138","authentication_token":"59_maGSNZKYVyGWkyKB_"}
 
 
 用户登录失败
 ------
 
 Parameters:
-  * phone - Employee phone
-  * password - Employee password
+  * phone - 用户登录的手机号码
+  * password - 用户登录的密码
 
 Request:
   POST /users/sign_in
@@ -90,8 +155,8 @@ Response:
   Set-Cookie: request_method=POST; path=/
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 3f3980fb-af0a-485a-a697-115ce45cfaea
-  X-Runtime: 0.306056
+  X-Request-Id: 4b4dcf1e-6c99-4e84-8ea7-9954bb26e980
+  X-Runtime: 0.002706
   X-XSS-Protection: 1; mode=block
 
   {"error":"继续操作前请注册或者登录."}

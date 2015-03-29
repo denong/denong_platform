@@ -24,8 +24,18 @@
       "name": "用户鉴权",
       "examples": [
         {
-          "description": "用户注册",
-          "link": "用户鉴权/用户注册.json",
+          "description": "用户注册失败（短信验证码不存在）",
+          "link": "用户鉴权/用户注册失败（短信验证码不存在）.json",
+          "groups": "all"
+        },
+        {
+          "description": "用户注册失败（短信验证码错误）",
+          "link": "用户鉴权/用户注册失败（短信验证码错误）.json",
+          "groups": "all"
+        },
+        {
+          "description": "用户注册成功",
+          "link": "用户鉴权/用户注册成功.json",
           "groups": "all"
         },
         {

@@ -9,13 +9,13 @@
       "required": true,
       "scope": "user",
       "name": "phone",
-      "description": "Employee phone"
+      "description": "用户登录的手机号码"
     },
     {
       "required": true,
       "scope": "user",
       "name": "password",
-      "description": "Employee password"
+      "description": "用户登录密码"
     }
   ],
   "response_fields": [
@@ -37,18 +37,18 @@
       "request_content_type": "application/json",
       "response_status": 201,
       "response_status_text": "Created",
-      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-29T15:24:13.641+08:00\",\"updated_at\":\"2015-03-29T15:24:13.659+08:00\",\"phone\":\"138138138138\",\"authentication_token\":\"uSCzWzZBzx2rHaciyi9T\"}",
+      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-29T17:37:58.758+08:00\",\"updated_at\":\"2015-03-29T17:37:58.770+08:00\",\"phone\":\"138138138138\",\"authentication_token\":\"59_maGSNZKYVyGWkyKB_\"}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Location": "/",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"f60998cec60c64a5ef93d24b882334b7\"",
+        "ETag": "\"8ad216e01e8e170a8eff7858c102c685\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=dmhuS1VXWHhpQVd1TWdLajRvc2ZodjZxRTZrem0rVkE4NVRjemtWa2hCY0hSNkxhbDVSVXpKTkpPR2RCU0dwSkZKQ1dKVVVDSkJ5TksxN0haRlRmMEdWL0hjajVhQkptbHExZ2R6cHp0eVhnc0JWRitMRnIvRTc5V0NLVlhsMU5SUWkwT3Bvb2w5MkFvTy9xOWJiYTdnPT0tLW9paW83eXk3TmJGMWQxU25HVVFVeGc9PQ%3D%3D--b2261b228b849a12f322ab9fffdcbf2772d31996; path=/; HttpOnly",
-        "X-Request-Id": "bc174556-cb38-41f1-80ea-ae9bc0eaa9f2",
-        "X-Runtime": "0.022900",
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=VXhaMjhzeGlkdDJhUjhIdjNoSWR4Z1hISVUycEViVTlsZElGWjZUd3FNbXBkME5NOG1TS3ZXcnQzS29pYVB4TU04TUFCN1R6UUtITXk5QVM1aDV6MW4xQ1FDdlJLSlFrSVNRY0kzWVdsVXBrNGVCNEtiVDRUd0FtSXFUWGs4aUxLOXFEMFRuQ0s1V2xua1RHUDYvY0FBPT0tLWRRbFZsVjl6TWpYeXpqOXJuNlpqK0E9PQ%3D%3D--eff9c550d68f2c9646cb4b7df4331207f3bf3bbb; path=/; HttpOnly",
+        "X-Request-Id": "1d0b2644-968a-4bd4-910a-cd026a80b55a",
+        "X-Runtime": "0.015522",
         "Content-Length": "178"
       },
       "response_content_type": "application/json; charset=utf-8",

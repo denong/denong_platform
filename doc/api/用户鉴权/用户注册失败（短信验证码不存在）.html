@@ -113,8 +113,8 @@ table th, table td {
       <h1>用户鉴权 API</h1>
 
       <div class="article">
-        <h2>用户登录失败</h2>
-        <h3>POST /users/sign_in</h3>
+        <h2>用户注册失败（短信验证码不存在）</h2>
+        <h3>POST /users</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -130,7 +130,7 @@ table th, table td {
                     <span class="name">user[phone]</span>
                 </td>
                 <td>
-                  <span class="description">用户登录的手机号码</span>
+                  <span class="description">用户注册的手机号码</span>
                 </td>
               </tr>
               <tr>
@@ -138,7 +138,15 @@ table th, table td {
                     <span class="name">user[password]</span>
                 </td>
                 <td>
-                  <span class="description">用户登录的密码</span>
+                  <span class="description">用户注册的密码</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">user[sms_token]</span>
+                </td>
+                <td>
+                  <span class="description">用户注册的短消息验证码</span>
                 </td>
               </tr>
             </tbody>
@@ -154,14 +162,14 @@ Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /users/sign_in</pre>
+          <pre class="request route highlight">POST /users</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"user":{"password":"abcd.1234"}}</pre>
+            <pre class="request body">{"user":{"phone":"138138138138","password":"abcd.1234","sms_token":"123456"}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/users/sign_in&quot; -d &#39;{&quot;user&quot;:{&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/users&quot; -d &#39;{&quot;user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;,&quot;sms_token&quot;:&quot;123456&quot;}}&#39; -X POST \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
 	-H &quot;Host: example.org&quot; \
@@ -175,13 +183,13 @@ X-Content-Type-Options: nosniff
 Content-Type: application/json; charset=utf-8
 Cache-Control: no-cache
 Set-Cookie: request_method=POST; path=/
-X-Request-Id: 4b4dcf1e-6c99-4e84-8ea7-9954bb26e980
-X-Runtime: 0.002706
-Content-Length: 49</pre>
+X-Request-Id: b1d80668-4927-46fb-882e-0f2358e2fbbf
+X-Runtime: 0.005395
+Content-Length: 48</pre>
             <h4>Status</h4>
-            <pre class="response status">401 Unauthorized</pre>
+            <pre class="response status">422 Unprocessable Entity</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;error&quot;:&quot;继续操作前请注册或者登录.&quot;}</pre>
+              <pre class="response body">{&quot;error&quot;:&quot;短信验证码不正确，请重试&quot;}</pre>
       </div>
     </div>
   </body>

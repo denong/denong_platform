@@ -113,7 +113,7 @@ table th, table td {
       <h1>用户鉴权 API</h1>
 
       <div class="article">
-        <h2>用户注册</h2>
+        <h2>用户注册失败（短信验证码错误）</h2>
         <h3>POST /users</h3>
 
           <h3>Parameters</h3>
@@ -130,7 +130,7 @@ table th, table td {
                     <span class="name">user[phone]</span>
                 </td>
                 <td>
-                  <span class="description">Employee phone</span>
+                  <span class="description">用户注册的手机号码</span>
                 </td>
               </tr>
               <tr>
@@ -138,7 +138,15 @@ table th, table td {
                     <span class="name">user[password]</span>
                 </td>
                 <td>
-                  <span class="description">Employee password</span>
+                  <span class="description">用户注册的密码</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">user[sms_token]</span>
+                </td>
+                <td>
+                  <span class="description">用户注册的短消息验证码</span>
                 </td>
               </tr>
             </tbody>
@@ -158,10 +166,10 @@ Cookie: </pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"user":{"phone":"138138138138","password":"abcd.1234"}}</pre>
+            <pre class="request body">{"user":{"phone":"138138138138","password":"abcd.1234","sms_token":"123456"}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/users&quot; -d &#39;{&quot;user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/users&quot; -d &#39;{&quot;user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;,&quot;sms_token&quot;:&quot;123456&quot;}}&#39; -X POST \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
 	-H &quot;Host: example.org&quot; \
@@ -172,19 +180,16 @@ Cookie: </pre>
             <pre class="response headers">X-Frame-Options: SAMEORIGIN
 X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
-Location: /
 Content-Type: application/json; charset=utf-8
-ETag: &quot;daca9402abfd17c5281fc33921151262&quot;
-Cache-Control: max-age=0, private, must-revalidate
+Cache-Control: no-cache
 Set-Cookie: request_method=POST; path=/
-_denong_platform_session=Tk1zODJrYkVsOHdETGxmR1JjY3BlUEpKWVJTc3dQMjR2eUxleThKRm0xS3VGOFJQYmIyMWE3RlppcUNLelgxdmszV2R5aWRaYnBFRFFHd2dXbTNPdlpNdlExVFRuSGlzNXJjQW1na3dTdHMwVlJ3V2oyeHBqaUVJZjNIRmdpaDZDWFBlUVhzWnA1T05LZ3NqVnFsbVBBPT0tLXdKZXlnOGViSTV2b2g3aDlCREszZWc9PQ%3D%3D--0259fd338e8b15194658f9cdfadc8c63586c1cfd; path=/; HttpOnly
-X-Request-Id: 4ff82f65-6945-4993-97bf-f9af6145f980
-X-Runtime: 0.075188
-Content-Length: 178</pre>
+X-Request-Id: 4c4d57e3-c8d3-4460-9767-0d02f46eee3d
+X-Runtime: 0.301443
+Content-Length: 48</pre>
             <h4>Status</h4>
-            <pre class="response status">201 Created</pre>
+            <pre class="response status">422 Unprocessable Entity</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;id&quot;:1,&quot;email&quot;:&quot;&quot;,&quot;created_at&quot;:&quot;2015-03-29T15:24:13.610+08:00&quot;,&quot;updated_at&quot;:&quot;2015-03-29T15:24:13.615+08:00&quot;,&quot;phone&quot;:&quot;138138138138&quot;,&quot;authentication_token&quot;:&quot;tvVSdUxxmA-mhDMfa13_&quot;}</pre>
+              <pre class="response body">{&quot;error&quot;:&quot;短信验证码不正确，请重试&quot;}</pre>
       </div>
     </div>
   </body>
