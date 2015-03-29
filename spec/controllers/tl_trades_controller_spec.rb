@@ -36,13 +36,13 @@ RSpec.describe TlTradesController, type: :controller do
   # TlTradesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all tl_trades as @tl_trades" do
-      tl_trade = TlTrade.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:tl_trades)).to eq([tl_trade])
-    end
-  end
+  # describe "GET #index" do
+  #   it "assigns all tl_trades as @tl_trades" do
+  #     tl_trade = TlTrade.create! valid_attributes
+  #     get :index, {}, valid_session
+  #     expect(assigns(:tl_trades)).to eq([tl_trade])
+  #   end
+  # end
 
   # describe "GET #show" do
   #   it "assigns the requested tl_trade as @tl_trade" do

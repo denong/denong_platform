@@ -26,5 +26,10 @@ module DenongPlatform
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :'zh-CN'
+
+    # This gem also includes a responders controller generator, 
+    # so your scaffold can be customized to use respond_with instead of default respond_to blocks. 
+    # From 2.1, you need to explicitly opt-in to use this generator by adding the following to your config/application.rb:
+    config.app_generators.scaffold_controller :responders_controller
   end
 end
