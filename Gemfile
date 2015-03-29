@@ -35,6 +35,9 @@ gem 'devise'
 gem 'devise-ios-rails'
 gem 'active_model_serializers' 
 
+# SMS
+gem 'china_sms'
+
 gem 'unicorn'
 
 group :development, :test do
