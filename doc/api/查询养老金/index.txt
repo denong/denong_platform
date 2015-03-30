@@ -1,0 +1,53 @@
+获取养老金成功
+-------
+
+Request:
+  GET /pension
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+  X-User-Phone: 138138138138
+  X-User-Token: 123456
+
+Response:
+  Status: 200 OK
+  Cache-Control: max-age=0, private, must-revalidate
+  Content-Length: 29
+  Content-Type: application/json; charset=utf-8
+  ETag: "c91b81e33b19b1d6747190cda030ff70"
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: 98782e04-a1b6-4509-a173-ee4a47fb2c18
+  X-Runtime: 0.014022
+  X-XSS-Protection: 1; mode=block
+
+  {"account":111,"total":10.09}
+
+
+获取养老金失败（Token不正确）
+-----------------
+
+Request:
+  GET /pension
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+  X-User-Phone: 138138138138
+  X-User-Token: 1234567
+
+Response:
+  Status: 401 Unauthorized
+  Cache-Control: no-cache
+  Content-Length: 49
+  Content-Type: application/json; charset=utf-8
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: 9a954bb6-4aa3-4874-b5a1-e6f16c750cd4
+  X-Runtime: 0.002532
+  X-XSS-Protection: 1; mode=block
+
+  {"error":"继续操作前请注册或者登录."}
+
+

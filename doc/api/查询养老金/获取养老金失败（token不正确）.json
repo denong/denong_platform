@@ -1,0 +1,46 @@
+{
+  "resource": "查询养老金",
+  "http_method": "GET",
+  "route": "/pension",
+  "description": "获取养老金失败（Token不正确）",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/pension",
+      "request_body": null,
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-User-Token": "1234567",
+        "X-User-Phone": "138138138138",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 401,
+      "response_status_text": "Unauthorized",
+      "response_body": "{\"error\":\"继续操作前请注册或者登录.\"}",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "no-cache",
+        "X-Request-Id": "9a954bb6-4aa3-4874-b5a1-e6f16c750cd4",
+        "X-Runtime": "0.002532",
+        "Content-Length": "49"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: 1234567\" \\\n\t-H \"X-User-Phone: 138138138138\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

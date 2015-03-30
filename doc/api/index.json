@@ -21,6 +21,21 @@
       ]
     },
     {
+      "name": "查询养老金",
+      "examples": [
+        {
+          "description": "获取养老金失败（Token不正确）",
+          "link": "查询养老金/获取养老金失败（token不正确）.json",
+          "groups": "all"
+        },
+        {
+          "description": "获取养老金成功",
+          "link": "查询养老金/获取养老金成功.json",
+          "groups": "all"
+        }
+      ]
+    },
+    {
       "name": "用户鉴权",
       "examples": [
         {

@@ -1,0 +1,47 @@
+{
+  "resource": "查询养老金",
+  "http_method": "GET",
+  "route": "/pension",
+  "description": "获取养老金成功",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/pension",
+      "request_body": null,
+      "request_headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-User-Token": "123456",
+        "X-User-Phone": "138138138138",
+        "Host": "example.org",
+        "Cookie": ""
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\"account\":111,\"total\":10.09}",
+      "response_headers": {
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Type": "application/json; charset=utf-8",
+        "ETag": "\"c91b81e33b19b1d6747190cda030ff70\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "X-Request-Id": "98782e04-a1b6-4509-a173-ee4a47fb2c18",
+        "X-Runtime": "0.014022",
+        "Content-Length": "29"
+      },
+      "response_content_type": "application/json; charset=utf-8",
+      "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: 123456\" \\\n\t-H \"X-User-Phone: 138138138138\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

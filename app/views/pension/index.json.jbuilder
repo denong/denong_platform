@@ -1,0 +1,1 @@
+json.extract! @pension, :account, :total

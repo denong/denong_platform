@@ -20,17 +20,17 @@ Response:
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "14f8ab0289b4ea5fcad0089ea490a000"
+  ETag: "4a0d1aac0c776aa6d07d808ac921343a"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=NVdJZ2gwTGV0WUo4RzlCbnpHelFiQWsrVTBScjZhQ1YzT1NMRXJhK2dza1BHZXAzNUlVM2Q3OFhMd2ltU1dzTkZGSXBpVmYyNy9ycG1tajlicVl1a2ltWjYxbWZZb3BEMDhQdEpzUHZ2bzBIa0ZTL0pzTWd5bmR4Z0tWVWRHZENQRHZLMVR6aThkaHAyTzl2Q3Z5VXFRPT0tLTVhQ3ZuMnhUV0xCK0tJaUZiV2xpTVE9PQ%3D%3D--4908b177d49d0549cec1e00cd413bb6421c7b0d2; path=/; HttpOnly
+_denong_platform_session=aGtHN2xGZC8vRnpJb3RxY1g5WHN4MHhmTDZMcEovSGlVL0VRb2h5R2xIdFJtcmljV2tHQ3pZcUNmWmozb1RNR0wzdS9SMUl2aWpobUpTelpsQThCRHRQY1hMaDl6ZFBSU1FvWEJmT1VKbTk4TTNNVUlma0tvbjhJc3NCUEE0bkI4L1BrRVRweGhaZDJKek95WVRnYktRPT0tLTZuMlI1Z1kxQWE1aXYzcmlpM0lqSFE9PQ%3D%3D--656f60ea686c67175f94c4cd4c590bddfa14b64a; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 3ab429b2-037e-45ce-a56c-0059d3270031
-  X-Runtime: 0.065906
+  X-Request-Id: 56d46ec7-c96a-4de2-a162-25f2ef1b9421
+  X-Runtime: 0.065927
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","created_at":"2015-03-29T17:37:58.413+08:00","updated_at":"2015-03-29T17:37:58.416+08:00","phone":"138138138138","authentication_token":"By14HJXFT8t2s_FeWrQj"}
+  {"id":1,"email":"","created_at":"2015-03-30T22:30:27.327+08:00","updated_at":"2015-03-30T22:30:27.329+08:00","phone":"138138138138","authentication_token":"aMHJwzziq8JSSiXUxeUG"}
 
 
 用户注册失败（短信验证码错误）
@@ -58,8 +58,8 @@ Response:
   Set-Cookie: request_method=POST; path=/
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 4c4d57e3-c8d3-4460-9767-0d02f46eee3d
-  X-Runtime: 0.301443
+  X-Request-Id: ef5d8a8b-6125-46dd-be31-ac451578c298
+  X-Runtime: 0.319462
   X-XSS-Protection: 1; mode=block
 
   {"error":"短信验证码不正确，请重试"}
@@ -90,8 +90,8 @@ Response:
   Set-Cookie: request_method=POST; path=/
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: b1d80668-4927-46fb-882e-0f2358e2fbbf
-  X-Runtime: 0.005395
+  X-Request-Id: 8a0c24a0-1f67-4b3c-9780-8dfe37da9850
+  X-Runtime: 0.005571
   X-XSS-Protection: 1; mode=block
 
   {"error":"短信验证码不正确，请重试"}
@@ -118,17 +118,17 @@ Response:
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "8ad216e01e8e170a8eff7858c102c685"
+  ETag: "59688ee8571bf2457ec06291c0c8d85a"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=VXhaMjhzeGlkdDJhUjhIdjNoSWR4Z1hISVUycEViVTlsZElGWjZUd3FNbXBkME5NOG1TS3ZXcnQzS29pYVB4TU04TUFCN1R6UUtITXk5QVM1aDV6MW4xQ1FDdlJLSlFrSVNRY0kzWVdsVXBrNGVCNEtiVDRUd0FtSXFUWGs4aUxLOXFEMFRuQ0s1V2xua1RHUDYvY0FBPT0tLWRRbFZsVjl6TWpYeXpqOXJuNlpqK0E9PQ%3D%3D--eff9c550d68f2c9646cb4b7df4331207f3bf3bbb; path=/; HttpOnly
+_denong_platform_session=bXB6eW9tcmwrVTlGSFphZHBVbUpOTVBidno5NXpoR2N4clBzclhqdFBSVk9zREI4NnUxZG5GOHpld2JSRkx3dnQyaU0ybkk2OFhjM0hLQk5POGRhSWFDN3VqWnh4YWNKb0RxMUFzRVJvdmlVcGw4RWFLTHN6ZEx3SXFScisrTUFnNis5Qy9sMnU2MmJ4dEp0NEZHNFNBPT0tLXJVUnR3czFxMjRYUkxrOWRkMWNZZXc9PQ%3D%3D--88719244fa30ad696418f295366214a547ef74ae; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 1d0b2644-968a-4bd4-910a-cd026a80b55a
-  X-Runtime: 0.015522
+  X-Request-Id: 6e16965d-41cb-4477-935e-e738572d0d6c
+  X-Runtime: 0.014470
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","created_at":"2015-03-29T17:37:58.758+08:00","updated_at":"2015-03-29T17:37:58.770+08:00","phone":"138138138138","authentication_token":"59_maGSNZKYVyGWkyKB_"}
+  {"id":1,"email":"","created_at":"2015-03-30T22:30:27.690+08:00","updated_at":"2015-03-30T22:30:27.701+08:00","phone":"138138138138","authentication_token":"3xgwY9Q2-dE3AACXygRL"}
 
 
 用户登录失败
@@ -155,8 +155,8 @@ Response:
   Set-Cookie: request_method=POST; path=/
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 4b4dcf1e-6c99-4e84-8ea7-9954bb26e980
-  X-Runtime: 0.002706
+  X-Request-Id: eb639174-ed41-4b19-9a82-380d8c9ba9e0
+  X-Runtime: 0.002749
   X-XSS-Protection: 1; mode=block
 
   {"error":"继续操作前请注册或者登录."}
