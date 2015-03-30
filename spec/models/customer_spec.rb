@@ -19,26 +19,53 @@ RSpec.describe Customer, type: :model do
   it { should have_many :friendships }
 
 
-  it "should add friend then remove friend" do
-    customer = Customer.create
-    friend = Customer.create
-    customer.add_friend! friend
-    expect(customer.has_friend? friend).to be true
-    customer.remove_friend! friend
-    expect(customer.has_friend? friend).to be false
-  end
+  describe "relations" do
+    before(:each) do
+      @user = Customer.create
+      @friend = Customer.create
+    end
 
-  it "should have friend" do
-    customer = Customer.create
-    friend = Customer.create
-    customer.add_friend! friend
-    expect(customer.has_friend? friend).to be true
-  end
+    it "should have a friendships method" do
+      expect(@user).to respond_to :friendships
+    end
 
-  it "should have no friend" do
-    customer = Customer.create
-    friend = Customer.create
-    expect(customer.has_friend? friend).to be false
+    it "should have a add_friend! method" do
+      expect(@user).to respond_to :add_friend!
+    end
+
+    it "should have a has_friend? method" do
+      expect(@user).to respond_to :has_friend?
+    end
+
+    it "should have a remove_friend! method" do
+      expect(@user).to respond_to :remove_friend!
+    end
+
+    it "should add a friend" do
+      @user.add_friend! @friend
+      expect(@user.has_friend? @friend).to be true
+    end
+
+    it "should have a friend in friendship array" do
+      @user.add_friend! @friend
+      expect(@user.friends).to include @friend
+    end
+
+    it "should remove a friend" do
+      @user.add_friend! @friend
+      @user.remove_friend! @friend
+      expect(@user.has_friend? @friend).to be false
+    end
+
+    it "should remove a friend" do
+      @user.add_friend! @friend
+      expect(@user.remove_friend! @friend).to be_present
+    end
+
+
+    it "should not remove a friend" do
+      expect(@user.remove_friend! @friend).to be_blank
+    end
   end
 
 end

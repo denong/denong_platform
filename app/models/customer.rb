@@ -22,13 +22,10 @@ class Customer < ActiveRecord::Base
   end
 
   def has_friend? customer
-    self.friendships.find_by(friend_id: customer.id).nil? == false
+    self.friendships.find_by_friend_id(customer).present?
   end
 
   def remove_friend! customer
-    friend = self.friendships.find_by(friend_id: customer.id)
-    if friend
-      friend.destroy!
-    end
+    self.friendships.find_by_friend_id(customer).try(:destroy)
   end
 end
