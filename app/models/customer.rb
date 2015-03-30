@@ -10,11 +10,11 @@
 
 class Customer < ActiveRecord::Base
   belongs_to :user
-  has_one :customer_reg_info
-  has_many :member_cards
-  has_one :jajin
-  has_one :pension
-  has_many :friendships
+  has_one :customer_reg_info, dependent: :destroy
+  has_many :member_cards, dependent: :destroy
+  has_one :jajin, dependent: :destroy
+  has_one :pension, dependent: :destroy
+  has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
 
   def add_friend! customer

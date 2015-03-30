@@ -19,7 +19,7 @@ RSpec.describe Customer, type: :model do
   it { should have_many :friendships }
 
 
-  describe "relations" do
+  describe "friendships" do
     before(:each) do
       @user = Customer.create
       @friend = Customer.create
@@ -51,7 +51,7 @@ RSpec.describe Customer, type: :model do
       expect(@user.friends).to include @friend
     end
 
-    it "should remove a friend" do
+    it "should add and remove a friend" do
       @user.add_friend! @friend
       @user.remove_friend! @friend
       expect(@user.has_friend? @friend).to be false
@@ -61,7 +61,6 @@ RSpec.describe Customer, type: :model do
       @user.add_friend! @friend
       expect(@user.remove_friend! @friend).to be_present
     end
-
 
     it "should not remove a friend" do
       expect(@user.remove_friend! @friend).to be_blank
