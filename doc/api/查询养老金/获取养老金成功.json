@@ -18,8 +18,8 @@
       "request_headers": {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "X-User-Token": "123456",
-        "X-User-Phone": "138138138138",
+        "X-User-Token": "qwertyuiop",
+        "X-User-Phone": "12345678901",
         "Host": "example.org",
         "Cookie": ""
       },
@@ -28,20 +28,20 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\"account\":111,\"total\":10.09}",
+      "response_body": "{\"account\":\"123456\",\"total\":88.88}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"c91b81e33b19b1d6747190cda030ff70\"",
+        "ETag": "\"162921718878449c283d68ecc0152959\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "X-Request-Id": "98782e04-a1b6-4509-a173-ee4a47fb2c18",
-        "X-Runtime": "0.014022",
-        "Content-Length": "29"
+        "X-Request-Id": "1dff7214-2174-4dbb-93fb-ca2aa639e1c9",
+        "X-Runtime": "0.014525",
+        "Content-Length": "34"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: 123456\" \\\n\t-H \"X-User-Phone: 138138138138\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: qwertyuiop\" \\\n\t-H \"X-User-Phone: 12345678901\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

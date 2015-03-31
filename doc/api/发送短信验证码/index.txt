@@ -22,8 +22,8 @@ Response:
   Set-Cookie: request_method=POST; path=/
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: c88249c6-6be8-4904-b5a9-900f7863bdb6
-  X-Runtime: 6.016209
+  X-Request-Id: a6cf3639-6948-4007-aeff-b6d494f03d40
+  X-Runtime: 0.504042
   X-XSS-Protection: 1; mode=block
 
   {"sms_token":{"id":1,"phone":"18616591019"}}
