@@ -16,9 +16,8 @@ resource "查询养老金" do
     example "获取养老金成功" do
       do_request
       expect(status).to eq 200 
-      expect(response_body).to eq({ account: 111, total: 10.09 }.to_json)
+      expect(response_body).to eq({ account: "111", total: 10.09 }.to_json)
     end
-
   end
 
   get "/pension" do
@@ -35,4 +34,7 @@ resource "查询养老金" do
       expect(status).to eq 401
     end
   end
+
+
+
 end
