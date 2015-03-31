@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330154218) do
+ActiveRecord::Schema.define(version: 20150331121223) do
 
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 20150330154218) do
   end
 
   add_index "friendships", ["customer_id"], name: "index_friendships_on_customer_id"
+
+  create_table "jajin_logs", force: true do |t|
+    t.float    "amount"
+    t.integer  "jajinable_id"
+    t.string   "jajinable_type"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "jajin_logs", ["customer_id"], name: "index_jajin_logs_on_customer_id"
+  add_index "jajin_logs", ["jajinable_id", "jajinable_type"], name: "index_jajin_logs_on_jajinable_id_and_jajinable_type"
 
   create_table "jajins", force: true do |t|
     t.float    "got"

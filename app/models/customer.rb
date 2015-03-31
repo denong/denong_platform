@@ -16,6 +16,7 @@ class Customer < ActiveRecord::Base
   has_one :pension, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
+  has_many :jajin_logs, dependent: :destroy
 
   def add_friend! customer
     self.friendships.find_or_create_by!(friend_id: customer.id)
