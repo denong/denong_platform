@@ -14,8 +14,12 @@ class Customer < ActiveRecord::Base
   has_many :member_cards, dependent: :destroy
   has_one :jajin, dependent: :destroy
   has_one :pension, dependent: :destroy
+  
+  # 亲友关系
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
+
+  # 加金详细记录
   has_many :jajin_logs, dependent: :destroy
 
   def add_friend! customer
