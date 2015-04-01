@@ -41,7 +41,9 @@ class ExchangeLog < ActiveRecord::Base
     end
 
     def calculate
-      
+      jajin = record.customer.jajin
+      jajin.got -= amount
+      jajin.save!
     end
 end
 
