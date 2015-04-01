@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :authentication_keys => [:phone]
+         authentication_keys: [:phone]
 
   validates_uniqueness_of :phone
   validates_presence_of :phone
