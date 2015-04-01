@@ -1,4 +1,15 @@
-FactoryGirl.define do
+FactoryGirl.define do  
+  
+  factory :exchange_log do
+    customer
+    amount 1.5
+  end
+
+  factory :sms_token do
+    phone "12345678901"
+    token "123456"
+  end
+
   factory :user do
     email "example@example.com"
     phone "12345678901"
