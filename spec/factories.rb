@@ -1,7 +1,6 @@
 FactoryGirl.define do  
   
   factory :exchange_log do
-    customer
     amount 1.5
   end
 
@@ -24,14 +23,36 @@ FactoryGirl.define do
     password_confirmation "4321.dcba"
   end
 
+  factory :jajin do
+    customer
+    got 188.88
+  end
+
   factory :customer do
     user
+    factory :customer_with_jajin_pension do
+      after(:create) do |customer|
+        create(:jajin, customer: customer)
+        create(:pension, customer: customer)
+        # create_list(:jajin_logs, 10, customer: customer)
+      end
+    end
+    factory :customer_with_jajin do
+      after(:create) do |customer|
+        create(:jajin, customer: customer)
+      end
+    end
+    factory :customer_with_pension do |customer|
+      after(:create) do |customer|
+        create(:pension, customer: customer)
+      end
+    end
   end
 
   factory :pension do
+    customer
     account "123456"
     total 88.88
-    customer
   end
 
 end
