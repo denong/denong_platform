@@ -19,31 +19,37 @@ class ExchangeLog < ActiveRecord::Base
   validate :amount_must_less_than_jajin_got, on: :create
 
   after_validation :calculate
+  after_validation :add_jajin_log
   
   private
     def must_have_jajin
-      if record.customer.try(:jajin).blank?
-        errors.add(:message, "加金宝帐号不存在")
+      if self.customer.try(:jajin).blank?
+        errors.add(:message, "加金宝账号不存在")
       end
     end
 
     def must_have_pension
-      if record.customer.try(:pension).blank?
-        errors.add(:message, "养老金帐号不存在")
+      if self.customer.try(:pension).blank?
+        errors.add(:message, "养老金账号不存在")
       end
     end
 
-    def amount_must_less_than_jajin_got record
-      jajin_got = record.customer.try(:jajin).try(:got)
-      if record.amount > jajin_got.to_f
-        record.errors.add(:amount, "不能大于加金可用余额")
+    def amount_must_less_than_jajin_got 
+      jajin_got = self.customer.try(:jajin).try(:got)
+      if self.amount > jajin_got.to_f
+        errors.add(:amount, "不能大于加金可用余额")
       end
     end
 
     def calculate
-      jajin = record.customer.jajin
+      return unless self.customer.jajin
+      jajin = self.customer.jajin
       jajin.got -= amount
       jajin.save!
+    end
+
+    def add_jajin_log
+      self.create_jajin_log customer: customer, amount: amount
     end
 end
 
