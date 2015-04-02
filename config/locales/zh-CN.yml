@@ -4,3 +4,6 @@ zh-CN:
       user:
         phone: "手机号码"
         sms_token: "短信验证码"
+      exchange_log:
+        amount: "转换金额"
+        message: "提示："
