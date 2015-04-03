@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403055031) do
+ActiveRecord::Schema.define(version: 20150403074555) do
 
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20150403055031) do
     t.integer  "merchant_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "ratio"
   end
 
   create_table "pensions", force: true do |t|
