@@ -52,11 +52,11 @@ RSpec.describe ExchangeLog, type: :model do
 
     context "加金转养老金失败" do
 
-      it "should raise error the jajin is not exist" do
-        exchange_log = build(:exchange_log, customer: customer_with_pension, amount: 1.5)
-        expect(exchange_log).not_to be_valid
-        expect(exchange_log.errors.full_messages).to be_include("提示：加金宝账号不存在")
-      end
+      # it "should raise error the jajin is not exist" do
+      #   exchange_log = build(:exchange_log, customer: customer_with_pension, amount: 1.5)
+      #   expect(exchange_log).not_to be_valid
+      #   expect(exchange_log.errors.full_messages).to be_include("提示：加金宝账号不存在")
+      # end
 
       it "should raise error the pesion is not exist" do
         exchange_log = build(:exchange_log, customer: customer_with_jajin, amount: 1.5)

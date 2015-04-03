@@ -6,7 +6,7 @@ resource "查询养老金" do
 
   get "/pension" do
     before do
-      create(:pension)
+      create(:customer_with_jajin_pension)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)

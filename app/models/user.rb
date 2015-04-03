@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
 
   validate :sms_token_validate
 
+  after_create :add_customer
+
   def sms_token_validate
     sms_token_obj = SmsToken.find_by(phone: phone)
 
@@ -58,4 +60,7 @@ class User < ActiveRecord::Base
     false
   end
   
+  def add_customer
+    self.create_customer
+  end
 end

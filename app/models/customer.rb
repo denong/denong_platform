@@ -22,6 +22,8 @@ class Customer < ActiveRecord::Base
   # 加金详细记录
   has_many :jajin_logs, dependent: :destroy
 
+  after_create :add_jajin
+
   def add_friend! customer
     self.friendships.find_or_create_by!(friend_id: customer.id)
   end
@@ -32,5 +34,9 @@ class Customer < ActiveRecord::Base
 
   def remove_friend! customer
     self.friendships.find_by_friend_id(customer).try(:destroy)
+  end
+
+  def add_jajin
+    self.create_jajin got: 0,unverify: 0
   end
 end

@@ -24,17 +24,19 @@ FactoryGirl.define do
   end
 
   factory :jajin do
-    customer
     got 188.88
+
+    after(:build) do |jajin|
+      jajin.customer ||= FactoryGirl.create(:customer, :jajin => jajin)
+    end
   end
 
   factory :customer do
-    user
+    
     factory :customer_with_jajin_pension do
       after(:create) do |customer|
         create(:jajin, customer: customer)
         create(:pension, customer: customer)
-        # create_list(:jajin_logs, 10, customer: customer)
       end
     end
     factory :customer_with_jajin do
@@ -47,12 +49,28 @@ FactoryGirl.define do
         create(:pension, customer: customer)
       end
     end
+
+    after(:build) do |customer|
+      customer.user ||= FactoryGirl.create(:user, customer: customer)
+    end
   end
 
   factory :pension do
-    customer
-    account "123456"
+    account "1234567"
     total 88.88
+
+    after(:build) do |pension|
+      pension.customer ||= FactoryGirl.create(:customer, pension: pension)
+    end
+  end
+
+  factory :tl_trade do
+    phone "12345678901"
+    price 88888
+  end
+
+  factory :merchant do
+    ratio 0.01
   end
 
 end
