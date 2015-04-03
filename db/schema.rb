@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401015550) do
+ActiveRecord::Schema.define(version: 20150403055031) do
 
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
@@ -214,8 +214,12 @@ ActiveRecord::Schema.define(version: 20150401015550) do
     t.string   "trade_ind"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customer_id"
+    t.integer  "merchant_id"
   end
 
+  add_index "tl_trades", ["customer_id"], name: "index_tl_trades_on_customer_id"
+  add_index "tl_trades", ["merchant_id"], name: "index_tl_trades_on_merchant_id"
   add_index "tl_trades", ["phone"], name: "index_tl_trades_on_phone"
   add_index "tl_trades", ["pos_ind"], name: "index_tl_trades_on_pos_ind"
   add_index "tl_trades", ["shop_ind"], name: "index_tl_trades_on_shop_ind"
