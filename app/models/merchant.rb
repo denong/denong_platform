@@ -6,6 +6,7 @@
 #  merchant_user_id :integer
 #  created_at       :datetime
 #  updated_at       :datetime
+#  ratio            :float
 #
 
 class Merchant < ActiveRecord::Base
