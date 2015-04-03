@@ -15,4 +15,5 @@ RSpec.describe Merchant, type: :model do
   it { should have_one :busi_reg_info }
   it { should have_one :sys_reg_info }
   it { should have_many :shops}
+  it { should have_many :tl_trades }
 end

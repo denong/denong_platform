@@ -19,5 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe TlTrade, type: :model do
-  
+  it { should belong_to :customer }
+  it { should belong_to :merchant }
+  it { should have_one :jajin_log }
 end

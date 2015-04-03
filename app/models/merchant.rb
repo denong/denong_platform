@@ -14,4 +14,5 @@ class Merchant < ActiveRecord::Base
   has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
   has_many :shops
   has_many :member_cards
+  has_many :tl_trades
 end
