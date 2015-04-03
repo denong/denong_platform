@@ -18,8 +18,8 @@ class ExchangeLog < ActiveRecord::Base
   validate :must_have_pension, on: :create
   validate :amount_must_less_than_jajin_got, on: :create
 
-  after_validation :calculate
-  after_validation :add_jajin_log
+  before_save :calculate
+  before_save :add_jajin_log
   
   private
     def must_have_jajin
@@ -42,11 +42,22 @@ class ExchangeLog < ActiveRecord::Base
     end
 
     def calculate
-      return unless self.customer.jajin
+      decr_jajin
+      add_pension
+    end
+
+    def decr_jajin
       jajin = self.customer.jajin
       jajin.got -= amount
       jajin.save!
     end
+
+    def add_pension
+      pension = self.customer.pension
+      pension.total += amount/100
+      pension.save!
+    end
+
 
     def add_jajin_log
       self.create_jajin_log customer: customer, amount: amount

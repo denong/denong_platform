@@ -45,6 +45,9 @@ RSpec.describe ExchangeLog, type: :model do
         expect(@exchange_log.jajin_log.customer).to eq @exchange_log.customer
       end
 
+      it "should increase the total of customer pension by amount divide 100" do
+        expect(@exchange_log.customer.pension.total).to eq(88.88+1.5/100)
+      end
     end
 
     context "加金转养老金失败" do
