@@ -42,17 +42,17 @@ class ExchangeLog < ActiveRecord::Base
     end
 
     def calculate
-      decr_jajin
-      add_pension
+      decrease_jajin
+      increase_pension
     end
 
-    def decr_jajin
+    def decrease_jajin
       jajin = self.customer.jajin
       jajin.got -= amount
       jajin.save!
     end
 
-    def add_pension
+    def increase_pension
       pension = self.customer.pension
       pension.total += amount/100
       pension.save!
