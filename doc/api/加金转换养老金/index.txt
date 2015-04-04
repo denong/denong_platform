@@ -1,0 +1,96 @@
+获取养老金成功
+-------
+
+Parameters:
+  * amount - 加金转换养老金的总数
+
+Request:
+  POST /exchange_logs
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+  X-User-Phone: 12345678901
+  X-User-Token: qwertyuiop
+
+  {"exchange_log":{"amount":1.5}}
+
+Response:
+  Status: 201 Created
+  Cache-Control: max-age=0, private, must-revalidate
+  Content-Length: 127
+  Content-Type: application/json; charset=utf-8
+  ETag: "aa50438c6367c98f05ddd4a2e5f802a1"
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: f1ac8320-1421-4356-9730-dbbc026027d7
+  X-Runtime: 0.038458
+  X-XSS-Protection: 1; mode=block
+
+  {"id":1,"customer_id":1,"amount":1.5,"created_at":"2015-04-04T23:53:10.752+08:00","updated_at":"2015-04-04T23:53:10.752+08:00"}
+
+
+加金转换养老金失败（请求总额大于可用加金总额）
+-----------------------
+
+Parameters:
+  * amount - 加金转换养老金的总数
+
+Request:
+  POST /exchange_logs
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+  X-User-Phone: 12345678901
+  X-User-Token: qwertyuiop
+
+  {"exchange_log":{"amount":200}}
+
+Response:
+  Status: 422 Unprocessable Entity
+  Cache-Control: no-cache
+  Content-Length: 54
+  Content-Type: application/json; charset=utf-8
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: bde755c2-89eb-40cf-8c28-21830e4be616
+  X-Runtime: 0.006573
+  X-XSS-Protection: 1; mode=block
+
+  {"error":"转换金额不能大于加金可用余额"}
+
+
+加金转换养老金失败（用户鉴权失败）
+-----------------
+
+Parameters:
+  * amount - 加金转换养老金的总数
+
+Request:
+  POST /exchange_logs
+  Accept: application/json
+  Content-Type: application/json
+  Cookie: 
+  Host: example.org
+  X-User-Token: qwertyuiop
+
+  {"exchange_log":{"amount":200}}
+
+Response:
+  Status: 401 Unauthorized
+  Cache-Control: no-cache
+  Content-Length: 49
+  Content-Type: application/json; charset=utf-8
+  Set-Cookie: request_method=POST; path=/
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-Request-Id: 799e7435-d526-419e-9fab-6ee24c1b98af
+  X-Runtime: 0.001865
+  X-XSS-Protection: 1; mode=block
+
+  {"error":"继续操作前请注册或者登录."}
+
+

@@ -1,0 +1,2 @@
+module ExchangeLogsHelper
+end

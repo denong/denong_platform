@@ -1,21 +1,15 @@
 {
-  "resource": "用户鉴权",
+  "resource": "加金转换养老金",
   "http_method": "POST",
-  "route": "/users/sign_in",
-  "description": "用户登录失败",
+  "route": "/exchange_logs",
+  "description": "加金转换养老金失败（用户鉴权失败）",
   "explanation": null,
   "parameters": [
     {
-      "required": true,
-      "scope": "user",
-      "name": "phone",
-      "description": "用户登录的手机号码"
-    },
-    {
-      "required": true,
-      "scope": "user",
-      "name": "password",
-      "description": "用户登录的密码"
+      "require": true,
+      "scope": "exchange_log",
+      "name": "amount",
+      "description": "加金转换养老金的总数"
     }
   ],
   "response_fields": [
@@ -24,11 +18,12 @@
   "requests": [
     {
       "request_method": "POST",
-      "request_path": "/users/sign_in",
-      "request_body": "{\"user\":{\"password\":\"abcd.1234\"}}",
+      "request_path": "/exchange_logs",
+      "request_body": "{\"exchange_log\":{\"amount\":200}}",
       "request_headers": {
         "Accept": "application/json",
         "Content-Type": "application/json",
+        "X-User-Token": "qwertyuiop",
         "Host": "example.org",
         "Cookie": ""
       },
@@ -45,12 +40,12 @@
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "no-cache",
         "Set-Cookie": "request_method=POST; path=/",
-        "X-Request-Id": "292b8c9c-68f5-4bbb-a7bf-55b23559a411",
-        "X-Runtime": "0.002207",
+        "X-Request-Id": "799e7435-d526-419e-9fab-6ee24c1b98af",
+        "X-Runtime": "0.001865",
         "Content-Length": "49"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/users/sign_in\" -d '{\"user\":{\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/exchange_logs\" -d '{\"exchange_log\":{\"amount\":200}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: qwertyuiop\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

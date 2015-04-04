@@ -40,8 +40,8 @@
         "ETag": "\"9c4e888ca0d760abb7b7a88fc92843f3\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
         "Set-Cookie": "request_method=POST; path=/",
-        "X-Request-Id": "a6cf3639-6948-4007-aeff-b6d494f03d40",
-        "X-Runtime": "0.504042",
+        "X-Request-Id": "416d24a8-07c1-4406-8805-a22e8d6b0e28",
+        "X-Runtime": "0.335383",
         "Content-Length": "44"
       },
       "response_content_type": "application/json; charset=utf-8",

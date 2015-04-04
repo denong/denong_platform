@@ -13,16 +13,16 @@ Request:
 Response:
   Status: 200 OK
   Cache-Control: max-age=0, private, must-revalidate
-  Content-Length: 34
+  Content-Length: 35
   Content-Type: application/json; charset=utf-8
-  ETag: "162921718878449c283d68ecc0152959"
+  ETag: "f1b49ff6bafc3f45e64b74e6368f3efb"
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 1dff7214-2174-4dbb-93fb-ca2aa639e1c9
-  X-Runtime: 0.014525
+  X-Request-Id: c81b9bfb-f363-476b-a66c-f6e298065df6
+  X-Runtime: 0.011037
   X-XSS-Protection: 1; mode=block
 
-  {"account":"123456","total":88.88}
+  {"account":"1234567","total":88.88}
 
 
 获取养老金失败（Token不正确）
@@ -44,8 +44,8 @@ Response:
   Content-Type: application/json; charset=utf-8
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: 0889c390-fea1-436a-8fca-0dffd07b1a70
-  X-Runtime: 0.003879
+  X-Request-Id: d3c83915-9e05-4d19-9ca5-3f479c7f49a1
+  X-Runtime: 0.002584
   X-XSS-Protection: 1; mode=block
 
   {"error":"继续操作前请注册或者登录."}

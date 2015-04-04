@@ -28,17 +28,17 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\"account\":\"123456\",\"total\":88.88}",
+      "response_body": "{\"account\":\"1234567\",\"total\":88.88}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"162921718878449c283d68ecc0152959\"",
+        "ETag": "\"f1b49ff6bafc3f45e64b74e6368f3efb\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "X-Request-Id": "1dff7214-2174-4dbb-93fb-ca2aa639e1c9",
-        "X-Runtime": "0.014525",
-        "Content-Length": "34"
+        "X-Request-Id": "c81b9bfb-f363-476b-a66c-f6e298065df6",
+        "X-Runtime": "0.011037",
+        "Content-Length": "35"
       },
       "response_content_type": "application/json; charset=utf-8",
       "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: qwertyuiop\" \\\n\t-H \"X-User-Phone: 12345678901\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

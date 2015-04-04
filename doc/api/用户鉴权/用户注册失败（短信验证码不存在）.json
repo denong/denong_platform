@@ -31,7 +31,7 @@
     {
       "request_method": "POST",
       "request_path": "/users",
-      "request_body": "{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}",
+      "request_body": "{\"user\":{\"phone\":\"12345678901\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}",
       "request_headers": {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@
       "request_content_type": "application/json",
       "response_status": 422,
       "response_status_text": "Unprocessable Entity",
-      "response_body": "{\"error\":\"短信验证码不正确，请重试\"}",
+      "response_body": "{\"error\":\"短信验证码未获取，请先获取\"}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
@@ -51,12 +51,12 @@
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "no-cache",
         "Set-Cookie": "request_method=POST; path=/",
-        "X-Request-Id": "fb827077-072f-4a47-8b7a-dbd82e65cb76",
-        "X-Runtime": "0.006539",
-        "Content-Length": "48"
+        "X-Request-Id": "335f84db-1868-46d7-9b69-fb8837fbadb6",
+        "X-Runtime": "0.005019",
+        "Content-Length": "51"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"12345678901\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

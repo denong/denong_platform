@@ -31,7 +31,7 @@
     {
       "request_method": "POST",
       "request_path": "/users",
-      "request_body": "{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}",
+      "request_body": "{\"user\":{\"phone\":\"12345678901\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}",
       "request_headers": {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -51,12 +51,12 @@
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "no-cache",
         "Set-Cookie": "request_method=POST; path=/",
-        "X-Request-Id": "abe22679-6c40-4f53-9324-3ec778c05b5c",
-        "X-Runtime": "0.724308",
+        "X-Request-Id": "7e73761f-7f96-40b0-bdd0-c8a9e7ea13a0",
+        "X-Runtime": "0.285081",
         "Content-Length": "48"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/users\" -d '{\"user\":{\"phone\":\"12345678901\",\"password\":\"abcd.1234\",\"sms_token\":\"123456\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

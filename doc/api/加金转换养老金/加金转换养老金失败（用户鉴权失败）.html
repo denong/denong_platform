@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>商户用户鉴权 API</title>
+    <title>加金转换养老金 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -110,11 +110,11 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>商户用户鉴权 API</h1>
+      <h1>加金转换养老金 API</h1>
 
       <div class="article">
-        <h2>商户用户注册</h2>
-        <h3>POST /merchant_users</h3>
+        <h2>加金转换养老金失败（用户鉴权失败）</h2>
+        <h3>POST /exchange_logs</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -126,19 +126,11 @@ table th, table td {
             </thead>
             <tbody>
               <tr>
-                <td class="required">
-                    <span class="name">merchant_user[phone]</span>
+                <td>
+                    <span class="name">exchange_log[amount]</span>
                 </td>
                 <td>
-                  <span class="description">商户手机号</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="required">
-                    <span class="name">merchant_user[password]</span>
-                </td>
-                <td>
-                  <span class="description">商户密码</span>
+                  <span class="description">加金转换养老金的总数</span>
                 </td>
               </tr>
             </tbody>
@@ -150,20 +142,22 @@ table th, table td {
           <h4>Headers</h4>
           <pre class="request headers">Accept: application/json
 Content-Type: application/json
+X-User-Token: qwertyuiop
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /merchant_users</pre>
+          <pre class="request route highlight">POST /exchange_logs</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"merchant_user":{"phone":"138138138138","password":"abcd.1234"}}</pre>
+            <pre class="request body">{"exchange_log":{"amount":200}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/merchant_users&quot; -d &#39;{&quot;merchant_user&quot;:{&quot;phone&quot;:&quot;138138138138&quot;,&quot;password&quot;:&quot;abcd.1234&quot;}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/exchange_logs&quot; -d &#39;{&quot;exchange_log&quot;:{&quot;amount&quot;:200}}&#39; -X POST \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
+	-H &quot;X-User-Token: qwertyuiop&quot; \
 	-H &quot;Host: example.org&quot; \
 	-H &quot;Cookie: &quot;</pre>
 
@@ -172,19 +166,16 @@ Cookie: </pre>
             <pre class="response headers">X-Frame-Options: SAMEORIGIN
 X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
-Location: /
 Content-Type: application/json; charset=utf-8
-ETag: &quot;430e10116eaa4b10256e4633f4ad61ee&quot;
-Cache-Control: max-age=0, private, must-revalidate
+Cache-Control: no-cache
 Set-Cookie: request_method=POST; path=/
-_denong_platform_session=VVhtT2I1SFdHRExPU2NXa1VRdDVkWjlRY2EzRDNTWVo1R3pVSjAyL1lMdXpzUlN1ZjQvNGZzTjNzM2FOYzFsTEgrV0FhMThKOWJuSitZME9HTFRKakRPM0ZFdTZTSmcvbDVHTGxwbzYwZHF6cFN6Vk1WcEJsc3VGQ0hUb1dRSys3QUlNamoxT3NkU09MUzYvWCsvM1RpODVMVWJzMVQyRC84Z0V5UmF1bitVPS0ta1llWWRYTkFYT05KTk1rcWxmTUl3UT09--0d6e7a39cdbad4298210cf611af37d3239d2b02c; path=/; HttpOnly
-X-Request-Id: de30be42-c77a-4683-a622-02ddbe83fc5e
-X-Runtime: 0.016095
-Content-Length: 178</pre>
+X-Request-Id: 799e7435-d526-419e-9fab-6ee24c1b98af
+X-Runtime: 0.001865
+Content-Length: 49</pre>
             <h4>Status</h4>
-            <pre class="response status">201 Created</pre>
+            <pre class="response status">401 Unauthorized</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;id&quot;:1,&quot;email&quot;:&quot;&quot;,&quot;phone&quot;:&quot;138138138138&quot;,&quot;authentication_token&quot;:&quot;VsaeLBYoHh1bqFALJ-gU&quot;,&quot;created_at&quot;:&quot;2015-04-04T23:53:10.814+08:00&quot;,&quot;updated_at&quot;:&quot;2015-04-04T23:53:10.816+08:00&quot;}</pre>
+              <pre class="response body">{&quot;error&quot;:&quot;继续操作前请注册或者登录.&quot;}</pre>
       </div>
     </div>
   </body>

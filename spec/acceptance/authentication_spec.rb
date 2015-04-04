@@ -5,9 +5,9 @@ resource "用户鉴权" do
   header "Content-Type", "application/json"
 
   post "/users" do
-    parameter :phone, "用户注册的手机号码", :required => true, scope: :user
-    parameter :password, "用户注册的密码", :required => true, scope: :user
-    parameter :sms_token, "用户注册的短消息验证码", :required => true, scope: :user
+    parameter :phone, "用户注册的手机号码", required: true, scope: :user
+    parameter :password, "用户注册的密码", required: true, scope: :user
+    parameter :sms_token, "用户注册的短消息验证码", required: true, scope: :user
 
     user_attrs = FactoryGirl.attributes_for :user
     sms_attrs = FactoryGirl.attributes_for :sms_token
@@ -40,8 +40,8 @@ resource "用户鉴权" do
       create :user
     end
 
-    parameter :phone, "用户登录的手机号码", :required => true, scope: :user
-    parameter :password, "用户登录密码", :required => true, scope: :user
+    parameter :phone, "用户登录的手机号码", required: true, scope: :user
+    parameter :password, "用户登录密码", required: true, scope: :user
 
     user_attrs = FactoryGirl.attributes_for :user
     let(:phone) { user_attrs[:phone] }
@@ -57,8 +57,8 @@ resource "用户鉴权" do
 
   post "/users/sign_in" do
 
-    parameter :phone, "用户登录的手机号码", :required => true, scope: :user
-    parameter :password, "用户登录的密码", :required => true, scope: :user
+    parameter :phone, "用户登录的手机号码", required: true, scope: :user
+    parameter :password, "用户登录的密码", required: true, scope: :user
 
     user_attrs = FactoryGirl.attributes_for :user
     let(:password) { user_attrs[:password] }

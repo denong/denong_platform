@@ -25,7 +25,7 @@
     {
       "request_method": "POST",
       "request_path": "/users/sign_in",
-      "request_body": "{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}",
+      "request_body": "{\"user\":{\"phone\":\"12345678901\",\"password\":\"abcd.1234\"}}",
       "request_headers": {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -37,22 +37,22 @@
       "request_content_type": "application/json",
       "response_status": 201,
       "response_status_text": "Created",
-      "response_body": "{\"id\":1,\"email\":\"\",\"created_at\":\"2015-03-31T22:40:08.478+08:00\",\"updated_at\":\"2015-03-31T22:40:08.494+08:00\",\"phone\":\"138138138138\",\"authentication_token\":\"uj-EFzzEnWzAkh24aHxX\"}",
+      "response_body": "{\"id\":1,\"email\":\"example@example.com\",\"created_at\":\"2015-04-04T23:53:10.676+08:00\",\"updated_at\":\"2015-04-04T23:53:10.689+08:00\",\"phone\":\"12345678901\",\"authentication_token\":\"qwertyuiop\"}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Location": "/",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"0610da20f8f47e7737cc4ab9b4f6e0ef\"",
+        "ETag": "\"796ad3d17a7bcde638e23816ce92d97b\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=Z3orREhuV0diSDFYNDFYMEhMVHVXcTFnbEkzMHhaenh5TkZwMStvWlJqRjJjcUpCZVl3Y2JMSUJSd0VqK1FmdjRyRWk5VkhJYzdrZkF6TWpiNStnT0hCOUp1c0hoZW1QVzYzUkg5QnFNVXBQbjVhKzE3alNMd2tUSkZ2NGpsNDU5RmdjeGwwQjVkL3YxYlFUNHU1WXV3PT0tLXBHZ1JETDhEVjcwT2NYWUY4b1Z6VVE9PQ%3D%3D--d0cb51a74d8ab24bfca2e1622b223a1d1b1143f3; path=/; HttpOnly",
-        "X-Request-Id": "74ef6b25-742c-46b3-ae12-f31b2991f641",
-        "X-Runtime": "0.020050",
-        "Content-Length": "178"
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=ZU1zNGI3R0NWWEFNODR4SUgzZzZ1aXVaM1A1KzhaMERQQXJQanpRN0YxdTJzS0xGZ29KWkZqVVRWS2ZtckZCTVZreWtmTDFnTUZiYk1JSXJRY2wyQW5FYVRiSjFEaWx5R1RaTHVOUnRYS2JGbnZtOUFkWEhiMENVL2hEN3Bvc0ZBOEl5V2Y5VUExalZXZHpJQm03cXpnPT0tLWd2TzBES00zSk5NQTQ1bG9qSnptcUE9PQ%3D%3D--c2743ba7186a40b333610da586387f0e4595b561; path=/; HttpOnly",
+        "X-Request-Id": "202e1d8a-9715-4c39-a4cb-7c3acfb66a15",
+        "X-Runtime": "0.013942",
+        "Content-Length": "186"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/users/sign_in\" -d '{\"user\":{\"phone\":\"138138138138\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/users/sign_in\" -d '{\"user\":{\"phone\":\"12345678901\",\"password\":\"abcd.1234\"}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

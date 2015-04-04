@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :pension, only: [:index]
 
+  resources :exchange_logs, only: [:create]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

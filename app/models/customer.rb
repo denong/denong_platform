@@ -22,6 +22,9 @@ class Customer < ActiveRecord::Base
   # 加金详细记录
   has_many :jajin_logs, dependent: :destroy
 
+  # 加金转养老金记录
+  has_many :exchange_logs, dependent: :destroy
+
   after_create :add_jajin
 
   def add_friend! customer
@@ -37,6 +40,6 @@ class Customer < ActiveRecord::Base
   end
 
   def add_jajin
-    self.create_jajin got: 0,unverify: 0
+    self.create_jajin(got: 0,unverify: 0) if self.jajin.blank?
   end
 end
