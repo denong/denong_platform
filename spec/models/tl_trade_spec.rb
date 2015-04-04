@@ -25,25 +25,27 @@ RSpec.describe TlTrade, type: :model do
 
   let(:customer)  { create(:customer_with_jajin_pension) }
   let(:merchant)  { create(:merchant) }
-  describe "用户存在" do
+  describe "tl_trade" do
     
-    # context "test 1" do
-    #   before(:each) do
-    #     @tl_trades = create(:tl_trade, customer: customer, merchant: merchant)      
-    #   end
+    before(:each) do
+      @tl_trades = create(:tl_trade, customer: customer, merchant: merchant)
+    end
 
-    #   it "should increase the count of exchange log by 1" do
-    #     expectation = expect {create(:tl_trade, merchant: merchant)}# customer: customer,
-    #     expectation.to change{TlTrade.count}.by 1
-    #   end
+    it "should increase the count of exchange log by 1" do
+      expectation = expect {create(:tl_trade,customer: customer, merchant: merchant)}# 
+      expectation.to change{TlTrade.count}.by 1
+    end
 
-    #   it "should decrease the got of customer jajin by amount" do
-    #     #expect(@tl_trades.customer.jajin.got).to eq(188.88 - 1.5)
-    #   end
-    # end
+    it "should add the got of customer jajin by price/100" do
+      expect(@tl_trades.customer.jajin.got).to eq(188.88 + 888.88)
+    end
 
-
-
+    it "should make the customer of jajin_log equal to the customer of tl_trades" do
+      expect(@tl_trades.jajin_log.customer).to eq @tl_trades.customer
+    end
+    it "should automatic add customer" do
+      tl_trades_without_customer = create(:tl_trade, merchant: merchant)      
+      expect(tl_trades_without_customer.customer).not_to be_nil
+    end
   end
-
 end
