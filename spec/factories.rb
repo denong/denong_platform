@@ -35,13 +35,13 @@ FactoryGirl.define do
     
     factory :customer_with_jajin_pension do
       after(:create) do |customer|
-        create(:jajin, customer: customer)
+        customer.jajin.update_attributes got: attributes_for(:jajin)[:got]
         create(:pension, customer: customer)
       end
     end
     factory :customer_with_jajin do
       after(:create) do |customer|
-        create(:jajin, customer: customer)
+        customer.jajin.update_attributes got: attributes_for(:jajin)[:got]
       end
     end
     factory :customer_with_pension do |customer|
