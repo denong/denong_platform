@@ -32,7 +32,7 @@ RSpec.describe TlTrade, type: :model do
     end
 
     it "should increase the count of exchange log by 1" do
-      expectation = expect {create(:tl_trade,customer: customer, merchant: merchant)}# 
+      expectation = expect {create(:tl_trade, customer: customer, merchant: merchant)}# 
       expectation.to change{TlTrade.count}.by 1
     end
 
@@ -43,9 +43,18 @@ RSpec.describe TlTrade, type: :model do
     it "should make the customer of jajin_log equal to the customer of tl_trades" do
       expect(@tl_trades.jajin_log.customer).to eq @tl_trades.customer
     end
+
     it "should automatic add customer" do
       tl_trades_without_customer = create(:tl_trade, merchant: merchant)      
       expect(tl_trades_without_customer.customer).not_to be_nil
+    end
+
+    context "通联交易记录创建失败" do
+      it "should raise error the merchant is not exist" do
+        tl_trades = build(:tl_trade, customer: customer)
+        expect(tl_trades).not_to be_valid
+        expect(tl_trades.errors.full_messages).to be_include("提示：商户不存在")
+      end
     end
   end
 end
