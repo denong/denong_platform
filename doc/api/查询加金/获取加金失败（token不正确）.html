@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>发送短信验证码 API</title>
+    <title>查询加金 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -110,31 +110,12 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>发送短信验证码 API</h1>
+      <h1>查询加金 API</h1>
 
       <div class="article">
-        <h2>发送短信验证码</h2>
-        <h3>POST /sms_tokens</h3>
+        <h2>获取加金失败（Token不正确）</h2>
+        <h3>GET /jajin</h3>
 
-          <h3>Parameters</h3>
-          <table class="parameters table table-striped table-bordered table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="required">
-                    <span class="name">sms_token[phone]</span>
-                </td>
-                <td>
-                  <span class="description">发送手机号</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
 
           <h3>Request</h3>
@@ -142,20 +123,22 @@ table th, table td {
           <h4>Headers</h4>
           <pre class="request headers">Accept: application/json
 Content-Type: application/json
+X-User-Token: 1234567
+X-User-Phone: 138138138138
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /sms_tokens</pre>
+          <pre class="request route highlight">GET /jajin</pre>
 
 
-            <h4>Body</h4>
-            <pre class="request body">{"sms_token":{"phone":"18616591019"}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/sms_tokens&quot; -d &#39;{&quot;sms_token&quot;:{&quot;phone&quot;:&quot;18616591019&quot;}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/jajin&quot; -X GET \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
+	-H &quot;X-User-Token: 1234567&quot; \
+	-H &quot;X-User-Phone: 138138138138&quot; \
 	-H &quot;Host: example.org&quot; \
 	-H &quot;Cookie: &quot;</pre>
 
@@ -165,16 +148,14 @@ Cookie: </pre>
 X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
 Content-Type: application/json; charset=utf-8
-ETag: &quot;9c4e888ca0d760abb7b7a88fc92843f3&quot;
-Cache-Control: max-age=0, private, must-revalidate
-Set-Cookie: request_method=POST; path=/
-X-Request-Id: 416d24a8-07c1-4406-8805-a22e8d6b0e28
-X-Runtime: 0.335383
-Content-Length: 44</pre>
+Cache-Control: no-cache
+X-Request-Id: f09360d9-3761-49c8-8cbf-1e367573ef1f
+X-Runtime: 0.007755
+Content-Length: 49</pre>
             <h4>Status</h4>
-            <pre class="response status">201 Created</pre>
+            <pre class="response status">401 Unauthorized</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;sms_token&quot;:{&quot;id&quot;:1,&quot;phone&quot;:&quot;18616591019&quot;}}</pre>
+              <pre class="response body">{&quot;error&quot;:&quot;继续操作前请注册或者登录.&quot;}</pre>
       </div>
     </div>
   </body>

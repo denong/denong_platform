@@ -1,8 +1,8 @@
-获取养老金成功
--------
+获取加金成功
+------
 
 Request:
-  GET /pension
+  GET /jajin
   Accept: application/json
   Content-Type: application/json
   Cookie: 
@@ -13,23 +13,23 @@ Request:
 Response:
   Status: 200 OK
   Cache-Control: max-age=0, private, must-revalidate
-  Content-Length: 35
+  Content-Length: 29
   Content-Type: application/json; charset=utf-8
-  ETag: "f1b49ff6bafc3f45e64b74e6368f3efb"
+  ETag: "fca907ff1ad3a907edcf404d34891770"
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: d1ff54c9-64ab-432a-a8d2-a799f818d83a
-  X-Runtime: 0.024953
+  X-Request-Id: cb4188ee-7ba7-4637-b06c-05f14d509046
+  X-Runtime: 0.027120
   X-XSS-Protection: 1; mode=block
 
-  {"account":"1234567","total":88.88}
+  {"got":188.88,"unverify":0.0}
 
 
-获取养老金失败（Token不正确）
------------------
+获取加金失败（Token不正确）
+----------------
 
 Request:
-  GET /pension
+  GET /jajin
   Accept: application/json
   Content-Type: application/json
   Cookie: 
@@ -44,8 +44,10 @@ Response:
   Content-Type: application/json; charset=utf-8
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: b4a17711-9aef-4450-b062-f91d789a6b04
-  X-Runtime: 0.007852
+  X-Request-Id: f09360d9-3761-49c8-8cbf-1e367573ef1f
+  X-Runtime: 0.007755
   X-XSS-Protection: 1; mode=block
 
   {"error":"继续操作前请注册或者登录."}
+
+

@@ -4,28 +4,8 @@
       "name": "加金转换养老金",
       "examples": [
         {
-          "description": "加金转换养老金失败（用户鉴权失败）",
-          "link": "加金转换养老金/加金转换养老金失败（用户鉴权失败）.json",
-          "groups": "all"
-        },
-        {
           "description": "加金转换养老金失败（请求总额大于可用加金总额）",
           "link": "加金转换养老金/加金转换养老金失败（请求总额大于可用加金总额）.json",
-          "groups": "all"
-        },
-        {
-          "description": "获取养老金成功",
-          "link": "加金转换养老金/获取养老金成功.json",
-          "groups": "all"
-        }
-      ]
-    },
-    {
-      "name": "发送短信验证码",
-      "examples": [
-        {
-          "description": "发送短信验证码",
-          "link": "发送短信验证码/发送短信验证码.json",
           "groups": "all"
         }
       ]
@@ -51,6 +31,21 @@
         {
           "description": "获取养老金成功",
           "link": "查询养老金/获取养老金成功.json",
+          "groups": "all"
+        }
+      ]
+    },
+    {
+      "name": "查询加金",
+      "examples": [
+        {
+          "description": "获取加金失败（Token不正确）",
+          "link": "查询加金/获取加金失败（token不正确）.json",
+          "groups": "all"
+        },
+        {
+          "description": "获取加金成功",
+          "link": "查询加金/获取加金成功.json",
           "groups": "all"
         }
       ]

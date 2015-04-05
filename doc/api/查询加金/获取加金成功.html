@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>加金转换养老金 API</title>
+    <title>查询加金 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -110,31 +110,12 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>加金转换养老金 API</h1>
+      <h1>查询加金 API</h1>
 
       <div class="article">
-        <h2>加金转换养老金失败（用户鉴权失败）</h2>
-        <h3>POST /exchange_logs</h3>
+        <h2>获取加金成功</h2>
+        <h3>GET /jajin</h3>
 
-          <h3>Parameters</h3>
-          <table class="parameters table table-striped table-bordered table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                    <span class="name">exchange_log[amount]</span>
-                </td>
-                <td>
-                  <span class="description">加金转换养老金的总数</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
 
           <h3>Request</h3>
@@ -143,21 +124,21 @@ table th, table td {
           <pre class="request headers">Accept: application/json
 Content-Type: application/json
 X-User-Token: qwertyuiop
+X-User-Phone: 12345678901
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /exchange_logs</pre>
+          <pre class="request route highlight">GET /jajin</pre>
 
 
-            <h4>Body</h4>
-            <pre class="request body">{"exchange_log":{"amount":200}}</pre>
 
             <h4>cURL</h4>
-            <pre class="request curl">curl &quot;http://localhost:4444/exchange_logs&quot; -d &#39;{&quot;exchange_log&quot;:{&quot;amount&quot;:200}}&#39; -X POST \
+            <pre class="request curl">curl &quot;http://localhost:4444/jajin&quot; -X GET \
 	-H &quot;Accept: application/json&quot; \
 	-H &quot;Content-Type: application/json&quot; \
 	-H &quot;X-User-Token: qwertyuiop&quot; \
+	-H &quot;X-User-Phone: 12345678901&quot; \
 	-H &quot;Host: example.org&quot; \
 	-H &quot;Cookie: &quot;</pre>
 
@@ -167,15 +148,15 @@ Cookie: </pre>
 X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
 Content-Type: application/json; charset=utf-8
-Cache-Control: no-cache
-Set-Cookie: request_method=POST; path=/
-X-Request-Id: 799e7435-d526-419e-9fab-6ee24c1b98af
-X-Runtime: 0.001865
-Content-Length: 49</pre>
+ETag: &quot;fca907ff1ad3a907edcf404d34891770&quot;
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: cb4188ee-7ba7-4637-b06c-05f14d509046
+X-Runtime: 0.027120
+Content-Length: 29</pre>
             <h4>Status</h4>
-            <pre class="response status">401 Unauthorized</pre>
+            <pre class="response status">200 OK</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;error&quot;:&quot;继续操作前请注册或者登录.&quot;}</pre>
+              <pre class="response body">{&quot;got&quot;:188.88,&quot;unverify&quot;:0.0}</pre>
       </div>
     </div>
   </body>

@@ -165,19 +165,444 @@ Cookie: </pre>
 
             <h3>Response</h3>
             <h4>Headers</h4>
-            <pre class="response headers">X-Frame-Options: SAMEORIGIN
-X-XSS-Protection: 1; mode=block
-X-Content-Type-Options: nosniff
-Content-Type: application/json; charset=utf-8
-Cache-Control: no-cache
-Set-Cookie: request_method=POST; path=/
-X-Request-Id: bde755c2-89eb-40cf-8c28-21830e4be616
-X-Runtime: 0.006573
-Content-Length: 54</pre>
+            <pre class="response headers">Content-Type: text/html; charset=utf-8
+Content-Length: 22046
+X-Request-Id: 11571c0f-09b5-4947-964c-dfecc44d4388
+X-Runtime: 0.081348</pre>
             <h4>Status</h4>
             <pre class="response status">422 Unprocessable Entity</pre>
               <h4>Body</h4>
-              <pre class="response body">{&quot;error&quot;:&quot;转换金额不能大于加金可用余额&quot;}</pre>
+              <pre class="response body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot; /&gt;
+  &lt;title&gt;Action Controller: Exception caught&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      background-color: #FAFAFA;
+      color: #333;
+      margin: 0px;
+    }
+
+    body, p, ol, ul, td {
+      font-family: helvetica, verdana, arial, sans-serif;
+      font-size:   13px;
+      line-height: 18px;
+    }
+
+    pre {
+      font-size: 11px;
+      white-space: pre-wrap;
+    }
+
+    pre.box {
+      border: 1px solid #EEE;
+      padding: 10px;
+      margin: 0px;
+      width: 958px;
+    }
+
+    header {
+      color: #F0F0F0;
+      background: #C52F24;
+      padding: 0.5em 1.5em;
+    }
+
+    h1 {
+      margin: 0.2em 0;
+      line-height: 1.1em;
+      font-size: 2em;
+    }
+
+    h2 {
+      color: #C52F24;
+      line-height: 25px;
+    }
+
+    .details {
+      border: 1px solid #D0D0D0;
+      border-radius: 4px;
+      margin: 1em 0px;
+      display: block;
+      width: 978px;
+    }
+
+    .summary {
+      padding: 8px 15px;
+      border-bottom: 1px solid #D0D0D0;
+      display: block;
+    }
+
+    .details pre {
+      margin: 5px;
+      border: none;
+    }
+
+    #container {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 1.5em;
+    }
+
+    .source * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .source {
+      border: 1px solid #D9D9D9;
+      background: #ECECEC;
+      width: 978px;
+    }
+
+    .source pre {
+      padding: 10px 0px;
+      border: none;
+    }
+
+    .source .data {
+      font-size: 80%;
+      overflow: auto;
+      background-color: #FFF;
+    }
+
+    .info {
+      padding: 0.5em;
+    }
+
+    .source .data .line_numbers {
+      background-color: #ECECEC;
+      color: #AAA;
+      padding: 1em .5em;
+      border-right: 1px solid #DDD;
+      text-align: right;
+    }
+
+    .line {
+      padding-left: 10px;
+    }
+
+    .line:hover {
+      background-color: #F6F6F6;
+    }
+
+    .line.active {
+      background-color: #FFCCCC;
+    }
+
+    a { color: #980905; }
+    a:visited { color: #666; }
+    a:hover { color: #C52F24; }
+
+    
+  &lt;/style&gt;
+
+  &lt;script&gt;
+    var toggle = function(id) {
+      var s = document.getElementById(id).style;
+      s.display = s.display == &#39;none&#39; ? &#39;block&#39; : &#39;none&#39;;
+      return false;
+    }
+    var show = function(id) {
+      document.getElementById(id).style.display = &#39;block&#39;;
+    }
+    var hide = function(id) {
+      document.getElementById(id).style.display = &#39;none&#39;;
+    }
+    var toggleTrace = function() {
+      return toggle(&#39;blame_trace&#39;);
+    }
+    var toggleSessionDump = function() {
+      return toggle(&#39;session_dump&#39;);
+    }
+    var toggleEnvDump = function() {
+      return toggle(&#39;env_dump&#39;);
+    }
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;h1&gt;
+    ActionController::InvalidAuthenticityToken
+      in ExchangeLogsController#create
+  &lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;div id=&quot;container&quot;&gt;
+  &lt;h2&gt;ActionController::InvalidAuthenticityToken&lt;/h2&gt;
+
+  
+  
+&lt;p&gt;&lt;code&gt;Rails.root: /Users/yuzixun/Documents/denong/denong_platform&lt;/code&gt;&lt;/p&gt;
+
+&lt;div id=&quot;traces&quot;&gt;
+    &lt;a href=&quot;#&quot; onclick=&quot;hide(&amp;#39;Framework-Trace&amp;#39;);hide(&amp;#39;Full-Trace&amp;#39;);show(&amp;#39;Application-Trace&amp;#39;);; return false;&quot;&gt;Application Trace&lt;/a&gt; |
+    &lt;a href=&quot;#&quot; onclick=&quot;hide(&amp;#39;Application-Trace&amp;#39;);hide(&amp;#39;Full-Trace&amp;#39;);show(&amp;#39;Framework-Trace&amp;#39;);; return false;&quot;&gt;Framework Trace&lt;/a&gt; |
+    &lt;a href=&quot;#&quot; onclick=&quot;hide(&amp;#39;Application-Trace&amp;#39;);hide(&amp;#39;Framework-Trace&amp;#39;);show(&amp;#39;Full-Trace&amp;#39;);; return false;&quot;&gt;Full Trace&lt;/a&gt; 
+
+    &lt;div id=&quot;Application-Trace&quot; style=&quot;display: block;&quot;&gt;
+      &lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;Framework-Trace&quot; style=&quot;display: none;&quot;&gt;
+      &lt;pre&gt;&lt;code&gt;actionpack (4.1.8) lib/action_controller/metal/request_forgery_protection.rb:176:in `handle_unverified_request&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/request_forgery_protection.rb:202:in `handle_unverified_request&amp;#39;
+devise (3.4.1) lib/devise/controllers/helpers.rb:251:in `handle_unverified_request&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/request_forgery_protection.rb:197:in `verify_authenticity_token&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:424:in `block in make_lambda&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:160:in `call&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:160:in `block in halting&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:86:in `call&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:86:in `run_callbacks&amp;#39;
+actionpack (4.1.8) lib/abstract_controller/callbacks.rb:19:in `process_action&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/rescue.rb:29:in `process_action&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/instrumentation.rb:31:in `block in process_action&amp;#39;
+activesupport (4.1.8) lib/active_support/notifications.rb:159:in `block in instrument&amp;#39;
+activesupport (4.1.8) lib/active_support/notifications/instrumenter.rb:20:in `instrument&amp;#39;
+activesupport (4.1.8) lib/active_support/notifications.rb:159:in `instrument&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/instrumentation.rb:30:in `process_action&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/params_wrapper.rb:250:in `process_action&amp;#39;
+activerecord (4.1.8) lib/active_record/railties/controller_runtime.rb:18:in `process_action&amp;#39;
+actionpack (4.1.8) lib/abstract_controller/base.rb:136:in `process&amp;#39;
+actionview (4.1.8) lib/action_view/rendering.rb:30:in `process&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal.rb:196:in `dispatch&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal.rb:232:in `block in action&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:82:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:82:in `dispatch&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:50:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/journey/router.rb:73:in `block in call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/journey/router.rb:59:in `each&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/journey/router.rb:59:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:678:in `call&amp;#39;
+warden (1.2.3) lib/warden/manager.rb:35:in `block in call&amp;#39;
+warden (1.2.3) lib/warden/manager.rb:34:in `catch&amp;#39;
+warden (1.2.3) lib/warden/manager.rb:34:in `call&amp;#39;
+rack (1.5.2) lib/rack/etag.rb:23:in `call&amp;#39;
+rack (1.5.2) lib/rack/conditionalget.rb:35:in `call&amp;#39;
+rack (1.5.2) lib/rack/head.rb:11:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/params_parser.rb:27:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/flash.rb:254:in `call&amp;#39;
+rack (1.5.2) lib/rack/session/abstract/id.rb:225:in `context&amp;#39;
+rack (1.5.2) lib/rack/session/abstract/id.rb:220:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/cookies.rb:560:in `call&amp;#39;
+activerecord (4.1.8) lib/active_record/query_cache.rb:36:in `call&amp;#39;
+activerecord (4.1.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:621:in `call&amp;#39;
+activerecord (4.1.8) lib/active_record/migration.rb:380:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:82:in `run_callbacks&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/callbacks.rb:27:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/reloader.rb:73:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/remote_ip.rb:76:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&amp;#39;
+railties (4.1.8) lib/rails/rack/logger.rb:38:in `call_app&amp;#39;
+railties (4.1.8) lib/rails/rack/logger.rb:20:in `block in call&amp;#39;
+activesupport (4.1.8) lib/active_support/tagged_logging.rb:68:in `block in tagged&amp;#39;
+activesupport (4.1.8) lib/active_support/tagged_logging.rb:26:in `tagged&amp;#39;
+activesupport (4.1.8) lib/active_support/tagged_logging.rb:68:in `tagged&amp;#39;
+railties (4.1.8) lib/rails/rack/logger.rb:20:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/request_id.rb:21:in `call&amp;#39;
+rack (1.5.2) lib/rack/methodoverride.rb:21:in `call&amp;#39;
+rack (1.5.2) lib/rack/runtime.rb:17:in `call&amp;#39;
+activesupport (4.1.8) lib/active_support/cache/strategy/local_cache_middleware.rb:26:in `call&amp;#39;
+rack (1.5.2) lib/rack/lock.rb:17:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/static.rb:84:in `call&amp;#39;
+rack (1.5.2) lib/rack/sendfile.rb:112:in `call&amp;#39;
+railties (4.1.8) lib/rails/engine.rb:514:in `call&amp;#39;
+railties (4.1.8) lib/rails/application.rb:144:in `call&amp;#39;
+rack-test (0.6.3) lib/rack/mock_session.rb:30:in `request&amp;#39;
+rack-test (0.6.3) lib/rack/test.rb:244:in `process_request&amp;#39;
+rack-test (0.6.3) lib/rack/test.rb:67:in `post&amp;#39;
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/forwardable.rb:171:in `post&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/rack_test_client.rb:38:in `do_request&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/client_base.rb:42:in `process&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/client_base.rb:16:in `post&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/dsl/endpoint.rb:58:in `do_request&amp;#39;
+spec/acceptance/exchange_log_spec.rb:44:in `block (3 levels) in &amp;lt;top (required)&amp;gt;&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:177:in `instance_exec&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:177:in `block in run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:385:in `block in with_around_and_singleton_context_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:343:in `block in with_around_example_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:474:in `block in run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:614:in `block in run_around_example_hooks_for&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-rails (3.2.1) lib/rspec/rails/adapters.rb:113:in `block (2 levels) in &amp;lt;module:MinitestLifecycleAdapter&amp;gt;&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:333:in `instance_exec&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:333:in `instance_exec&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:387:in `execute_with&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:616:in `block (2 levels) in run_around_example_hooks_for&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:617:in `run_around_example_hooks_for&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:474:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:343:in `with_around_example_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:385:in `with_around_and_singleton_context_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:174:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:548:in `block in run_examples&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:544:in `map&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:544:in `run_examples&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:512:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:513:in `block in run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:513:in `map&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:513:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:110:in `block (3 levels) in run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:110:in `map&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:110:in `block (2 levels) in run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/configuration.rb:1526:in `with_suite_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:109:in `block in run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/reporter.rb:62:in `report&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:108:in `run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:86:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:70:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:38:in `invoke&amp;#39;
+rspec-core (3.2.2) exe/rspec:4:in `&amp;lt;main&amp;gt;&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;Full-Trace&quot; style=&quot;display: none;&quot;&gt;
+      &lt;pre&gt;&lt;code&gt;actionpack (4.1.8) lib/action_controller/metal/request_forgery_protection.rb:176:in `handle_unverified_request&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/request_forgery_protection.rb:202:in `handle_unverified_request&amp;#39;
+devise (3.4.1) lib/devise/controllers/helpers.rb:251:in `handle_unverified_request&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/request_forgery_protection.rb:197:in `verify_authenticity_token&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:424:in `block in make_lambda&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:160:in `call&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:160:in `block in halting&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:86:in `call&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:86:in `run_callbacks&amp;#39;
+actionpack (4.1.8) lib/abstract_controller/callbacks.rb:19:in `process_action&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/rescue.rb:29:in `process_action&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/instrumentation.rb:31:in `block in process_action&amp;#39;
+activesupport (4.1.8) lib/active_support/notifications.rb:159:in `block in instrument&amp;#39;
+activesupport (4.1.8) lib/active_support/notifications/instrumenter.rb:20:in `instrument&amp;#39;
+activesupport (4.1.8) lib/active_support/notifications.rb:159:in `instrument&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/instrumentation.rb:30:in `process_action&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/params_wrapper.rb:250:in `process_action&amp;#39;
+activerecord (4.1.8) lib/active_record/railties/controller_runtime.rb:18:in `process_action&amp;#39;
+actionpack (4.1.8) lib/abstract_controller/base.rb:136:in `process&amp;#39;
+actionview (4.1.8) lib/action_view/rendering.rb:30:in `process&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal.rb:196:in `dispatch&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch&amp;#39;
+actionpack (4.1.8) lib/action_controller/metal.rb:232:in `block in action&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:82:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:82:in `dispatch&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:50:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/journey/router.rb:73:in `block in call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/journey/router.rb:59:in `each&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/journey/router.rb:59:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/routing/route_set.rb:678:in `call&amp;#39;
+warden (1.2.3) lib/warden/manager.rb:35:in `block in call&amp;#39;
+warden (1.2.3) lib/warden/manager.rb:34:in `catch&amp;#39;
+warden (1.2.3) lib/warden/manager.rb:34:in `call&amp;#39;
+rack (1.5.2) lib/rack/etag.rb:23:in `call&amp;#39;
+rack (1.5.2) lib/rack/conditionalget.rb:35:in `call&amp;#39;
+rack (1.5.2) lib/rack/head.rb:11:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/params_parser.rb:27:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/flash.rb:254:in `call&amp;#39;
+rack (1.5.2) lib/rack/session/abstract/id.rb:225:in `context&amp;#39;
+rack (1.5.2) lib/rack/session/abstract/id.rb:220:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/cookies.rb:560:in `call&amp;#39;
+activerecord (4.1.8) lib/active_record/query_cache.rb:36:in `call&amp;#39;
+activerecord (4.1.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:621:in `call&amp;#39;
+activerecord (4.1.8) lib/active_record/migration.rb:380:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call&amp;#39;
+activesupport (4.1.8) lib/active_support/callbacks.rb:82:in `run_callbacks&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/callbacks.rb:27:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/reloader.rb:73:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/remote_ip.rb:76:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&amp;#39;
+railties (4.1.8) lib/rails/rack/logger.rb:38:in `call_app&amp;#39;
+railties (4.1.8) lib/rails/rack/logger.rb:20:in `block in call&amp;#39;
+activesupport (4.1.8) lib/active_support/tagged_logging.rb:68:in `block in tagged&amp;#39;
+activesupport (4.1.8) lib/active_support/tagged_logging.rb:26:in `tagged&amp;#39;
+activesupport (4.1.8) lib/active_support/tagged_logging.rb:68:in `tagged&amp;#39;
+railties (4.1.8) lib/rails/rack/logger.rb:20:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/request_id.rb:21:in `call&amp;#39;
+rack (1.5.2) lib/rack/methodoverride.rb:21:in `call&amp;#39;
+rack (1.5.2) lib/rack/runtime.rb:17:in `call&amp;#39;
+activesupport (4.1.8) lib/active_support/cache/strategy/local_cache_middleware.rb:26:in `call&amp;#39;
+rack (1.5.2) lib/rack/lock.rb:17:in `call&amp;#39;
+actionpack (4.1.8) lib/action_dispatch/middleware/static.rb:84:in `call&amp;#39;
+rack (1.5.2) lib/rack/sendfile.rb:112:in `call&amp;#39;
+railties (4.1.8) lib/rails/engine.rb:514:in `call&amp;#39;
+railties (4.1.8) lib/rails/application.rb:144:in `call&amp;#39;
+rack-test (0.6.3) lib/rack/mock_session.rb:30:in `request&amp;#39;
+rack-test (0.6.3) lib/rack/test.rb:244:in `process_request&amp;#39;
+rack-test (0.6.3) lib/rack/test.rb:67:in `post&amp;#39;
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/forwardable.rb:171:in `post&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/rack_test_client.rb:38:in `do_request&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/client_base.rb:42:in `process&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/client_base.rb:16:in `post&amp;#39;
+rspec_api_documentation (4.3.0) lib/rspec_api_documentation/dsl/endpoint.rb:58:in `do_request&amp;#39;
+spec/acceptance/exchange_log_spec.rb:44:in `block (3 levels) in &amp;lt;top (required)&amp;gt;&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:177:in `instance_exec&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:177:in `block in run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:385:in `block in with_around_and_singleton_context_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:343:in `block in with_around_example_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:474:in `block in run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:614:in `block in run_around_example_hooks_for&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-rails (3.2.1) lib/rspec/rails/adapters.rb:113:in `block (2 levels) in &amp;lt;module:MinitestLifecycleAdapter&amp;gt;&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:333:in `instance_exec&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:333:in `instance_exec&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:387:in `execute_with&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:616:in `block (2 levels) in run_around_example_hooks_for&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:247:in `call&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:617:in `run_around_example_hooks_for&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/hooks.rb:474:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:343:in `with_around_example_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:385:in `with_around_and_singleton_context_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example.rb:174:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:548:in `block in run_examples&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:544:in `map&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:544:in `run_examples&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:512:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:513:in `block in run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:513:in `map&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/example_group.rb:513:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:110:in `block (3 levels) in run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:110:in `map&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:110:in `block (2 levels) in run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/configuration.rb:1526:in `with_suite_hooks&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:109:in `block in run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/reporter.rb:62:in `report&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:108:in `run_specs&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:86:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:70:in `run&amp;#39;
+rspec-core (3.2.2) lib/rspec/core/runner.rb:38:in `invoke&amp;#39;
+rspec-core (3.2.2) exe/rspec:4:in `&amp;lt;main&amp;gt;&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+  
+
+&lt;h2 style=&quot;margin-top: 30px&quot;&gt;Request&lt;/h2&gt;
+&lt;p&gt;&lt;b&gt;Parameters&lt;/b&gt;:&lt;/p&gt; &lt;pre&gt;{&amp;quot;exchange_log&amp;quot;=&amp;gt;{&amp;quot;amount&amp;quot;=&amp;gt;200}}&lt;/pre&gt;
+
+&lt;div class=&quot;details&quot;&gt;
+  &lt;div class=&quot;summary&quot;&gt;&lt;a href=&quot;#&quot; onclick=&quot;return toggleSessionDump()&quot;&gt;Toggle session dump&lt;/a&gt;&lt;/div&gt;
+  &lt;div id=&quot;session_dump&quot; style=&quot;display:none&quot;&gt;&lt;pre&gt;_csrf_token: &amp;quot;wfh+dJb3TvYOWTwzmM4OgFaB7V7/jeyhD+sOZF8iC9Q=&amp;quot;
+session_id: &amp;quot;81b6bb93c1ec0999b9f6eeeda6249d5c&amp;quot;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;details&quot;&gt;
+  &lt;div class=&quot;summary&quot;&gt;&lt;a href=&quot;#&quot; onclick=&quot;return toggleEnvDump()&quot;&gt;Toggle env dump&lt;/a&gt;&lt;/div&gt;
+  &lt;div id=&quot;env_dump&quot; style=&quot;display:none&quot;&gt;&lt;pre&gt;HTTP_ACCEPT: &amp;quot;application/json&amp;quot;
+REMOTE_ADDR: &amp;quot;127.0.0.1&amp;quot;
+SERVER_NAME: &amp;quot;example.org&amp;quot;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 style=&quot;margin-top: 30px&quot;&gt;Response&lt;/h2&gt;
+&lt;p&gt;&lt;b&gt;Headers&lt;/b&gt;:&lt;/p&gt; &lt;pre&gt;None&lt;/pre&gt;
+
+&lt;/div&gt;
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
       </div>
     </div>
   </body>

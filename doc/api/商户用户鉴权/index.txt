@@ -19,16 +19,16 @@ Response:
   Cache-Control: max-age=0, private, must-revalidate
   Content-Length: 178
   Content-Type: application/json; charset=utf-8
-  ETag: "430e10116eaa4b10256e4633f4ad61ee"
+  ETag: "f8d5df493f406bae5919b2b43b800321"
   Location: /
   Set-Cookie: request_method=POST; path=/
-_denong_platform_session=VVhtT2I1SFdHRExPU2NXa1VRdDVkWjlRY2EzRDNTWVo1R3pVSjAyL1lMdXpzUlN1ZjQvNGZzTjNzM2FOYzFsTEgrV0FhMThKOWJuSitZME9HTFRKakRPM0ZFdTZTSmcvbDVHTGxwbzYwZHF6cFN6Vk1WcEJsc3VGQ0hUb1dRSys3QUlNamoxT3NkU09MUzYvWCsvM1RpODVMVWJzMVQyRC84Z0V5UmF1bitVPS0ta1llWWRYTkFYT05KTk1rcWxmTUl3UT09--0d6e7a39cdbad4298210cf611af37d3239d2b02c; path=/; HttpOnly
+_denong_platform_session=eFdxdjRUaDJVS2QvUGxvRVhpVDdmNzFiamRXZVRhbTByV3pCZlhuQy9OOXBvYmM1VnkyNi9WUVMza0ZuWDZveXRkWDdMSVBwV2NJU3ZxZEtvWGc2b2cvMFNKSU9wYWRKL09nTzRnN3JkVnpIN3FnSVFKQ1ZLNzBMMG8rR0dxSXVMTkx5QldhRVd2MXZacGRRZ0M0L3JLQmVRWlZFd2NYSFJjU3E1MkxYWE5nPS0tZDNtRFdtYzJPdUpQZk9pdG1vTUg5QT09--7da23df97906b695b31b5c8e3f4cef3c97224adf; path=/; HttpOnly
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  X-Request-Id: de30be42-c77a-4683-a622-02ddbe83fc5e
-  X-Runtime: 0.016095
+  X-Request-Id: 555a7518-6ed9-428d-9dcc-2d67eac1617b
+  X-Runtime: 0.120489
   X-XSS-Protection: 1; mode=block
 
-  {"id":1,"email":"","phone":"138138138138","authentication_token":"VsaeLBYoHh1bqFALJ-gU","created_at":"2015-04-04T23:53:10.814+08:00","updated_at":"2015-04-04T23:53:10.816+08:00"}
+  {"id":1,"email":"","phone":"138138138138","authentication_token":"rq9DMx4ajQteqhri4iFw","created_at":"2015-04-06T00:10:38.390+08:00","updated_at":"2015-04-06T00:10:38.394+08:00"}
 
 

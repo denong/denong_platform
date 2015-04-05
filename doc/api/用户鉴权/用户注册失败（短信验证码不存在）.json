@@ -50,9 +50,9 @@
         "X-Content-Type-Options": "nosniff",
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "no-cache",
-        "Set-Cookie": "request_method=POST; path=/",
-        "X-Request-Id": "335f84db-1868-46d7-9b69-fb8837fbadb6",
-        "X-Runtime": "0.005019",
+        "Set-Cookie": "request_method=POST; path=/\n_denong_platform_session=QmdJVTljcVNrVEcrUUY5UlZrK3poK0NTaHo0VjAwTGg0SmRodDF1YjRYYVpzNThSMmtYU09iUWJWQWJwUEpIdU85VHpVRjkvWHowcHlYcFJnL1pPcVE9PS0tcDJmS2pCclJ2dG9peG1iaWtwcHA2QT09--1966aa7df2d2ca4f3d5dd06cad4f18ed32035192; path=/; HttpOnly",
+        "X-Request-Id": "be666015-d1f1-4259-bb61-cf2baa946317",
+        "X-Runtime": "0.087661",
         "Content-Length": "51"
       },
       "response_content_type": "application/json; charset=utf-8",

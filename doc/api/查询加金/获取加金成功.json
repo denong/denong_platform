@@ -1,8 +1,8 @@
 {
-  "resource": "查询养老金",
+  "resource": "查询加金",
   "http_method": "GET",
-  "route": "/pension",
-  "description": "获取养老金成功",
+  "route": "/jajin",
+  "description": "获取加金成功",
   "explanation": null,
   "parameters": [
 
@@ -13,7 +13,7 @@
   "requests": [
     {
       "request_method": "GET",
-      "request_path": "/pension",
+      "request_path": "/jajin",
       "request_body": null,
       "request_headers": {
         "Accept": "application/json",
@@ -28,20 +28,20 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\"account\":\"1234567\",\"total\":88.88}",
+      "response_body": "{\"got\":188.88,\"unverify\":0.0}",
       "response_headers": {
         "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "X-Content-Type-Options": "nosniff",
         "Content-Type": "application/json; charset=utf-8",
-        "ETag": "\"f1b49ff6bafc3f45e64b74e6368f3efb\"",
+        "ETag": "\"fca907ff1ad3a907edcf404d34891770\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "X-Request-Id": "d1ff54c9-64ab-432a-a8d2-a799f818d83a",
-        "X-Runtime": "0.024953",
-        "Content-Length": "35"
+        "X-Request-Id": "cb4188ee-7ba7-4637-b06c-05f14d509046",
+        "X-Runtime": "0.027120",
+        "Content-Length": "29"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: qwertyuiop\" \\\n\t-H \"X-User-Phone: 12345678901\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/jajin\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: qwertyuiop\" \\\n\t-H \"X-User-Phone: 12345678901\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

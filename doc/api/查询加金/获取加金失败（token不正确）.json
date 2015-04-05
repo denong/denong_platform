@@ -1,8 +1,8 @@
 {
-  "resource": "查询养老金",
+  "resource": "查询加金",
   "http_method": "GET",
-  "route": "/pension",
-  "description": "获取养老金失败（Token不正确）",
+  "route": "/jajin",
+  "description": "获取加金失败（Token不正确）",
   "explanation": null,
   "parameters": [
 
@@ -13,7 +13,7 @@
   "requests": [
     {
       "request_method": "GET",
-      "request_path": "/pension",
+      "request_path": "/jajin",
       "request_body": null,
       "request_headers": {
         "Accept": "application/json",
@@ -35,12 +35,12 @@
         "X-Content-Type-Options": "nosniff",
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "no-cache",
-        "X-Request-Id": "b4a17711-9aef-4450-b062-f91d789a6b04",
-        "X-Runtime": "0.007852",
+        "X-Request-Id": "f09360d9-3761-49c8-8cbf-1e367573ef1f",
+        "X-Runtime": "0.007755",
         "Content-Length": "49"
       },
       "response_content_type": "application/json; charset=utf-8",
-      "curl": "curl \"http://localhost:4444/pension\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: 1234567\" \\\n\t-H \"X-User-Phone: 138138138138\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4444/jajin\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"X-User-Token: 1234567\" \\\n\t-H \"X-User-Phone: 138138138138\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }
