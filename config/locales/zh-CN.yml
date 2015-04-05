@@ -7,3 +7,5 @@ zh-CN:
       exchange_log:
         amount: "转换金额"
         message: "提示："
+      tl_trade:
+        message: "提示："
