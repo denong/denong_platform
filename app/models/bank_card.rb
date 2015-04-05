@@ -38,7 +38,7 @@ class BankCard < ActiveRecord::Base
 
     #当这张卡已经创建时，则如何返回该卡？
     def show_data
-      puts "customer_id is #{customer_id}"
+      # puts "customer_id is #{customer_id}"
     end
 
 end
