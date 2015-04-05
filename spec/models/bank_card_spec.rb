@@ -20,5 +20,28 @@
 require 'rails_helper'
 
 RSpec.describe BankCard, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to :customer }
+
+  let(:customer) {  create(:customer_with_jajin_pension) }
+
+  describe "bank cards" do
+    before(:each) do
+      @bank_card = create(:bank_card)
+    end
+
+    it "should create customer automaticly" do
+      expect(@bank_card.customer).not_to be_nil
+    end
+
+    it "should make the phone of customer equal to the phone of bank card" do
+      expect(@bank_card.phone).to equal(@bank_card.customer.user.phone)
+    end
+
+    it "should increase the card's number by 1" do
+      bank_card = create(:bank_card)
+      expect(@bank_card.customer.bank_cards.size).to eq(1)
+    end
+
+
+  end
 end
