@@ -20,25 +20,16 @@
 class BankCard < ActiveRecord::Base
   belongs_to :customer
 
+  validates_uniqueness_of :bankcard_no, scope: :phone
+
   before_create :check_customer
-  after_create :show_data
+
   private
-
     def check_customer
-      user = User.find_by_phone(phone)
-      if user.nil?
-        user = User.create! phone: phone, sms_token: "989898", password: "12345678"
+      user = User.find_or_create_by phone:phone do |user|
+        user.sms_token = "989898"
+        user.password = "12345678"
       end
-
-      finded_card = BankCard.find_by_bankcard_no(bankcard_no)
-      unless user.customer.bank_cards.include? (finded_card) 
-        self.customer = user.customer
-      end
+      self.customer = user.customer
     end
-
-    #当这张卡已经创建时，则如何返回该卡？
-    def show_data
-      # puts "customer_id is #{customer_id}"
-    end
-
 end
