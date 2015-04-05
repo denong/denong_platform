@@ -18,7 +18,7 @@ RSpec.describe Customer, type: :model do
   it { should have_one :pension }
   it { should have_many :friendships }
   it { should have_many :jajin_logs }
-
+  it { should have_many :bank_cards }
 
   describe "friendships" do
     before(:each) do

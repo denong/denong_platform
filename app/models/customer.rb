@@ -14,7 +14,7 @@ class Customer < ActiveRecord::Base
   has_many :member_cards, dependent: :destroy
   has_one :jajin, dependent: :destroy
   has_one :pension, dependent: :destroy
-  
+  has_many :bank_cards, dependent: :destroy
   # 亲友关系
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
@@ -42,4 +42,5 @@ class Customer < ActiveRecord::Base
   def add_jajin
     self.create_jajin(got: 0,unverify: 0) if self.jajin.blank?
   end
+  
 end

@@ -1,4 +1,15 @@
-FactoryGirl.define do  
+FactoryGirl.define do
+
+  factory :bank_card do
+    bankcard_no "0987654321123456"
+    id_card "333333333333333333"
+    name "ExampleName"
+    phone "12345678901"
+    card_type 1
+    bank 1
+    bind_state 1
+    bind_time "2015-04-05 14:15:05"
+  end  
   
   factory :exchange_log do
     amount 1.5

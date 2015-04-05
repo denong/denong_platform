@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403074555) do
+ActiveRecord::Schema.define(version: 20150405073256) do
+
+  create_table "bank_cards", force: true do |t|
+    t.string   "bankcard_no"
+    t.string   "id_card"
+    t.string   "name"
+    t.string   "phone"
+    t.integer  "card_type"
+    t.string   "sn"
+    t.integer  "bank"
+    t.integer  "bind_state"
+    t.datetime "bind_time"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bank_cards", ["customer_id"], name: "index_bank_cards_on_customer_id"
 
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
