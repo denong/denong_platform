@@ -26,6 +26,7 @@ class TlTrade < ActiveRecord::Base
 
   before_validation :check_user, on: :create, if: "customer.nil?"
   validate :must_have_jajin, on: :create
+  validate :must_have_merchant, on: :create
   validates :phone, length: { is: 11 }
 
   before_save :calculate
