@@ -14,7 +14,7 @@ class Customer < ActiveRecord::Base
   has_many :member_cards, dependent: :destroy
   has_one :jajin, dependent: :destroy
   has_one :pension, dependent: :destroy
-  has_one :identity_verify, dependent: :destroy
+  has_many :identity_verifies, dependent: :destroy
   has_many :bank_cards, dependent: :destroy
   # 亲友关系
   has_many :friendships, dependent: :destroy
@@ -27,6 +27,7 @@ class Customer < ActiveRecord::Base
   has_many :exchange_logs, dependent: :destroy
 
   after_create :add_jajin
+  after_create :add_customer_reg_info
 
   def add_friend! customer
     self.friendships.find_or_create_by!(friend_id: customer.id)
@@ -43,5 +44,10 @@ class Customer < ActiveRecord::Base
   def add_jajin
     self.create_jajin(got: 0,unverify: 0) if self.jajin.blank?
   end
-  
+
+  def add_customer_reg_info
+    self.create_customer_reg_info( audit_state: :unverified )
+  end
+
+
 end

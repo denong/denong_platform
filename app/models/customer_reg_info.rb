@@ -12,5 +12,6 @@
 #
 
 class CustomerRegInfo < ActiveRecord::Base
+  enum audit_state: [ :unverified, :wait_verify, :verified]
   belongs_to :customer
 end

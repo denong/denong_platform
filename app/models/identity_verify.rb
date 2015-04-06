@@ -12,5 +12,9 @@
 #
 
 class IdentityVerify < ActiveRecord::Base
+  enum verify_state: [ :unverified, :wait_verify, :verified]
   belongs_to :customer
+
+  
+  
 end
