@@ -1,4 +1,10 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :identity_verify do
+    name "MyString"
+id_num "MyString"
+verify_state 1
+customer nil
+  end
+
 
   factory :bank_card do
     bankcard_no "0987654321123456"

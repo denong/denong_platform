@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405073256) do
+ActiveRecord::Schema.define(version: 20150406082145) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -77,6 +77,17 @@ ActiveRecord::Schema.define(version: 20150405073256) do
 
   add_index "given_logs", ["given_id"], name: "index_given_logs_on_given_id"
   add_index "given_logs", ["giver_id"], name: "index_given_logs_on_giver_id"
+
+  create_table "identity_verifies", force: true do |t|
+    t.string   "name"
+    t.string   "id_num"
+    t.integer  "verify_state"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identity_verifies", ["customer_id"], name: "index_identity_verifies_on_customer_id"
 
   create_table "jajin_logs", force: true do |t|
     t.float    "amount"

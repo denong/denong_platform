@@ -53,7 +53,7 @@ gem 'rspec_api_documentation'
 gem 'rails-i18n', '~> 4.0.0'
 gem 'devise-i18n'
 
-# gem 'annotate'
+gem 'annotate'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
