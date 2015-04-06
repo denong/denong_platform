@@ -22,7 +22,10 @@ class IdentityVerifiesController < ApplicationController
     end
 
     def create_params
-      params.require(:identity_verify).permit(:name, :id_num)
+      params.require(:identity_verify).permit(:name, :id_num,
+          front_image_attributes: [:id, :photo, :_destroy],
+          back_image_attributes: [:id, :photo, :_destroy]
+          )
     end
 
     def update_params
