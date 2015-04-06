@@ -1,0 +1,17 @@
+<%= form_for(@identity_verify) do |f| %>
+  <% if @identity_verify.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@identity_verify.errors.count, "error") %> prohibited this identity_verify from being saved:</h2>
+
+      <ul>
+      <% @identity_verify.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

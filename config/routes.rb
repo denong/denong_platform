@@ -4,14 +4,11 @@ Rails.application.routes.draw do
   devise_ios_rails_for :users
   resources :tl_trades, only: [:create]
   resources :sms_tokens, only: [:create]
-
   resources :pension, only: [:index]
-
   resources :exchange_logs, only: [:create]
-
-  resources :customer_reg_infos
-
   resources :jajin, only: [:index]
+  resources :identity_verifies, only: [:create, :update]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

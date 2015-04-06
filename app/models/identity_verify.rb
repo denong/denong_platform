@@ -15,6 +15,10 @@ class IdentityVerify < ActiveRecord::Base
   enum verify_state: [ :unverified, :wait_verify, :verified]
   belongs_to :customer
 
-  
+  before_save :set_state
+
+  def set_state
+    self.verify_state = :unverified
+  end
   
 end
