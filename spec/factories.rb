@@ -1,4 +1,9 @@
-FactoryGirl.define do  
+FactoryGirl.define do  factory :image do
+    title "MyString"
+photo_type "MyString"
+imageable nil
+  end
+  
   
   factory :identity_verify do
     name "ExampleName"
