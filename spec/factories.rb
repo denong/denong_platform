@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :image do
     title "MyString"
     photo_type "MyString"
-    photo {Rack::Test::UploadedFile.new('/Users/yuzixun/Downloads/zhugong.jpg', 'image/jpg')}
+    photo {Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png')}
   end
   
   
