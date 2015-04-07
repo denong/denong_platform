@@ -44,7 +44,7 @@ resource "获取商户信息" do
 
 
     let(:id) { merchant_attrs[:id] }
-    puts "#{merchant_attrs}"
+    # puts "#{merchant_attrs}"
 
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
@@ -52,7 +52,7 @@ resource "获取商户信息" do
 
     example "获取商户详细信息" do
       do_request
-      puts "response is #{response_body}"
+      # puts "response is #{response_body}"
       expect(status).to eq(200)
     end
   end
