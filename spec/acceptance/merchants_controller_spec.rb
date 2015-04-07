@@ -14,11 +14,7 @@ resource "获取用户信息" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
-    # let(:phone) { "138138138138" }
-    # let(:password) { "abcd.1234" }
-    # let(:raw_post) { params.to_json }
-
-    example "商户用户注册" do
+    example "获取商户信息列表" do
       do_request
       expect(status).to eq(200)
     end
