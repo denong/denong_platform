@@ -20,8 +20,6 @@ resource "获取用户信息" do
 
     example "商户用户注册" do
       do_request
-
-      puts "the response is #{response_body}"
       expect(status).to eq(200)
     end
   end
