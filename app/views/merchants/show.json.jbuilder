@@ -1,0 +1,1 @@
+json.extract! @merchant, :sys_reg_info

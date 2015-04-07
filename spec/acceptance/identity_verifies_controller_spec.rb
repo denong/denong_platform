@@ -25,7 +25,7 @@ resource "用户信息验证" do
 
     let(:name) { "test" }
     let(:id_num) { "13941293487192347" }
-    let(:front_image_attributes) { {id: @front_image.id, photo: @front_image.photo} }
+    # let(:front_image_attributes) { {id: @front_image.id, photo: @front_image.photo} }
     # let(:back_image_attributes) { FactoryGirl.attributes_for(:image) }
     let(:raw_post) { params.to_json }
 

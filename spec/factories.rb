@@ -1,8 +1,6 @@
 require 'rack/test'
 FactoryGirl.define do  
   factory :image do
-    
-    
     title "MyString"
     photo_type "MyString"
     photo {Rack::Test::UploadedFile.new('/Users/yuzixun/Downloads/zhugong.jpg', 'image/jpg')}
@@ -97,5 +95,35 @@ FactoryGirl.define do
 
   factory :merchant do
     ratio 0.01
+    after(:create) do |merchant|
+      merchant.sys_reg_info.update_attributes attributes_for(:merchant_sys_reg_info)
+    end
   end
+
+  factory :merchant_sys_reg_info do
+     sys_name       "merchant_sys_name"
+     contact_person "merchant_contact_person"
+     contact_tel    "09876543211"
+     service_tel    "11234567890"
+     fax_tel        "021-11111111"
+     email          "example@example.com"
+     company_addr   "shanghai"
+     region         "xuhui"
+     industry       "industry_name"
+     postcode       "200000"
+     lon            "31.10"
+     lat            "131.20"
+     welcome_string "welcome"
+     comment_text   "good"
+  end
+
+  factory :shop do
+    name "shop_name"
+    addr "shop_addr"
+    contact_person "shop_contact_person"
+    contact_tel "12345678901"
+    work_time "9:00-18:00"
+  end
+
+
 end

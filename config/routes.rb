@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   resources :exchange_logs, only: [:create]
   resources :jajin, only: [:index]
   resources :identity_verifies, only: [:create, :update]
-  resources :merchants, only: [:index, :show]
-
+  resources :merchants, only: [:index, :show] do
+    resources :shops, only: [:index]
+  end
+  resources :shops, only: [:index, :show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
