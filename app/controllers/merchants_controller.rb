@@ -9,14 +9,12 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    puts "id is -----------#{params[:id]}"
     respond_with(@merchant)
   end
   
   private
 
     def set_merchant
-      puts "id is -----------#{params[:id]}"
-      @merchant = Shop.find(params[:id])
+      @merchant = Merchant.find(params[:id])
     end
 end

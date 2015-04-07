@@ -56,7 +56,7 @@ FactoryGirl.define do
   end
 
   factory :customer do
-    
+
     factory :customer_with_jajin_pension do
       after(:create) do |customer|
         customer.jajin.update_attributes got: attributes_for(:jajin)[:got]
@@ -94,6 +94,7 @@ FactoryGirl.define do
   end
 
   factory :merchant do
+    id 100
     ratio 0.01
     after(:create) do |merchant|
       merchant.sys_reg_info.update_attributes attributes_for(:merchant_sys_reg_info)
@@ -101,21 +102,21 @@ FactoryGirl.define do
   end
 
   factory :merchant_sys_reg_info do
-     sys_name       "merchant_sys_name"
-     contact_person "merchant_contact_person"
-     contact_tel    "09876543211"
-     service_tel    "11234567890"
-     fax_tel        "021-11111111"
-     email          "example@example.com"
-     company_addr   "shanghai"
-     region         "xuhui"
-     industry       "industry_name"
-     postcode       "200000"
-     lon            "31.10"
-     lat            "131.20"
-     welcome_string "welcome"
-     comment_text   "good"
-  end
+    sys_name       "merchant_sys_name"
+    contact_person "merchant_contact_person"
+    contact_tel    "09876543211"
+    service_tel    "11234567890"
+    fax_tel        "021-11111111"
+    email          "example@example.com"
+    company_addr   "shanghai"
+    region         "xuhui"
+    industry       "industry_name"
+    postcode       "200000"
+    lon            "31.10"
+    lat            "131.20"
+    welcome_string "welcome"
+    comment_text   "good"
+   end
 
   factory :shop do
     name "shop_name"
