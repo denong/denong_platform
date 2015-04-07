@@ -1,7 +1,8 @@
-FactoryGirl.define do  factory :image do
+FactoryGirl.define do  
+  factory :image do
     title "MyString"
-photo_type "MyString"
-imageable nil
+    photo_type "MyString"
+    imageable nil
   end
   
   
@@ -94,5 +95,4 @@ imageable nil
   factory :merchant do
     ratio 0.01
   end
-
 end
