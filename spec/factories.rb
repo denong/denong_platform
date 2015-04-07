@@ -1,8 +1,11 @@
+require 'rack/test'
 FactoryGirl.define do  
   factory :image do
+    
+    
     title "MyString"
     photo_type "MyString"
-    imageable nil
+    photo {Rack::Test::UploadedFile.new('/Users/yuzixun/Downloads/zhugong.jpg', 'image/jpg')}
   end
   
   
