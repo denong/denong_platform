@@ -4,7 +4,7 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for User
 
   def index
-    @merchants = Merchant.all
+    @merchants = Merchant.all.paginate(page: params[:merchant][:page], per_page: 10)
   end
   
 end
