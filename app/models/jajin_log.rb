@@ -22,9 +22,7 @@ class JajinLog < ActiveRecord::Base
       log_time: updated_at,
       customer_id: customer_id,
       type: jajinable_type,
-      detail: {
-        jajinable.as_json
-      }
+      detail: jajinable.as_json
     }
   end
 end
