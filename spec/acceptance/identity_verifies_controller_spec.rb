@@ -12,10 +12,10 @@ resource "用户信息验证" do
       # @back_image = create(:image, photo_type: "back")
     end
 
-    parameter :name, "用户名称", require: true, scope: :identity_verify
-    parameter :id_num, "身份证号码", require: true, scope: :identity_verify
-    parameter :front_image_attributes, "正面",require: true, scope: :identity_verify
-    # parameter :back_image_attributes, "反面",require: true, scope: :identity_verify
+    parameter :name, "用户名称", required: true, scope: :identity_verify
+    parameter :id_num, "身份证号码", required: true, scope: :identity_verify
+    parameter :front_image, "正面照片",required: true, scope: :identity_verify
+    parameter :back_image, "反面照片",required: true, scope: :identity_verify
 
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -25,13 +25,12 @@ resource "用户信息验证" do
 
     let(:name) { "test" }
     let(:id_num) { "13941293487192347" }
-    # let(:front_image_attributes) { {id: @front_image.id, photo: @front_image.photo} }
-    # let(:back_image_attributes) { FactoryGirl.attributes_for(:image) }
+    let(:front_image) { "[uploaded data]" }
+    let(:back_image) { "[uploaded data]" }
     let(:raw_post) { params.to_json }
 
     example "上传身份证成功" do
-      # puts "#{@front_image.photo}"
-      # do_request
+      do_request
       # puts "response is #{response_body}"
       # expect(status).to eq 200
     end

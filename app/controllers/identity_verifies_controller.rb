@@ -7,7 +7,6 @@ class IdentityVerifiesController < ApplicationController
 
   def create
     @identity_verify = current_customer.identity_verifies.build(create_params)
-    puts "create params is #{create_params}"
     @identity_verify.front_image = params[:identity_verify][:front_image_attributes]
     @identity_verify.save
     respond_with(@identity_verify)

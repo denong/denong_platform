@@ -96,9 +96,16 @@ FactoryGirl.define do
   factory :merchant do
     # id 100
     ratio 0.01
-    # after(:create) do |merchant|
-    #   # merchant.sys_reg_info.update_attributes attributes_for(:merchant_sys_reg_info)
-    # end
+    after(:create) do |merchant|
+      merchant.sys_reg_info.update_attributes attributes_for(:merchant_sys_reg_info)
+    end
+
+    factory :merchant_with_shops do
+      after(:create) do |merchant|
+        create_list(:shop, 2, merchant: merchant)
+      end
+    end
+
   end
 
   factory :merchant_sys_reg_info do

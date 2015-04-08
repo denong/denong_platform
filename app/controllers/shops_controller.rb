@@ -4,7 +4,12 @@ class ShopsController < ApplicationController
   acts_as_token_authentication_handler_for User
 
   def index
-    @shops = Shop.all.paginate(page: params[:shop][:page], per_page: 10)
+    if params[:merchant_id].present?
+      shops = Merchant.find(params[:merchant_id]).shops
+    else
+      shops = Shop.all
+    end
+    @shops = shops.paginate(page: params[:page], per_page: 10)
   end
 
 end
