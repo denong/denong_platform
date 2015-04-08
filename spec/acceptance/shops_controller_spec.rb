@@ -7,7 +7,7 @@ resource "获取门店信息" do
   get "/shops" do
     before(:each) do
       FactoryGirl.create(:customer_with_jajin_pension)
-      FactoryGirl.create_list(:shop, 2)
+      FactoryGirl.create_list(:shop, 3)
     end
     
     
@@ -20,7 +20,7 @@ resource "获取门店信息" do
       expect(status).to eq(200)
     end
 
-    
+
     parameter :page, "页码", required: false
     let(:page) { 3 }
     example "获取门店信息列表二十到三十条" do

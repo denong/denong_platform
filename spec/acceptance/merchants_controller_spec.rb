@@ -7,7 +7,7 @@ resource "获取商户信息" do
   get "/merchants" do
     before(:each) do
       create(:customer_with_jajin_pension)
-      create_list(:merchant, 3)
+      create_list(:merchant, 30)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
