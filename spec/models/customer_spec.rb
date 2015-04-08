@@ -69,4 +69,24 @@ RSpec.describe Customer, type: :model do
     end
   end
 
+  describe "votables" do
+    let(:customer) { create(:customer) }
+    let(:shop) { create(:shop) }
+
+    it "follow and unfollow" do
+      expect {
+        customer.follow!(shop)
+      }.to change{ shop.votes_up }.from(0).to(1)
+      
+      customer.follow! shop
+      expect(shop.votes_up).to eq 1
+
+      expect {
+        customer.unfollow!(shop)
+      }.to change{ shop.votes_up }.from(1).to(0)
+    end
+
+
+  end
+
 end
