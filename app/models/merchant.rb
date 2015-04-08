@@ -2,11 +2,18 @@
 #
 # Table name: merchants
 #
-#  id               :integer          not null, primary key
-#  merchant_user_id :integer
-#  created_at       :datetime
-#  updated_at       :datetime
-#  ratio            :float
+#  id                      :integer          not null, primary key
+#  merchant_user_id        :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  ratio                   :float
+#  cached_votes_total      :integer          default(0)
+#  cached_votes_score      :integer          default(0)
+#  cached_votes_up         :integer          default(0)
+#  cached_votes_down       :integer          default(0)
+#  cached_weighted_score   :integer          default(0)
+#  cached_weighted_total   :integer          default(0)
+#  cached_weighted_average :float            default(0.0)
 #
 
 class Merchant < ActiveRecord::Base

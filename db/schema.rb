@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408071122) do
+ActiveRecord::Schema.define(version: 20150408080217) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -203,7 +203,22 @@ ActiveRecord::Schema.define(version: 20150408071122) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "ratio"
+    t.integer  "cached_votes_total",      default: 0
+    t.integer  "cached_votes_score",      default: 0
+    t.integer  "cached_votes_up",         default: 0
+    t.integer  "cached_votes_down",       default: 0
+    t.integer  "cached_weighted_score",   default: 0
+    t.integer  "cached_weighted_total",   default: 0
+    t.float    "cached_weighted_average", default: 0.0
   end
+
+  add_index "merchants", ["cached_votes_down"], name: "index_merchants_on_cached_votes_down"
+  add_index "merchants", ["cached_votes_score"], name: "index_merchants_on_cached_votes_score"
+  add_index "merchants", ["cached_votes_total"], name: "index_merchants_on_cached_votes_total"
+  add_index "merchants", ["cached_votes_up"], name: "index_merchants_on_cached_votes_up"
+  add_index "merchants", ["cached_weighted_average"], name: "index_merchants_on_cached_weighted_average"
+  add_index "merchants", ["cached_weighted_score"], name: "index_merchants_on_cached_weighted_score"
+  add_index "merchants", ["cached_weighted_total"], name: "index_merchants_on_cached_weighted_total"
 
   create_table "pensions", force: true do |t|
     t.float    "total"
@@ -235,8 +250,22 @@ ActiveRecord::Schema.define(version: 20150408071122) do
     t.integer  "merchant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cached_votes_total",      default: 0
+    t.integer  "cached_votes_score",      default: 0
+    t.integer  "cached_votes_up",         default: 0
+    t.integer  "cached_votes_down",       default: 0
+    t.integer  "cached_weighted_score",   default: 0
+    t.integer  "cached_weighted_total",   default: 0
+    t.float    "cached_weighted_average", default: 0.0
   end
 
+  add_index "shops", ["cached_votes_down"], name: "index_shops_on_cached_votes_down"
+  add_index "shops", ["cached_votes_score"], name: "index_shops_on_cached_votes_score"
+  add_index "shops", ["cached_votes_total"], name: "index_shops_on_cached_votes_total"
+  add_index "shops", ["cached_votes_up"], name: "index_shops_on_cached_votes_up"
+  add_index "shops", ["cached_weighted_average"], name: "index_shops_on_cached_weighted_average"
+  add_index "shops", ["cached_weighted_score"], name: "index_shops_on_cached_weighted_score"
+  add_index "shops", ["cached_weighted_total"], name: "index_shops_on_cached_weighted_total"
   add_index "shops", ["merchant_id"], name: "index_shops_on_merchant_id"
 
   create_table "sms_tokens", force: true do |t|
