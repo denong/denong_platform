@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :shops, only: [:index]
   end
   resources :shops, only: [:index, :show]
+  resources :jajin_logs, only: [:index, :show]
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,1 @@
+@jajin_log.as_json

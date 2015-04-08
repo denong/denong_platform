@@ -17,6 +17,7 @@ class JajinLog < ActiveRecord::Base
 
   def as_json(options=nil)
     {
+      id: id,
       amount: amount,
       log_time: updated_at,
       customer_id: customer_id,
