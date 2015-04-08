@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  giver_id   :integer
 #  given_id   :integer
-#  ammout     :float
+#  amount     :float
 #  created_at :datetime
 #  updated_at :datetime
 #
