@@ -37,4 +37,8 @@ class Merchant < ActiveRecord::Base
   def add_busi_reg_info
     self.create_sys_reg_info
   end
+
+  def votes_up 
+    self.cached_votes_up
+  end
 end

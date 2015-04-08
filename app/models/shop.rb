@@ -25,4 +25,8 @@ class Shop < ActiveRecord::Base
   
   belongs_to :merchant
   has_many :pos_machines
+
+  def votes_up 
+    self.cached_votes_up
+  end 
 end
