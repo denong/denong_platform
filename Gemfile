@@ -43,6 +43,9 @@ gem 'china_sms'
 # File upload
 gem "paperclip", "~> 4.2"
 
+# 
+gem 'acts_as_votable'
+
 #######################################################################
 gem 'unicorn'
 

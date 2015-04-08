@@ -6,4 +6,5 @@ json.merchants @merchants do |merchant|
   json.lat            merchant.sys_reg_info.lat
   json.welcome_string merchant.sys_reg_info.welcome_string
   json.merchant_id    merchant.id
+  json.votes_up       merchant.votes_up
 end
