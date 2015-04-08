@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406144116) do
+ActiveRecord::Schema.define(version: 20150408055917) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20150406144116) do
   create_table "given_logs", force: true do |t|
     t.integer  "giver_id"
     t.integer  "given_id"
-    t.float    "ammout"
+    t.float    "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
