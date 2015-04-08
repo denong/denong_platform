@@ -9,6 +9,8 @@
 #
 
 class Customer < ActiveRecord::Base
+  acts_as_voter
+  
   belongs_to :user
   has_one :customer_reg_info, dependent: :destroy
   has_many :member_cards, dependent: :destroy

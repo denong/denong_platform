@@ -10,6 +10,8 @@
 #
 
 class Merchant < ActiveRecord::Base
+  acts_as_votable
+  
   belongs_to :merchant_user 
   has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
   has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy

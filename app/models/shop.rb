@@ -14,6 +14,8 @@
 #
 
 class Shop < ActiveRecord::Base
+  acts_as_votable
+  
   belongs_to :merchant
   has_many :pos_machines
 end
