@@ -1,11 +1,11 @@
 require 'rack/test'
 FactoryGirl.define do  
+
   factory :image do
     title "MyString"
     photo_type "MyString"
     photo {Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png')}
-  end
-  
+  end  
   
   factory :identity_verify do
     name "ExampleName"
@@ -28,6 +28,18 @@ FactoryGirl.define do
     amount 1.5
   end
 
+  factory :tl_trade do
+    card "12345678"
+    price 8.88
+    merchant_name "merchant_name"
+  end
+
+  factory :given_log do
+    giver_id  1
+    given_id  2
+    amount    10
+  end
+
   factory :sms_token do
     phone "12345678901"
     token "123456"
@@ -47,16 +59,9 @@ FactoryGirl.define do
     password_confirmation "4321.dcba"
   end
 
-  factory :jajin do
-    got 188.88
 
-    after(:build) do |jajin|
-      jajin.customer ||= FactoryGirl.create(:customer, :jajin => jajin)
-    end
-  end
 
   factory :customer do
-
     factory :customer_with_jajin_pension do
       after(:create) do |customer|
         customer.jajin.update_attributes got: attributes_for(:jajin)[:got]
@@ -93,9 +98,12 @@ FactoryGirl.define do
     end
   end
 
-  factory :tl_trade do
-    phone "12345678901"
-    price 88888
+  factory :jajin do
+    got 188.88
+
+    after(:build) do |jajin|
+      jajin.customer ||= FactoryGirl.create(:customer, :jajin => jajin)
+    end
   end
 
   factory :merchant do

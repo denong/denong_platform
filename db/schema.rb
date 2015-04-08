@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408055917) do
+ActiveRecord::Schema.define(version: 20150408061700) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -68,15 +68,15 @@ ActiveRecord::Schema.define(version: 20150408055917) do
   add_index "friendships", ["customer_id"], name: "index_friendships_on_customer_id"
 
   create_table "given_logs", force: true do |t|
-    t.integer  "giver_id"
-    t.integer  "given_id"
+    t.integer  "giver_or_given_id"
     t.float    "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customer_id"
   end
 
-  add_index "given_logs", ["given_id"], name: "index_given_logs_on_given_id"
-  add_index "given_logs", ["giver_id"], name: "index_given_logs_on_giver_id"
+  add_index "given_logs", ["customer_id"], name: "index_given_logs_on_customer_id"
+  add_index "given_logs", ["giver_or_given_id"], name: "index_given_logs_on_giver_or_given_id"
 
   create_table "identity_verifies", force: true do |t|
     t.string   "name"
