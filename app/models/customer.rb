@@ -9,6 +9,8 @@
 #
 
 class Customer < ActiveRecord::Base
+  acts_as_voter
+
   belongs_to :user
   has_one :customer_reg_info, dependent: :destroy
   has_many :member_cards, dependent: :destroy
@@ -47,6 +49,14 @@ class Customer < ActiveRecord::Base
 
   def add_customer_reg_info
     self.create_customer_reg_info( audit_state: :unverified )
+  end
+
+  def follow! votable
+    self.likes votable
+  end
+
+  def unfollow! votable
+    self.unlike votable
   end
 
 

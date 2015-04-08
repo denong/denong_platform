@@ -2,14 +2,23 @@
 #
 # Table name: merchants
 #
-#  id               :integer          not null, primary key
-#  merchant_user_id :integer
-#  created_at       :datetime
-#  updated_at       :datetime
-#  ratio            :float
+#  id                      :integer          not null, primary key
+#  merchant_user_id        :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  ratio                   :float
+#  cached_votes_total      :integer          default(0)
+#  cached_votes_score      :integer          default(0)
+#  cached_votes_up         :integer          default(0)
+#  cached_votes_down       :integer          default(0)
+#  cached_weighted_score   :integer          default(0)
+#  cached_weighted_total   :integer          default(0)
+#  cached_weighted_average :float            default(0.0)
 #
 
 class Merchant < ActiveRecord::Base
+  acts_as_votable
+  
   belongs_to :merchant_user 
   has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
   has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
@@ -27,5 +36,9 @@ class Merchant < ActiveRecord::Base
 
   def add_busi_reg_info
     self.create_sys_reg_info
+  end
+
+  def votes_up 
+    self.cached_votes_up
   end
 end

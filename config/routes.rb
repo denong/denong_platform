@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index, :show] do
     resources :shops, only: [:index]
   end
-  resources :shops, only: [:index, :show]
+  resources :shops, only: [:index, :show] do
+    member do
+      post 'follow'
+      post 'unfollow'
+    end
+  end
   resources :jajin_logs, only: [:index, :show]
   resources :customer_reg_infos, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.
