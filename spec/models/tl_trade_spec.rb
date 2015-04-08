@@ -25,8 +25,8 @@ RSpec.describe TlTrade, type: :model do
 
   let(:customer)  { create(:customer_with_jajin_pension) }
   let(:merchant)  { create(:merchant) }
+
   describe "tl_trade" do
-    
     before(:each) do
       @tl_trades = create(:tl_trade, customer: customer, merchant: merchant)
     end
@@ -37,7 +37,7 @@ RSpec.describe TlTrade, type: :model do
     end
 
     it "should add the got of customer jajin by price/100" do
-      expect(@tl_trades.customer.jajin.got).to eq(188.88 + 888.88)
+      expect(@tl_trades.customer.jajin.got).to eq(188.88 + 888.88/100)
     end
 
     it "should make the customer of jajin_log equal to the customer of tl_trades" do

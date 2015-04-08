@@ -1,1 +1,1 @@
-@jajin_log.as_json
+json.jajin_log @jajin_log.as_json

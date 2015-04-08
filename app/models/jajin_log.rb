@@ -25,4 +25,5 @@ class JajinLog < ActiveRecord::Base
       detail: jajinable.as_json
     }
   end
+
 end

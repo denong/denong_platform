@@ -21,7 +21,7 @@ resource "获取商户信息" do
 
     parameter :page, "页码", required: false
     let(:page) { 3 }
-    example "获取商户信息列表二十到三十条" do
+    example "获取商户信息列表第三页" do
       do_request
       expect(status).to eq(200)
     end

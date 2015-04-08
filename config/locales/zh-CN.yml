@@ -9,3 +9,5 @@ zh-CN:
         message: "提示："
       tl_trade:
         message: "提示："
+      given_log:
+        amount: "转赠加金数额"

@@ -30,13 +30,11 @@ FactoryGirl.define do
 
   factory :tl_trade do
     card "12345678"
-    price 8.88
-    merchant_name "merchant_name"
+    price 888.88
+    phone "12345678901"
   end
 
   factory :given_log do
-    giver_id  1
-    given_id  2
     amount    10
   end
 
@@ -87,6 +85,9 @@ FactoryGirl.define do
     after(:build) do |customer|
       customer.user ||= FactoryGirl.create(:user, customer: customer)
     end
+
+
+
   end
 
   factory :pension do

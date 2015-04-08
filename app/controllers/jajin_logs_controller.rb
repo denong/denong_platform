@@ -5,6 +5,7 @@ class JajinLogsController < ApplicationController
 
   def index
     @jajin_logs = JajinLog.all.paginate(page: params[:page], per_page: 10)
+    respond_with(@jajin_logs)
   end
 
   def show
