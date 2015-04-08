@@ -14,4 +14,17 @@
 class JajinLog < ActiveRecord::Base
   belongs_to :jajinable, polymorphic: true
   belongs_to :customer
+
+  def as_json(options=nil)
+    {
+      id: id,
+      amount: amount,
+      log_time: updated_at,
+      customer_id: customer_id,
+      type: jajinable_type,
+      detail: {
+        jajinable.as_json
+      }
+    }
+  end
 end
