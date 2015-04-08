@@ -14,4 +14,5 @@
 class CustomerRegInfo < ActiveRecord::Base
   enum audit_state: [ :unverified, :wait_verify, :verified]
   belongs_to :customer
+  has_one :image, as: :imageable, dependent: :destroy
 end

@@ -73,6 +73,11 @@ FactoryGirl.define do
         create(:pension, customer: customer)
       end
     end
+    factory :customer_with_reg_info do |customer|
+      after(:create) do |customer|
+        customer.customer_reg_info.update_attributes attributes_for(:customer_reg_info)
+      end
+    end
 
     after(:build) do |customer|
       customer.user ||= FactoryGirl.create(:user, customer: customer)
@@ -94,18 +99,20 @@ FactoryGirl.define do
   end
 
   factory :merchant do
-    # id 100
     ratio 0.01
     after(:create) do |merchant|
       merchant.sys_reg_info.update_attributes attributes_for(:merchant_sys_reg_info)
     end
-
     factory :merchant_with_shops do
       after(:create) do |merchant|
         create_list(:shop, 2, merchant: merchant)
       end
     end
+  end
 
+  factory :customer_reg_info do
+    name    "customer_name"
+    idcard  "333333333"
   end
 
   factory :merchant_sys_reg_info do

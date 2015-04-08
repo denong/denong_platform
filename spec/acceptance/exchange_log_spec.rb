@@ -9,7 +9,7 @@ resource "加金转换养老金" do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
 
-    parameter :amount, "加金转换养老金的总数", require: true, scope: :exchange_log
+    parameter :amount, "加金转换养老金的总数", required: true, scope: :exchange_log
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
