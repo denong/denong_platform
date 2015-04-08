@@ -85,9 +85,6 @@ FactoryGirl.define do
     after(:build) do |customer|
       customer.user ||= FactoryGirl.create(:user, customer: customer)
     end
-
-
-
   end
 
   factory :pension do
@@ -149,5 +146,8 @@ FactoryGirl.define do
     work_time "9:00-18:00"
   end
 
+  factory :member_card do
+    point 100.88
+  end
 
 end
