@@ -26,5 +26,5 @@
 
 class MerchantSysRegInfo < ActiveRecord::Base
   belongs_to :merchant
-  has_one :image
+  has_one :image, as: :imageable, dependent: :destroy
 end
