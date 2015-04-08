@@ -26,4 +26,5 @@
 
 class MerchantSysRegInfo < ActiveRecord::Base
   belongs_to :merchant
+  has_one :image
 end

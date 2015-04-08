@@ -20,6 +20,12 @@ class ExchangeLog < ActiveRecord::Base
 
   before_save :calculate
   before_save :add_jajin_log
+
+  def as_json(options=nil)
+    {
+      
+    }
+  end
   
   private
     def must_have_jajin

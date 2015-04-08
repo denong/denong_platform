@@ -32,6 +32,17 @@ class TlTrade < ActiveRecord::Base
   before_save :calculate
   before_save :add_jajin_log
 
+  def as_json(options=nil)
+    # 获取merchant信息
+    merchant_info = merchant.sys_reg_info
+    {
+      card: card,
+      price: price,
+      merchant_name: merchant_info.sys_name,
+      merchant_image: image_url(merchant_info.image.photo.url(:small)) if merchant_info.image
+    }
+  end
+
   private
 
   def check_user
