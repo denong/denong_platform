@@ -1,8 +1,8 @@
 require 'rack/test'
-FactoryGirl.define do  factory :gain_history do
+FactoryGirl.define do  
+  factory :gain_history do
     gain 1.5
-gain_date "2015-04-09 16:24:06"
-customer nil
+    gain_date "2015-04-09 16:24:06"
   end
   
 

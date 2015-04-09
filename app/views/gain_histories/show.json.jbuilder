@@ -1,0 +1,1 @@
+json.extract! @gain_history, :gain, :gain_date
