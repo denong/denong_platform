@@ -29,6 +29,9 @@ class Customer < ActiveRecord::Base
   has_many :gain_histories, dependent: :destroy
   # 银联记录
   has_many :yl_trades, dependent: :destroy
+  # 商户推送消息
+  has_many :merchant_messages, dependent: :destroy
+
   after_create :add_jajin
   after_create :add_customer_reg_info
 

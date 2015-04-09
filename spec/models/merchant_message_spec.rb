@@ -11,10 +11,12 @@
 #  merchant_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  customer_id :integer
 #
 
 require 'rails_helper'
 
 RSpec.describe MerchantMessage, type: :model do
   it { should belong_to :merchant }
+  it { should belong_to :customer }
 end
