@@ -24,7 +24,6 @@ resource "历史收益" do
     let(:page) { 3 }
     example "查询历史收益第三页" do
       do_request
-      puts "#{response_body}"
       expect(status).to eq(200)
     end
   end
