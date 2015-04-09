@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :merchant_giving_log do
+    amount 1.5
+giving_time "2015-04-09 20:02:31"
+merchant nil
+customer nil
+  end
+  
   factory :merchant_message do
     time "2015-04-09 18:39:41"
     title "MyString"
