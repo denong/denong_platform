@@ -1,0 +1,23 @@
+<h1>Listing yl_trades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @yl_trades.each do |yl_trade| %>
+      <tr>
+        <td><%= link_to 'Show', yl_trade %></td>
+        <td><%= link_to 'Edit', edit_yl_trade_path(yl_trade) %></td>
+        <td><%= link_to 'Destroy', yl_trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Yl trade', new_yl_trade_path %>

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
   end
   resources :gain_histories, only: [:index, :show]
-
+  resources :yl_trades, only: [:create, :index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
