@@ -19,6 +19,13 @@ resource "银联交易记录" do
       do_request
       expect(status).to eq(200)
     end
+
+    parameter :page, "页码", required: false
+    let(:page) { 3 }
+    example "获取当前用户的交易记录第三页" do
+      do_request
+      expect(status).to eq(200)
+    end
   end
 
   get "/yl_trades/:id" do

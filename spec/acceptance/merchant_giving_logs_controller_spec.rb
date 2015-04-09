@@ -17,7 +17,6 @@ resource "商户赠送加金记录" do
 
     example "查询商户赠送用户的加金" do
       do_request
-      puts "#{response_body}"
       expect(status).to eq(200)
     end
   end

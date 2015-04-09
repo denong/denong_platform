@@ -5,7 +5,7 @@ class MemberCardsController < ApplicationController
   before_action :set_member_card, only: [:bind]
 
   def index
-    @member_cards = current_customer.try(:member_cards)
+    @member_cards = current_customer.try(:member_cards).paginate(page: params[:page], per_page: 10)
   end
 
   def show

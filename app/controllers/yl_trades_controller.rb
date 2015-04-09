@@ -5,7 +5,7 @@ class YlTradesController < ApplicationController
   acts_as_token_authentication_handler_for User
 
   def index
-    @yl_trades = current_customer.try(:yl_trades)
+    @yl_trades = current_customer.try(:yl_trades).paginate(page: params[:page], per_page: 10)
     respond_with(@yl_trades)
   end
 
