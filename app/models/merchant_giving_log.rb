@@ -14,4 +14,6 @@
 class MerchantGivingLog < ActiveRecord::Base
   belongs_to :merchant
   belongs_to :customer
+  has_one :jajin_log, as: :jajinable
+  
 end
