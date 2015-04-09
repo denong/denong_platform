@@ -19,7 +19,11 @@ Rails.application.routes.draw do
   end
   resources :jajin_logs, only: [:index, :show]
   resources :customer_reg_infos, only: [:show]
-  resources :member_cards, only: [:show]
+  resources :member_cards, only: [:show] do
+    member do
+      post 'bind'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

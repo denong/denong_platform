@@ -59,5 +59,8 @@ class Customer < ActiveRecord::Base
     self.unlike votable
   end
 
+  def bind_member_card! member_card
+    self.member_cards << member_card
+  end
 
 end

@@ -41,4 +41,9 @@ class Merchant < ActiveRecord::Base
   def votes_up 
     self.cached_votes_up
   end
+
+  def bind_member_card! member_card
+    self.member_cards << member_card
+  end
+
 end
