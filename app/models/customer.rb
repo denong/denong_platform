@@ -21,12 +21,12 @@ class Customer < ActiveRecord::Base
   # 亲友关系
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
-
   # 加金详细记录
   has_many :jajin_logs, dependent: :destroy
-
   # 加金转养老金记录
   has_many :exchange_logs, dependent: :destroy
+  # 养老金收益记录
+  has_many :gain_histories, dependent: :destroy
 
   after_create :add_jajin
   after_create :add_customer_reg_info
