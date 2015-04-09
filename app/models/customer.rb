@@ -27,7 +27,8 @@ class Customer < ActiveRecord::Base
   has_many :exchange_logs, dependent: :destroy
   # 养老金收益记录
   has_many :gain_histories, dependent: :destroy
-
+  # 银联记录
+  has_many :yl_trades, dependent: :destroy
   after_create :add_jajin
   after_create :add_customer_reg_info
 

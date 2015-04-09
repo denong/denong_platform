@@ -1,21 +1,20 @@
 require 'rack/test'
-FactoryGirl.define do  factory :yl_trade do
+FactoryGirl.define do  
+  factory :yl_trade do
     trade_time "2015-04-09 17:13:03"
-log_time "2015-04-09"
-trade_currency "MyString"
-trade_state "MyString"
-gain 1.5
-expend 1.5
-merchant_ind "MyString"
-pos_ind "MyString"
-merchant_name "MyString"
-merchant_type "MyString"
-merchant_city "MyString"
-trade_type "MyString"
-trade_way "MyString"
-merchant_addr "MyString"
-customer nil
-merchant nil
+    log_time "2015-04-09"
+    trade_currency "MyString"
+    trade_state "MyString"
+    gain 1.5
+    expend 1.5
+    merchant_ind "MyString"
+    pos_ind "MyString"
+    merchant_name "MyString"
+    merchant_type "MyString"
+    merchant_city "MyString"
+    trade_type "MyString"
+    trade_way "MyString"
+    merchant_addr "MyString"
   end
   
   factory :gain_history do
