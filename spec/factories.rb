@@ -1,9 +1,8 @@
 require 'rack/test'
-FactoryGirl.define do  factory :merchant_giving_log do
+FactoryGirl.define do  
+  factory :merchant_giving_log do
     amount 1.5
-giving_time "2015-04-09 20:02:31"
-merchant nil
-customer nil
+    giving_time "2015-04-09 20:02:31"
   end
   
   factory :merchant_message do

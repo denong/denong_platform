@@ -1,0 +1,1 @@
+json.merchant_giving_log @merchant_giving_logs 
