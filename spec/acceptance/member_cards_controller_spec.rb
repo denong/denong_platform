@@ -51,4 +51,24 @@ resource "查询会员卡积分" do
       expect(status).to eq 200
     end
   end
+
+  get "/member_cards" do
+    before do
+      merchants = create_list(:merchant, 5)
+      customer = create(:customer)
+      merchants.each do |merchant|
+        create(:member_card, customer: customer, merchant: merchant)
+      end
+    end
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    example "查询各个会员卡的积分" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
 end

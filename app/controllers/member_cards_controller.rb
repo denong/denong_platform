@@ -4,6 +4,10 @@ class MemberCardsController < ApplicationController
   acts_as_token_authentication_handler_for User
   before_action :set_member_card, only: [:bind]
 
+  def index
+    @member_cards = current_customer.try(:member_cards)
+  end
+
   def show
     @member_card = current_customer.try(:member_cards).find_by_merchant_id(params[:merchant_id])
   end
