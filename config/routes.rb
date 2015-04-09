@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :pension, only: [:index]
   resources :exchange_logs, only: [:create]
   resources :jajin, only: [:index]
-  resources :identity_verifies, only: [:create, :update]
+  resources :identity_verifies, only: [:create, :update, :index]
   resources :merchants, only: [:index, :show] do
     resources :shops, only: [:index]
   end

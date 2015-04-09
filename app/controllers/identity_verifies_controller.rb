@@ -17,6 +17,11 @@ class IdentityVerifiesController < ApplicationController
     respond_with(@identity_verify)
   end
 
+
+  def index
+    @identity_verify = current_customer.identity_verifies.first
+  end
+
   private
     def set_identity_verify
       @identity_verify = IdentityVerify.find(params[:id])

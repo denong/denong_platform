@@ -32,7 +32,25 @@ resource "用户信息验证" do
     example "上传身份证成功" do
       do_request
       # puts "response is #{response_body}"
-      # expect(status).to eq 200
+      expect(status).to eq 200
+    end
+  end
+
+  get "/identity_verifies" do
+
+    before do
+      customer = create(:customer_with_jajin_pension)
+      create(:identity_verify, customer: customer)
+    end
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    example "审核结果查询成功" do
+      do_request
+      expect(status).to eq 200
     end
   end
 end

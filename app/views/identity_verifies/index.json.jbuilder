@@ -1,0 +1,1 @@
+json.extract! @identity_verify, :verify_state
