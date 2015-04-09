@@ -1,5 +1,13 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :merchant_message do
+    time "2015-04-09 18:39:41"
+title "MyString"
+content "MyString"
+summary "MyString"
+url "MyString"
+merchant nil
+  end
+  
   factory :yl_trade do
     trade_time "2015-04-09 17:13:03"
     log_time "2015-04-09"
