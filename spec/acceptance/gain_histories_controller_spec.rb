@@ -7,7 +7,7 @@ resource "历史收益" do
   get "/gain_histories" do
     before do
       customer = create(:customer)
-      create(:gain_history, customer: customer)
+      create_list(:gain_history, 15, customer: customer)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -18,6 +18,14 @@ resource "历史收益" do
     example "查询历史收益" do
       do_request
       expect(status).to eq 200
+    end
+
+    parameter :page, "页码", required: false
+    let(:page) { 3 }
+    example "查询历史收益第三页" do
+      do_request
+      puts "#{response_body}"
+      expect(status).to eq(200)
     end
   end
 
