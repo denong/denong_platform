@@ -4,6 +4,24 @@ resource "商户赠送加金记录" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
+  get "/merchant_giving_logs" do
+    before(:each) do
+      customer = create(:customer)
+      merchant = create(:merchant)
+      create_list(:merchant_giving_log, 3, customer: customer, merchant: merchant )
+    end
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    example "查询商户赠送用户的加金" do
+      do_request
+      puts "#{response_body}"
+      expect(status).to eq(200)
+    end
+  end
+
   get "/merchant_giving_logs/:id" do
     before(:each) do
       customer = create(:customer)

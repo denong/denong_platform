@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   resources :gain_histories, only: [:index, :show]
   resources :yl_trades, only: [:create, :index, :show]
   resources :merchant_messages, only: [:create, :index]
-  resources :merchant_giving_logs, only: [:show]
+  resources :merchant_giving_logs, only: [:index, :show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
