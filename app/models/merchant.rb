@@ -27,7 +27,8 @@ class Merchant < ActiveRecord::Base
   has_many :tl_trades
   has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
   has_many :yl_trades, dependent: :destroy
-  
+  has_many :merchant_messages, dependent: :destroy
+
   after_create :add_sys_reg_info
   after_create :add_busi_reg_info
 
