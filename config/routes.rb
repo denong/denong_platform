@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   
-
-
   devise_ios_rails_for :merchant_users
   devise_ios_rails_for :users
   resources :tl_trades, only: [:create]
@@ -28,6 +26,7 @@ Rails.application.routes.draw do
   end
   resources :gain_histories, only: [:index, :show]
   resources :yl_trades, only: [:create, :index, :show]
+  resources :merchant_messages, only: [:create, :index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

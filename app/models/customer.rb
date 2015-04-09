@@ -67,4 +67,16 @@ class Customer < ActiveRecord::Base
     self.member_cards << member_card
   end
 
+  def get_unpushed_message last_time
+    return unless self.merchant_messages
+
+    all_merchant_messages = self.merchant_messages
+    new_message_time = all_merchant_messages.last.time
+
+    if last_time < new_message_time
+      messages = all_merchant_messages.where(time: last_time..new_message_time)
+    end
+    
+  end
+
 end

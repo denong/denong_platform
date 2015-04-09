@@ -18,4 +18,6 @@ class MerchantMessage < ActiveRecord::Base
   belongs_to :merchant
   belongs_to :customer
   has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
+
+
 end
