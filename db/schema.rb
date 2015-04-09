@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409082406) do
+ActiveRecord::Schema.define(version: 20150409091303) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -344,5 +344,53 @@ ActiveRecord::Schema.define(version: 20150409082406) do
 
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+
+  create_table "yl_logs", force: true do |t|
+    t.datetime "trade_time"
+    t.date     "log_time"
+    t.string   "trade_currency"
+    t.string   "trade_state"
+    t.float    "gain"
+    t.float    "expend"
+    t.string   "merchant_ind"
+    t.string   "pos_ind"
+    t.string   "merchant_name"
+    t.string   "merchant_type"
+    t.string   "merchant_city"
+    t.string   "trade_type"
+    t.string   "trade_way"
+    t.string   "merchant_addr"
+    t.integer  "customer_id"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "yl_logs", ["customer_id"], name: "index_yl_logs_on_customer_id"
+  add_index "yl_logs", ["merchant_id"], name: "index_yl_logs_on_merchant_id"
+
+  create_table "yl_trades", force: true do |t|
+    t.datetime "trade_time"
+    t.date     "log_time"
+    t.string   "trade_currency"
+    t.string   "trade_state"
+    t.float    "gain"
+    t.float    "expend"
+    t.string   "merchant_ind"
+    t.string   "pos_ind"
+    t.string   "merchant_name"
+    t.string   "merchant_type"
+    t.string   "merchant_city"
+    t.string   "trade_type"
+    t.string   "trade_way"
+    t.string   "merchant_addr"
+    t.integer  "customer_id"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "yl_trades", ["customer_id"], name: "index_yl_trades_on_customer_id"
+  add_index "yl_trades", ["merchant_id"], name: "index_yl_trades_on_merchant_id"
 
 end
