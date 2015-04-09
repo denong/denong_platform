@@ -21,25 +21,27 @@ resource "银联交易记录" do
     end
   end
 
-  # get "/yl_trades/:id" do
-  #   before(:each) do
-  #     customer_with_jajin_pension = create(:customer_with_jajin_pension)
-  #     merchant = create(:merchant)
-  #     create_list(:yl_trade, 3, customer: customer_with_jajin_pension, merchant: merchant )
-  #   end
+  get "/yl_trades/:id" do
+    before(:each) do
+      customer_with_jajin_pension = create(:customer_with_jajin_pension)
+      merchant = create(:merchant)
+      create_list(:yl_trade, 3, customer: customer_with_jajin_pension, merchant: merchant )
+    end
 
-  #   let(:id) { YlTrades.all.first.id }
+    let(:id) { YlTrade.all.first.id }
 
-  #   user_attrs = FactoryGirl.attributes_for(:user)
-  #   header "X-User-Token", user_attrs[:authentication_token]
-  #   header "X-User-Phone", user_attrs[:phone]
+    user_attrs = FactoryGirl.attributes_for(:user)
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
 
-  #   let(:card) { "0987654321" }
 
-  #   example "获取指定银联卡的交易记录" do
-  #     do_request
-  #     expect(status).to eq(200)
-  #   end
-  # end
+    parameter :card, "银联卡号", required: true, scope: :yl_trade
+    let(:card) { "123456789" }
+
+    example "获取指定银联卡的交易记录" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
   
 end

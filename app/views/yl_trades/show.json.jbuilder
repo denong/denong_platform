@@ -1,1 +1,1 @@
-json.extract! @yl_trade
+json.yl_trade @yl_trade 

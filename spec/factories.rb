@@ -15,6 +15,7 @@ FactoryGirl.define do
     trade_type "MyString"
     trade_way "MyString"
     merchant_addr "MyString"
+    card "123456789"
   end
   
   factory :gain_history do

@@ -10,6 +10,7 @@ class YlTradesController < ApplicationController
   end
 
   def show
+    @yl_trade = current_customer.try(:yl_trades).find_by_card(yl_trade_params[:card])
     respond_with(@yl_trade)
   end
 
