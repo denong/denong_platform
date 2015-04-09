@@ -21,6 +21,7 @@
 #  merchant_id    :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  card           :string(255)
 #
 
 require 'rails_helper'
