@@ -22,6 +22,9 @@ class IdentityVerify < ActiveRecord::Base
 
   before_save :set_state
 
+  validates :name, presence: true
+  validates :id_num, presence: true, uniqueness: true
+
   def set_state
     self.verify_state = :unverified
   end
