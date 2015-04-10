@@ -19,6 +19,7 @@ resource "银联交易记录" do
     response_field :current_page, "页码"
     response_field :id, "银联交易记录ID"
     response_field :trade_time, "交易时间"
+    response_field :log_time, "入账时间"
     response_field :trade_currency, "交易币种"
     response_field :trade_state, "交易状态"
     response_field :gain, "收"
@@ -63,6 +64,7 @@ resource "银联交易记录" do
 
     response_field :id, "银联交易记录ID"
     response_field :trade_time, "交易时间"
+    response_field :log_time, "入账时间"
     response_field :trade_currency, "交易币种"
     response_field :trade_state, "交易状态"
     response_field :gain, "收"
@@ -100,6 +102,7 @@ resource "银联交易记录" do
 
     response_field :id,             "银联交易记录ID"
     response_field :trade_time,     "交易时间"
+    response_field :log_time,       "入账时间"
     response_field :trade_currency, "交易币种"
     response_field :trade_state,    "交易状态"
     response_field :gain,           "收"
@@ -117,6 +120,7 @@ resource "银联交易记录" do
     response_field :card,           "银联卡号"
 
     parameter :trade_time, "交易时间", required: true, scope: :yl_trade
+    parameter :log_time, "入账时间",  required: true, scope: :yl_trade
     parameter :trade_currency, "交易币种", required: true, scope: :yl_trade
     parameter :trade_state, "交易状态", required: true, scope: :yl_trade
     parameter :gain, "收", required: true, scope: :yl_trade
@@ -135,6 +139,7 @@ resource "银联交易记录" do
 
     let(:card) { "123456789" }
     let(:trade_time) { DateTime.now }
+    let(:log_time) { Date.today }
     let(:trade_currency) { "MyString" }
     let(:trade_state) { "MyString" }
     let(:gain) { 1.5 }

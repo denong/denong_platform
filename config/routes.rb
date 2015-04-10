@@ -29,11 +29,11 @@ Rails.application.routes.draw do
   resources :merchant_messages, only: [:create, :index]
   resources :merchant_giving_logs, only: [:index, :show]
 
-  resources :bank_cards, only: [:create]
-  match "bank_cards/send_msg" => "bank_cards#send_msg", :via => [:post]
-
-
-  #resources :photos, concerns: :bank_cards
+  resources :bank_cards, only: [:create] do
+    collection do
+      post 'send_msg'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
