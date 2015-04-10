@@ -12,6 +12,10 @@ class MerchantsController < ApplicationController
     respond_with(@merchant)
   end
   
+  def customer_index
+    # @merchants = current_customer.get_giving_jajin_merchant
+  end
+
   private
 
     def set_merchant

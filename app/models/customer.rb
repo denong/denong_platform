@@ -77,7 +77,17 @@ class Customer < ActiveRecord::Base
     if last_time < new_message_time
       messages = all_merchant_messages.where(time: last_time..new_message_time)
     end
-    
+  end
+
+  # 待优化
+  def get_giving_jajin_merchant
+
+    merchant_giving_logs = self.merchant_giving_logs.all
+    merchant_ids = []
+    merchant_giving_logs.each do |merchant_giving_log|
+      merchant_ids << merchant_giving_log.merchant_id
+    end
+    Merchant.find merchant_ids.split(',')
   end
 
 end

@@ -28,9 +28,14 @@ class Merchant < ActiveRecord::Base
   has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
   has_many :yl_trades, dependent: :destroy
   has_many :merchant_messages, dependent: :destroy
+  has_many :merchant_giving_logs, dependent: :destroy
 
   after_create :add_sys_reg_info
   after_create :add_busi_reg_info
+
+  def get_giving_jajin
+    self.merchant_giving_logs.sum(:amount)
+  end
 
   def add_sys_reg_info
     self.create_busi_reg_info

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :identity_verifies, only: [:create, :update, :index]
   resources :merchants, only: [:index, :show] do
     resources :shops, only: [:index]
+    collection do
+      get 'customer_index'
+    end
   end
   resources :shops, only: [:index, :show] do
     member do

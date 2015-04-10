@@ -26,4 +26,5 @@ RSpec.describe Merchant, type: :model do
   it { should have_many :tl_trades }
   it { should have_many :yl_trades }
   it { should have_many :merchant_messages }
+  it { should have_many :merchant_giving_logs }
 end
