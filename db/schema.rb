@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410141548) do
+ActiveRecord::Schema.define(version: 20150410142336) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(version: 20150410141548) do
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
     t.string   "name"
-    t.string   "idcard"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "verify_state"
+    t.string   "id_card"
   end
 
   add_index "customer_reg_infos", ["customer_id"], name: "index_customer_reg_infos_on_customer_id"

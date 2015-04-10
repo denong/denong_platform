@@ -5,10 +5,10 @@
 #  id           :integer          not null, primary key
 #  customer_id  :integer
 #  name         :string(255)
-#  idcard       :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
 #  verify_state :integer
+#  id_card      :string(255)
 #
 
 require 'rails_helper'
