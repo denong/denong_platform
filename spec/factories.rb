@@ -45,7 +45,7 @@ FactoryGirl.define do
   
   factory :identity_verify do
     name "ExampleName"
-    id_num "333333333333333333"
+    id_card "333333333333333333"
     verify_state 1
   end
 

@@ -1,1 +1,1 @@
-json.extract! @identity_verify, :name, :id_num
+json.extract! @identity_verify, :name, :id_card

@@ -1,1 +1,1 @@
-json.extract! @identity_verify, :name, :id_num, :verify_state, :front_image, :back_image
+json.extract! @identity_verify, :name, :id_card, :verify_state, :front_image, :back_image

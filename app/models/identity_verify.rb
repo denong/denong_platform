@@ -4,11 +4,11 @@
 #
 #  id           :integer          not null, primary key
 #  name         :string(255)
-#  id_num       :string(255)
 #  verify_state :integer
 #  customer_id  :integer
 #  created_at   :datetime
 #  updated_at   :datetime
+#  id_card      :string(255)
 #
 
 class IdentityVerify < ActiveRecord::Base
@@ -23,7 +23,7 @@ class IdentityVerify < ActiveRecord::Base
   before_save :set_state
 
   validates :name, presence: true
-  validates :id_num, presence: true, uniqueness: true
+  validates :id_card, presence: true, uniqueness: true
 
   def set_state
     self.verify_state = :unverified
