@@ -24,6 +24,16 @@ class BankCard < ActiveRecord::Base
 
   before_create :check_customer
 
+  def self.add_bank_card params,customer
+    if params["sms_token"] == "123456"
+      self.create( name: @params["name"], bankcard_no: @params["card"], phone: @params["phone"], customer: customer)
+    end
+  end
+
+  def self.send_msg params
+    @params = params
+  end
+
   private
     def check_customer
       user = User.find_or_create_by phone:phone do |user|
