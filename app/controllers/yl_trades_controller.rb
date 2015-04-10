@@ -23,7 +23,8 @@ class YlTradesController < ApplicationController
   end
 
   def create
-    @yl_trade = YlTrade.new(yl_trade_params)
+    # puts "#{yl_trade_params}"
+    @yl_trade = YlTrade.new(yl_trade_params.permit!)
     @yl_trade.save
     respond_with(@yl_trade)
   end
@@ -46,6 +47,5 @@ class YlTradesController < ApplicationController
     def yl_trade_params
       params[:yl_trade]
     end
-end
 
-# params.require(:tl_trade).permit(:trade_time, :log_time, :trade_currency, :trade_state, :gain, :expend, :merchant_ind, :pos_ind, :merchant_name, :merchant_type, :merchant_city, :trade_type,)
+end
