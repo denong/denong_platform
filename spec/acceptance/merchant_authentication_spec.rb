@@ -8,6 +8,13 @@ resource "商户用户鉴权" do
     parameter :phone, "商户手机号", :required => true, scope: :merchant_user
     parameter :password, "商户密码", :required => true, scope: :merchant_user
 
+    response_field :id, "商户ID"
+    response_field :email, "邮箱"
+    response_field :phone, "电话号码"
+    response_field :authentication_token, "鉴权Token"
+    response_field :created_at, "创建时间"
+    response_field :updated_at, "更新时间"
+
     let(:phone) { "138138138138" }
     let(:password) { "abcd.1234" }
     let(:raw_post) { params.to_json }

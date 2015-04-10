@@ -4,6 +4,8 @@ resource "历史收益" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
+  
+
   get "/gain_histories" do
     before do
       customer = create(:customer)
@@ -15,6 +17,14 @@ resource "历史收益" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
+    response_field :total_pages, "总页数"
+    response_field :current_page, "页码"
+    response_field :gain_histories, "收益历史"
+
+    response_field :gain, "一日收益"
+    response_field :gain_date, "收益日期"
+
+
     example "查询历史收益" do
       do_request
       expect(status).to eq 200
@@ -22,6 +32,7 @@ resource "历史收益" do
 
     parameter :page, "页码", required: false
     let(:page) { 3 }
+
     example "查询历史收益第三页" do
       do_request
       expect(status).to eq(200)
@@ -45,6 +56,9 @@ resource "历史收益" do
 
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
+
+    response_field :gain, "昨日收益"
+    response_field :gain_date, "收益日期"
 
     example "查询昨日收益" do
       do_request

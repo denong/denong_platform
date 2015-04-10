@@ -7,7 +7,7 @@ class BankCardsController < ApplicationController
   end
 
   def send_msg
-    params["user_id"] = current_customer.id
+    params["userId"] = current_customer.id
     BankCard.send_msg params
   end
 end

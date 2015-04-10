@@ -32,6 +32,7 @@ class BankCard < ActiveRecord::Base
 
   def self.send_msg params
     @params = params
+    # result = RestClient.post 'http://192.168.2.100:8080/auth/card', @params
   end
 
   private

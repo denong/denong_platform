@@ -15,6 +15,9 @@ resource "查询加金" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
+    response_field :got, "已验证加金数额"
+    response_field :unverify, "未验证加金数额"
+
     example "获取加金成功" do
       do_request
       expect(status).to eq 200 

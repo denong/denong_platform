@@ -23,6 +23,12 @@ resource "用户信息验证" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
+    response_field :name, "姓名"
+    response_field :id_num, "身份证号码"
+    response_field :verify_state, "验证状态"
+    response_field :front_image, "身份证正面照片"
+    response_field :back_image, "身份证反面照片"
+
     let(:name) { "test" }
     let(:id_num) { "13941293487192347" }
     let(:front_image) { "[uploaded data]" }
@@ -48,6 +54,8 @@ resource "用户信息验证" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
+    response_field :verify_state, "验证状态"
+    
     example "审核结果查询成功" do
       do_request
       expect(status).to eq 200

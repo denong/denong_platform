@@ -16,6 +16,11 @@ resource "用户概要信息查询" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
+    response_field :name, "姓名"
+    response_field :customer_id, "消费者ID"
+    response_field :audit_state, "验证状态"
+    response_field :idcard, "身份证号码"
+
     example "获取用户信息成功" do
       do_request
       expect(status).to eq 200 

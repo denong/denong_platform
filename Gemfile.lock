@@ -85,6 +85,7 @@ GEM
     minitest (5.5.1)
     multi_json (1.11.0)
     mustache (0.99.8)
+    netrc (0.10.2)
     orm_adapter (0.5.0)
     paperclip (4.2.1)
       activemodel (>= 3.0.0)
@@ -118,6 +119,9 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rest-client (1.7.3)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -207,6 +211,7 @@ DEPENDENCIES
   rails (= 4.1.8)
   rails-i18n (~> 4.0.0)
   responders
+  rest-client
   rspec-rails (~> 3.0)
   rspec_api_documentation
   sass-rails (~> 4.0.3)

@@ -17,6 +17,13 @@ resource "用户鉴权" do
     let(:sms_token) { sms_attrs[:token] }
     let(:raw_post) { params.to_json }
 
+    response_field :id, "消费者ID"
+    response_field :email, "邮箱"
+    response_field :created_at, "创建时间"
+    response_field :updated_at, "更新时间"
+    response_field :phone, "电话号码"
+    response_field :authentication_token, "鉴权Token"
+
     example "用户注册成功" do
       create :sms_token
       do_request
@@ -47,6 +54,13 @@ resource "用户鉴权" do
     let(:phone) { user_attrs[:phone] }
     let(:password) { user_attrs[:password] }
     let(:raw_post) { params.to_json }
+
+    response_field :id, "消费者ID"
+    response_field :email, "邮箱"
+    response_field :created_at, "创建时间"
+    response_field :updated_at, "更新时间"
+    response_field :phone, "电话号码"
+    response_field :authentication_token, "鉴权Token"
 
     example "用户登录成功" do
 

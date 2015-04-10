@@ -10,6 +10,9 @@ resource "发送短信验证码" do
     let(:phone) { "18616591019" }
     let(:raw_post) { params.to_json }
 
+    response_field :id, "验证码ID"
+    response_field :phone, "电话号码"
+
     example "发送短信验证码" do
       do_request
       expect(status).to eq(201)
