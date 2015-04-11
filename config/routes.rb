@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :jajin, only: [:index]
   resources :identity_verifies, only: [:create, :update, :index]
   resources :merchants, only: [:index, :show] do
-    resources :shops, only: [:index]
+    resources :shops, only: [:index, :new, :create]
     collection do
       get 'customer_index'
     end
