@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class MerchantsController < ApplicationController
   before_action :set_merchant, only: [:show]
 
@@ -13,7 +14,7 @@ class MerchantsController < ApplicationController
   end
   
   def customer_index
-    # @merchants = current_customer.get_giving_jajin_merchant
+    @merchants = current_customer.get_giving_jajin_merchant.paginate(page: params[:page], per_page: 10)
   end
 
   private

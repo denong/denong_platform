@@ -54,7 +54,9 @@ resource "获取商户信息" do
       customer = create(:customer)
       merchants = create_list(:merchant, 3)
       merchants.each do |merchant|
-        create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)  
+        (0..3).each do |i|
+          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)  
+        end
       end
     end
 
