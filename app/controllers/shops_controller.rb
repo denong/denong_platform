@@ -1,7 +1,8 @@
 class ShopsController < ApplicationController
   
-  respond_to :json
+  respond_to :html, :json
   acts_as_token_authentication_handler_for User
+  acts_as_token_authentication_handler_for MerchantUser, only: [:new, :create]
   before_action :set_shop, only: [:show, :follow, :unfollow]
 
   def index
@@ -11,6 +12,10 @@ class ShopsController < ApplicationController
       shops = Shop.all
     end
     @shops = shops.paginate(page: params[:page], per_page: 10)
+  end
+
+  def new
+    @shop = current_merchant.shops.build
   end
 
   def show

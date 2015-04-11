@@ -1,0 +1,36 @@
+/**
+ * scss 统一变量定义
+ * 
+ * @author stw(suntongwei@denong.com)
+ * @version 0.1
+ */
+
+
+// 白色
+$color-white: #fff;
+// 统一程序背景色
+$app-color: $color-white;
+
+/*********************************************************
+ * 以下定义针对bootstrap进行修正
+ *********************************************************/
+// 设置全局字体
+$font-family-sans-serif: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: "Microsoft YaHei", Georgia, "Times New Roman", Times, serif;
+
+// 清除每个栅格的左右默认间距
+$grid-gutter-width: 0;
+
+// 顶部导航样式修正
+$navbar-height: 95px;
+$navbar-margin-bottom: 0;
+$navbar-default-link-active-bg: $color-white;
+$navbar-default-link-hover-bg: $color-white;
+$navbar-default-link-active-color: $color-white;
+$navbar-default-link-hover-color: $color-white;
+
+// 对面包屑的修正
+$breadcrumb-bg: transparent;
+$breadcrumb-separator: ">";
+$breadcrumb-padding-vertical: 0;
+$breadcrumb-padding-horizontal: 0;

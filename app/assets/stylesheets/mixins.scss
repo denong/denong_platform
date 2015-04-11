@@ -1,0 +1,21 @@
+/**
+ * 自定义函数
+ *
+ * @author stw(suntongwei@denong.com)
+ * @version 0.1
+ */
+
+
+/**
+ * 设置边框
+ * 参数：上边框，右边框，下边框，做边框，线条样式，样色，圆角
+ */
+@mixin border($top: 0, $right: 0, $bottom: 0, $left: 0, $color: $font-line-gray, $style: solid, $radius: 0) {
+  border-top: $top;
+  border-right: $right;
+  border-bottom: $bottom;
+  border-left: $left;
+  border-style: $style;
+  border-color: $color;
+  border-radius: $radius;
+}
