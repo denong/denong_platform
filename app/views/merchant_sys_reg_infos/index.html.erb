@@ -1,0 +1,23 @@
+<h1>Listing merchant_sys_reg_infos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @merchant_sys_reg_infos.each do |merchant_sys_reg_info| %>
+      <tr>
+        <td><%= link_to 'Show', merchant_sys_reg_info %></td>
+        <td><%= link_to 'Edit', edit_merchant_sys_reg_info_path(merchant_sys_reg_info) %></td>
+        <td><%= link_to 'Destroy', merchant_sys_reg_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Merchant sys reg info', new_merchant_sys_reg_info_path %>
