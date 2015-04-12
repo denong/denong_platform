@@ -70,6 +70,8 @@ gem 'annotate'
 gem 'will_paginate', '~> 3.0.6'
 
 gem 'rest-client'
+
+gem 'geokit-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

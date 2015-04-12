@@ -180,6 +180,8 @@ FactoryGirl.define do
     contact_person "shop_contact_person"
     contact_tel "12345678901"
     work_time "9:00-18:00"
+    lon 120.51
+    lat 30.40
   end
 
   factory :member_card do

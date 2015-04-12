@@ -33,6 +33,13 @@ class Shop < ActiveRecord::Base
   end 
 
   def self.get_neighbour_shop addr_data_params
-     
+    current_place = Geokit::LatLng.new(addr_data_params[:lon], addr_data_params[:lat])
+    shop_distance = {}
+    Shop.all.each do |shop|
+      shop_place = Geokit::LatLng.new(shop.lon, shop.lat)
+      shop_distance[shop] = current_place.distance_from( shop_place ) 
+    end 
+    shop_distance.sort_by {|key, value| value}.reverse
+    shop_distance.keys
   end
 end

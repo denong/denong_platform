@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class ShopsController < ApplicationController
   
   respond_to :html, :json
@@ -36,7 +37,7 @@ class ShopsController < ApplicationController
   end
 
   def neighbour_shop 
-    @shops = Shop.get_neighbour_shop addr_data_params
+    @shops = (Shop.get_neighbour_shop addr_data_params).paginate(page: params[:page], per_page: 10)
   end
 
   private
@@ -46,7 +47,7 @@ class ShopsController < ApplicationController
     end
 
     def addr_data_params
-      params.require(:merchant).permit(:lon, :lat)
+      params.require(:shop).permit(:lon, :lat)
     end 
 
 end

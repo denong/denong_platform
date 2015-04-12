@@ -1,5 +1,4 @@
 require 'acceptance_helper'
-
 resource "银联交易记录" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"

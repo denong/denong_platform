@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       post 'follow'
       post 'unfollow'
     end
+    collection do
+      post 'neighbour_shop' 
+    end
   end
   resources :jajin_logs, only: [:index, :show]
   resources :customer_reg_infos, only: [:show]
