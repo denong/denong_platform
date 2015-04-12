@@ -18,6 +18,8 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  lon                     :float
+#  lat                     :float
 #
 
 require 'rails_helper'

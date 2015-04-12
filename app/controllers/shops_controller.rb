@@ -35,10 +35,18 @@ class ShopsController < ApplicationController
     end
   end
 
+  def neighbour_shop 
+    @shops = Shop.get_neighbour_shop addr_data_params
+  end
+
   private
 
     def set_shop
       @shop = Shop.find(params[:id])
     end
+
+    def addr_data_params
+      params.require(:merchant).permit(:lon, :lat)
+    end 
 
 end

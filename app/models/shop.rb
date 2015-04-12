@@ -18,6 +18,8 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  lon                     :float
+#  lat                     :float
 #
 
 class Shop < ActiveRecord::Base
@@ -29,4 +31,8 @@ class Shop < ActiveRecord::Base
   def votes_up 
     self.cached_votes_up
   end 
+
+  def self.get_neighbour_shop addr_data_params
+     
+  end
 end
