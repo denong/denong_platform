@@ -47,6 +47,9 @@ gem "paperclip", "~> 4.2"
 # 
 gem 'acts_as_votable'
 
+# simple form
+gem 'simple_form'
+
 #######################################################################
 gem 'unicorn'
 
