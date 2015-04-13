@@ -5,11 +5,16 @@
  * @version 0.1
  */
 
-
 // 白色
 $color-white: #fff;
 // 统一程序背景色
 $app-color: $color-white;
+// 商户端应用程序主色(绿色)
+$bus-primary-color: #5c9e6e;
+// 商户端橙色
+$bus-orange-color: #e48639;
+// 商户端灰色
+$bus-border-color: #bcbcbc;
 
 /*********************************************************
  * 以下定义针对bootstrap进行修正
@@ -24,6 +29,7 @@ $grid-gutter-width: 0;
 // 顶部导航样式修正
 $navbar-height: 95px;
 $navbar-margin-bottom: 0;
+$navbar-default-bg: $color-white;
 $navbar-default-link-active-bg: $color-white;
 $navbar-default-link-hover-bg: $color-white;
 $navbar-default-link-active-color: $color-white;
@@ -34,3 +40,9 @@ $breadcrumb-bg: transparent;
 $breadcrumb-separator: ">";
 $breadcrumb-padding-vertical: 0;
 $breadcrumb-padding-horizontal: 0;
+
+// 去掉所有圆角
+$border-radius-base: 0;
+$border-radius-large: 0;
+$border-radius-small: 0;
+

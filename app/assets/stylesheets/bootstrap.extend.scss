@@ -8,3 +8,16 @@
 @import "global";
 @import "mixins";
 @import "bootstrap";
+
+.navbar {
+	.navbar-brand {
+		padding-top: 20px;
+	}
+	.navbar-right {
+		padding: 30px 100px 0 0;	
+	}
+}
+
+.btn-orange {
+	background: $bus-orange-color;
+}

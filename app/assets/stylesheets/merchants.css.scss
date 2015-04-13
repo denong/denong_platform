@@ -1,3 +1,48 @@
 // Place all the styles related to the merchants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+$font-color-gary: #525252;
+
+.m_login {
+	.login_bg {
+		position: absolute;
+		width: 100%;
+		z-index: -1;
+	}
+	.login_form {
+		margin-top: 150px;
+		padding: 10px;
+		.panel-default {
+			background: #fff;
+			border: 2px solid $bus-border-color;
+			padding: 0 10px;
+		}
+		.title {
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			color: $font-color-gary;
+		}
+		.form-horizontal {
+			.control-label {
+				text-align: center;
+				color: $font-color-gary !important;
+			}
+			.btn-warning {
+				padding-left: 60px;
+				padding-right: 60px;
+			}
+			.join-apply {
+				text-align: center;
+				a {
+					background:transparent;
+					color: $bus-primary-color;
+				}
+			}
+		}
+	}
+
+}

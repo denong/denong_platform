@@ -36,3 +36,15 @@ img {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+.bus-footer {
+	padding: 20px 0 20px 0;
+	text-align: center;
+	background-color: #73b585;	
+	color: #fff;
+	line-height: 25px;
+	a, a:hover, a:active {
+		color: #fff;
+		background: transparent;
+	}
+}
