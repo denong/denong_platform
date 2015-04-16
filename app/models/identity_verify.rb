@@ -23,7 +23,9 @@ class IdentityVerify < ActiveRecord::Base
   before_save :set_state
 
   validates :name, presence: true
-  validates :id_card, presence: true, uniqueness: true
+  validates :id_card, presence: true
+  validates :front_image, presence: true
+  validates :back_image, presence: true
 
   def set_state
     self.verify_state = :unverified

@@ -11,3 +11,8 @@ zh-CN:
         message: "提示："
       given_log:
         amount: "转赠加金数额"
+      identity_verify:
+        name: "姓名"
+        id_card: "身份证号码"
+        front_image: "身份证正面照片"
+        back_image: "身份证背面照片"

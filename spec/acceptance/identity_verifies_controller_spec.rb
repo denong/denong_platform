@@ -29,11 +29,12 @@ resource "用户信息验证" do
 
     let(:name) { "test" }
     let(:id_card) { "333333333333333333" }
-    let(:front_image) { "[uploaded data]" }
-    let(:back_image) { "[uploaded data]" }
+    let(:front_image) { ActionDispatch::Http::UploadedFile.new(tempfile: "./spec/asset/news.png", filename: "news.png", original_filename: "news.png", content_type: "image/png", headers: "Content-Disposition: form-data; name=\"front_image[photo]\"") }
+    let(:back_image) { ActionDispatch::Http::UploadedFile.new(tempfile: "./spec/asset/news.png", filename: "news.png", original_filename: "news.png", content_type: "image/png", headers: "Content-Disposition: form-data; name=\"front_image[photo]\"") }
     let(:raw_post) { params.to_json }
 
     example "上传身份证成功" do
+      puts "params is:#{params}"
       do_request
       expect(status).to eq 200
     end
