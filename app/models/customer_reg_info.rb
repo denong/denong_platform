@@ -11,7 +11,6 @@
 #  id_card      :string(255)
 #  nick_name    :string(255)
 #  gender       :integer
-#  phone        :string(255)
 #
 
 class CustomerRegInfo < ActiveRecord::Base
