@@ -33,6 +33,8 @@ class Customer < ActiveRecord::Base
   has_many :merchant_messages, dependent: :destroy
   # 商户赠送加金
   has_many :merchant_giving_logs, dependent: :destroy
+  
+  
   after_create :add_jajin
   after_create :add_customer_reg_info
 
@@ -79,7 +81,6 @@ class Customer < ActiveRecord::Base
     end
   end
 
-  # 待优化
   def get_giving_jajin_merchant
     merchant_giving_logs = self.merchant_giving_logs.all
     merchant_ids = []
