@@ -19,6 +19,7 @@ class CustomerRegInfosController < ApplicationController
     end
 
     def update_params
-      params.require(:customer_reg_info).permit(:nick_name, :gender)
+      params.require(:customer_reg_info).permit(:nick_name, :gender,
+        image_attributes: [:id, :photo, :_destroy])
     end
 end

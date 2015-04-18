@@ -39,6 +39,7 @@ resource "用户概要信息查询" do
 
     parameter :nick_name, "昵称", scope: :customer_reg_info
     parameter :gender, "性别", scope: :customer_reg_info
+    parameter :image, "头像", scope: :customer_reg_info
 
     let(:nick_name) { "Hello world!" }
     let(:gender) { 0 }
