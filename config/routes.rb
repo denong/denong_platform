@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
   resources :jajin_logs, only: [:index, :show]
-  resources :customer_reg_infos, only: [:show]
+  resources :customer_reg_infos, only: [:show, :update]
   resources :member_cards, only: [:index, :show] do
     member do
       post 'bind'

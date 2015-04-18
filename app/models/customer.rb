@@ -55,7 +55,7 @@ class Customer < ActiveRecord::Base
   end
 
   def add_customer_reg_info
-    self.create_customer_reg_info( verify_state: :unverified )
+    self.create_customer_reg_info( verify_state: :unverified)
   end
 
   def follow! votable
