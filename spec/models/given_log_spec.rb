@@ -19,7 +19,7 @@ RSpec.describe GivenLog, type: :model do
   describe "加金转赠" do
     
     let(:user1)                       { create(:user, email: "example1@example.com", phone: "12345678902", password: "12345678", authentication_token: "qwertyuio")}
-    let(:user2)                       { create(:user, email: "example2@example.com", phone: "12345678903", password: "12345678", authentication_token: "qwetyuio")}
+    let(:user2)                       { create(:user, email: "example2@example.com", phone: "12345678904", password: "12345678", authentication_token: "qwetyuio")}
     let(:customer)                    { create(:customer) }
     let(:customer_with_jajin)         { create(:customer_with_jajin) }
     let(:customer_with_jajin_pension) { create(:customer_with_jajin_pension, user: user2) }
