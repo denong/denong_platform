@@ -1,5 +1,10 @@
 require 'rack/test'
-FactoryGirl.define do
+FactoryGirl.define do  factory :gain_account do
+    customer nil
+gain_org nil
+total 1.5
+  end
+
 
   factory :gain_org do
     title "天弘基金"

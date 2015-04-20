@@ -12,5 +12,5 @@
 require 'rails_helper'
 
 RSpec.describe GainOrg, type: :model do
-  
+  it { should have_one :thumb }
 end
