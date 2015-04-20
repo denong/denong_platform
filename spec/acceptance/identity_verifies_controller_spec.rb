@@ -2,7 +2,6 @@ require 'acceptance_helper'
 
 resource "用户信息验证" do
   header "Accept", "application/json"
-  header "Content-Type", "application/json"
 
   post "/identity_verifies" do
 
@@ -12,8 +11,8 @@ resource "用户信息验证" do
 
     parameter :name, "用户名称", required: true, scope: :identity_verify
     parameter :id_card, "身份证号码", required: true, scope: :identity_verify
-    parameter :front_image, "正面照片",required: true, scope: :identity_verify
-    parameter :back_image, "反面照片",required: true, scope: :identity_verify
+    parameter :front_image_attributes, "正面照片",required: true, scope: :identity_verify
+    parameter :back_image_attributes, "反面照片",required: true, scope: :identity_verify
 
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -29,12 +28,10 @@ resource "用户信息验证" do
 
     let(:name) { "test" }
     let(:id_card) { "333333333333333333" }
-    let(:front_image) { ActionDispatch::Http::UploadedFile.new(tempfile: "./spec/asset/news.png", filename: "news.png", original_filename: "news.png", content_type: "image/png", headers: "Content-Disposition: form-data; name=\"front_image[photo]\"") }
-    let(:back_image) { ActionDispatch::Http::UploadedFile.new(tempfile: "./spec/asset/news.png", filename: "news.png", original_filename: "news.png", content_type: "image/png", headers: "Content-Disposition: form-data; name=\"front_image[photo]\"") }
-    let(:raw_post) { params.to_json }
+    let(:front_image_attributes) { attributes_for(:image) }
+    let(:back_image_attributes) { attributes_for(:image) }
 
     example "上传身份证成功" do
-      puts "params is:#{params}"
       do_request
       expect(status).to eq 200
     end
@@ -44,13 +41,12 @@ resource "用户信息验证" do
   post "/identity_verifies" do
     before do
       create(:customer_with_jajin_pension)
-      create(:identity_verify)
     end
 
     parameter :name, "用户名称", required: true, scope: :identity_verify
     parameter :id_card, "身份证号码", required: true, scope: :identity_verify
-    parameter :front_image, "正面照片",required: true, scope: :identity_verify
-    parameter :back_image, "反面照片",required: true, scope: :identity_verify
+    parameter :front_image_attributes, "正面照片",required: true, scope: :identity_verify
+    parameter :front_image_attributes, "反面照片",required: true, scope: :identity_verify
 
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -66,9 +62,8 @@ resource "用户信息验证" do
 
     let(:name) { "test" }
     let(:id_card) { "333333333333333333" }
-    let(:front_image) { "[uploaded data]" }
-    let(:back_image) { "[uploaded data]" }
-    let(:raw_post) { params.to_json }
+    let(:front_image_attributes) { attributes_for(:image) }
+    # let(:back_image_attributes) { attributes_for(:image) }
 
     example "上传身份证失败" do
       do_request
@@ -80,7 +75,8 @@ resource "用户信息验证" do
 
     before do
       customer = create(:customer_with_jajin_pension)
-      create(:identity_verify, customer: customer)
+      image = create(:image)
+      create(:identity_verify, customer: customer, front_image: image, back_image: image)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
