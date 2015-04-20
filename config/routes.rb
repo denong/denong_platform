@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       post 'bind'
     end
   end
-  resources :gain_histories, only: [:index, :show]
+  
   resources :yl_trades, only: [:create, :index, :show]
   resources :merchant_messages, only: [:create, :index]
   resources :merchant_giving_logs, only: [:index, :show]
@@ -44,6 +44,16 @@ Rails.application.routes.draw do
 
   resource :merchant_sys_reg_info
   resources :given_logs, only: [:create]
+
+
+  ################################################
+  # 养老金收益相关路由
+  resources :gain_histories, only: [:index, :show]
+  ################################################
+
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

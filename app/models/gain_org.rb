@@ -10,4 +10,5 @@
 #
 
 class GainOrg < ActiveRecord::Base
+  has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
 end
