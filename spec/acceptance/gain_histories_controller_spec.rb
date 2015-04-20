@@ -6,12 +6,14 @@ resource "历史收益" do
 
   
 
-  get "/gain_histories" do
+  get "gain_accounts/:gain_account_id/gain_histories" do
     before do
       customer = create(:customer)
-      create_list(:gain_history, 15, customer: customer)
+      gain_account = create(:gain_account_tianhong, customer: customer)
+      create_list(:gain_history, 15, customer: customer, gain_account: gain_account)
     end
 
+    let(:gain_account) { gain_account.id }
     user_attrs = FactoryGirl.attributes_for(:user)
 
     header "X-User-Token", user_attrs[:authentication_token]
@@ -39,30 +41,30 @@ resource "历史收益" do
     end
   end
 
-  get "/gain_histories/:id" do
-    before do
-      date_times = []
-      for i in 1..10 do
-        date_times << DateTime.new(2001,2,i.to_i)
-      end
-      customer = create(:customer)
-      date_times.each do |date_time|
-        create(:gain_history, gain_date: date_time, customer: customer)
-      end
-    end
+  # get "/gain_histories/:id" do
+  #   before do
+  #     date_times = []
+  #     for i in 1..10 do
+  #       date_times << DateTime.new(2001,2,i.to_i)
+  #     end
+  #     customer = create(:customer)
+  #     date_times.each do |date_time|
+  #       create(:gain_history, gain_date: date_time, customer: customer)
+  #     end
+  #   end
 
-    let(:id) { GainHistory.all.last.id }
-    user_attrs = FactoryGirl.attributes_for(:user)
+  #   let(:id) { GainHistory.all.last.id }
+  #   user_attrs = FactoryGirl.attributes_for(:user)
 
-    header "X-User-Token", user_attrs[:authentication_token]
-    header "X-User-Phone", user_attrs[:phone]
+  #   header "X-User-Token", user_attrs[:authentication_token]
+  #   header "X-User-Phone", user_attrs[:phone]
 
-    response_field :gain, "昨日收益"
-    response_field :gain_date, "收益日期"
+  #   response_field :gain, "昨日收益"
+  #   response_field :gain_date, "收益日期"
 
-    example "查询昨日收益" do
-      do_request
-      expect(status).to eq 200
-    end
-  end
+  #   example "查询昨日收益" do
+  #     do_request
+  #     expect(status).to eq 200
+  #   end
+  # end
 end

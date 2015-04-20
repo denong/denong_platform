@@ -48,9 +48,9 @@ Rails.application.routes.draw do
 
   ################################################
   # 养老金收益相关路由
-  resources :gain_histories, only: [:index, :show]
-
-  resources :gain_accounts, only: [:index, :show]
+  resources :gain_accounts, only: [:index, :show] do
+    resources :gain_histories, only: [:index, :show]
+  end
   ################################################
 
 
