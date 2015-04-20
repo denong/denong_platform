@@ -1,0 +1,23 @@
+<h1>Listing gain_accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gain_accounts.each do |gain_account| %>
+      <tr>
+        <td><%= link_to 'Show', gain_account %></td>
+        <td><%= link_to 'Edit', edit_gain_account_path(gain_account) %></td>
+        <td><%= link_to 'Destroy', gain_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Gain account', new_gain_account_path %>

@@ -1,15 +1,5 @@
 require 'rack/test'
-FactoryGirl.define do  factory :gain_account do
-    customer nil
-gain_org nil
-total 1.5
-  end
-
-
-  factory :gain_org do
-    title "天弘基金"
-    sub_title "商家信息商家信息"
-  end
+FactoryGirl.define do  
   
   factory :merchant_giving_log do
     amount 1.5
@@ -198,6 +188,32 @@ total 1.5
 
   factory :member_card do
     point 100.88
+  end
+
+  factory :gain_org do
+    factory :gain_org_tianhong do
+      title "天弘基金"
+      sub_title "商家信息商家信息"
+      association :thumb, factory: :image
+    end
+
+    factory :gain_org_gonghang do
+      title "工商银行"
+      sub_title "商家信息商家信息"
+      association :thumb, factory: :image
+    end
+  end
+
+  factory :gain_account do
+    total 200.5
+
+    factory :gain_account_tianhong do
+      association :gain_org, factory: :gain_org_tianhong
+    end
+
+    factory :gain_account_gonghang do
+      association :gain_org, factory: :gain_org_gonghang
+    end
   end
 
 end
