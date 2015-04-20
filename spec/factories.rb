@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do
+
+  factory :gain_org do
+    title "天弘基金"
+    sub_title "商家信息商家信息"
+  end
+  
   factory :merchant_giving_log do
     amount 1.5
     giving_time "2015-04-09 20:02:31"
