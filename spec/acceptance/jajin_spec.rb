@@ -10,7 +10,6 @@ resource "查询加金" do
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
-    jajin_attrs = FactoryGirl.attributes_for(:jajin)
 
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]

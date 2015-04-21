@@ -6,25 +6,36 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
 jajin = Jajin.create( got:188.88, unverify: 88.88)
 pension = Pension.create( total: 88.88)
-customer = Customer.create( jajin: jajin, pension: pension)
-user = User.create( email: "example@example.com",
+
+customer_1 = Customer.create( jajin: jajin, pension: pension)
+customer_2 = Customer.create( jajin: Jajin.create( got:0, unverify: 88.88), pension: Pension.create( total: 88.88))
+
+user = User.create( 
+    email: "example@example.com",
     phone: "12345678901",
     password: "abcd.1234",
     sms_token: "989898",
     authentication_token: "qwertyuiop",
-    customer: customer)
+    customer: customer_1)
+
+friend = User.create(
+  email: "given_user@example.com",
+  phone: "13888888888",
+  password: "abcd.1234",
+  sms_token: "989898",
+  authentication_token: "qwertyuioq",
+  customer: customer_2)
 
 merchant_sys_reg_info = MerchantSysRegInfo.create( 
-		sys_name:       "merchant_sys_name",
+	sys_name:       "merchant_sys_name",
     contact_person: "merchant_contact_person",
     contact_tel:    "09876543211",
     service_tel:    "11234567890",
     fax_tel:        "021-11111111",
     email:          "example@example.com",
-    company_addr:  "shanghai",
+    company_addr:   "shanghai",
     region:         "xuhui",
     industry:       "industry_name",
     postcode:       "200000",
@@ -46,7 +57,6 @@ shops = []
 end
 
 tl_trades = []
-
 (0..2).each do |i|
 	tl_trades << TlTrade.create(
 	card: "12345678",
@@ -73,6 +83,10 @@ yl_trades = []
 		merchant_addr: "MyString",
 		card: "123456789")
 end
+
+image = Image.create(
+  title: "image_title",
+  photo: Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png') )
 
 merchant = Merchant.create( ratio: 0.01,shops: shops, tl_trades: tl_trades, yl_trades: yl_trades)
 merchant.sys_reg_info = merchant_sys_reg_info
@@ -110,7 +124,6 @@ merchant_message = MerchantMessage.create(
 	url: "MyString")
 
 
-
 exchange_log = ExchangeLog.create(
 	amount: 1.5)
 
@@ -123,3 +136,24 @@ customer_reg_info = CustomerRegInfo.create(
 
 member_card = MemberCard.create(
 	point: 100.88)
+
+gain_account_tianhong = GainAccount.create(
+  total: 200.5 )
+gain_account_gonghang = GainAccount.create(
+  total: 100.5 )
+
+gain_org_tianhong = GainOrg.create(
+  title: "天弘基金",
+  sub_title: "商家信息商家信息",
+  thumb: image
+  )
+
+gain_org_gonghang = GainOrg.create(
+  title: "工商银行",
+  sub_title: "商家信息商家信息",
+  thumb: image
+  )
+
+
+
+
