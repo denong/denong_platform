@@ -29,6 +29,8 @@ class Customer < ActiveRecord::Base
   has_many :gain_histories, dependent: :destroy
   # 银联记录
   has_many :yl_trades, dependent: :destroy
+  # 通联记录
+  has_many :tl_trades, dependent: :destroy
   # 商户推送消息
   has_many :merchant_messages, dependent: :destroy
   # 商户赠送加金
