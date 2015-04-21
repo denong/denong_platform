@@ -40,7 +40,7 @@ RSpec.describe BankCard, type: :model do
       end
 
       it "should increase the card's number by 1" do
-        bank_card = BankCard.find_or_create_by(phone: card_attrs[:phone], bankcard_no: card_attrs[:bankcard_no])
+        bank_card = BankCard.find_or_create_by(phone: @bank_card.phone, bankcard_no: @bank_card.bankcard_no)
         expect(@bank_card.customer.bank_cards.size).to eq(1)
       end
     end

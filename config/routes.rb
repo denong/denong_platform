@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   resources :merchant_messages, only: [:create, :index]
   resources :merchant_giving_logs, only: [:index, :show]
 
-  resources :bank_cards, only: [:create] do
+  resources :bank_cards, only: [:index, :create] do
     collection do
       post 'send_msg'
     end

@@ -62,4 +62,21 @@ resource "绑定银行卡" do
       expect(status).to eq 200
     end
   end
+
+  get "/bank_cards" do
+    before do
+      customer = FactoryGirl.create :customer
+      FactoryGirl.create_list :bank_card, 3, customer: customer
+    end
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    example "获取银行卡列表" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
 end

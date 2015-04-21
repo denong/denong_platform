@@ -50,10 +50,10 @@ FactoryGirl.define do
   end
 
   factory :bank_card do
-    bankcard_no "0987654321123456"
+    sequence(:bankcard_no) { |n| "0987654321123456#{n}" }
     id_card "333333333333333333"
     name "ExampleName"
-    phone "12345678901"
+    phone "12345678903"
     card_type 1
     bank 1
     bind_state 1
