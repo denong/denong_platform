@@ -98,10 +98,17 @@ merchant.yl_trades = yl_trades
 user.customer.yl_trades = yl_trades
 
 
-image = Image.create(
+merchant_image = Image.create(
   title: "image_title",
   photo: Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png') )
-merchant.thumb = image
+tianhong_image = Image.create(
+  title: "image_title",
+  photo: Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png') )
+gonghang_image = Image.create(
+  title: "image_title",
+  photo: Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png') )
+
+merchant.thumb = merchant_image
 
 bank_card = BankCard.create(
 	bankcard_no: "0987654321123456",
@@ -158,8 +165,8 @@ gain_org_gonghang = GainOrg.create(
   title: "工商银行",
   sub_title: "商家信息商家信息")
 
-gain_org_tianhong.thumb = image 
-gain_org_gonghang.thumb = image
+gain_org_tianhong.thumb = tianhong_image 
+gain_org_gonghang.thumb = gonghang_image
 
 gain_account_tianhong = GainAccount.create( total: 200.5 )
 gain_account_gonghang = GainAccount.create( total: 100.5 )
