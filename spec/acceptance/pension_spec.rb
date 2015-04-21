@@ -35,4 +35,23 @@ resource "查询养老金" do
       expect(status).to eq 401
     end
   end
+
+  get "/pension" do
+    before do
+      create(:customer)
+    end
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+    pension_attrs = FactoryGirl.attributes_for(:pension)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    example "获取养老金失败（养老金账号未开通）" do
+      do_request
+      # expect(status).to eq 200 
+      # expect(response_body).to eq(pension_attrs.to_json)
+    end
+
+  end
 end
