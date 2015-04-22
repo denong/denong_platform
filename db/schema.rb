@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420145337) do
+ActiveRecord::Schema.define(version: 20150422144528) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -135,6 +135,18 @@ ActiveRecord::Schema.define(version: 20150420145337) do
   end
 
   add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type"
+
+  create_table "jajin_identity_codes", force: true do |t|
+    t.string   "identity_code"
+    t.datetime "expiration_time"
+    t.integer  "customer_id"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "jajin_identity_codes", ["customer_id"], name: "index_jajin_identity_codes_on_customer_id"
+  add_index "jajin_identity_codes", ["merchant_id"], name: "index_jajin_identity_codes_on_merchant_id"
 
   create_table "jajin_logs", force: true do |t|
     t.float    "amount"
