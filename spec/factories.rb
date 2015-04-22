@@ -1,11 +1,9 @@
 require 'rack/test'
-FactoryGirl.define do  factory :jajin_identity_code do
-    identity_code "MyString"
-expiration_time ""
-customer nil
-merchant nil
+FactoryGirl.define do  
+
+  factory :jajin_identity_code do
+    expiration_time "2015-04-09 20:02:31"
   end
-  
   
   factory :merchant_giving_log do
     amount 1.5

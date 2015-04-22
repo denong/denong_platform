@@ -14,5 +14,23 @@
 require 'rails_helper'
 
 RSpec.describe JajinIdentityCode, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to :customer }
+  it { should belong_to :merchant }
+
+  let(:customer)  { create(:customer_with_jajin_pension) }
+  let(:merchant)  { create(:merchant) }
+  let(:expiration_time) { DateTime.new(2021,2,3,4,5,6,'+8') }
+  describe "jajin_identity_code" do
+    before(:each) do
+      @jajin_identity_code = JajinIdentityCode.add_identity_code(customer: customer, merchant: merchant, expiration_time: expiration_time)
+    end
+
+    it "should not to be nil for identity code" do
+      expect(@jajin_identity_code.identity_code).not_to be_nil
+    end
+
+    it "should make the expiration_time after create time " do
+      expect(@jajin_identity_code.expiration_time).to be > @jajin_identity_code.created_at
+    end
+  end
 end

@@ -14,4 +14,14 @@
 class JajinIdentityCode < ActiveRecord::Base
   belongs_to :customer
   belongs_to :merchant
+
+  validates_uniqueness_of :identity_code
+  validates_presence_of :identity_code
+
+  def self.add_identity_code init_data
+    identity_code = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
+    init_data[:identity_code] = identity_code
+    self.create init_data
+  end
+
 end
