@@ -18,4 +18,7 @@ class CustomerRegInfo < ActiveRecord::Base
   enum gender: [:male, :female]
   belongs_to :customer
   has_one :image, as: :imageable, dependent: :destroy
+
+  accepts_nested_attributes_for :image, allow_destroy: true
+
 end

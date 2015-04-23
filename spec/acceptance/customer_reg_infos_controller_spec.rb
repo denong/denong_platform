@@ -41,9 +41,8 @@ resource "用户概要信息查询" do
     parameter :image_attributes, "头像", scope: :customer_reg_info
 
     let(:nick_name) { "Hello world!" }
-    let(:gender) { 0 }
+    let(:gender) { "female" }
     let(:image_attributes) { attributes_for(:image) }
-    let(:raw_post) { params.to_json }
 
     example "更新用户信息成功" do
       do_request
