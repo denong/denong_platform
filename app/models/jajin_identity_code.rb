@@ -19,6 +19,8 @@ class JajinIdentityCode < ActiveRecord::Base
   validates_uniqueness_of :verify_code
   validates_presence_of :verify_code
 
+  validates_presence_of :amount
+
   def self.add_identity_code init_data
     verify_code = Time.now.to_i.to_s + (0...20).map { ('a'..'z').to_a[rand(26)] }.join
     init_data[:verify_code] = verify_code

@@ -31,10 +31,10 @@ class JajinVerifyLog < ActiveRecord::Base
   private
 
     def must_have_verify_code
-      identity_code = JajinIdentityCode.find(identity_code: verify_code)
-      if identity_code.nil?
+      jajin_code = JajinIdentityCode.find_by(verify_code: verify_code)
+      if jajin_code.nil?
         errors.add(:message, "该加金验证码不存在")
-      elsif verify_time > identity_code.expiration_time
+      elsif verify_time > jajin_code.expiration_time
         errors.add(:message, "该加金验证码已过期")
       end
     end

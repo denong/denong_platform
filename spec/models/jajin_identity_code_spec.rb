@@ -23,7 +23,7 @@ RSpec.describe JajinIdentityCode, type: :model do
   let(:expiration_time) { DateTime.new(2021,2,3,4,5,6,'+8') }
   describe "赠送加金码" do
     before(:each) do
-      @jajin_identity_code = JajinIdentityCode.add_identity_code(customer: customer, merchant: merchant, expiration_time: expiration_time)
+      @jajin_identity_code = JajinIdentityCode.add_identity_code(customer: customer, merchant: merchant, expiration_time: expiration_time, amount: 10.9)
     end
 
     it "should not to be nil for identity code" do

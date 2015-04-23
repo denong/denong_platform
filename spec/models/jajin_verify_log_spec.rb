@@ -26,19 +26,36 @@ RSpec.describe JajinVerifyLog, type: :model do
 
     context "扫码赠送加金成功" do
       before(:each) do
-        @jajin_identity_code = JajinIdentityCode.add_identity_code(customer: customer, merchant: merchant, expiration_time: expiration_time)
+        @jajin_identity_code = JajinIdentityCode.add_identity_code(merchant: merchant, expiration_time: expiration_time, amount: 10)
+        @expectation = expect{ create(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer, amount: 10) }
       end
 
       it "should be success for add verify code" do
-        expect(JajinVerifyLog.create())
+        @expectation.to change{ JajinVerifyLog.count }.by 1
       end
 
-      it "should make the expiration_time after create time " do
-        expect(@jajin_identity_code.expiration_time).to be > @jajin_identity_code.created_at
+      it "should add customer's jajin by amount" do
+        @expectation.to change{ customer.jajin.got }.by @jajin_identity_code.amount
       end
-
     end
 
+    context "扫码赠送加金失败" do
+      before(:each) do
+        @jajin_identity_code = JajinIdentityCode.add_identity_code(merchant: merchant, expiration_time: expiration_time, amount: 10)
+      end
+
+      it "should be failed because of the invalid code" do
+        jajin_verify_log = build(:jajin_verify_log, verify_code: "000", customer: customer, amount: 10) 
+        expect(jajin_verify_log).not_to be_valid
+        expect(jajin_verify_log.errors.full_messages).to be_include("提示：该加金验证码不存在")
+      end
+
+      it "should be failed because of the verify code is expired" do
+        jajin_verify_log = build(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer, amount: 10, verify_time: @jajin_identity_code[:expiration_time]+100) 
+        expect(jajin_verify_log).not_to be_valid
+        expect(jajin_verify_log.errors.full_messages).to be_include("提示：该加金验证码已过期")
+      end
+    end
 
 
   end
