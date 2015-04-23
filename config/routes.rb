@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
-  
-  devise_ios_rails_for :merchant_users
+  devise_ios_rails_for :merchant_users  
   devise_ios_rails_for :users
+
+  resources :customer_reg_infos, only: [:show]
+  resource :customer_reg_info, only: [:show, :update]
+
   resources :tl_trades, only: [:create]
   resources :sms_tokens, only: [:create]
   resources :pension, only: [:index]
@@ -25,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
   resources :jajin_logs, only: [:index, :show]
-  resources :customer_reg_infos, only: [:show, :update]
+
   resources :member_cards, only: [:index, :show] do
     member do
       post 'bind'

@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
     current_merchant_user.try(:merchant)
   end
 
+  helper_method :current_customer, :current_merchant
+
   protected
 
   def configure_permitted_parameters

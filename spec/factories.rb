@@ -95,7 +95,14 @@ FactoryGirl.define do
     authentication_token "qwertyuioq"  
   end
 
-
+  factory :customer_reg_info do
+    name    "customer_name"
+    id_card  "333333333"
+    nick_name "customer nick name"
+    verify_state "verified"
+    gender "male"
+    association :image, factory: :image
+  end
 
   factory :customer do
     factory :customer_with_jajin_pension do
@@ -116,7 +123,7 @@ FactoryGirl.define do
     end
     factory :customer_with_reg_info do |customer|
       after(:create) do |customer|
-        customer.customer_reg_info.update_attributes attributes_for(:customer_reg_info)
+        customer.customer_reg_info = create :customer_reg_info
       end
     end
 
@@ -138,7 +145,7 @@ FactoryGirl.define do
     got 188.88
 
     after(:build) do |jajin|
-      jajin.customer ||= FactoryGirl.create(:customer, :jajin => jajin)
+      jajin.customer ||= FactoryGirl.create(:customer, jajin: jajin)
     end
   end
 
@@ -152,12 +159,6 @@ FactoryGirl.define do
         create_list(:shop, 2, merchant: merchant)
       end
     end
-  end
-
-  factory :customer_reg_info do
-    name    "customer_name"
-    id_card  "333333333"
-    image 
   end
 
   factory :merchant_sys_reg_info do
