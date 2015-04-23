@@ -23,7 +23,7 @@ class ExchangeLog < ActiveRecord::Base
 
   def as_json(options=nil)
     {
-      
+      status: "ok"
     }
   end
   
