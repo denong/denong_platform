@@ -19,7 +19,7 @@ class JajinIdentityCode < ActiveRecord::Base
   validates_presence_of :identity_code
 
   def self.add_identity_code init_data
-    identity_code = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
+    identity_code = Time.now.to_i.to_s + (0...20).map { ('a'..'z').to_a[rand(26)] }.join
     init_data[:identity_code] = identity_code
     self.create init_data
   end

@@ -1,5 +1,12 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :jajin_verify_log do
+    amount 1.5
+verify_code "MyString"
+verify_time "2015-04-24 00:11:52"
+customer nil
+merchant nil
+  end
+  
 
   factory :jajin_identity_code do
     expiration_time "2015-04-09 20:02:31"
