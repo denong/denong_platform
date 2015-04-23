@@ -4,7 +4,6 @@
 #
 #  id              :integer          not null, primary key
 #  expiration_time :datetime
-#  customer_id     :integer
 #  merchant_id     :integer
 #  created_at      :datetime
 #  updated_at      :datetime
