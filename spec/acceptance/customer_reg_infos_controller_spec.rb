@@ -2,7 +2,6 @@ require 'acceptance_helper'
 
 resource "用户概要信息查询" do
   header "Accept", "application/json"
-  header "Content-Type", "application/json"
 
   get "/customer_reg_infos/:id" do
     before do
@@ -39,10 +38,11 @@ resource "用户概要信息查询" do
 
     parameter :nick_name, "昵称", scope: :customer_reg_info
     parameter :gender, "性别", scope: :customer_reg_info
-    parameter :image, "头像", scope: :customer_reg_info
+    parameter :image_attributes, "头像", scope: :customer_reg_info
 
     let(:nick_name) { "Hello world!" }
     let(:gender) { 0 }
+    let(:image_attributes) { attributes_for(:image) }
     let(:raw_post) { params.to_json }
 
     example "更新用户信息成功" do

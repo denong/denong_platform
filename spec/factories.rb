@@ -157,6 +157,7 @@ FactoryGirl.define do
   factory :customer_reg_info do
     name    "customer_name"
     id_card  "333333333"
+    image 
   end
 
   factory :merchant_sys_reg_info do
