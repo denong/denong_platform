@@ -9,11 +9,11 @@
 #  updated_at      :datetime
 #  amount          :float
 #  verify_code     :string(255)
-#  verify_state    :integer
+#  verify_state    :integer          default(0)
 #
 
 class JajinIdentityCode < ActiveRecord::Base
-  enum verify_state: [:unverified, :verified ]
+  enum verify_state: { unverified: 0, verified: 1 }
 
   belongs_to :customer
   belongs_to :merchant
@@ -27,9 +27,8 @@ class JajinIdentityCode < ActiveRecord::Base
 
   def self.activate_by_verify_code verify_code
     identity = find_by verify_code: verify_code
-    if identity.present? && identity.verify_state == :unverified
-      identity.verify_state = :verified
-      identity.save
+    if identity.present? && identity.unverified?
+      identity.verified!
       return true
     end
     return false

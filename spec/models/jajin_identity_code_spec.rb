@@ -9,7 +9,7 @@
 #  updated_at      :datetime
 #  amount          :float
 #  verify_code     :string(255)
-#  verify_state    :integer
+#  verify_state    :integer          default(0)
 #
 
 require 'rails_helper'
@@ -21,6 +21,7 @@ RSpec.describe JajinIdentityCode, type: :model do
   let(:expiration_time) { DateTime.new(2021,2,3,4,5,6,'+8') }
 
   describe "赠送加金码" do
+
     before(:each) do
       @jajin_identity_code = JajinIdentityCode.create(merchant: merchant, expiration_time: expiration_time, amount: 10.9)
     end
@@ -32,5 +33,28 @@ RSpec.describe JajinIdentityCode, type: :model do
     it "should make the expiration_time after create time " do
       expect(@jajin_identity_code.expiration_time).to be > @jajin_identity_code.created_at
     end
+
+    context "activate jajin identity code success" do
+      it "should activate success" do
+        expect(@jajin_identity_code.verify_state).to eq "unverified"
+        expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be true
+        @jajin_identity_code.reload
+        expect(@jajin_identity_code.verify_state).to eq "verified"
+      end
+    end
+
+    context "activate jajin identity code fail" do
+      it "should fail when the verify code is not exist" do
+        expect(JajinIdentityCode.activate_by_verify_code "111").to be false
+      end
+
+      it "should fail when the verfiy code is already verified" do
+        expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be true
+        expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be false
+      end
+
+    end
+
+
   end
 end
