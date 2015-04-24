@@ -47,13 +47,14 @@ RSpec.describe JajinVerifyLog, type: :model do
       it "should be failed because of the invalid code" do
         jajin_verify_log = build(:jajin_verify_log, verify_code: "000", customer: customer, amount: 10) 
         expect(jajin_verify_log).not_to be_valid
-        expect(jajin_verify_log.errors.full_messages).to be_include("提示：该加金验证码不存在")
+        expect(jajin_verify_log.errors.full_messages).to be_include("提示：该加金验证码不存在或已失效")
       end
 
       it "should be failed because of the verify code is expired" do
-        jajin_verify_log = build(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer, amount: 10, verify_time: @jajin_identity_code[:expiration_time]+100) 
+        @jajin_identity_code.update_attributes expiration_time: Time.zone.now - 1.day
+        jajin_verify_log = build(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer, amount: 10) 
         expect(jajin_verify_log).not_to be_valid
-        expect(jajin_verify_log.errors.full_messages).to be_include("提示：该加金验证码已过期")
+        expect(jajin_verify_log.errors.full_messages).to be_include("提示：该加金验证码不存在或已失效")
       end
     end
 

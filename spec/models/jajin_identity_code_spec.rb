@@ -41,6 +41,12 @@ RSpec.describe JajinIdentityCode, type: :model do
         @jajin_identity_code.reload
         expect(@jajin_identity_code.verify_state).to eq "verified"
       end
+
+      it "should activate success when the expiration_time is nil" do
+        @jajin_identity_code.expiration_time = nil
+        @jajin_identity_code.save
+        expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be true
+      end
     end
 
     context "activate jajin identity code fail" do
@@ -50,6 +56,12 @@ RSpec.describe JajinIdentityCode, type: :model do
 
       it "should fail when the verfiy code is already verified" do
         expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be true
+        expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be false
+      end
+
+      it "should fail when the expiration_time is out" do
+        @jajin_identity_code.expiration_time = DateTime.parse("2014-4-30")
+        @jajin_identity_code.save
         expect(JajinIdentityCode.activate_by_verify_code @jajin_identity_code.verify_code).to be false
       end
 

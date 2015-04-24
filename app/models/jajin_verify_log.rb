@@ -18,7 +18,7 @@ class JajinVerifyLog < ActiveRecord::Base
   has_one :jajin_log, as: :jajinable
 
   validates_presence_of :customer, on: :create
-  validate :must_have_verify_code, on: :create
+  validate :must_verify_state_sucess, on: :create
   before_save :calculate
   before_save :add_jajin_log
 
@@ -30,12 +30,10 @@ class JajinVerifyLog < ActiveRecord::Base
 
   private
 
-    def must_have_verify_code
-      jajin_code = JajinIdentityCode.find_by(verify_code: verify_code)
-      if jajin_code.nil?
-        errors.add(:message, "该加金验证码不存在")
-      elsif verify_time > jajin_code.expiration_time
-        errors.add(:message, "该加金验证码已过期")
+    def must_verify_state_sucess
+      verify_rlt = JajinIdentityCode.activate_by_verify_code verify_code
+      unless verify_rlt
+        errors.add(:message, "该加金验证码不存在或已失效")
       end
     end
 

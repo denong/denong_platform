@@ -28,8 +28,10 @@ class JajinIdentityCode < ActiveRecord::Base
   def self.activate_by_verify_code verify_code
     identity = find_by verify_code: verify_code
     if identity.present? && identity.unverified?
-      identity.verified!
-      return true
+      unless identity.expiration_time.present? && Time.zone.now > identity.expiration_time
+        identity.verified!
+        return true
+      end
     end
     return false
   end
