@@ -30,10 +30,10 @@ class JajinIdentityCode < ActiveRecord::Base
     if identity.present? && identity.unverified?
       unless identity.expiration_time.present? && Time.zone.now > identity.expiration_time
         identity.verified!
-        return true
+        return identity
       end
     end
-    return false
+    return nil
   end
 
   private

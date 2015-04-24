@@ -22,12 +22,12 @@ RSpec.describe JajinVerifyLog, type: :model do
 
     let(:customer)  { create(:customer_with_jajin_pension) }
     let(:merchant)  { create(:merchant) }
-    let(:expiration_time) { DateTime.new(2021,2,3,4,5,6,'+8') }
+    let(:expiration_time) { Time.zone.now + 1.day }
 
     context "扫码赠送加金成功" do
       before(:each) do
         @jajin_identity_code = JajinIdentityCode.create(merchant: merchant, expiration_time: expiration_time, amount: 10)
-        @expectation = expect{ create(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer, amount: 10) }
+        @expectation = expect{ create(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer) }
       end
 
       it "should be success for add verify code" do
