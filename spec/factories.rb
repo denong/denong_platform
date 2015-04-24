@@ -1,14 +1,12 @@
 require 'rack/test'
 FactoryGirl.define do  
   factory :jajin_verify_log do
-    amount 1.5
-    verify_code "MyString"
-    verify_time DateTime.now
+    verify_code "123456"
   end
   
   factory :jajin_identity_code do
-    expiration_time DateTime.now+100
     amount 10.8
+    verify_code "123456"
   end
   
   factory :merchant_giving_log do

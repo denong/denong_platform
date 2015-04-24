@@ -24,7 +24,7 @@ class JajinVerifyLog < ActiveRecord::Base
 
   def as_json(options=nil)
     {
-      
+      verify_code: verify_code
     }
   end
 

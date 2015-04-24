@@ -37,6 +37,8 @@ class Customer < ActiveRecord::Base
   has_many :merchant_giving_logs, dependent: :destroy
   # 基金理财账户
   has_many :gain_accounts, dependent: :destroy
+  # 扫码送加金
+  has_many :jajin_verify_logs, dependent: :destroy
   
   
   after_create :add_jajin

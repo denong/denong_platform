@@ -24,6 +24,7 @@ RSpec.describe Customer, type: :model do
   it { should have_many :yl_trades }
   it { should have_many :merchant_messages }
   it { should have_many :gain_accounts }
+  it { should have_many :jajin_verify_logs }
 
   describe "friendships" do
     before(:each) do
