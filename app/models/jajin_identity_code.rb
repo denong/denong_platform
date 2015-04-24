@@ -20,11 +20,21 @@ class JajinIdentityCode < ActiveRecord::Base
 
   validates_presence_of :amount
 
-  before_create :generate_identity_code
+  before_validation :generate_verify_code
+
+  def self.activate_by_verify_code verify_code
+    identity = find_by verify_code: verify_code
+    if identity.present? && identity.verify_state == :unverify
+      identity.verify_state = :verified
+      identity.save
+      return true
+    end
+    return false
+  end
 
   private
-    def generate_identity_code
-      self.verify_code = Devise.friendly_token.first(10)
+    def generate_verify_code
+      self.verify_code ||= Devise.friendly_token.first(10)
     end
 
 end

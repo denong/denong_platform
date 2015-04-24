@@ -26,7 +26,7 @@ RSpec.describe JajinVerifyLog, type: :model do
 
     context "扫码赠送加金成功" do
       before(:each) do
-        @jajin_identity_code = JajinIdentityCode.add_identity_code(merchant: merchant, expiration_time: expiration_time, amount: 10)
+        @jajin_identity_code = JajinIdentityCode.create(merchant: merchant, expiration_time: expiration_time, amount: 10)
         @expectation = expect{ create(:jajin_verify_log, verify_code: @jajin_identity_code[:verify_code], customer: customer, amount: 10) }
       end
 
@@ -41,7 +41,7 @@ RSpec.describe JajinVerifyLog, type: :model do
 
     context "扫码赠送加金失败" do
       before(:each) do
-        @jajin_identity_code = JajinIdentityCode.add_identity_code(merchant: merchant, expiration_time: expiration_time, amount: 10)
+        @jajin_identity_code = JajinIdentityCode.create(merchant: merchant, expiration_time: expiration_time, amount: 10)
       end
 
       it "should be failed because of the invalid code" do

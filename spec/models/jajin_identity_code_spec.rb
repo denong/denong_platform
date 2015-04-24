@@ -14,15 +14,14 @@
 require 'rails_helper'
 
 RSpec.describe JajinIdentityCode, type: :model do
-  it { should belong_to :customer }
   it { should belong_to :merchant }
 
-  let(:customer)  { create(:customer_with_jajin_pension) }
   let(:merchant)  { create(:merchant) }
   let(:expiration_time) { DateTime.new(2021,2,3,4,5,6,'+8') }
+
   describe "赠送加金码" do
     before(:each) do
-      @jajin_identity_code = JajinIdentityCode.add_identity_code(customer: customer, merchant: merchant, expiration_time: expiration_time, amount: 10.9)
+      @jajin_identity_code = JajinIdentityCode.create(merchant: merchant, expiration_time: expiration_time, amount: 10.9)
     end
 
     it "should not to be nil for identity code" do
