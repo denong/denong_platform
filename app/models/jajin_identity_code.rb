@@ -20,10 +20,11 @@ class JajinIdentityCode < ActiveRecord::Base
 
   validates_presence_of :amount
 
-  def self.add_identity_code init_data
-    verify_code = Time.now.to_i.to_s + (0...20).map { ('a'..'z').to_a[rand(26)] }.join
-    init_data[:verify_code] = verify_code
-    self.create init_data
-  end
+  before_create :generate_identity_code
+
+  private
+    def generate_identity_code
+      self.verify_code = Devise.friendly_token.first(10)
+    end
 
 end
