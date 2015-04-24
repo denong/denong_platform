@@ -9,6 +9,7 @@
 #  updated_at      :datetime
 #  amount          :float
 #  verify_code     :string(255)
+#  verify_state    :integer
 #
 
 require 'rails_helper'
