@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   devise_ios_rails_for :merchant_users  
   devise_ios_rails_for :users
 
+
   resources :customer_reg_infos, only: [:show]
   resource :customer_reg_info, only: [:show, :update]
 
-  resources :tl_trades, only: [:create]
   resources :sms_tokens, only: [:create]
   resources :pension, only: [:index]
-  resources :exchange_logs, only: [:create]
+  
   resources :jajin, only: [:index]
   resources :identity_verifies, only: [:create, :update, :index]
   resources :merchants, only: [:index, :show] do
@@ -27,7 +27,6 @@ Rails.application.routes.draw do
       post 'neighbour_shop' 
     end
   end
-  resources :jajin_logs, only: [:index, :show]
 
   resources :member_cards, only: [:index, :show] do
     member do
@@ -46,7 +45,6 @@ Rails.application.routes.draw do
   end
 
   resource :merchant_sys_reg_info
-  resources :given_logs, only: [:create]
 
 
   ################################################
@@ -57,6 +55,23 @@ Rails.application.routes.draw do
   ################################################
 
 
+  ################################################
+  # 加金详细列表
+  resources :jajin_logs, only: [:index, :show]
+
+  # 转赠加金
+  resources :given_logs, only: [:create]
+
+  # 扫码赠加金
+  resources :jajin_verify_logs, only: [:create]  
+
+  # 加金转养老金
+  resources :exchange_logs, only: [:create]
+
+  # 通联交易列表
+  resources :tl_trades, only: [:create]
+  
+  ################################################
 
 
   # The priority is based upon order of creation: first created -> highest priority.

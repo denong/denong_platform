@@ -1,0 +1,2 @@
+module JajinVerifyLogsHelper
+end
