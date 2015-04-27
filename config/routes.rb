@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   resources :tl_trades, only: [:create]
   
   ################################################
+  resource :verify, only: [:show]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
