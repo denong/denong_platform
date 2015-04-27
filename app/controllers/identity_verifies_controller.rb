@@ -17,7 +17,7 @@ class IdentityVerifiesController < ApplicationController
 
 
   def index
-    @identity_verify = current_customer.identity_verifies.first
+    @identity_verify = current_customer.identity_verifies.try(:last)
   end
 
   private

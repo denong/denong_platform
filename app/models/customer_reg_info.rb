@@ -14,7 +14,7 @@
 #
 
 class CustomerRegInfo < ActiveRecord::Base
-  enum verify_state: [:unverified, :wait_verify, :verified]
+  enum verify_state: [:unverified, :wait_verify, :verified, :verified_fail]
   enum gender: [:male, :female]
   belongs_to :customer
   has_one :image, as: :imageable, dependent: :destroy
