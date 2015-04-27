@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :pension, only: [:index]
   
   resources :jajin, only: [:index]
-  resources :identity_verifies, only: [:create, :update, :index]
+  
   resources :merchants, only: [:index, :show] do
     resources :shops, only: [:index, :new, :create]
     collection do
@@ -47,8 +47,12 @@ Rails.application.routes.draw do
   # 用户相关的路由
   devise_ios_rails_for :users
 
+  # 用户注册资料
   resources :customer_reg_infos, only: [:show]
   resource :customer_reg_info, only: [:show, :update]
+
+  # 用户认证
+  resources :identity_verifies, only: [:create, :update, :index]
 
   # 用户是否存在
   resource :check_user, only: [:show]
