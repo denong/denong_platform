@@ -32,6 +32,8 @@ class TlTrade < ActiveRecord::Base
   before_save :calculate
   before_save :add_jajin_log
 
+  after_create :add_jajin_identity_verify
+
   def as_json(options=nil)
     # 获取merchant信息
     merchant_info = merchant.sys_reg_info
@@ -67,12 +69,16 @@ class TlTrade < ActiveRecord::Base
 
   def calculate
     jajin = self.customer.jajin
-    jajin.got += (self.merchant.ratio*price)
+    jajin.got += price
     jajin.save!
   end
 
   def add_jajin_log
     self.create_jajin_log customer: customer, amount: self.merchant.ratio*price
+  end
+
+  def add_jajin_identity_verify
+    JajinIdentityCode.create amount: price, verify_state: "unverified", merchant_id: merchant_id
   end
 
 end
