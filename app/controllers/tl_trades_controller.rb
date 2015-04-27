@@ -42,6 +42,6 @@ class TlTradesController < ApplicationController
     end
 
     def tl_trade_params
-      params.require(:tl_trade).permit(:phone, :card, :price, :trade_time, :pos_ind, :shop_ind, :trade_ind)
+      params.require(:tl_trade).permit(:phone, :card, :price, :trade_time, :pos_ind, :shop_ind, :trade_ind, :merchant_id)
     end
 end
