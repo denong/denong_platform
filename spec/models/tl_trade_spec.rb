@@ -37,7 +37,7 @@ RSpec.describe TlTrade, type: :model do
     end
 
     it "should add the got of customer jajin by price/100" do
-      expect(@tl_trades.customer.jajin.got).to eq(188.88 + 888.88/100)
+      expect(@tl_trades.customer.jajin.got).to eq(188.88 + 888.88)
     end
 
     it "should make the customer of jajin_log equal to the customer of tl_trades" do
