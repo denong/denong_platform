@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
 
   devise_ios_rails_for :merchant_users  
-  devise_ios_rails_for :users
-
-
-  resources :customer_reg_infos, only: [:show]
-  resource :customer_reg_info, only: [:show, :update]
+  
 
   resources :sms_tokens, only: [:create]
   resources :pension, only: [:index]
@@ -46,6 +42,17 @@ Rails.application.routes.draw do
 
   resource :merchant_sys_reg_info
 
+
+  ################################################ 
+  # 用户相关的路由
+  devise_ios_rails_for :users
+
+  resources :customer_reg_infos, only: [:show]
+  resource :customer_reg_info, only: [:show, :update]
+
+  # 用户是否存在
+  resource :check_user, only: [:show]
+  ################################################
 
   ################################################
   # 养老金收益相关路由

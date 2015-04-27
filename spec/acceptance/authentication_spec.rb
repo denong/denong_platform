@@ -83,4 +83,28 @@ resource "用户鉴权" do
       expect(status).to eq(401)
     end
   end
+
+  get "/check_user" do
+
+    parameter :phone, "用户注册的手机号码"
+
+    response_field :exists, "用户是否已经注册"
+
+    user_attrs = FactoryGirl.attributes_for :user
+    let(:phone) { user_attrs[:phone] }
+
+    example "用户已经注册" do
+      create :user
+      do_request
+      expect(status).to eq(200)
+      expect(response_body).to eq({exists: true}.to_json)
+    end
+
+    example "用户未注册" do
+      do_request
+      expect(status).to eq(200)
+      expect(response_body).to eq({exists: false}.to_json)
+    end
+
+  end
 end
