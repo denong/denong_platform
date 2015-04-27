@@ -54,7 +54,6 @@ FactoryGirl.define do
   factory :identity_verify do
     name "ExampleName"
     id_card "333333333333333333"
-    verify_state 1
   end
 
   factory :bank_card do
@@ -104,12 +103,18 @@ FactoryGirl.define do
   end
 
   factory :customer_reg_info do
-    name    "customer_name"
-    id_card  "333333333"
+    # name    "customer_name"
+    # id_card  "333333333"
     nick_name "customer nick name"
-    verify_state "verified"
+    # verify_state "verified"
     gender "male"
     association :image, factory: :image
+
+    factory :verify_customer_reg_info do
+      name    "customer_name"
+      id_card  "333333333"
+      verify_state "verified"
+    end
   end
 
   factory :customer do
@@ -130,6 +135,12 @@ FactoryGirl.define do
       end
     end
     factory :customer_with_reg_info do |customer|
+      after(:create) do |customer|
+        customer.customer_reg_info = create :verify_customer_reg_info
+      end
+    end
+
+    factory :customer_with_raw_reg_info do |customer|
       after(:create) do |customer|
         customer.customer_reg_info = create :customer_reg_info
       end
