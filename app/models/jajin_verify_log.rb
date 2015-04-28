@@ -21,6 +21,7 @@ class JajinVerifyLog < ActiveRecord::Base
   validate :must_verify_state_sucess, on: :create
   before_save :calculate
   before_save :add_jajin_log
+  before_create :generate_verify_time
 
   def as_json(options=nil)
     {
@@ -48,5 +49,9 @@ class JajinVerifyLog < ActiveRecord::Base
 
     def add_jajin_log
       self.create_jajin_log customer: customer, amount: amount
+    end
+
+    def generate_verify_time
+      self.verify_time = DateTime.now
     end
 end

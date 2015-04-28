@@ -1,29 +1,20 @@
 class VerifiesController < ApplicationController
+
   respond_to :json
   acts_as_token_authentication_handler_for User
 
   def show
-    if check_params verify_params
-      @jajin_verify_log = JajinVerifyLog.create verify_params
-    end
+    init_params = {}
+    init_params[:verify_code] = verify_params[:ckh]
+    init_params[:amount] = verify_params[:amt]
+
+    @jajin_verify_log = current_customer.jajin_verify_logs.create init_params
   end
 
   private
 
-    def check_params verify_params
-      jajin_identity_code = JajinIdentityCode.find(verify_code: verify_params[:ckh])
-      if jajin_identity_code && 
-        jajin_identity_code[:created_at].to_date == verify_params[:date] &&
-        jajin_identity_code[:created_at].to_time == verify_params[:time] && 
-        jajin_identity_code[:amount] == verify_params[:amt]
-        true
-      else
-        false  
-      end
-    end
-
     def verify_params
-      params.scope(:verify).permit(:ckh, :date, :time, :amt)
+      params.require(:verify).permit(:ckh, :date, :time, :amt)
     end
 
 end
