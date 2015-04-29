@@ -30,32 +30,29 @@ RSpec.describe BankCard, type: :model do
 
     context "create customer" do
       before(:each) do
-        @bank_card = create(:bank_card)
+        @customer = create(:customer)
+        @bank_card = create(:bank_card, customer: @customer)
       end
 
-      it "should create customer automaticly" do
-        expect(@bank_card.customer).not_to be_nil
-      end
-
-      it "should make the phone of customer equal to the phone of bank card" do
-        expect(@bank_card.phone).to equal(@bank_card.customer.user.phone)
-      end
+      # it "should make the phone of customer equal to the phone of bank card" do
+      #   expect(@bank_card.phone).to equal(@bank_card.customer.user.phone)
+      # end
 
       it "should increase the card's number by 1" do
-        bank_card = BankCard.find_or_create_by(phone: @bank_card.phone, bankcard_no: @bank_card.bankcard_no)
+        bank_card = BankCard.find_or_create_by(phone: @bank_card.phone, bankcard_no: @bank_card.bankcard_no, customer: @customer)
         expect(@bank_card.customer.bank_cards.size).to eq(1)
       end
     end
 
     context "validations" do
       it "should both validation" do
-        bank_card_1 = create(:bank_card, phone: "12345678901", bankcard_no: "0987654321123456")
+        bank_card_1 = create(:bank_card, phone: "12345678901", bankcard_no: "0987654321123456", customer: @customer)
         expect(bank_card_1).to be_valid
-        bank_card_2 = create(:bank_card, phone: "12345678901", bankcard_no: "0987654321123457")
+        bank_card_2 = create(:bank_card, phone: "12345678901", bankcard_no: "0987654321123457", customer: @customer)
         expect(bank_card_2).to be_valid
-        bank_card_3 = create(:bank_card, phone: "12345678910", bankcard_no: "0987654321123457")
+        bank_card_3 = create(:bank_card, phone: "12345678910", bankcard_no: "0987654321123457", customer: @customer)
         expect(bank_card_3).to be_valid
-        bank_card_4 = build(:bank_card, phone: "12345678910", bankcard_no: "0987654321123457")
+        bank_card_4 = build(:bank_card, phone: "12345678910", bankcard_no: "0987654321123457", customer: @customer)
         expect(bank_card_4).not_to be_valid
       end
     end
