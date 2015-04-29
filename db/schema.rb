@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424014612) do
+ActiveRecord::Schema.define(version: 20150429011618) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20150424014612) do
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "res_msg"
+    t.string   "stat_desc"
   end
 
   add_index "bank_cards", ["customer_id"], name: "index_bank_cards_on_customer_id"

@@ -15,6 +15,8 @@
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  res_msg     :string(255)
+#  stat_desc   :string(255)
 #
 
 class BankCard < ActiveRecord::Base
