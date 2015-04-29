@@ -1,1 +1,5 @@
-json.extract! @bank_card, :id, :bankcard_no, :name, :phone, :card_type, :sn, :bank, :bind_state, :bind_time, :customer_id, :created_at, :updated_at
+if @bank_card
+  json.extract! @bank_card, :id, :bankcard_no, :name, :phone, :res_msg, :stat_desc, :customer_id, :updated_at
+else
+  json.error "验证失败"
+end

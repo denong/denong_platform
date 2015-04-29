@@ -4,7 +4,7 @@ resource "绑定银行卡" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
-  post "/bank_cards/send_msg" do
+  post "/bank_cards" do
     before do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
@@ -23,25 +23,27 @@ resource "绑定银行卡" do
     let(:mobile) { "15826541234" }
     let(:raw_post) { params.to_json }
 
-    example "短信发送成功" do
+    example "银联绑定银行卡" do
       do_request
       expect(status).to eq 200
     end
   end
 
-  post "/bank_cards" do
+  post "/bank_cards/send_msg" do
     before do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
 
-    parameter :sms_token, "短信验证码", required: true
+    parameter :answer, "手机收到的短信验证码", required: true
+    parameter :card, "银行卡号", required: true
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
-    let(:sms_token) { "123456" }
+    let(:answer) { "123456" }
+    let(:card) { "6222520358610001" }
     let(:raw_post) { params.to_json }
 
     response_field :id, "银行卡ID"
@@ -57,7 +59,7 @@ resource "绑定银行卡" do
     response_field :created_at, "创建时间"
     response_field :updated_at, "更新时间"
 
-    example "绑定银行卡成功" do
+    example "银联短信验证" do
       do_request
       expect(status).to eq 200
     end

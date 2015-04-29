@@ -24,18 +24,33 @@ class BankCard < ActiveRecord::Base
 
   validates_uniqueness_of :bankcard_no, scope: :phone
 
-  before_create :check_customer
-
   def self.add_bank_card params
-    result = MultiJson.load RestClient.post("http://121.40.62.252/auth/card")
+    # 需要四个参数, user_id, card, mobile, name
+    result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     if result.present? && result["result"].present?
-      self.create( name: @params["name"], bankcard_no: @params["card"], phone: @params["phone"], customer: customer)
+      bank_card = self.find_or_create_by(bankcard_no: params[:card], phone: params[:mobile], customer_id: params[:user_id]) do |bank_card|
+        bank_card.name = params[:name]
+        if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功"
+          bank_card.res_msg = result["result"]["resMsg"]
+          bank_card.stat_desc = result["result"]["statDesc"]
+        end
+      end
+      bank_card
+    else
+      nil
     end
   end
 
   def self.send_msg params
-    @params = params
-    # result = RestClient.post 'http://192.168.2.100:8080/auth/card', @params
+    # 需要三个参数, user_id, card, answer
+    result = MultiJson.load RestClient.post('http://121.40.62.252:3000/auth/answer', params.to_json, content_type: :json, accept: :json)
+ 
+    bank_card = self.find_by bankcard_no: params[:card], customer_id: params[:user_id]
+    if bank_card.present? && result.present? && result["result"].present?
+      bank_card.stat_desc = result["result"]["statDesc"]
+      bank_card.save
+    end
+    bank_card
   end
 
   private
