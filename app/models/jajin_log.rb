@@ -15,7 +15,7 @@ class JajinLog < ActiveRecord::Base
   belongs_to :jajinable, polymorphic: true
   belongs_to :customer
 
-  default_scope order('created_at ASC')
+  default_scope { order('created_at ASC') }
 
   def as_json(options=nil)
     {
