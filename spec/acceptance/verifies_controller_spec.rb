@@ -34,7 +34,7 @@ resource "通联交易加金领取" do
 
     example "领取加金成功" do
       do_request
-      # expect(status).to eq 201
+      expect(status).to eq 200
     end
   end
 
@@ -71,7 +71,6 @@ resource "通联交易加金领取" do
 
     example "领取加金失败（交易参考号不匹配）" do
       do_request
-      puts "#{response_body}"
       expect(status).to eq 200
     end
   end
