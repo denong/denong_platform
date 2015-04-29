@@ -24,8 +24,9 @@ class BankCard < ActiveRecord::Base
 
   before_create :check_customer
 
-  def self.add_bank_card params,customer
-    if params["sms_token"] == "123456"
+  def self.add_bank_card params
+    result = MultiJson.load RestClient.post("http://121.40.62.252/auth/card")
+    if result.present? && result["result"].present?
       self.create( name: @params["name"], bankcard_no: @params["card"], phone: @params["phone"], customer: customer)
     end
   end
