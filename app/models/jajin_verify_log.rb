@@ -29,6 +29,17 @@ class JajinVerifyLog < ActiveRecord::Base
     }
   end
 
+  def self.tl_varify params
+    check_result = false
+    jajin_identity_code = JajinIdentityCode.find_by_verify_code(params[:ckh])
+    if jajin_identity_code && (params[:time] == jajin_identity_code.created_at.strftime("%H%M%S")) &&
+      (params[:date] == jajin_identity_code.created_at.strftime("%Y%m%d")) &&
+      (params[:amt] == jajin_identity_code.amount.to_s)
+      check_result = true
+    end
+    check_result
+  end
+
   private
 
     def must_verify_state_sucess

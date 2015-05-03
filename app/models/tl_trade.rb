@@ -78,7 +78,7 @@ class TlTrade < ActiveRecord::Base
   end
 
   def add_jajin_identity_verify
-    JajinIdentityCode.create amount: price, verify_state: "unverified", merchant_id: merchant_id
+    JajinIdentityCode.create amount: price, verify_state: "unverified"
   end
 
 end
