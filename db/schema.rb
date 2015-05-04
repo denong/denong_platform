@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429011618) do
+ActiveRecord::Schema.define(version: 20150504060623) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -370,7 +370,6 @@ ActiveRecord::Schema.define(version: 20150429011618) do
     t.string   "phone"
     t.string   "card"
     t.float    "price"
-    t.datetime "trade_time"
     t.string   "pos_ind"
     t.string   "shop_ind"
     t.string   "trade_ind"
@@ -378,6 +377,7 @@ ActiveRecord::Schema.define(version: 20150429011618) do
     t.datetime "updated_at"
     t.integer  "customer_id"
     t.integer  "merchant_id"
+    t.string   "trade_time"
   end
 
   add_index "tl_trades", ["customer_id"], name: "index_tl_trades_on_customer_id"

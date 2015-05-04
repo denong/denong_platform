@@ -6,7 +6,6 @@
 #  phone       :string(255)
 #  card        :string(255)
 #  price       :float
-#  trade_time  :datetime
 #  pos_ind     :string(255)
 #  shop_ind    :string(255)
 #  trade_ind   :string(255)
@@ -14,6 +13,7 @@
 #  updated_at  :datetime
 #  customer_id :integer
 #  merchant_id :integer
+#  trade_time  :string(255)
 #
 
 class TlTrade < ActiveRecord::Base
