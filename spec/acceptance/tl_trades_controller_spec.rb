@@ -13,7 +13,6 @@ resource "通联交易记录" do
     header "X-User-Phone", user_attrs[:phone]
 
     response_field :card,           "通联卡号"
-    response_field :merchant_id,    "商户ID"
     response_field :phone,          "手机号"
     response_field :pos_ind,        "POS编号"
     response_field :price,          "金额"
@@ -22,7 +21,6 @@ resource "通联交易记录" do
     response_field :trade_time,     "交易时间"
 
     parameter :card, "通联卡号", required: true, scope: :tl_trade
-    parameter :merchant_id, "商户ID", required: true, scope: :tl_trade
     parameter :phone, "手机号", required: true, scope: :tl_trade
     parameter :pos_ind, "POS编号", required: true, scope: :tl_trade
     parameter :price, "金额", required: true, scope: :tl_trade
@@ -31,7 +29,6 @@ resource "通联交易记录" do
     parameter :trade_time, "交易时间", required: true, scope: :tl_trade
 
     let(:card) { "123456789" }
-    let(:merchant_id) { @merchant.id }
     let(:phone) { "133AAAA3333" }
     let(:pos_ind) { "MyString" }
     let(:price) { 110.01 }

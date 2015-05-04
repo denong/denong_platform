@@ -23,6 +23,7 @@ class TlTradesController < ApplicationController
   def create
     @tl_trade = TlTrade.new(tl_trade_params)
     @tl_trade.save
+    puts "tl_trade is #{@tl_trade.inspect}"
     respond_with(@tl_trade)
   end
 

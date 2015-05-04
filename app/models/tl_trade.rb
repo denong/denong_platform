@@ -22,7 +22,7 @@ class TlTrade < ActiveRecord::Base
   has_one :jajin_log, as: :jajinable
 
   validates_presence_of :customer, on: :create
-  validates_presence_of :merchant, on: :create
+  # validates_presence_of :merchant, on: :create
 
   before_validation :check_user, on: :create, if: "customer.nil?"
   validate :must_have_jajin, on: :create
@@ -35,14 +35,25 @@ class TlTrade < ActiveRecord::Base
   after_create :add_jajin_identity_verify
 
   def as_json(options=nil)
-    # 获取merchant信息
-    merchant_info = merchant.sys_reg_info
     {
+      phone: phone,
       card: card,
       price: price,
-      merchant_name: merchant_info.sys_name,
-      merchant_image: merchant_info.image ? image_url(merchant_info.image.photo.url(:small)) : nil
+      trade_time: trade_time,
+      pos_ind: pos_ind,
+      shop_ind: shop_ind,
+      trade_ind: trade_ind,
+      customer_id: customer_id
     }
+     
+    # 获取merchant信息
+    # merchant_info = merchant.sys_reg_info
+    # {
+    #   card: card,
+    #   price: price,
+    #   merchant_name: merchant_info.sys_name,
+    #   merchant_image: merchant_info.image ? image_url(merchant_info.image.photo.url(:small)) : nil
+    # }
   end
 
   private
@@ -62,9 +73,9 @@ class TlTrade < ActiveRecord::Base
   end
 
   def must_have_merchant
-    if self.try(:merchant).blank?
-      errors.add(:message, "商户不存在")
-    end
+    # if self.try(:merchant).blank?
+    #   errors.add(:message, "商户不存在")
+    # end
   end
 
   def calculate
@@ -74,7 +85,7 @@ class TlTrade < ActiveRecord::Base
   end
 
   def add_jajin_log
-    self.create_jajin_log customer: customer, amount: self.merchant.ratio*price
+    self.create_jajin_log customer: customer, amount: price
   end
 
   def add_jajin_identity_verify
