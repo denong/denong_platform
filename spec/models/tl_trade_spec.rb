@@ -49,12 +49,12 @@ RSpec.describe TlTrade, type: :model do
       expect(tl_trades_without_customer.customer).not_to be_nil
     end
 
-    context "通联交易记录创建失败" do
-      it "should raise error the merchant is not exist" do
-        tl_trades = build(:tl_trade, customer: customer)
-        expect(tl_trades).not_to be_valid
-        expect(tl_trades.errors.full_messages).to be_include("提示：商户不存在")
-      end
-    end
+    # context "通联交易记录创建失败" do
+    #   it "should raise error the merchant is not exist" do
+    #     tl_trades = build(:tl_trade, customer: customer)
+    #     expect(tl_trades).not_to be_valid
+    #     expect(tl_trades.errors.full_messages).to be_include("提示：商户不存在")
+    #   end
+    # end
   end
 end

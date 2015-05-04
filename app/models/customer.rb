@@ -57,10 +57,7 @@ class Customer < ActiveRecord::Base
   end
 
   def add_jajin
-    puts "add_jajin"
-    puts "jajin.blank?" if self.jajin.blank?
     self.create_jajin(got: 0,unverify: 0) if self.jajin.blank?
-    puts "jajin.size is #{Jajin.all.inspect},#{self.inspect}.#{self.jajin.inspect}"
   end
 
   def add_customer_reg_info

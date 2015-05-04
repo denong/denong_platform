@@ -34,7 +34,7 @@ resource "通联交易记录" do
     let(:price) { 110.01 }
     let(:shop_ind) { "MyString" }
     let(:trade_ind) { "MyString" }
-    let(:trade_time) { DateTime.now }
+    let(:trade_time) { DateTime.now.strftime("%Y%m%d%H%M%S") }
     let(:raw_post) { params.to_json }
 
     example "创建交易记录" do
