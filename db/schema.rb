@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504060623) do
+ActiveRecord::Schema.define(version: 20150505134042) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -324,6 +324,7 @@ ActiveRecord::Schema.define(version: 20150504060623) do
     t.integer  "shop_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "pos_ind"
   end
 
   add_index "pos_machines", ["shop_id"], name: "index_pos_machines_on_shop_id"
@@ -378,12 +379,14 @@ ActiveRecord::Schema.define(version: 20150504060623) do
     t.integer  "customer_id"
     t.integer  "merchant_id"
     t.string   "trade_time"
+    t.integer  "pos_machine_id"
   end
 
   add_index "tl_trades", ["customer_id"], name: "index_tl_trades_on_customer_id"
   add_index "tl_trades", ["merchant_id"], name: "index_tl_trades_on_merchant_id"
   add_index "tl_trades", ["phone"], name: "index_tl_trades_on_phone"
   add_index "tl_trades", ["pos_ind"], name: "index_tl_trades_on_pos_ind"
+  add_index "tl_trades", ["pos_machine_id"], name: "index_tl_trades_on_pos_machine_id"
   add_index "tl_trades", ["shop_ind"], name: "index_tl_trades_on_shop_ind"
   add_index "tl_trades", ["trade_ind"], name: "index_tl_trades_on_trade_ind"
 

@@ -9,6 +9,7 @@
 #  shop_id        :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  pos_ind        :string(255)
 #
 
 class PosMachine < ActiveRecord::Base

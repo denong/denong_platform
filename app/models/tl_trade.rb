@@ -2,23 +2,25 @@
 #
 # Table name: tl_trades
 #
-#  id          :integer          not null, primary key
-#  phone       :string(255)
-#  card        :string(255)
-#  price       :float
-#  pos_ind     :string(255)
-#  shop_ind    :string(255)
-#  trade_ind   :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  customer_id :integer
-#  merchant_id :integer
-#  trade_time  :string(255)
+#  id             :integer          not null, primary key
+#  phone          :string(255)
+#  card           :string(255)
+#  price          :float
+#  pos_ind        :string(255)
+#  shop_ind       :string(255)
+#  trade_ind      :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  customer_id    :integer
+#  merchant_id    :integer
+#  trade_time     :string(255)
+#  pos_mechine_id :integer
 #
 
 class TlTrade < ActiveRecord::Base
   belongs_to :customer
   belongs_to :merchant
+  belongs_to :pos_machine
   has_one :jajin_log, as: :jajinable
 
   validates_presence_of :customer, on: :create
