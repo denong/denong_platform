@@ -27,6 +27,7 @@ class TlTrade < ActiveRecord::Base
   # validates_presence_of :merchant, on: :create
 
   before_validation :check_user, on: :create, if: "customer.nil?"
+  before_validation :check_pos_machine, on: :create
   validate :must_have_jajin, on: :create
   validate :must_have_merchant, on: :create
   validates :phone, length: { is: 11 }
@@ -66,6 +67,14 @@ class TlTrade < ActiveRecord::Base
       user = User.create! phone: phone, sms_token: "989898", password: "12345678"
     end
     self.customer = user.customer
+  end
+
+  def check_pos_machine
+    pos_machine = PosMachine.find_by_pos_ind(pos_ind)  
+    if pos_machine.nil?
+      pos_machine = PosMachine.create! pos_ind: pos_ind
+    end
+    self.pos_machine = pos_machine
   end
 
   def must_have_jajin
