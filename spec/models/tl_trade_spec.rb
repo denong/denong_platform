@@ -14,7 +14,7 @@
 #  customer_id    :integer
 #  merchant_id    :integer
 #  trade_time     :string(255)
-#  pos_mechine_id :integer
+#  pos_machine_id :integer
 #
 
 require 'rails_helper'
