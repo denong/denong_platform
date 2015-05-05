@@ -7,7 +7,7 @@ resource "通联交易加金领取" do
 
     before do
       FactoryGirl.create(:user)
-      @jajin_identity_code = FactoryGirl.create(:jajin_identity_code)
+      @jajin_identity_code = FactoryGirl.create(:jajin_identity_code, trade_time: "20150505221517")
     end
 
     response_field :amount,         "金额"
@@ -27,8 +27,8 @@ resource "通联交易加金领取" do
     header "X-User-Phone", user_attrs[:phone]
 
     let(:ckh) { "123456" }
-    let(:date) { @jajin_identity_code.created_at.strftime("%Y%m%d") }
-    let(:time) { @jajin_identity_code.created_at.strftime("%H%M%S") }
+    let(:date) { "20150505" }
+    let(:time) { "221517" }
     let(:amt) { "10.8" }
     let(:raw_post) { params.to_json }
 

@@ -7,7 +7,7 @@ resource "扫码送加金" do
   post "/jajin_verify_logs" do
     before do
       FactoryGirl.create(:customer_with_jajin_pension)
-      FactoryGirl.create(:jajin_identity_code)
+      FactoryGirl.create(:jajin_identity_code, trade_time: "20150505221517")
     end
 
     parameter :verify_code, "加金的验证码", required: true, scope: :jajin_verify_log
