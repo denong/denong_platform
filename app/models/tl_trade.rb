@@ -35,7 +35,7 @@ class TlTrade < ActiveRecord::Base
   before_save :calculate
   before_save :add_jajin_log
 
-  after_create :add_jajin_identity_verify
+  after_create :add_jajin_identity_code
 
   def as_json(options=nil)
     {
@@ -99,8 +99,8 @@ class TlTrade < ActiveRecord::Base
     self.create_jajin_log customer: customer, amount: price
   end
 
-  def add_jajin_identity_verify
-    JajinIdentityCode.create amount: price, verify_state: "unverified"
+  def add_jajin_identity_code
+    JajinIdentityCode.create amount: price, trade_time: trade_time, verify_state: "unverified"
   end
 
 end

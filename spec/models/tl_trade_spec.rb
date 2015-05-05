@@ -53,7 +53,6 @@ RSpec.describe TlTrade, type: :model do
 
     it "should automatic add pos machine" do
       tl_trades_without_pos_machine = create(:tl_trade, merchant: merchant)
-      puts "#{tl_trades_without_pos_machine.pos_machine.inspect}"    
       expect(tl_trades_without_pos_machine.pos_machine).not_to be_nil
     end
     # context "通联交易记录创建失败" do

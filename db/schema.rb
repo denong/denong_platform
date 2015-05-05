@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505134042) do
+ActiveRecord::Schema.define(version: 20150505140523) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20150505134042) do
     t.float    "amount"
     t.string   "verify_code"
     t.integer  "verify_state",    default: 0
+    t.string   "trade_time"
   end
 
   add_index "jajin_identity_codes", ["merchant_id"], name: "index_jajin_identity_codes_on_merchant_id"

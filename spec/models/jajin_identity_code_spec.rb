@@ -10,6 +10,7 @@
 #  amount          :float
 #  verify_code     :string(255)
 #  verify_state    :integer          default(0)
+#  trade_time      :string(255)
 #
 
 require 'rails_helper'
