@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506130639) do
+ActiveRecord::Schema.define(version: 20150506131817) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -298,6 +298,7 @@ ActiveRecord::Schema.define(version: 20150506130639) do
     t.integer  "cached_weighted_score",   default: 0
     t.integer  "cached_weighted_total",   default: 0
     t.float    "cached_weighted_average", default: 0.0
+    t.integer  "topic_id"
   end
 
   add_index "merchants", ["cached_votes_down"], name: "index_merchants_on_cached_votes_down"
@@ -307,6 +308,7 @@ ActiveRecord::Schema.define(version: 20150506130639) do
   add_index "merchants", ["cached_weighted_average"], name: "index_merchants_on_cached_weighted_average"
   add_index "merchants", ["cached_weighted_score"], name: "index_merchants_on_cached_weighted_score"
   add_index "merchants", ["cached_weighted_total"], name: "index_merchants_on_cached_weighted_total"
+  add_index "merchants", ["topic_id"], name: "index_merchants_on_topic_id"
 
   create_table "pensions", force: true do |t|
     t.float    "total"
@@ -410,6 +412,13 @@ ActiveRecord::Schema.define(version: 20150506130639) do
   add_index "tl_trades", ["pos_machine_id"], name: "index_tl_trades_on_pos_machine_id"
   add_index "tl_trades", ["shop_ind"], name: "index_tl_trades_on_shop_ind"
   add_index "tl_trades", ["trade_ind"], name: "index_tl_trades_on_trade_ind"
+
+  create_table "topics", force: true do |t|
+    t.string   "Title"
+    t.string   "Subtitle"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

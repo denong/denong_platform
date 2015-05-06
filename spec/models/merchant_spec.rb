@@ -14,11 +14,13 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  topic_id                :integer
 #
 
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
+  it { should belong_to :topic }
   it { should belong_to :merchant_user }
   it { should have_one :busi_reg_info }
   it { should have_one :sys_reg_info }

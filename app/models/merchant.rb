@@ -14,12 +14,14 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  topic_id                :integer
 #
 
 class Merchant < ActiveRecord::Base
   acts_as_votable
   
   belongs_to :merchant_user 
+  belongs_to :topic
   has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
   has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
   has_many :shops
