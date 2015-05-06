@@ -77,6 +77,9 @@ gem 'rest-client'
 gem 'multi_json'
 
 gem 'geokit-rails'
+
+# for special topic
+gem 'acts-as-taggable-on', '~> 3.4'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
