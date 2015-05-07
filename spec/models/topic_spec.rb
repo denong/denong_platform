@@ -3,8 +3,8 @@
 # Table name: topics
 #
 #  id         :integer          not null, primary key
-#  Title      :string(255)
-#  Subtitle   :string(255)
+#  title      :string(255)
+#  subtitle   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
