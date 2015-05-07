@@ -11,8 +11,10 @@
 
 class Topic < ActiveRecord::Base
   has_many :merchants, dependent: :destroy
-  has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
+  has_one :pic, class_name: "Image", as: :imageable, dependent: :destroy
 
+  accepts_nested_attributes_for :pic, allow_destroy: true
+  
   acts_as_taggable
   acts_as_taggable_on :merchants
 end

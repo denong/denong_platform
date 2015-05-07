@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @topics = Topic.all
@@ -42,6 +42,6 @@ class TopicsController < ApplicationController
     end
 
     def topic_params
-      params[:topic]
+      params.require(:topic).permit(:title, :subtitle, pic_attributes: [:id, :photo, :_destroy])
     end
 end
