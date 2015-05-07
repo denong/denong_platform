@@ -31,8 +31,8 @@ class BankCard < ActiveRecord::Base
       bank_card = self.find_or_create_by(bankcard_no: params[:card], phone: params[:mobile], customer_id: params[:user_id]) do |bank_card|
         bank_card.name = params[:name]
         if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功"
-          bank_card.res_msg = result["result"]["resMsg"]
-          bank_card.stat_desc = result["result"]["statDesc"]
+          bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
+          bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
         end
       end
       bank_card
@@ -47,7 +47,7 @@ class BankCard < ActiveRecord::Base
  
     bank_card = self.find_by bankcard_no: params[:card], customer_id: params[:user_id]
     if bank_card.present? && result.present? && result["result"].present?
-      bank_card.stat_desc = result["result"]["statDesc"]
+      bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
       bank_card.save
     end
     bank_card
