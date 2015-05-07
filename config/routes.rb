@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   
   ################################################
   resource :verify, only: [:show]
-  resources :topic, only: [:create, :show]
+  resources :topics, only: [:create, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
