@@ -84,7 +84,13 @@ Rails.application.routes.draw do
   
   ################################################
   resource :verify, only: [:show]
-  resources :topics, only: [:create, :show]
+
+
+  resources :topics, only: [:create, :show, :index] do
+    member do
+      post 'add_merchant'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
