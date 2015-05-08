@@ -16,5 +16,13 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :pic, allow_destroy: true
   
   acts_as_taggable
-  acts_as_taggable_on :merchants
+  # acts_as_taggable_on :merchants
+
+  def add_merchant merchant_params
+    merchant =  Merchant.find(merchant_params[:merchant_id])
+    # puts "merchant is #{merchant.inspect}"
+    if merchant.present?
+      self.merchants << merchant
+    end
+  end
 end

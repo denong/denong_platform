@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :set_topic, only: [:show, :edit, :destroy, :add_merchant]
 
   respond_to :html, :json
 
@@ -21,13 +21,8 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new(topic_params)
+    @topic = Topic.new(create_params)
     @topic.save
-    respond_with(@topic)
-  end
-
-  def update
-    @topic.update(topic_params)
     respond_with(@topic)
   end
 
@@ -36,12 +31,23 @@ class TopicsController < ApplicationController
     respond_with(@topic)
   end
 
+  def add_merchant
+    if @topic.present?
+      @topic.add_merchant merchant_params
+    end
+    # @topic.merchants = @topic.merchants.paginate(page: params[:topic][:page], per_page: 10)
+  end
+
   private
     def set_topic
       @topic = Topic.find(params[:id])
     end
 
-    def topic_params
+    def create_params
       params.require(:topic).permit(:title, :subtitle, pic_attributes: [:id, :photo, :_destroy])
+    end
+
+    def merchant_params
+      params.require(:topic).permit(:merchant_id)
     end
 end
