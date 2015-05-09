@@ -87,11 +87,9 @@ Rails.application.routes.draw do
 
 
   resources :topics, only: [:create, :show, :index] do
-    resources :merchants do
-      post 'add_tag'
-    end
     member do
       post 'add_merchant'
+      post 'add_tag'
     end
   end
 

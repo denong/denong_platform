@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :edit, :destroy, :add_merchant]
+  before_action :set_topic, only: [:show, :edit, :destroy, :add_merchant, :add_tag]
 
   respond_to :html, :json
 
@@ -38,6 +38,12 @@ class TopicsController < ApplicationController
     # @topic.merchants = @topic.merchants.paginate(page: params[:topic][:page], per_page: 10)
   end
 
+  def add_tag
+    if @topic.present?
+      @topic.add_tag tag_params
+    end
+  end
+
   private
     def set_topic
       @topic = Topic.find(params[:id])
@@ -49,5 +55,9 @@ class TopicsController < ApplicationController
 
     def merchant_params
       params.require(:topic).permit(:merchant_id)
+    end
+
+    def tag_params
+      params.require(:topic).permit(:tags)
     end
 end

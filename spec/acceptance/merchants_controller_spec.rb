@@ -123,6 +123,4 @@ resource "获取商户信息" do
       expect(status).to eq(200)
     end
   end
-  
-
 end

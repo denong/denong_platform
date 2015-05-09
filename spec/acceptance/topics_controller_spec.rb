@@ -61,4 +61,22 @@ resource "专题相关" do
     end
   end
 
+  post "/topics/:id/add_tag" do
+    before(:each) do
+      @topic = FactoryGirl.create(:topic)
+    end
+
+    let(:id) { @topic.id }
+
+    parameter :tags, "标签", required: true, scope: :topic
+
+    let(:tags) { ["good","well","nice"].to_s }
+    let(:raw_post) { params.to_json }
+
+    example "为主题添加标签" do
+      do_request
+      expect(status).to eq(200)
+    end
+
+  end
 end

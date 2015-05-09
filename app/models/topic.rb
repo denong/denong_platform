@@ -16,7 +16,6 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :pic, allow_destroy: true
   
   acts_as_taggable
-  # acts_as_taggable_on :merchants
 
   def add_merchant merchant_params
     merchant =  Merchant.find(merchant_params[:merchant_id])
@@ -27,6 +26,7 @@ class Topic < ActiveRecord::Base
   end
 
   def add_tag tag_params
-    
+    tags = tag_params[:tags].delete("[]").split(',')
+    self.tag_list.add tags
   end
 end
