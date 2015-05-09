@@ -35,6 +35,7 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的加金"
+    
     example "获取商户信息列表前十条" do
       do_request
       expect(status).to eq(200)

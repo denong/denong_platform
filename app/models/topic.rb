@@ -25,4 +25,8 @@ class Topic < ActiveRecord::Base
       self.merchants << merchant
     end
   end
+
+  def add_tag tag_params
+    
+  end
 end
