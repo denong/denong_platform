@@ -69,6 +69,11 @@ resource "专题相关" do
     let(:id) { @topic.id }
 
     parameter :tags, "标签", required: true, scope: :topic
+    
+    response_field :title, "标题"
+    response_field :subtitle, "副标题"
+    response_field :pic, "图片"
+    response_field :tags, "标签"
 
     let(:tags) { ["good","well","nice"].to_s }
     let(:raw_post) { params.to_json }
