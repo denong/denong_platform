@@ -27,6 +27,6 @@ class Topic < ActiveRecord::Base
 
   def add_tag tag_params
     tags = tag_params[:tags].delete("[]").split(',')
-    self.tag_list.add tags
+    self.tag_list.add tags[0..2]
   end
 end
