@@ -64,6 +64,9 @@ resource "专题相关" do
   post "/topics/:id/add_tag" do
     before(:each) do
       @topic = FactoryGirl.create(:topic)
+      @merchant = FactoryGirl.create(:merchant)
+      @merchant.tag_list.add("good","well")
+      @merchant.save
     end
 
     let(:id) { @topic.id }
@@ -77,6 +80,8 @@ resource "专题相关" do
 
     let(:tags) { ["good","well","nice"].to_s }
     let(:raw_post) { params.to_json }
+
+
 
     example "为主题添加标签" do
       do_request

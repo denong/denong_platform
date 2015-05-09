@@ -26,7 +26,12 @@ class Topic < ActiveRecord::Base
   end
 
   def add_tag tag_params
-    tags = tag_params[:tags].delete("[]").split(',')
+    tags = tag_params[:tags].delete("[]").gsub(/"/,"").split(',')
     self.tag_list.add tags[0..2]
+    add_merchant_by_tags tags
+  end
+
+  def add_merchant_by_tags tags
+    self.merchants |= Merchant.tagged_with(tags, :any => true)
   end
 end
