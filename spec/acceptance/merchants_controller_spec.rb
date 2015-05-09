@@ -123,4 +123,22 @@ resource "获取商户信息" do
       expect(status).to eq(200)
     end
   end
+
+  post "/merchants/:id/add_tag" do
+    before(:each) do
+      @merchant = FactoryGirl.create(:merchant)
+    end
+
+    let(:id) { @merchant.id }
+
+    parameter :tags, "标签", required: true, scope: :merchant
+
+    let(:tags) { ["good","well","nice"].to_s }
+    let(:raw_post) { params.to_json }
+
+    example "为商户添加标签" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
 end

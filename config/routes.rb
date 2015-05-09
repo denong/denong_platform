@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     collection do
       get 'customer_index'
     end
+    member do
+      post 'add_tag'
+    end
   end
   resources :shops, only: [:index, :show] do
     member do
