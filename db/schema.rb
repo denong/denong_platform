@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506131817) do
+ActiveRecord::Schema.define(version: 20150510051007) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -220,10 +220,12 @@ ActiveRecord::Schema.define(version: 20150506131817) do
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "shop_id"
   end
 
   add_index "merchant_giving_logs", ["customer_id"], name: "index_merchant_giving_logs_on_customer_id"
   add_index "merchant_giving_logs", ["merchant_id"], name: "index_merchant_giving_logs_on_merchant_id"
+  add_index "merchant_giving_logs", ["shop_id"], name: "index_merchant_giving_logs_on_shop_id"
 
   create_table "merchant_messages", force: true do |t|
     t.datetime "time"
