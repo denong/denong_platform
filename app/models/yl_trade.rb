@@ -31,13 +31,15 @@ class YlTrade < ActiveRecord::Base
 
   def as_json(options=nil)
     # 获取merchant信息
-    merchant_info = merchant.sys_reg_info
-    {
-      card: card,
-      price: price,
-      merchant_name: merchant_info.sys_name,
-      
-    }
+    if merchant.present?
+      merchant_info = merchant.sys_reg_info
+      {
+        card: card,
+        # price: price,
+        merchant_name: merchant_info.sys_name,
+        
+      }
+    end
   end
 
 
