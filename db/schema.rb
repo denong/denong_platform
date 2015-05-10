@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510051007) do
+ActiveRecord::Schema.define(version: 20150510051903) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 20150510051007) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shop_id"
+    t.float    "consumption"
   end
 
   add_index "merchant_giving_logs", ["customer_id"], name: "index_merchant_giving_logs_on_customer_id"
@@ -301,6 +302,9 @@ ActiveRecord::Schema.define(version: 20150510051007) do
     t.integer  "cached_weighted_total",   default: 0
     t.float    "cached_weighted_average", default: 0.0
     t.integer  "topic_id"
+    t.float    "consumption_total"
+    t.float    "jajin_total"
+    t.integer  "consume_count"
   end
 
   add_index "merchants", ["cached_votes_down"], name: "index_merchants_on_cached_votes_down"

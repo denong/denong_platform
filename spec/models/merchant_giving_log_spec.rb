@@ -10,6 +10,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  shop_id     :integer
+#  consumption :float
 #
 
 require 'rails_helper'
