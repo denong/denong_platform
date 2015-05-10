@@ -7,6 +7,7 @@
 #  subtitle   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  tags       :text             default("--- []\n")
 #
 
 require 'rails_helper'

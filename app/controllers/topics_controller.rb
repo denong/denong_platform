@@ -38,12 +38,6 @@ class TopicsController < ApplicationController
     # @topic.merchants = @topic.merchants.paginate(page: params[:topic][:page], per_page: 10)
   end
 
-  def add_tag
-    if @topic.present?
-      @topic.add_tag tag_params
-    end
-  end
-
   private
     def set_topic
       @topic = Topic.find(params[:id])
@@ -57,7 +51,4 @@ class TopicsController < ApplicationController
       params.require(:topic).permit(:merchant_id)
     end
 
-    def tag_params
-      params.require(:topic).permit(:tags)
-    end
 end
