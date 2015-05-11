@@ -64,7 +64,11 @@ class TlTrade < ActiveRecord::Base
   def check_user
     user = User.find_by_phone(phone)
     if user.nil?
-      user = User.create! phone: phone, sms_token: "989898", password: "12345678"
+      password = (0..9).to_a.sample(6).join
+      user = User.create! phone: phone, sms_token: "989898", password: password
+      company = "小确幸"
+      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      result = ChinaSMS.to phone, {company: company, code: password}, {tpl_id: 787073}
     end
     self.customer = user.customer
   end
@@ -79,7 +83,7 @@ class TlTrade < ActiveRecord::Base
 
   def must_have_jajin
     if self.customer.try(:jajin).blank?
-      errors.add(:message, "加金宝账号不存在")
+      errors.add(:message, "小确幸账号不存在")
     end
   end
 

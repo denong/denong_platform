@@ -16,7 +16,7 @@ RSpec.describe GivenLog, type: :model do
   it { should have_one :jajin_log }
   it { should belong_to :customer }
 
-  describe "加金转赠" do
+  describe "小金转赠" do
     
     let(:user1)                       { create(:user, email: "example1@example.com", phone: "12345678902", password: "12345678", authentication_token: "qwertyuio")}
     let(:user2)                       { create(:user, email: "example2@example.com", phone: "12345678904", password: "12345678", authentication_token: "qwetyuio")}
@@ -24,7 +24,7 @@ RSpec.describe GivenLog, type: :model do
     let(:customer_with_jajin)         { create(:customer_with_jajin) }
     let(:customer_with_jajin_pension) { create(:customer_with_jajin_pension, user: user2) }
 
-    context "加金转赠成功" do
+    context "小金转赠成功" do
       
       let (:amount) { 8.88}
       before(:each) do
@@ -46,7 +46,7 @@ RSpec.describe GivenLog, type: :model do
 
     end
 
-    context "加金转赠失败" do
+    context "小金转赠失败" do
 
       let (:amount) { 88.88}
 
@@ -56,7 +56,7 @@ RSpec.describe GivenLog, type: :model do
       it "should raise error the jajin is not exist" do
         giver_log, given_log = GivenLog.add_both_given_log customer, customer_with_jajin_pension, amount
         expect(giver_log).not_to be_valid
-        expect(giver_log.errors.full_messages).to be_include("转赠加金数额不能大于加金可用余额")
+        expect(giver_log.errors.full_messages).to be_include("转赠小金数额不能大于小金可用余额")
       end
 
     end

@@ -21,7 +21,7 @@ RSpec.describe JajinIdentityCode, type: :model do
   let(:merchant)  { create(:merchant) }
   let(:expiration_time) { Time.zone.now + 1.day }
 
-  describe "赠送加金码" do
+  describe "赠送小金码" do
 
     before(:each) do
       @jajin_identity_code = JajinIdentityCode.create(merchant: merchant, expiration_time: expiration_time, amount: 10.9)

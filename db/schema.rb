@@ -220,10 +220,13 @@ ActiveRecord::Schema.define(version: 20150510144332) do
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "shop_id"
+    t.float    "consumption"
   end
 
   add_index "merchant_giving_logs", ["customer_id"], name: "index_merchant_giving_logs_on_customer_id"
   add_index "merchant_giving_logs", ["merchant_id"], name: "index_merchant_giving_logs_on_merchant_id"
+  add_index "merchant_giving_logs", ["shop_id"], name: "index_merchant_giving_logs_on_shop_id"
 
   create_table "merchant_messages", force: true do |t|
     t.datetime "time"
@@ -299,6 +302,9 @@ ActiveRecord::Schema.define(version: 20150510144332) do
     t.integer  "cached_weighted_total",   default: 0
     t.float    "cached_weighted_average", default: 0.0
     t.integer  "topic_id"
+    t.float    "consumption_total"
+    t.float    "jajin_total"
+    t.integer  "consume_count"
   end
 
   add_index "merchants", ["cached_votes_down"], name: "index_merchants_on_cached_votes_down"

@@ -21,9 +21,9 @@ class Customer < ActiveRecord::Base
   # 亲友关系
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
-  # 加金详细记录
+  # 小金详细记录
   has_many :jajin_logs, dependent: :destroy
-  # 加金转养老金记录
+  # 小金转养老金记录
   has_many :exchange_logs, dependent: :destroy
   # 养老金收益记录
   has_many :gain_histories, dependent: :destroy
@@ -33,11 +33,11 @@ class Customer < ActiveRecord::Base
   has_many :tl_trades, dependent: :destroy
   # 商户推送消息
   has_many :merchant_messages, dependent: :destroy
-  # 商户赠送加金
+  # 商户赠送小金
   has_many :merchant_giving_logs, dependent: :destroy
   # 基金理财账户
   has_many :gain_accounts, dependent: :destroy
-  # 扫码送加金
+  # 扫码送小金
   has_many :jajin_verify_logs, dependent: :destroy
   
   

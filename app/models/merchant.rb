@@ -15,6 +15,9 @@
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
 #  topic_id                :integer
+#  consumption_total       :float
+#  jajin_total             :float
+#  consume_count           :integer
 #
 
 class Merchant < ActiveRecord::Base

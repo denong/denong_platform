@@ -70,16 +70,16 @@ Rails.application.routes.draw do
 
 
   ################################################
-  # 加金详细列表
+  # 小金详细列表
   resources :jajin_logs, only: [:index, :show]
 
-  # 转赠加金
+  # 转赠小金
   resources :given_logs, only: [:create]
 
-  # 扫码赠加金
+  # 扫码赠小金
   resources :jajin_verify_logs, only: [:create]  
 
-  # 加金转养老金
+  # 小金转养老金
   resources :exchange_logs, only: [:create]
 
   # 通联交易列表
