@@ -18,7 +18,7 @@ resource "专题相关" do
 
     let(:title) { "title" }
     let(:subtitle) { "subtitle" }
-    let(:tags) { ["a","b","c"].to_s }
+    let(:tags) { "a,b,c" }
     let(:pic_attributes) { attributes_for(:image) }
 
     example "创建专题成功" do

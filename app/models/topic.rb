@@ -7,10 +7,11 @@
 #  subtitle   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
-#  tags       :text             default("--- []\n")
+#  tags       :string(255)      default("--- []\n")
 #
 
 class Topic < ActiveRecord::Base
+  serialize :tags, Array
   has_many :merchants, dependent: :destroy
   has_one :pic, class_name: "Image", as: :imageable, dependent: :destroy
 

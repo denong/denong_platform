@@ -418,7 +418,7 @@ ActiveRecord::Schema.define(version: 20150510144332) do
     t.string   "subtitle"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "tags",       default: "--- []\n"
+    t.string   "tags",       default: "--- []\n"
   end
 
   create_table "users", force: true do |t|
