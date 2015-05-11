@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506131817) do
+ActiveRecord::Schema.define(version: 20150510144332) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -414,10 +414,11 @@ ActiveRecord::Schema.define(version: 20150506131817) do
   add_index "tl_trades", ["trade_ind"], name: "index_tl_trades_on_trade_ind"
 
   create_table "topics", force: true do |t|
-    t.string   "Title"
-    t.string   "Subtitle"
+    t.string   "title"
+    t.string   "subtitle"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags",       default: "--- []\n"
   end
 
   create_table "users", force: true do |t|

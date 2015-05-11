@@ -19,6 +19,7 @@
 
 class Merchant < ActiveRecord::Base
   acts_as_votable
+  acts_as_taggable
   
   belongs_to :merchant_user 
   belongs_to :topic
@@ -53,6 +54,11 @@ class Merchant < ActiveRecord::Base
 
   def bind_member_card! member_card
     self.member_cards << member_card
+  end
+
+  def add_tag tag_params
+    tags = tag_params[:tags].split(',')
+    self.tag_list.add tags
   end
 
 end

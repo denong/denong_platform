@@ -1,7 +1,8 @@
 require 'rack/test'
-FactoryGirl.define do  factory :topic do
-    Title "MyString"
-Subtitle "MyString"
+FactoryGirl.define do  
+  factory :topic do
+    title "MyString"
+    subtitle "MyString"
   end
   
   factory :jajin_verify_log do

@@ -10,8 +10,6 @@
 #  tags       :string(255)      default("--- []\n")
 #
 
-require 'rails_helper'
-
-RSpec.describe Topic, type: :model do
-  it { should have_many :merchants }
+class TopicSerializer < ActiveModel::Serializer
+  attributes :id
 end

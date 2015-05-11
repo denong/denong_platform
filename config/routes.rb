@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     collection do
       get 'customer_index'
     end
+    member do
+      post 'add_tag'
+    end
   end
   resources :shops, only: [:index, :show] do
     member do
@@ -85,6 +88,13 @@ Rails.application.routes.draw do
   ################################################
   resource :verify, only: [:show]
 
+
+  resources :topics, only: [:create, :show, :index] do
+    member do
+      post 'add_merchant'
+      post 'add_tag'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
