@@ -6,6 +6,11 @@ resource "专题相关" do
 
   post "/topics" do
 
+    before(:each) do
+      @merchant = FactoryGirl.create(:merchant)
+      @merchant.tag_list = ["good"]
+      @merchant.save
+    end
     parameter :title, "标题", required: true, scope: :topic
     parameter :subtitle, "副标题", required: true, scope: :topic
     parameter :pic_attributes, "图片",required: true, scope: :topic
@@ -18,7 +23,7 @@ resource "专题相关" do
 
     let(:title) { "title" }
     let(:subtitle) { "subtitle" }
-    let(:tags) { "a,b,c" }
+    let(:tags) { "good,b,c" }
     let(:pic_attributes) { attributes_for(:image) }
 
     example "创建专题成功" do
