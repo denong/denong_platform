@@ -48,7 +48,6 @@ merchant_sys_reg_info = MerchantSysRegInfo.create(
 merchant = Merchant.create ratio: 0.01
 merchant.sys_reg_info = merchant_sys_reg_info
 
-
 shops = []
 (0..2).each do |i|
 	shops << Shop.create(
@@ -177,3 +176,10 @@ user.customer.gain_accounts << gain_account_gonghang
 gain_org_tianhong.gain_accounts << gain_account_tianhong
 gain_org_gonghang.gain_accounts << gain_account_gonghang
 
+merchant.tag_list.add "good"
+merchant.save
+
+topic = Topic.create(
+  title: "test_title",
+  subtitle: "subtitle",
+  tags: ["good", "nice"])
