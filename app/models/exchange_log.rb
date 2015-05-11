@@ -30,7 +30,7 @@ class ExchangeLog < ActiveRecord::Base
   private
     def must_have_jajin
       if self.customer.try(:jajin).blank?
-        errors.add(:message, "加金宝账号不存在")
+        errors.add(:message, "小确幸账号不存在")
       end
     end
 
@@ -43,7 +43,7 @@ class ExchangeLog < ActiveRecord::Base
     def amount_must_less_than_jajin_got 
       jajin_got = self.customer.try(:jajin).try(:got)
       if self.amount > jajin_got.to_f
-        errors.add(:amount, "不能大于加金可用余额")
+        errors.add(:amount, "不能大于小金可用余额")
       end
     end
 

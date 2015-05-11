@@ -1,5 +1,5 @@
 require 'acceptance_helper'
-resource "赠送加金" do
+resource "赠送小金" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
@@ -22,7 +22,7 @@ resource "赠送加金" do
     let(:giver_or_given_id) { @given_customer.id }
     let(:raw_post) { params.to_json }
 
-    example "加金转赠成功" do
+    example "小金转赠成功" do
       do_request
       expect(status).to eq(200)
     end

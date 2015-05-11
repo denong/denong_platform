@@ -16,13 +16,13 @@ RSpec.describe ExchangeLog, type: :model do
   it { should have_one :jajin_log }
 
   
-  describe "加金转养老金" do
+  describe "小金转养老金" do
     
     let(:customer)                  { create(:customer_with_jajin_pension) }
     let(:customer_with_jajin)       { create(:customer_with_jajin) }
     let(:customer_with_pension)     { create(:customer_with_pension)  }
 
-    context "加金转养老金成功" do
+    context "小金转养老金成功" do
 
       before(:each) do
        @exchange_log = create(:exchange_log, customer: customer, amount: 1.5)
@@ -50,12 +50,12 @@ RSpec.describe ExchangeLog, type: :model do
       end
     end
 
-    context "加金转养老金失败" do
+    context "小金转养老金失败" do
 
       # it "should raise error the jajin is not exist" do
       #   exchange_log = build(:exchange_log, customer: customer_with_pension, amount: 1.5)
       #   expect(exchange_log).not_to be_valid
-      #   expect(exchange_log.errors.full_messages).to be_include("提示：加金宝账号不存在")
+      #   expect(exchange_log.errors.full_messages).to be_include("提示：小确幸账号不存在")
       # end
 
       it "should raise error the pesion is not exist" do
@@ -67,7 +67,7 @@ RSpec.describe ExchangeLog, type: :model do
       it "should raise error that the change amount cannot be bigger than the available amount" do
         exchange_log = build(:exchange_log, customer: customer, amount: 200)
         expect(exchange_log).not_to be_valid
-        expect(exchange_log.errors.full_messages).to be_include("转换金额不能大于加金可用余额")
+        expect(exchange_log.errors.full_messages).to be_include("转换金额不能大于小金可用余额")
       end
 
     end

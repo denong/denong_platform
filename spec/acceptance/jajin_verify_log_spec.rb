@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-resource "扫码送加金" do
+resource "扫码送小金" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
@@ -10,7 +10,7 @@ resource "扫码送加金" do
       FactoryGirl.create(:jajin_identity_code, trade_time: "20150505221517")
     end
 
-    parameter :verify_code, "加金的验证码", required: true, scope: :jajin_verify_log
+    parameter :verify_code, "小金的验证码", required: true, scope: :jajin_verify_log
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -20,7 +20,7 @@ resource "扫码送加金" do
     let(:verify_code) { "123456" }
     let(:raw_post) { params.to_json }
 
-    example "领取加金成功" do
+    example "领取小金成功" do
       do_request
       expect(status).to eq 201
     end
@@ -31,7 +31,7 @@ resource "扫码送加金" do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
 
-    parameter :verify_code, "加金的验证码", required: true, scope: :jajin_verify_log
+    parameter :verify_code, "小金的验证码", required: true, scope: :jajin_verify_log
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -41,7 +41,7 @@ resource "扫码送加金" do
     let(:verify_code) { "12367" }
     let(:raw_post) { params.to_json }
 
-    example "领取加金失败（验证码不正确）" do
+    example "领取小金失败（验证码不正确）" do
       do_request
       expect(status).to eq 422
     end

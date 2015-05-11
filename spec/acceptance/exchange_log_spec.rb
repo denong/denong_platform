@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-resource "加金转换养老金" do
+resource "小金转换养老金" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
@@ -9,7 +9,7 @@ resource "加金转换养老金" do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
 
-    parameter :amount, "加金转换养老金的总数", required: true, scope: :exchange_log
+    parameter :amount, "小金转换养老金的总数", required: true, scope: :exchange_log
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -30,7 +30,7 @@ resource "加金转换养老金" do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
 
-    parameter :amount, "加金转换养老金的总数", require: true, scope: :exchange_log
+    parameter :amount, "小金转换养老金的总数", require: true, scope: :exchange_log
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -40,7 +40,7 @@ resource "加金转换养老金" do
     let(:amount) { 200 }
     let(:raw_post) { params.to_json }
 
-    example "加金转换养老金失败（请求总额大于可用加金总额）" do
+    example "小金转换养老金失败（请求总额大于可用小金总额）" do
       do_request
       expect(status).to eq 422
     end
@@ -51,7 +51,7 @@ resource "加金转换养老金" do
       FactoryGirl.create(:customer_with_jajin_pension)
     end
 
-    parameter :amount, "加金转换养老金的总数", require: true, scope: :exchange_log
+    parameter :amount, "小金转换养老金的总数", require: true, scope: :exchange_log
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -61,7 +61,7 @@ resource "加金转换养老金" do
     let(:amount) { 200 }
     let(:raw_post) { params.to_json }
 
-    example "加金转换养老金失败（用户鉴权失败）" do
+    example "小金转换养老金失败（用户鉴权失败）" do
       do_request
       expect(status).to eq 401
     end

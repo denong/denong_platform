@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-resource "通联交易加金领取" do
+resource "通联交易小金领取" do
   get '/verify' do
     header "Accept", "application/json"
     header "Content-Type", "application/json"
@@ -32,7 +32,7 @@ resource "通联交易加金领取" do
     let(:amt) { "10.8" }
     let(:raw_post) { params.to_json }
 
-    example "领取加金成功" do
+    example "领取小金成功" do
       do_request
       expect(status).to eq 200
     end
@@ -69,7 +69,7 @@ resource "通联交易加金领取" do
     let(:amt) { "10.8" }
     let(:raw_post) { params.to_json }
 
-    example "领取加金失败（交易参考号不匹配）" do
+    example "领取小金失败（交易参考号不匹配）" do
       do_request
       expect(status).to eq 200
     end

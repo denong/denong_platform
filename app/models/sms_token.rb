@@ -15,7 +15,7 @@ class SmsToken < ActiveRecord::Base
 
     # 发送短信
     if phone.present?
-      company = "加金宝"
+      company = "小确幸"
       ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
       result = ChinaSMS.to phone, {company: company, code: token}, {tpl_id: 2}
     end
@@ -23,4 +23,5 @@ class SmsToken < ActiveRecord::Base
     self.token = token
     self
   end
+
 end

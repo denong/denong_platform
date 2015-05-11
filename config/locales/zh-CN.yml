@@ -10,7 +10,7 @@ zh-CN:
       tl_trade:
         message: "提示："
       given_log:
-        amount: "转赠加金数额"
+        amount: "转赠小金数额"
       identity_verify:
         name: "姓名"
         id_card: "身份证号码"
