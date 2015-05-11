@@ -57,7 +57,7 @@ class Merchant < ActiveRecord::Base
   end
 
   def add_tag tag_params
-    tags = tag_params[:tags].delete("[]").gsub(/"/,"").split(',')
+    tags = tag_params[:tags].split(',')
     self.tag_list.add tags
   end
 

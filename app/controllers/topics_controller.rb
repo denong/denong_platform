@@ -21,7 +21,9 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new(create_params)
+    init_params = create_params
+    init_params[:tags] = create_params[:tags].split(",")
+    @topic = Topic.new(init_params)
     @topic.save
     respond_with(@topic)
   end
@@ -44,7 +46,7 @@ class TopicsController < ApplicationController
     end
 
     def create_params
-      params.require(:topic).permit(:title, :subtitle, pic_attributes: [:id, :photo, :_destroy])
+      params.require(:topic).permit(:title, :subtitle, :tags, pic_attributes: [:id, :photo, :_destroy])
     end
 
     def merchant_params

@@ -148,7 +148,7 @@ resource "获取商户信息" do
     response_field :votes_up, "赞"
     response_field :tags, "标签"
 
-    let(:tags) { ["good","well","nice"].to_s }
+    let(:tags) { "good,well,nice" }
     let(:raw_post) { params.to_json }
 
     example "为商户添加标签" do

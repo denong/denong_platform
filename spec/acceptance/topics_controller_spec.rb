@@ -23,7 +23,6 @@ resource "专题相关" do
 
     example "创建专题成功" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq(200)
     end
   end
@@ -60,37 +59,8 @@ resource "专题相关" do
 
     example "添加商户成功" do
       do_request
-      # puts "response is #{response_body}"
       expect(status).to eq(200)
     end
   end
 
-  # post "/topics/:id/add_tag" do
-  #   before(:each) do
-  #     @topic = FactoryGirl.create(:topic)
-  #     @merchant = FactoryGirl.create(:merchant)
-  #     @merchant.tag_list.add("good","well")
-  #     @merchant.save
-  #   end
-
-  #   let(:id) { @topic.id }
-
-  #   parameter :tags, "标签", required: true, scope: :topic
-    
-  #   response_field :title, "标题"
-  #   response_field :subtitle, "副标题"
-  #   response_field :pic, "图片"
-  #   response_field :tags, "标签"
-
-  #   let(:tags) { ["good","well","nice"].to_s }
-  #   let(:raw_post) { params.to_json }
-
-
-
-  #   example "为主题添加标签" do
-  #     do_request
-  #     expect(status).to eq(200)
-  #   end
-
-  # end
 end
