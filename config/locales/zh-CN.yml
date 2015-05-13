@@ -18,3 +18,4 @@ zh-CN:
         back_image: "身份证背面照片"
       jajin_verify_log:
         message: "提示："
+        phone: "手机号码"

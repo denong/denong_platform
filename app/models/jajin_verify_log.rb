@@ -13,6 +13,8 @@
 #
 
 class JajinVerifyLog < ActiveRecord::Base
+  attr_accessor :phone
+
   belongs_to :customer
   belongs_to :merchant
   has_one :jajin_log, as: :jajinable

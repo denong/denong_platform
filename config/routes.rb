@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'jajin_verify_logs/new'
+
   devise_ios_rails_for :merchant_users  
   
 

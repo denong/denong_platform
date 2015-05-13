@@ -41,6 +41,18 @@ class User < ActiveRecord::Base
 
   after_create :add_customer
 
+  def self.find_or_create_by_phone phone
+    user = User.find_by_phone(phone)
+    if user.nil?
+      password = (0..9).to_a.sample(6).join
+      user = User.create! phone: phone, sms_token: "989898", password: password
+      company = "小确幸"
+      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      result = ChinaSMS.to phone, {company: company, code: password}, {tpl_id: 787073}
+    end
+    user
+  end
+
   def sms_token_validate
     sms_token_obj = SmsToken.find_by(phone: phone)
 

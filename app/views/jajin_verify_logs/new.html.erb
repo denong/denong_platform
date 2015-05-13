@@ -1,0 +1,15 @@
+<div class="container">
+  <%= simple_form_for(@verify_log) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :phone %>
+      <%= f.input :verify_code, as: :hidden %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "获取小金" %>
+    </div>
+  <% end %>
+  
+</div>
