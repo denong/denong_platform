@@ -1,3 +1,48 @@
 // Place all the styles related to the JajinVerifyLogs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.jajin_verify_logs__new, .jajin_verify_logs__create {
+
+  .about-title {
+    color: #fff;
+    background-color: #0094d2;
+    margin: 0px;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .jajin-form {
+    padding: 20px;
+
+    .tel .control-label {
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+
+    .tel .form-control {
+      color: #999999;
+      font-size: 16px;
+      height: 50px;
+      border-radius: 4px;
+      background: image-url("iphone.gif") no-repeat scroll 0 0 #fff;
+      background-size: 50px,50px;
+      overflow:hidden;
+      padding:5px 0 4px 100px;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .submit-button {
+      width: 90%;
+      background: #FF9900;
+      border-radius: 5px;
+      font-size: 22px;
+      padding: 20px 0px 20px 0px;
+      margin-top: 30px;
+    }
+  }
+}

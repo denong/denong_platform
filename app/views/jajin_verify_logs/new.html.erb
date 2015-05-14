@@ -1,15 +1,22 @@
 <div class="container">
-  <%= simple_form_for(@verify_log) do |f| %>
-    <%= f.error_notification %>
+  <h3 class="about-title text-center">小确幸</h3>
+  <div class="jajin-form">
+    <%= simple_form_for(@verify_log) do |f| %>
+      <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :phone %>
-      <%= f.input :verify_code, as: :hidden %>
-    </div>
+      <div class="form-inputs">
+        <%= f.input :phone, label: "请您输入手机号码" %>
+        <%= f.input :verify_code, as: :hidden %>
+      </div>
 
-    <div class="form-actions">
-      <%= f.button :submit, "获取小金" %>
-    </div>
-  <% end %>
+      <div>
+        <%= image_tag "jajin_bg.gif" %>
+      </div>
+
+      <div class="form-actions text-center">
+        <%= f.button :submit, "获取小金", class: "btn-warning submit-button" %>
+      </div>
+    <% end %>
+  </div>
   
 </div>

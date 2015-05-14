@@ -1,3 +1,37 @@
 // Place all the styles related to the jajin_logs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.jajin_logs__show {
+  
+  .about-title {
+    color: #fff;
+    background-color: #0094d2;
+    margin: 0px;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .jajin-detail {
+    padding: 20px;
+    .hint-title {
+      font-size: 18px;
+    }
+    .jajin-line {
+      height: 40px;
+      font-size: 18px;
+      padding: 30px;
+      .money {
+        color: #FFCC00;
+        font-size: 32px;
+        padding-right: 10px;
+      }
+    }
+  }
+
+  img {
+    margin-top: 30px;
+    width: 100%;
+  }
+}
