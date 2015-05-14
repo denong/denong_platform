@@ -99,7 +99,7 @@ resource "专题相关" do
     let(:id) { @topic.id }
     let(:raw_post) { params.to_json }
 
-    example "添加商户成功" do
+    example "获取商户详细信息" do
       do_request
       expect(status).to eq(200)
     end
