@@ -7,7 +7,7 @@ resource "发送短信验证码" do
   post "/sms_tokens" do
     parameter :phone, "发送手机号", :required => true, scope: :sms_token
 
-    let(:phone) { "18616591019" }
+    let(:phone) { "11111111111" }
     let(:raw_post) { params.to_json }
 
     response_field :id, "验证码ID"
