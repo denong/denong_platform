@@ -4,7 +4,7 @@ resource "扫码送小金" do
   header "Accept", "application/json"
   header "Content-Type", "application/json"
 
-  post "/jajin_verify_logs" do
+  post "/jajin_verify_logs/verify" do
     before do
       FactoryGirl.create(:customer_with_jajin_pension)
       FactoryGirl.create(:jajin_identity_code, trade_time: "20150505221517")
@@ -26,7 +26,7 @@ resource "扫码送小金" do
     end
   end
 
-  post "/jajin_verify_logs" do
+  post "/jajin_verify_logs/verify" do
     before do
       FactoryGirl.create(:customer_with_jajin_pension)
     end

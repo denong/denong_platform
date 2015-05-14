@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'jajin_verify_logs/new'
-
   devise_ios_rails_for :merchant_users  
   
 
@@ -79,7 +77,11 @@ Rails.application.routes.draw do
   resources :given_logs, only: [:create]
 
   # 扫码赠小金
-  resources :jajin_verify_logs, only: [:create]  
+  resources :jajin_verify_logs, only: [:new, :create] do
+    collection do
+      post 'verify'
+    end
+  end
 
   # 小金转养老金
   resources :exchange_logs, only: [:create]
