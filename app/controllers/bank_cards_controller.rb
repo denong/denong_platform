@@ -9,7 +9,7 @@ class BankCardsController < ApplicationController
 
   def send_msg
     params[:user_id] = current_customer.id
-    BankCard.send_msg params
+    @bank_card = BankCard.send_msg params
   end
 
   def index
