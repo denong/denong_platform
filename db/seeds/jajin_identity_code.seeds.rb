@@ -1,1 +1,3 @@
-JajinIdentityCode.create amount: 5, trade_time: DateTime.now, verify_state: "unverified"
+(0..4).each do |a|
+  JajinIdentityCode.create amount: 5, verify_state: "unverified"  
+end
