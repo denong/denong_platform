@@ -171,6 +171,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    seedbank (0.3.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     simple_form (3.1.0)
@@ -238,6 +239,7 @@ DEPENDENCIES
   rspec_api_documentation
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  seedbank
   shoulda-matchers
   simple_form
   spring

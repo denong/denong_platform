@@ -41,3 +41,7 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+denong_platform_development
+denong_platform_test
+
