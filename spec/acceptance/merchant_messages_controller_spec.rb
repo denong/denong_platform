@@ -2,7 +2,6 @@ require 'acceptance_helper'
 
 resource "商户推送消息" do
   header "Accept", "application/json"
-  header "Content-Type", "application/json"
 
   get "/merchant_messages" do
     before(:each) do
@@ -36,6 +35,48 @@ resource "商户推送消息" do
 
     let(:last_time) { DateTime.now }
     example "用户获取商户推送消息" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
+
+  post "/merchant_messages" do
+    before(:each) do
+      @merchant_user = create(:merchant_user)
+      @merchant = create(:merchant)
+      @merchant_user.merchant = @merchant
+    end
+
+    merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
+    header "X-User-Token", merchant_attrs[:authentication_token]
+    header "X-User-Phone", merchant_attrs[:phone]
+
+    response_field :merchant_messages, "商户推送消息"
+    response_field :id, "消息ID"
+    response_field :time, "时间"
+    response_field :title, "标题"
+    response_field :content, "内容"
+    response_field :summary, "摘要"
+    response_field :url, "外链"
+    response_field :merchant_id, "商户ID"
+
+    parameter :time, "时间", required: true, scope: :merchant_message
+    parameter :title, "标题", required: true, scope: :merchant_message
+    parameter :content, "内容", required: true, scope: :merchant_message
+    parameter :summary, "摘要", required: true, scope: :merchant_message
+    parameter :url, "外链", required: true, scope: :merchant_message
+    parameter :merchant_id, "商户ID", required: true, scope: :merchant_message
+    parameter :thumb_attributes, "图片", required: true, scope: :merchant_message
+
+    let(:time) { DateTime.now }
+    let(:title) { "title" }
+    let(:content) { "content" }
+    let(:summary) { "summary" }
+    let(:url) { "url" }
+    let(:merchant_id) { @merchant.id }
+    let(:thumb_attributes) { attributes_for(:image) }
+
+    example "商户创建推送消息" do
       do_request
       expect(status).to eq(200)
     end

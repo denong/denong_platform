@@ -20,8 +20,11 @@ SimpleTokenAuthentication.configure do |config|
   #   And the token authentification handler for SuperAdmin watches the following headers:
   #     `X-Admin-Auth-Token, X-SuperAdmin-Email`
   #
-  config.header_names = { user: { authentication_token: 'X-User-Token', phone: 'X-User-Phone' } }
+  config.header_names = {
+    user: { authentication_token: 'X-User-Token', phone: 'X-User-Phone' },
+    merchant_user: { authentication_token: 'X-User-Token', phone: 'X-User-Phone' }
+  }
   
-  config.identifiers = { user: 'phone' }
+  config.identifiers = { user: 'phone', merchant_user: 'phone' }
 
 end

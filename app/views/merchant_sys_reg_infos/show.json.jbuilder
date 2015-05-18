@@ -1,1 +1,1 @@
-json.extract! @merchant_sys_reg_info, :id, :created_at, :updated_at
+json.extract! @merchant_sys_reg_info, :sys_name, :contact_person, :contact_tel, :service_tel, :fax_tel, :email, :company_addr, :region, :industry, :postcode, :reg_time, :approve_time, :lon, :lat, :welcome_string, :comment_text, :merchant_id

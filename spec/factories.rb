@@ -99,6 +99,13 @@ FactoryGirl.define do
     authentication_token "qwertyuiop"
   end
 
+  factory :merchant_user do
+    email "merchant_user@example.com"
+    phone "12345678903"
+    password "abcd.1234"
+    authentication_token "qwertyuiop"
+  end
+
   factory :friend, class: User do   #
     email "given_user@example.com"
     phone "13888888888"
@@ -184,6 +191,8 @@ FactoryGirl.define do
       end
     end
   end
+
+
 
   factory :merchant_sys_reg_info do
     sys_name       "merchant_sys_name"
