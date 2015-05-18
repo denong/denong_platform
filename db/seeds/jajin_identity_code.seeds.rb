@@ -1,3 +1,3 @@
-(0..4).each do |a|
-  JajinIdentityCode.create amount: 5, verify_state: "unverified"  
+(0..50).each do |a|
+  JajinIdentityCode.create amount: 1000, verify_state: "unverified"  
 end
