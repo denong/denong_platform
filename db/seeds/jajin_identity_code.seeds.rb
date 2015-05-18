@@ -1,0 +1,1 @@
+JajinIdentityCode.create amount: 5, trade_time: DateTime.now, verify_state: "unverified"
