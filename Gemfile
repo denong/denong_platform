@@ -6,7 +6,7 @@ source 'https://ruby.taobao.org'
 gem 'rails', '4.1.8'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-# gem 'mysql2'
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'sass-rails', '~> 4.0.3'
@@ -52,7 +52,7 @@ gem 'acts_as_votable'
 gem 'simple_form'
 
 #######################################################################
-# gem 'unicorn'
+gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
@@ -79,7 +79,7 @@ gem 'multi_json'
 
 gem 'geokit-rails'
 
-# for special topic
+# for topic
 gem 'acts-as-taggable-on', '~> 3.4'
 
 gem "seedbank"
