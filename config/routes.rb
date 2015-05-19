@@ -100,6 +100,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # 加金兑换的对外网址
+  get 'code' => 'jajin_verify_logs#new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

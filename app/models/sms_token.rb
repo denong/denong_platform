@@ -11,7 +11,7 @@
 
 class SmsToken < ActiveRecord::Base
   def activate!
-    token = (0..9).to_a.sample(6).join
+    token = (0..9).to_a.sample(4).join
 
     # 发送短信
     if phone.present?
