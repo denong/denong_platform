@@ -1,8 +1,9 @@
 require 'will_paginate/array'
 class MerchantsController < ApplicationController
-  before_action :set_merchant, only: [:show, :add_tag]
+  before_action :set_merchant, only: [:show, :add_tag, :update]
 
   respond_to :json
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
   acts_as_token_authentication_handler_for User, only: [:index, :show, :customer_index]
 
   def index
@@ -21,6 +22,11 @@ class MerchantsController < ApplicationController
     @merchant.add_tag tag_params if @merchant.present?
   end
 
+  def update
+    @merchant = current_merchant
+    @merchant.sys_reg_info.update(update_params)
+    respond_with(@merchant)
+  end
   private
 
     def set_merchant
@@ -30,4 +36,10 @@ class MerchantsController < ApplicationController
     def tag_params
       params.require(:merchant).permit(:tags)
     end
+
+    def update_params
+      params.require(:merchant).permit(:sys_name, :contact_person, :service_tel, :fax_tel, :email, :company_addr, :region, :postcode, :lon, :lat, :welcome_string, :comment_text, )      
+    end
+
 end
+
