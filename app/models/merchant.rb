@@ -64,4 +64,8 @@ class Merchant < ActiveRecord::Base
     self.tag_list.add tags
   end
 
+  def get_follwers
+    self.votes_for.by_type(User).voters
+  end
+
 end

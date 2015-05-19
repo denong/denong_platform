@@ -3,7 +3,7 @@ class MerchantsController < ApplicationController
   before_action :set_merchant, only: [:show, :add_tag, :update]
 
   respond_to :json
-  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update, :get_followers]
   acts_as_token_authentication_handler_for User, only: [:index, :show, :customer_index]
 
   def index
@@ -27,6 +27,11 @@ class MerchantsController < ApplicationController
     @merchant.sys_reg_info.update(update_params)
     respond_with(@merchant)
   end
+
+  def get_followers
+    @voters = current_merchant.get_likes.by_type(Customer).voters
+  end
+
   private
 
     def set_merchant

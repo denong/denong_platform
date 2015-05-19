@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
     member do
       post 'add_tag'
+      get 'get_followers'
     end
   end
   resources :shops, only: [:index, :show] do

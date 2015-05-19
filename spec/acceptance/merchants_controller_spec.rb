@@ -222,4 +222,28 @@ resource "获取商户信息" do
       expect(status).to eq(200)
     end
   end
+
+  get "/merchants/:id/get_followers" do
+    before(:each) do
+      @merchant_user = create(:merchant_user)
+      @merchant = create(:merchant)
+      @merchant_user.merchant = @merchant
+      @merchant.shops << create(:shop)
+
+      @customer = create(:customer_with_reg_info)
+      @customer.follow! @merchant
+    end
+
+    let(:id) { @merchant.id }
+
+    merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
+    header "X-User-Token", merchant_attrs[:authentication_token]
+    header "X-User-Phone", merchant_attrs[:phone]
+
+    example "获取关注商户的消费者" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
+
 end
