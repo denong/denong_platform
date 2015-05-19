@@ -60,7 +60,9 @@ shops = []
 		lat: 30.40+i)
 end
 merchant.shops = shops
-
+user.customer.follow! shops[0]
+friend.customer.follow! shops[1]
+user.customer.follow! shops[1]
 
 tl_trades = []
 (0..2).each do |i|
@@ -178,6 +180,8 @@ gain_org_gonghang.gain_accounts << gain_account_gonghang
 
 merchant.tag_list.add "good"
 merchant.save
+
+
 
 topic = Topic.create(
   title: "test_title",
