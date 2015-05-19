@@ -420,8 +420,8 @@ ActiveRecord::Schema.define(version: 20150510144332) do
   add_index "tl_trades", ["trade_ind"], name: "index_tl_trades_on_trade_ind"
 
   create_table "topics", force: true do |t|
-    t.string   "title"
-    t.string   "subtitle"
+    t.string   "Title"
+    t.string   "Subtitle"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tags",       default: "--- []\n"

@@ -5,8 +5,12 @@
       <%= f.error_notification %>
 
       <div class="form-inputs">
+        <% if params[:verify_code] %>
+          <%= f.input :verify_code, as: :hidden %>
+        <% else %>
+          <%= f.input :verify_code, label: "请您输入小金串码" %>
+        <% end %>
         <%= f.input :phone, label: "请您输入手机号码" %>
-        <%= f.input :verify_code, as: :hidden %>
       </div>
 
       <div>
