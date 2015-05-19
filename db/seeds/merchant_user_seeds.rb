@@ -1,0 +1,1 @@
+MerchantUser.create(email: "merchant_user@example.com", phone: "12345678903", password: "abcd.1234", authentication_token: "qwertyuiop")
