@@ -25,38 +25,46 @@ resource "商户用户鉴权" do
     end
   end
 
-  # post "/users/sign_in" do
-  #   before do
-  #     User.create(phone: "138138138138", password: "abcd.1234")
-  #   end
+  post "/merchant_users/sign_in" do
+    before do
+      create :merchant_user
+    end
 
-  #   parameter :phone, "Employee phone", :required => true, scope: :user
-  #   parameter :password, "Employee password", :required => true, scope: :user
-  #   let(:phone) { "138138138138" }
-  #   let(:password) { "abcd.1234" }
-  #   let(:raw_post) { params.to_json }
+    parameter :phone, "手机号", required: true, scope: :merchant_user
+    parameter :email, "邮箱", required: true, scope: :merchant_user
+    parameter :password, "密码", required: true, scope: :merchant_user
 
-  #   example "用户登录成功" do
+    merchant_attrs = FactoryGirl.attributes_for :merchant_user
+    
+    let(:phone) { merchant_attrs[:phone] }
+    let(:email) { merchant_attrs[:email] }
+    let(:password) { merchant_attrs[:password] }
+    let(:raw_post) { params.to_json }
 
-  #     do_request
-  #     puts "response_body is:#{response_body}"
-  #     expect(status).to eq(201)
-  #   end
-  # end
+    example "商户用户登录成功" do
+      do_request
+      expect(status).to eq(201)
+    end
+  end
 
-  # post "/users/sign_in" do
+  post "/merchant_users/sign_in" do
+    before do
+      create :merchant_user
+    end
 
-  #   parameter :phone, "Employee phone", :required => true, scope: :user
-  #   parameter :password, "Employee password", :required => true, scope: :user
+    parameter :phone, "手机号", required: true, scope: :merchant_user
+    parameter :email, "邮箱", required: true, scope: :merchant_user
+    parameter :password, "密码", required: true, scope: :merchant_user
 
-  #   # let(:phone) { "138138138138" }
-  #   let(:password) { "abcd.1234" }
-  #   let(:raw_post) { params.to_json }
+    merchant_attrs = FactoryGirl.attributes_for :merchant_user
+    
+    let(:phone) { merchant_attrs[:phone] }
+    let(:password) { merchant_attrs[:password] }
+    let(:raw_post) { params.to_json }
 
-  #   example "用户登录失败" do
-  #     do_request
-  #     puts "response_body is:#{response_body}"
-  #     expect(status).to eq(401)
-  #   end
-  # end
+    example "商户用户登录失败" do
+      do_request
+      expect(status).to eq(401)
+    end
+  end
 end
