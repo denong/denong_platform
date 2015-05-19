@@ -16,7 +16,7 @@
   .jajin-form {
     padding: 20px;
 
-    .tel .control-label {
+    .control-label {
       font-size: 18px;
       padding-bottom: 10px;
     }
@@ -28,6 +28,17 @@
       border-radius: 4px;
       background: image-url("iphone.gif") no-repeat scroll 0 0 #fff;
       background-size: 50px,50px;
+      overflow:hidden;
+      padding:5px 0 4px 100px;
+    }
+
+    .string .form-control {
+      color: #999999;
+      font-size: 16px;
+      height: 50px;
+      border-radius: 4px;
+      // background: image-url("money.gif") no-repeat scroll 0 0 #fff;
+      background-size: 20px,20px;
       overflow:hidden;
       padding:5px 0 4px 100px;
     }
