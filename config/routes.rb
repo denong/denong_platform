@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       get 'get_followers'
     end
   end
+  resources :merchant, only: [:show]
+
   resources :shops, only: [:index, :show] do
     member do
       post 'follow'

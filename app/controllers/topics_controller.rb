@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @topics = Topic.all
+    @topics = Topic.all.paginate(page: params[:page], per_page: 10)
     respond_with(@topics)
   end
 

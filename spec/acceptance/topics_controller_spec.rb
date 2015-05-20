@@ -104,4 +104,34 @@ resource "专题相关" do
       expect(status).to eq(200)
     end
   end
+
+  get 'topics' do
+    before(:each) do
+      pic = create(:image)
+      (0..11).each do |i|
+        topic = create(:topic, title: "title"+i.to_s, subtitle: "subtitle"+i.to_s, pic: pic)  
+        (0..i%3).each do |j|
+          topic.merchants << create(:merchant)  
+        end
+      end
+    end
+
+    response_field :title, "标题"
+    response_field :subtitle, "副标题"
+    response_field :pic, "图片"
+    response_field :merchant_num, "商户数量"
+
+    example "获取商户列表" do
+      do_request
+      expect(status).to eq(200)
+    end
+
+    parameter :page, "页码"
+    let(:page) { 2 }
+    example "获取商户列表第二页" do
+      do_request
+      expect(status).to eq(200)
+    end
+
+  end
 end

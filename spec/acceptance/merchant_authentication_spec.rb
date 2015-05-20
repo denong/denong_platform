@@ -16,6 +16,7 @@ resource "商户用户鉴权" do
     response_field :updated_at, "更新时间"
 
     let(:phone) { "138138138138" }
+    let(:email) { "example@example.com" }
     let(:password) { "abcd.1234" }
     let(:raw_post) { params.to_json }
 
