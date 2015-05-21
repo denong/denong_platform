@@ -28,6 +28,9 @@ class Shop < ActiveRecord::Base
   belongs_to :merchant
   has_many :pos_machines
 
+  has_one :pic, class_name: "Image", as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :pic, allow_destroy: true
+  
   def votes_up 
     self.cached_votes_up
   end 
