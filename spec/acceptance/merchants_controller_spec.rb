@@ -89,19 +89,14 @@ resource "获取商户信息" do
 
   end
 
-  get "/merchants/:id" do
+  get "/merchant" do
     before(:each) do
-      create(:customer_with_jajin_pension)
-      create(:merchant)
+      @merchant = create(:merchant)
+      @merchant.sys_reg_info = create(:merchant_sys_reg_info)
     end
     
-    merchant_attrs = FactoryGirl.attributes_for(:merchant)
-
-    let(:id) { Merchant.first.id }
-
-    user_attrs = FactoryGirl.attributes_for(:user)
-    header "X-User-Token", user_attrs[:authentication_token]
-    header "X-User-Phone", user_attrs[:phone]
+    parameter :id, "商户ID", required: true
+    let(:id) { @merchant.id }
 
     response_field :sys_name, "商户名称"
     response_field :contact_person, "联系人"

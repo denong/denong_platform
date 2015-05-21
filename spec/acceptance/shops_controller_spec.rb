@@ -10,7 +10,6 @@ resource "获取门店信息" do
       FactoryGirl.create_list(:shop, 3)
     end
     
-    
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]

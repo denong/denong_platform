@@ -1,1 +1,1 @@
-json.extract! @shop, :id, :name, :addr, :contact_person, :contact_tel, :work_time, :votes_up
+json.extract! @shop, :id, :name, :addr, :contact_person, :contact_tel, :work_time, :votes_up, :pic

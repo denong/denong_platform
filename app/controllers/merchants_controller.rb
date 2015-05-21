@@ -4,7 +4,7 @@ class MerchantsController < ApplicationController
 
   respond_to :json
   acts_as_token_authentication_handler_for MerchantUser, only: [:update, :get_followers]
-  acts_as_token_authentication_handler_for User, only: [:index, :show, :customer_index]
+  acts_as_token_authentication_handler_for User, only: [:index, :customer_index]
 
   def index
     @merchants = Merchant.all.paginate(page: params[:page], per_page: 10)

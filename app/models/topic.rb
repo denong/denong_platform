@@ -13,8 +13,8 @@
 class Topic < ActiveRecord::Base
   serialize :tags, Array
   has_many :merchants, dependent: :destroy
+  
   has_one :pic, class_name: "Image", as: :imageable, dependent: :destroy
-
   accepts_nested_attributes_for :pic, allow_destroy: true
   
   after_create :add_merchant_by_tags
