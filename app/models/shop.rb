@@ -31,6 +31,9 @@ class Shop < ActiveRecord::Base
   has_one :pic, class_name: "Image", as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :pic, allow_destroy: true
   
+  has_one :logo, class_name: "Image", as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :logo, allow_destroy: true
+
   def votes_up 
     self.cached_votes_up
   end 

@@ -219,6 +219,11 @@ FactoryGirl.define do
     work_time "9:00-18:00"
     lon 120.51
     lat 30.40
+
+    after(:create) do |shop|
+      shop.pic ||= FactoryGirl.create(:image)
+      shop.logo ||= FactoryGirl.create(:image)
+    end
   end
 
   factory :member_card do

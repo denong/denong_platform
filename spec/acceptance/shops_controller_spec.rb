@@ -6,8 +6,8 @@ resource "获取门店信息" do
 
   get "/shops" do
     before(:each) do
-      FactoryGirl.create(:customer_with_jajin_pension)
-      FactoryGirl.create_list(:shop, 3)
+      create(:customer_with_jajin_pension)
+      create_list(:shop, 3)
     end
     
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -30,6 +30,8 @@ resource "获取门店信息" do
     response_field :votes_up, "赞"
     response_field :lat, "纬度"
     response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
 
     parameter :page, "页码", required: false
     let(:page) { 3 }
@@ -56,6 +58,8 @@ resource "获取门店信息" do
     response_field :votes_up, "赞"
     response_field :lat, "纬度"
     response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
 
     let(:merchant_id) { Merchant.last.id }
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -89,6 +93,8 @@ resource "获取门店信息" do
     response_field :votes_up, "赞"
     response_field :lat, "纬度"
     response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
 
     example "关注门店成功" do
       do_request
@@ -116,6 +122,8 @@ resource "获取门店信息" do
     response_field :votes_up, "赞"
     response_field :lat, "纬度"
     response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
 
     example "取消关注门店成功" do
       do_request
@@ -144,6 +152,9 @@ resource "获取门店信息" do
     response_field :votes_up, "赞"
     response_field :lat, "纬度"
     response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
+
     parameter :lat, "纬度", required: true, scope: :shop
     parameter :lon, "经度", required: true, scope: :shop
 
