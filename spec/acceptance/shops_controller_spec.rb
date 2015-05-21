@@ -2,7 +2,6 @@ require 'acceptance_helper'
 
 resource "获取门店信息" do
   header "Accept", "application/json"
-  header "Content-Type", "application/json"
 
   get "/shops" do
     before(:each) do
@@ -70,7 +69,6 @@ resource "获取门店信息" do
       do_request
       expect(status).to eq(200)
     end
-
   end
 
   post 'shops/:id/follow' do
@@ -142,6 +140,7 @@ resource "获取门店信息" do
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
+    header "Content-Type", "application/json"
 
     response_field :id, "门店ID"
     response_field :name, "门店名"
@@ -168,4 +167,55 @@ resource "获取门店信息" do
     end
   end
 
+  post "merchants/:merchant_id/shops"  do
+    before(:each) do
+      @merchant_user = create(:merchant_user)
+      @merchant_user.merchant = create(:merchant)
+    end
+    
+    parameter :name, "门店名", required: true, scope: :shop
+    parameter :addr, "门店地址", required: true, scope: :shop
+    parameter :contact_person, "联系人", required: true, scope: :shop
+    parameter :contact_tel, "联系电话", required: true, scope: :shop
+    parameter :work_time, "营业时间", required: true, scope: :shop
+    parameter :lat, "纬度", required: true, scope: :shop
+    parameter :lon, "经度", required: true, scope: :shop
+    parameter :pic_attributes, "图片", required: true, scope: :shop
+    parameter :logo_attributes, "logo", required: true, scope: :shop
+
+    response_field :id, "门店ID"
+    response_field :name, "门店名"
+    response_field :addr, "门店地址"
+    response_field :contact_person, "联系人"
+    response_field :contact_tel, "联系电话"
+    response_field :work_time, "营业时间"
+    response_field :votes_up, "赞"
+    response_field :lat, "纬度"
+    response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
+
+    let(:merchant_id) { Merchant.last.id }
+
+    merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
+    header "X-User-Token", merchant_attrs[:authentication_token]
+    header "X-User-Phone", merchant_attrs[:phone]
+
+
+    let(:name) { "shop_name" }
+    let(:addr) { "shop_addr" }
+    let(:contact_person) { "contact_person" }
+    let(:contact_tel) { "contact_tel" }
+    let(:work_time) { "9:00-16:00" }
+    let(:lat) { 33.33 }
+    let(:lon) { 131.11 }
+    let(:pic_attributes) { attributes_for(:image) }
+    let(:logo_attributes) { attributes_for(:image) }
+    # let(:raw_post) { params.to_json }
+
+    example "创建门店" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
 end

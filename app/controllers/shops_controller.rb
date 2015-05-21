@@ -2,7 +2,7 @@ require 'will_paginate/array'
 class ShopsController < ApplicationController
   
   respond_to :html, :json
-  acts_as_token_authentication_handler_for User
+  acts_as_token_authentication_handler_for User, only: [:follow, :unfollow, :neighbour_shop]
   acts_as_token_authentication_handler_for MerchantUser, only: [:new, :create]
   before_action :set_shop, only: [:show, :follow, :unfollow]
 
@@ -40,6 +40,12 @@ class ShopsController < ApplicationController
     @shops = (Shop.get_neighbour_shop addr_data_params).paginate(page: params[:page], per_page: 10)
   end
 
+  def create
+    @shop = current_merchant.shops.build(create_params)
+    @shop.save
+    respond_with(@shop)
+  end
+
   private
 
     def set_shop
@@ -50,4 +56,13 @@ class ShopsController < ApplicationController
       params.require(:shop).permit(:lon, :lat)
     end 
 
+    def create_params
+      params.require(:shop).permit(:name, :addr, :contact_person, 
+        :contact_tel, :work_time, :lat, :lon, 
+        pic_attributes: [:id, :photo, :_destroy], 
+        logo_attributes: [:id, :photo, :_destroy])
+    end
+
 end
+
+
