@@ -51,6 +51,10 @@ gem 'acts_as_votable'
 # simple form
 gem 'simple_form'
 
+# Search
+gem 'sunspot_rails'
+gem 'sunspot_solr'  # optional pre-packaged Solr distribution for use in development
+
 #######################################################################
 gem 'unicorn'
 
