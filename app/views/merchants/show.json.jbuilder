@@ -1,3 +1,4 @@
+json.merchant_id @merchant.id
 json.sys_name @merchant.sys_reg_info.sys_name
 json.contact_person @merchant.sys_reg_info.contact_person
 json.service_tel @merchant.sys_reg_info.service_tel
