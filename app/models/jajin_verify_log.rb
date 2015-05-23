@@ -47,7 +47,7 @@ class JajinVerifyLog < ActiveRecord::Base
     def must_verify_state_sucess
       verify_identity = JajinIdentityCode.activate_by_verify_code verify_code
       unless verify_identity.present?
-        errors.add(:message, "该小金验证码不存在或已失效")
+        errors.add(:verify_code, "该小金验证码不存在或已失效")
       else
         # 需要从原始串码内容中获取相关的小金内容
         self.amount = verify_identity.amount

@@ -1,8 +1,8 @@
 <div class="container">
-  <h3 class="about-title text-center">小确幸</h3>
+  <!-- <h3 class="about-title text-center">小确幸</h3> -->
   <div class="jajin-form">
     <%= simple_form_for(@verify_log) do |f| %>
-      <%= f.error_notification %>
+      <!-- <%= f.error_notification message: "您输入的信息有误，请重试" %> -->
 
       <div class="form-inputs">
         <% if params[:verify_code] %>
