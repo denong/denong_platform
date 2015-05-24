@@ -41,6 +41,27 @@ class User < ActiveRecord::Base
 
   after_create :add_customer
 
+  def as_json(arg)
+    {
+      id: id,
+      email: email,
+      phone: phone,
+      authentication_token: authentication_token,
+      created_at: created_at,
+      updated_at: updated_at,
+      pension: customer.try(:pension).try(:total),
+      account: customer.try(:pension).try(:account),
+      jajin: customer.try(:jajin).got,
+      bank_cards: customer.try(:bank_cards).map {|bank_card| bank_card.bankcard_no},
+      image: customer.try(:customer_reg_info).image,
+      nick_name: customer.try(:customer_reg_info).nick_name,
+      name: customer.try(:customer_reg_info).name,
+      gender: customer.try(:customer_reg_info).gender,
+      following_ids: customer.get_voted(Merchant).map { |merchant| merchant.id },
+      following_number: customer.votes.size
+    }
+  end
+
   def self.find_or_create_by_phone phone
     user = User.find_by_phone(phone)
     if user.nil?
