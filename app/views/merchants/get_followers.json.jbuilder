@@ -3,4 +3,5 @@ json.array!(@voters) do |voter|
   json.name voter.customer_reg_info.name
   json.nick_name voter.customer_reg_info.nick_name
   json.gender voter.customer_reg_info.gender
+  json.image voter.customer_reg_info.image
 end
