@@ -12,4 +12,13 @@
 
 class Jajin < ActiveRecord::Base
   belongs_to :customer
+
+  def get_customer_jajin customer_id
+    
+  end
+
+  def get_merchant_jajin merchant_id
+    
+  end
+  
 end

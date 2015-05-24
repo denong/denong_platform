@@ -1,10 +1,10 @@
 require 'will_paginate/array'
 class MerchantsController < ApplicationController
-  before_action :set_merchant, only: [:show, :add_tag, :update]
+  before_action :set_merchant, only: [:show, :add_tag, :update, :follow, :unfollow]
 
   respond_to :json
   acts_as_token_authentication_handler_for MerchantUser, only: [:update, :get_followers]
-  acts_as_token_authentication_handler_for User, only: [:index, :customer_index]
+  acts_as_token_authentication_handler_for User, only: [:index, :customer_index, :follow, :unfollow]
 
   def index
     @merchants = Merchant.all.paginate(page: params[:page], per_page: 10)
@@ -31,6 +31,18 @@ class MerchantsController < ApplicationController
 
   def get_followers
     @voters = current_merchant.get_likes.by_type(Customer).voters
+  end
+
+  def follow
+    if @merchant.present?
+      current_customer.follow! @merchant
+    end
+  end
+
+  def unfollow
+    if @merchant.present?
+      current_customer.unfollow! @merchant
+    end
   end
 
   private
