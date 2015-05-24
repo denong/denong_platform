@@ -28,6 +28,7 @@ class JajinVerifyLog < ActiveRecord::Base
 
   def as_json(options=nil)
     {
+      company: company,
       verify_code: verify_code
     }
   end
@@ -52,6 +53,7 @@ class JajinVerifyLog < ActiveRecord::Base
       else
         # 需要从原始串码内容中获取相关的小金内容
         self.amount = verify_identity.amount
+        self.company = verify_identity.company
       end
     end
 

@@ -19,3 +19,4 @@ zh-CN:
       jajin_verify_log:
         message: "提示："
         phone: "手机号码"
+        verify_code: "提示："

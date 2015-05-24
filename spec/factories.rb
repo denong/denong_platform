@@ -12,6 +12,7 @@ FactoryGirl.define do
   factory :jajin_identity_code do
     amount 10.8
     verify_code "123456"
+    company "万里通积分兑换"
   end
   
   factory :merchant_giving_log do
