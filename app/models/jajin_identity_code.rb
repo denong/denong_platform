@@ -11,6 +11,7 @@
 #  verify_code     :string(255)
 #  verify_state    :integer          default(0)
 #  trade_time      :string(255)
+#  company         :string(255)
 #
 
 class JajinIdentityCode < ActiveRecord::Base
