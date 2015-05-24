@@ -13,3 +13,4 @@ json.welcome_string @merchant.sys_reg_info.welcome_string
 json.comment_text @merchant.sys_reg_info.comment_text
 json.votes_up  @merchant.votes_up
 json.giving_jajin   @merchant.get_giving_jajin
+json.image @merchant.sys_reg_info.image

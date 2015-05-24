@@ -35,7 +35,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    
+    response_field :image, "商户logo"
+
     example "获取商户信息列表前十条" do
       do_request
       expect(status).to eq(200)
@@ -77,6 +78,7 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
+    response_field :image, "商户logo"
     
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
@@ -112,7 +114,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    
+    response_field :image, "商户logo"
+
     example "获取商户详细信息" do
       do_request
       expect(status).to eq(200)
@@ -146,6 +149,7 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :tags, "标签"
+    response_field :image, "商户logo"
 
     let(:tags) { "good,well,nice" }
     let(:raw_post) { params.to_json }
@@ -183,6 +187,7 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :tags, "标签"
+    response_field :image, "商户logo"
 
     parameter :sys_name, "商户名称", required: true, scope: :merchant
     parameter :contact_person, "联系人", required: true, scope: :merchant
@@ -196,6 +201,7 @@ resource "获取商户信息" do
     parameter :lat, "纬度", required: true, scope: :merchant
     parameter :welcome_string, "欢迎语", required: true, scope: :merchant
     parameter :comment_text, "备注", required: true, scope: :merchant
+    parameter :image_attributes, "图片", required: true, scope: :merchant
 
     let(:sys_name) { "new_sys_name" }
     let(:contact_person) { "new_contact_person" }
@@ -209,8 +215,7 @@ resource "获取商户信息" do
     let(:lat) { 222.222 }
     let(:welcome_string) { "new_welcome_string" }
     let(:comment_text) { "new_comment_text" }
-
-    let(:raw_post) { params.to_json }
+    let(:image_attributes) { attributes_for(:image) }
 
     example "修改商户资料" do
       do_request
@@ -266,6 +271,7 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
+    response_field :image, "商户logo"
 
     example "关注商户成功" do
       do_request
@@ -298,6 +304,7 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
+    response_field :image, "商户logo"
 
     example "取消关注商户成功" do
       do_request

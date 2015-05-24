@@ -56,7 +56,8 @@ class MerchantsController < ApplicationController
     end
 
     def update_params
-      params.require(:merchant).permit(:sys_name, :contact_person, :service_tel, :fax_tel, :email, :company_addr, :region, :postcode, :lon, :lat, :welcome_string, :comment_text, )      
+      params.require(:merchant).permit(:sys_name, :contact_person, :service_tel, :fax_tel, :email, :company_addr, :region, :postcode, :lon, :lat, :welcome_string, :comment_text, 
+        image_attributes: [:id, :photo, :_destroy])      
     end
 
 end
