@@ -6,6 +6,7 @@ json.jajin_logs @jajin_logs do |jajin_log|
   json.amount jajin_log.amount
   json.log_time jajin_log.updated_at
   json.customer_id jajin_log.customer_id
+  json.company jajin_log.jajinable.company if jajin_log.jajinable.respond_to?(:company)
   json.type jajin_log.jajinable_type
   json.detail jajin_log.jajinable.as_json
 end

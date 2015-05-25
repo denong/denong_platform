@@ -18,6 +18,7 @@
 #
 
 class TlTrade < ActiveRecord::Base
+
   belongs_to :customer
   belongs_to :merchant
   belongs_to :pos_machine
@@ -57,6 +58,10 @@ class TlTrade < ActiveRecord::Base
     #   merchant_name: merchant_info.sys_name,
     #   merchant_image: merchant_info.image ? image_url(merchant_info.image.photo.url(:small)) : nil
     # }
+  end
+
+  def company
+    "通联刷卡交易"
   end
 
   private
