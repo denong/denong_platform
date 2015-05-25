@@ -121,17 +121,17 @@ resource "专题相关" do
     response_field :pic, "图片"
     response_field :merchant_num, "商户数量"
 
-    example "获取商户列表" do
+    example "获取专题列表" do
       do_request
       expect(status).to eq(200)
     end
 
     parameter :page, "页码"
     let(:page) { 2 }
-    example "获取商户列表第二页" do
+    example "获取专题列表第二页" do
       do_request
       expect(status).to eq(200)
     end
-
   end
+
 end
