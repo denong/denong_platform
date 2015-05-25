@@ -12,8 +12,21 @@ class Ticket < ActiveRecord::Base
   belongs_to :customer
 
   validates_uniqueness_of :customer_id
+  
+  has_one :jajin_log, as: :jajinable
+  before_save :calculate
+  before_save :add_jajin_log
 
-  def add_jajin_log
-    self.create_jajin_log customer: customer, amount: 10
-  end
+  private
+
+    def add_jajin_log
+      self.create_jajin_log customer: customer, amount: 10
+    end
+
+    def calculate
+      jajin = self.customer.jajin
+      jajin.got += 10
+      jajin.save!
+    end
+
 end

@@ -1,6 +1,7 @@
 require 'rack/test'
-FactoryGirl.define do  factory :ticket do
-    customer ""
+FactoryGirl.define do  
+  factory :ticket do
+
   end
   
   factory :topic do
@@ -162,6 +163,12 @@ FactoryGirl.define do  factory :ticket do
       end
     end
 
+    factory :customer_with_ticket do |customer|
+      after(:create) do |customer|
+        customer.jajin.update_attributes got: attributes_for(:jajin)[:got]
+        create(:ticket, customer: customer)
+      end
+    end
     after(:build) do |customer|
       customer.user ||= FactoryGirl.create(:user, customer: customer)
     end

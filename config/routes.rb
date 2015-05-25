@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   devise_ios_rails_for :merchant_users  
-  
 
   resources :sms_tokens, only: [:create]
   resources :pension, only: [:index]
@@ -105,6 +104,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tickets, only: [:create]
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
 
