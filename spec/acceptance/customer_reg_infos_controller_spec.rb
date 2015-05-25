@@ -5,7 +5,12 @@ resource "用户概要信息查询" do
 
   get "/customer_reg_info" do
     before do
-      create(:customer_with_reg_info)
+      merchant = create(:merchant)
+      @user = create(:user)
+      bank_cards = create_list(:bank_card, 3)
+      @user.customer.bank_cards = bank_cards
+      @user.customer.follow! merchant
+      @user.customer.customer_reg_info.image = create(:image)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -19,6 +24,30 @@ resource "用户概要信息查询" do
     response_field :image, "用户头像"
     response_field :nick_name, "用户昵称"
     response_field :gender, "性别【男: male, 女: female】"
+    response_field :pension, "养老金总额"
+    response_field :account, "养老金账号"
+    response_field :jajin_got, "已验证小金"
+    response_field :jajin_unverify, "未验证小金"
+    response_field :bank_cards, "银行卡"
+    response_field :following_number, "已关注商户数"
+
+    response_field :merchant_id, "商户ID"
+    response_field :sys_name, "商户名称"
+    response_field :contact_person, "联系人"
+    response_field :service_tel, "客服电话"
+    response_field :fax_tel, "传真"
+    response_field :email, "邮箱"
+    response_field :company_addr, "公司地址"
+    response_field :region, "地区"
+    response_field :postcode, "邮政编码"
+    response_field :lon, "经度"
+    response_field :lat, "纬度"
+    response_field :welcome_string, "欢迎语"
+    response_field :comment_text, "备注"
+    response_field :votes_up, "赞"
+    response_field :giving_jajin, "商户赠送的小金"
+    response_field :merchant_image, "商户logo"
+
 
     example "获取用户信息成功（自己的信息）" do
       do_request

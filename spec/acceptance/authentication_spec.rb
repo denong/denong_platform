@@ -65,16 +65,6 @@ resource "用户鉴权" do
     response_field :updated_at, "更新时间"
     response_field :phone, "电话号码"
     response_field :authentication_token, "鉴权Token"
-    response_field :pension, "养老金"
-    response_field :account, "养老金账号"
-    response_field :jajin, "小金"
-    response_field :bank_cards, "银行卡卡号"
-    response_field :image, "头像"
-    response_field :nick_name, "昵称"
-    response_field :name, "姓名"
-    response_field :gender, "性别"
-    response_field :following_ids, "关注商户的ID"
-    response_field :following_number, "关注商户的数量"
 
     example "用户登录成功" do
       do_request
