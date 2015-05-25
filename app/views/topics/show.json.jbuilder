@@ -1,4 +1,5 @@
 json.extract! @topic, :title, :subtitle
+json.merchant_num @topic.merchants.size
 json.pic image_url(@topic.pic.photo.url(:product)) if @topic.pic
 json.merchants @topic.merchants do |merchant|
   json.sys_name       merchant.sys_reg_info.sys_name
@@ -8,4 +9,5 @@ json.merchants @topic.merchants do |merchant|
   json.welcome_string merchant.sys_reg_info.welcome_string
   json.merchant_id    merchant.id
   json.votes_up       merchant.votes_up
+  json.merchant_logo  merchant.thumb
 end
