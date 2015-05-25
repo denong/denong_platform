@@ -20,6 +20,7 @@
 #
 
 class User < ActiveRecord::Base
+  include ActionView::Helpers::AssetUrlHelper
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -43,7 +44,7 @@ class User < ActiveRecord::Base
 
   def as_json(arg)
     image = customer.try(:customer_reg_info).try(:image)
-    image_url = image.nil? ? "" : image_url(image.photo.url(:small))
+    url = image.nil? ? "" : image_url(image.photo.url(:small))
     {
       id: id,
       email: email,
@@ -55,7 +56,7 @@ class User < ActiveRecord::Base
       account: customer.try(:pension).try(:account),
       jajin: customer.try(:jajin).got,
       bank_cards: customer.try(:bank_cards).map {|bank_card| bank_card.bankcard_no},
-      image: image_url,
+      image: url,
       nick_name: customer.try(:customer_reg_info).nick_name,
       name: customer.try(:customer_reg_info).name,
       gender: customer.try(:customer_reg_info).gender,
