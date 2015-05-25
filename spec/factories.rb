@@ -1,5 +1,8 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :ticket do
+    customer ""
+  end
+  
   factory :topic do
     title "title"
     subtitle "subtitle"

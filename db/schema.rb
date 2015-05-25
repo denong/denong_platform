@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525133754) do
+ActiveRecord::Schema.define(version: 20150525142005) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -399,6 +399,12 @@ ActiveRecord::Schema.define(version: 20150525133754) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+
+  create_table "tickets", force: true do |t|
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tl_trades", force: true do |t|
     t.string   "phone"
