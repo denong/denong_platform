@@ -185,6 +185,7 @@ FactoryGirl.define do
     ratio 0.01
     after(:create) do |merchant|
       merchant.sys_reg_info.update_attributes attributes_for(:merchant_sys_reg_info)
+      merchant.sys_reg_info.image ||= FactoryGirl.create(:image)
     end
     factory :merchant_with_shops do
       after(:create) do |merchant|

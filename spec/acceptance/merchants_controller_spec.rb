@@ -6,8 +6,10 @@ resource "获取商户信息" do
 
   get "/merchants" do
     before(:each) do
-      create(:customer_with_jajin_pension)
-      merchants = create_list(:merchant, 3)
+      customer = create(:customer_with_jajin_pension)
+      merchants = create_list(:merchant, 3) do |merchant|
+        customer.follow! merchant
+      end
       merchants.each do |merchant|
         (0..3).each do |i|
           create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant))  
@@ -37,14 +39,14 @@ resource "获取商户信息" do
     response_field :giving_jajin, "商户赠送的小金"
     response_field :image, "商户logo"
 
-    example "获取商户信息列表前十条" do
+    example "获取我关注的商户信息列表前十条" do
       do_request
       expect(status).to eq(200)
     end
 
     parameter :page, "页码", required: false
     let(:page) { 3 }
-    example "获取商户信息列表第三页" do
+    example "获取我关注的商户信息列表第三页" do
       do_request
       expect(status).to eq(200)
     end
