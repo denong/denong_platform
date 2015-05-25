@@ -39,7 +39,8 @@ class Customer < ActiveRecord::Base
   has_many :gain_accounts, dependent: :destroy
   # 扫码送小金
   has_many :jajin_verify_logs, dependent: :destroy
-  
+  # 拍小票
+  has_one :ticket
   
   after_create :add_jajin
   after_create :add_customer_reg_info
