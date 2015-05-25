@@ -26,6 +26,10 @@ class ExchangeLog < ActiveRecord::Base
       status: "ok"
     }
   end
+
+  def company
+    "小金互赠"
+  end
   
   private
     def must_have_jajin

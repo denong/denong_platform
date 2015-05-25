@@ -20,6 +20,7 @@
 #
 
 class User < ActiveRecord::Base
+  include ActionView::Helpers::AssetUrlHelper
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -38,6 +39,7 @@ class User < ActiveRecord::Base
   has_one :customer
   validate :sms_token_validate
   after_create :add_customer
+
 
   def self.find_or_create_by_phone phone
     user = User.find_by_phone(phone)

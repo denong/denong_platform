@@ -18,12 +18,14 @@ class JajinLog < ActiveRecord::Base
   default_scope { order('id DESC') }
 
   def as_json(options=nil)
+    company = jajinable.company if jajinable.respond_to?(:company)
     {
       id: id,
       amount: amount,
       log_time: updated_at,
       customer_id: customer_id,
       type: jajinable_type,
+      company: company,
       detail: jajinable.as_json
     }
   end

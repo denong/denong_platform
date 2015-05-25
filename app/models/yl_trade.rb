@@ -42,9 +42,9 @@ class YlTrade < ActiveRecord::Base
     end
   end
 
-
-
-
+  def company
+    "银联刷卡交易"
+  end
 
 
 end
