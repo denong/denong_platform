@@ -110,4 +110,50 @@ resource "用户鉴权" do
     end
 
   end
+
+  post "/check_user/reset" do
+    before do
+      @user = create(:user)
+    end
+
+    parameter :phone, "用户注册的手机号码"
+    parameter :password, "新修改的密码"
+    parameter :sms_token, "短信验证码"
+
+    user_attrs = FactoryGirl.attributes_for :user
+    sms_attrs = FactoryGirl.attributes_for :sms_token
+
+    let(:phone) { user_attrs[:phone] }
+    let(:password) { user_attrs[:password] }
+    let(:sms_token) { "989898" }
+    let(:raw_post) { params.to_json }
+
+    example "修改用户密码成功" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
+
+  post "/check_user/reset" do
+    before do
+      @user = create(:user)
+    end
+
+    parameter :phone, "用户注册的手机号码"
+    parameter :password, "新修改的密码"
+    parameter :sms_token, "短信验证码"
+
+    user_attrs = FactoryGirl.attributes_for :user
+    sms_attrs = FactoryGirl.attributes_for :sms_token
+
+    let(:phone) { user_attrs[:phone] }
+    let(:password) { user_attrs[:password] }
+    let(:sms_token) { "111" }
+    let(:raw_post) { params.to_json }
+
+    example "修改用户密码失败（短信验证码不正确）" do
+      do_request
+      expect(status).to eq(401)
+    end
+  end
 end
