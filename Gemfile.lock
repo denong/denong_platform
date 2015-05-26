@@ -1,5 +1,5 @@
 GEM
-  remote: https://ruby.taobao.org/
+  remote: http://ruby.taobao.org/
   specs:
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
@@ -208,6 +208,7 @@ GEM
     sunspot (2.1.1)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
+    sunspot_matchers (2.2.0.1)
     sunspot_rails (2.1.1)
       nokogiri
       rails (>= 3)
@@ -268,6 +269,7 @@ DEPENDENCIES
   simple_form
   spring
   sqlite3
+  sunspot_matchers
   sunspot_rails
   sunspot_solr
   turbolinks

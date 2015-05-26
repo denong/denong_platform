@@ -16,6 +16,7 @@ capybara-*.html
 /doc/
 /spec/tmp
 /config/database.yml
+/solr/
 **.orig
 rerun.txt
 pickle-email-*.html

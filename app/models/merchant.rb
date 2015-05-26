@@ -36,8 +36,21 @@ class Merchant < ActiveRecord::Base
   has_many :merchant_messages, dependent: :destroy
   has_many :merchant_giving_logs, dependent: :destroy
 
+  delegate :sys_name, :company_addr, :welcome_string, to: :sys_reg_info
+  after_touch :index
+
   after_create :add_sys_reg_info
   after_create :add_busi_reg_info
+
+  searchable do
+    text :sys_name
+    text :welcome_string
+    integer :votes_up
+  end
+
+  def self.name_search search_text
+    where("sys_name LIKE ?", "%#{search_text}%")
+  end
 
   def get_giving_jajin
     self.merchant_giving_logs.sum(:amount)

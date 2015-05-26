@@ -15,6 +15,7 @@ resource "获取商户信息" do
           create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant))  
         end
       end
+      Sunspot.commit
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -50,6 +51,15 @@ resource "获取商户信息" do
       do_request
       expect(status).to eq(200)
     end
+
+    parameter :search, "搜索字段", required: false
+    let(:search) { "merchant_sys_name" }
+    let(:page) { 1 }
+    example "搜索商户名称字段" do
+      do_request
+      expect(status).to eq(200)
+    end
+
   end
 
 

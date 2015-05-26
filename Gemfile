@@ -1,5 +1,5 @@
 # source 'https://rubygems.org'
-source 'https://ruby.taobao.org'
+source 'http://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -62,6 +62,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
   gem "factory_girl_rails", "~> 4.0"
+  gem 'sunspot_matchers'
 end
 
 # Rspec Api Doc generator
