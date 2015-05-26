@@ -20,6 +20,11 @@
 #  cached_weighted_average :float            default(0.0)
 #  lon                     :float
 #  lat                     :float
+#  post_code               :string(255)
+#  email                   :string(255)
+#  service_tel             :string(255)
+#  welcome_text            :string(255)
+#  remark                  :string(255)
 #
 
 class Shop < ActiveRecord::Base

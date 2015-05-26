@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525142005) do
+ActiveRecord::Schema.define(version: 20150526145819) do
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -360,6 +360,11 @@ ActiveRecord::Schema.define(version: 20150525142005) do
     t.float    "cached_weighted_average", default: 0.0
     t.float    "lon"
     t.float    "lat"
+    t.string   "post_code"
+    t.string   "email"
+    t.string   "service_tel"
+    t.string   "welcome_text"
+    t.string   "remark"
   end
 
   add_index "shops", ["cached_votes_down"], name: "index_shops_on_cached_votes_down"
