@@ -7,7 +7,8 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for User, only: [:index, :customer_index, :follow, :unfollow]
 
   def index
-    @merchants = current_customer.get_voted(Merchant).all.paginate(page: params[:page], per_page: 10)
+    # @merchants = Merchant.all.paginate(page: params[:page], per_page: 10)
+    @merchants = MerchantSearch.search params
   end
 
   def show

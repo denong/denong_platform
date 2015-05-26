@@ -25,7 +25,7 @@
 #
 
 class MerchantSysRegInfo < ActiveRecord::Base
-  belongs_to :merchant
+  belongs_to :merchant, touch: true
   has_one :image, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :image, allow_destroy: true
 end
