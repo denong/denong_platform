@@ -32,6 +32,12 @@ resource "获取门店信息" do
     response_field :pic, "图片"
     response_field :logo, "logo"
 
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
+
     parameter :page, "页码", required: false
     let(:page) { 3 }
     example "获取门店信息列表第三页" do
@@ -59,6 +65,11 @@ resource "获取门店信息" do
     response_field :lon, "经度"
     response_field :pic, "图片"
     response_field :logo, "logo"
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
 
     let(:merchant_id) { Merchant.last.id }
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -93,6 +104,11 @@ resource "获取门店信息" do
     response_field :lon, "经度"
     response_field :pic, "图片"
     response_field :logo, "logo"
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
 
     example "关注门店成功" do
       do_request
@@ -122,6 +138,11 @@ resource "获取门店信息" do
     response_field :lon, "经度"
     response_field :pic, "图片"
     response_field :logo, "logo"
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
 
     example "取消关注门店成功" do
       do_request
@@ -153,6 +174,11 @@ resource "获取门店信息" do
     response_field :lon, "经度"
     response_field :pic, "图片"
     response_field :logo, "logo"
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
 
     parameter :lat, "纬度", required: true, scope: :shop
     parameter :lon, "经度", required: true, scope: :shop
@@ -194,6 +220,11 @@ resource "获取门店信息" do
     response_field :lon, "经度"
     response_field :pic, "图片"
     response_field :logo, "logo"
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
 
     let(:merchant_id) { Merchant.last.id }
 

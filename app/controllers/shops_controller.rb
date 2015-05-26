@@ -58,7 +58,8 @@ class ShopsController < ApplicationController
 
     def create_params
       params.require(:shop).permit(:name, :addr, :contact_person, 
-        :contact_tel, :work_time, :lat, :lon, 
+        :contact_tel, :work_time, :lat, :lon, :post_code, :email, :service_tel,
+        :welcome_text, :remark,
         pic_attributes: [:id, :photo, :_destroy], 
         logo_attributes: [:id, :photo, :_destroy])
     end
