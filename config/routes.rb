@@ -63,7 +63,11 @@ Rails.application.routes.draw do
   resources :identity_verifies, only: [:create, :update, :index]
 
   # 用户是否存在
-  resource :check_user, only: [:show]
+  resource :check_user, only: [:show] do
+    member do
+      post 'reset'
+    end
+  end
   ################################################
 
   ################################################

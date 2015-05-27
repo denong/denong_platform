@@ -53,6 +53,22 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.reset_user_password params
+    phone = params[:phone]
+    password = params[:password]
+    sms_token = params[:sms_token]
+    user = User.find_by phone: phone
+    if user.present?
+      user.password = password
+      user.sms_token = sms_token
+      user.save
+    else
+      user = User.new
+      user.errors.add(:phone, "对应的用户不存在")
+    end
+    user
+  end
+
   def sms_token_validate
     sms_token_obj = SmsToken.find_by(phone: phone)
 
