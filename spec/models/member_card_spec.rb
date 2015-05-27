@@ -8,6 +8,8 @@
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  user_name   :string(255)
+#  Passwd      :string(255)
 #
 
 require 'rails_helper'
