@@ -57,6 +57,7 @@ resource "专题相关" do
     response_field :welcome_string, "欢迎语"
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
+    response_field :image, "商户宣传图"
 
     let(:id) { @topic.id }
     let(:merchant_id) { @merchant.id }
@@ -88,6 +89,7 @@ resource "专题相关" do
     response_field :merchant_id, "商户ID"
     response_field :votes_up, "赞"
     response_field :merchant_logo, "商户Logo"
+    response_field :image, "商户宣传图"
 
 
     let(:id) { @topic.id }
@@ -104,7 +106,7 @@ resource "专题相关" do
       pic = create(:image)
       (0..11).each do |i|
         topic = create(:topic, title: "title"+i.to_s, subtitle: "subtitle"+i.to_s, pic: pic)  
-        (0..i%3).each do |j|
+        (0..1).each do |j|
           topic.merchants << create(:merchant)  
         end
       end
