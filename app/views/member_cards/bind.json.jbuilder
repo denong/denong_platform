@@ -1,1 +1,1 @@
-json.extract! @member_card, :point, :merchant_id, :customer_id, :id
+json.extract! @member_card, :point, :merchant_id, :customer_id, :id, :user_name

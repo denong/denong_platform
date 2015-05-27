@@ -340,7 +340,6 @@ resource "获取商户信息" do
     before(:each) do
       customer = create(:customer_with_jajin_pension)
       create(:merchant)
-      customer.bind_member_card! create(:member_card)
     end
 
     let(:id) { Merchant.last.id }
@@ -351,6 +350,13 @@ resource "获取商户信息" do
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
+
+    response_field :total_pages, "总页数"
+    response_field :current_page, "页码"
+    response_field :member_cards, "会员卡"
+    response_field :id, "会员卡ID"
+    response_field :point, "积分分值"
+    response_field :user_name, "用户名"
 
     let(:user_name) { "abcdefg" }
     let(:passwd) { "123456" }

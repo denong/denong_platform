@@ -64,7 +64,7 @@ resource "查询会员卡积分" do
       merchants = create_list(:merchant, 5)
       customer = create(:customer)
       merchants.each do |merchant|
-        create(:member_card, customer: customer, merchant: merchant)
+        create(:member_card, customer: customer, merchant: merchant, user_name: "a"+merchants.index(merchant).to_s)
       end
     end
 
@@ -73,6 +73,7 @@ resource "查询会员卡积分" do
     response_field :member_cards, "会员卡"
     response_field :id, "会员卡ID"
     response_field :point, "积分分值"
+    response_field :user_name, "用户名"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
