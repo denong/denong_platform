@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'get_followers'
       post 'follow'
       post 'unfollow'
+      post 'member_cards'
     end
   end
   resource :merchant, only: [:show]

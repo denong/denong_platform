@@ -336,4 +336,23 @@ resource "获取商户信息" do
     end
   end
 
+  post 'merchants/:id/member_cards' do
+    before(:each) do
+      create(:customer_with_jajin_pension)
+      create(:merchant)
+    end
+
+    let(:id) { Merchant.last.id }
+    user_attrs = FactoryGirl.attributes_for(:user)
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+
+
+    example "绑定会员卡" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
+
 end
