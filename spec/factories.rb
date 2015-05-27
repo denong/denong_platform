@@ -30,6 +30,9 @@ FactoryGirl.define do
     content "MyString"
     summary "MyString"
     url "MyString"
+    after(:create) do |merchant_message|
+      merchant_message.thumb ||= FactoryGirl.create(:image)
+    end
   end
   
   factory :yl_trade do

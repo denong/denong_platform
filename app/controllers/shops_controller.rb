@@ -20,7 +20,6 @@ class ShopsController < ApplicationController
   end
 
   def show
-    puts "shop is #{@shop.inspect}"
     respond_with(@shop)
   end
 

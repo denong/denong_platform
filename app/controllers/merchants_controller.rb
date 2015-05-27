@@ -16,7 +16,6 @@ class MerchantsController < ApplicationController
   end
   
   def customer_index
-    # @merchants = current_customer.get_giving_jajin_merchant.paginate(page: params[:page], per_page: 10)
     @merchants = current_customer.get_up_voted(Merchant).paginate(page: params[:page], per_page: 10)
   end
 

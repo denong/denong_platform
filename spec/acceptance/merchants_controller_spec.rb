@@ -40,6 +40,14 @@ resource "获取商户信息" do
     response_field :giving_jajin, "商户赠送的小金"
     response_field :image, "商户logo"
 
+    response_field :time,  "活动时间"
+    response_field :title,  "活动标题"
+    response_field :content,  "活动内容"
+    response_field :summary,  "备注"
+    response_field :url, "外链"
+    response_field :thumb, "活动宣传图"
+
+
     example "获取我关注的商户信息列表前十条" do
       do_request
       expect(status).to eq(200)
@@ -70,8 +78,11 @@ resource "获取商户信息" do
       merchants.each do |merchant|
         (0..3).each do |i|
           create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)  
+          create_list(:merchant_message, 2, merchant: merchant)
         end
+        customer.follow! merchant
       end
+      
     end
 
     response_field :total_pages, "总页数"
@@ -91,7 +102,8 @@ resource "获取商户信息" do
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
     response_field :image, "商户logo"
-    
+    response_field :message, "商户活动"
+
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
