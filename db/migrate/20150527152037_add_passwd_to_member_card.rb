@@ -1,5 +1,5 @@
 class AddPasswdToMemberCard < ActiveRecord::Migration
   def change
-    add_column :member_cards, :Passwd, :string
+    add_column :member_cards, :passwd, :string
   end
 end

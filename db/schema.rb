@@ -192,12 +192,12 @@ ActiveRecord::Schema.define(version: 20150527152037) do
 
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"
-    t.float    "point"
+    t.float    "point",       default: 0.0
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_name"
-    t.string   "Passwd"
+    t.string   "passwd"
   end
 
   add_index "member_cards", ["customer_id"], name: "index_member_cards_on_customer_id"

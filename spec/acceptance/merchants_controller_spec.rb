@@ -338,14 +338,23 @@ resource "获取商户信息" do
 
   post 'merchants/:id/member_cards' do
     before(:each) do
-      create(:customer_with_jajin_pension)
+      customer = create(:customer_with_jajin_pension)
       create(:merchant)
+      customer.bind_member_card! create(:member_card)
     end
 
     let(:id) { Merchant.last.id }
+
+    parameter :user_name, "用户名", required: true, scope: :merchant
+    parameter :passwd, "密码", required: true, scope: :merchant
+
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
+
+    let(:user_name) { "abcdefg" }
+    let(:passwd) { "123456" }
+    let(:raw_post) { params.to_json }
 
     example "绑定会员卡" do
       do_request

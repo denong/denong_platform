@@ -243,6 +243,8 @@ FactoryGirl.define do
 
   factory :member_card do
     point 100.88
+    user_name "abc"
+    passwd "abcd"
   end
 
   factory :gain_org do

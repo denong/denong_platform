@@ -97,4 +97,8 @@ class Customer < ActiveRecord::Base
     Merchant.find merchant_ids.split(',')
   end
 
+  def add_member_card params, merchant_id
+    params[:merchant_id] = merchant_id
+    self.member_cards <<  MemberCard.create(params)
+  end
 end

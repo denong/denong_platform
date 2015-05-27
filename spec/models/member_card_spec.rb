@@ -4,12 +4,12 @@
 #
 #  id          :integer          not null, primary key
 #  merchant_id :integer
-#  point       :float
+#  point       :float            default(0.0)
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
 #  user_name   :string(255)
-#  Passwd      :string(255)
+#  passwd      :string(255)
 #
 
 require 'rails_helper'

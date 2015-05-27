@@ -47,8 +47,7 @@ class MerchantsController < ApplicationController
 
   def member_cards
     if @merchant.present?
-      @member_card = MemberCard.create(merchant_id: @merchant.id, point: 0)
-      current_customer.member_cards << @member_card
+      current_customer.add_member_card member_cards_params, @merchant.id
     end
   end
 
@@ -65,6 +64,10 @@ class MerchantsController < ApplicationController
     def update_params
       params.require(:merchant).permit(:sys_name, :contact_person, :service_tel, :fax_tel, :email, :company_addr, :region, :postcode, :lon, :lat, :welcome_string, :comment_text, 
         image_attributes: [:id, :photo, :_destroy])      
+    end
+
+    def member_cards_params
+      params.require(:merchant).permit(:user_name, :passwd)
     end
 
 end
