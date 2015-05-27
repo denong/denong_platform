@@ -46,6 +46,47 @@ resource "获取门店信息" do
     end
   end
 
+  get "/shops/:id" do
+    before(:each) do
+      create(:customer_with_jajin_pension)
+      create_list(:shop, 2)
+    end
+    
+    let(:id) { Shop.all.first.id }
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    response_field :name, "门店名"
+    response_field :addr, "门店地址"
+    response_field :contact_person, "联系人"
+    response_field :contact_tel, "联系电话"
+    response_field :work_time, "营业时间"
+    response_field :votes_up, "赞"
+    response_field :lat, "纬度"
+    response_field :lon, "经度"
+    response_field :pic, "图片"
+    response_field :logo, "logo"
+
+    response_field :post_code, "邮编"
+    response_field :email, "电子邮箱"
+    response_field :service_tel, "客服电话"
+    response_field :welcome_text, "欢迎语"
+    response_field :remark, "备注"
+
+    response_field :acquiring_bank, "收单机构"
+    response_field :operator, "操作员"
+    response_field :opertion_time, "操作时间"
+    response_field :shop_id, "门店ID"
+    response_field :pos_ind, "POS机编号"
+
+    example "获取指定门店信息" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
+
   get "merchants/:merchant_id/shops"  do
     before(:each) do
       create(:customer_with_jajin_pension)
