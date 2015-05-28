@@ -230,6 +230,7 @@ resource "获取商户信息" do
     parameter :welcome_string, "欢迎语", required: true, scope: :merchant
     parameter :comment_text, "备注", required: true, scope: :merchant
     parameter :image_attributes, "图片", required: true, scope: :merchant
+    parameter :logo_attributes, "图片", required: true, scope: :merchant
 
     let(:sys_name) { "new_sys_name" }
     let(:contact_person) { "new_contact_person" }
@@ -244,6 +245,7 @@ resource "获取商户信息" do
     let(:welcome_string) { "new_welcome_string" }
     let(:comment_text) { "new_comment_text" }
     let(:image_attributes) { attributes_for(:image) }
+    let(:logo_attributes) { attributes_for(:image) }
 
     example "修改商户资料" do
       do_request

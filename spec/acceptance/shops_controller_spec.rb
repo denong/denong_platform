@@ -80,13 +80,13 @@ resource "获取门店信息" do
 
     parameter :page, "POS机页数", required: false
 
-    example "获取指定门店信息第一页" do
+    example "获取指定门店信息(POS第一页)" do
       do_request
       expect(status).to eq(200)
     end
 
     let(:page) { 2 }
-    example "获取指定门店信息第二页" do
+    example "获取指定门店信息(POS第二页)" do
       do_request
       expect(status).to eq(200)
     end
