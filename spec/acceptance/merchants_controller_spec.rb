@@ -38,7 +38,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    response_field :image, "商户logo"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
 
     response_field :time,  "活动时间"
     response_field :title,  "活动标题"
@@ -101,7 +102,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    response_field :image, "商户logo"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
     response_field :message, "商户活动"
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -138,7 +140,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    response_field :image, "商户logo"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
 
     example "获取商户详细信息" do
       do_request
@@ -211,7 +214,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :tags, "标签"
-    response_field :image, "商户logo"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
 
     parameter :sys_name, "商户名称", required: true, scope: :merchant
     parameter :contact_person, "联系人", required: true, scope: :merchant
@@ -294,7 +298,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    response_field :image, "商户logo"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
 
     example "关注商户成功" do
       do_request
@@ -327,7 +332,8 @@ resource "获取商户信息" do
     response_field :comment_text, "备注"
     response_field :votes_up, "赞"
     response_field :giving_jajin, "商户赠送的小金"
-    response_field :image, "商户logo"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
 
     example "取消关注商户成功" do
       do_request
