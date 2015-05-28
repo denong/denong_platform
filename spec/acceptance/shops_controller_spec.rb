@@ -49,7 +49,8 @@ resource "获取门店信息" do
   get "/shops/:id" do
     before(:each) do
       create(:customer_with_jajin_pension)
-      create_list(:shop, 2)
+      shop = create(:shop)
+      shop.pos_machines = create_list(:pos_machine, 2)
     end
     
     let(:id) { Shop.all.first.id }
@@ -77,10 +78,19 @@ resource "获取门店信息" do
     response_field :shop_id, "门店ID"
     response_field :pos_ind, "POS机编号"
 
-    example "获取指定门店信息" do
+    parameter :page, "POS机页数", required: false
+
+    example "获取指定门店信息第一页" do
       do_request
       expect(status).to eq(200)
     end
+
+    let(:page) { 2 }
+    example "获取指定门店信息第二页" do
+      do_request
+      expect(status).to eq(200)
+    end
+
   end
 
   get "merchants/:merchant_id/shops"  do

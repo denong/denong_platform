@@ -280,4 +280,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :pos_machine do
+    acquiring_bank 1
+    opertion_time "2015-04-09 20:02:31"
+    operator "abcd"
+    pos_ind "abcd"
+  end
 end

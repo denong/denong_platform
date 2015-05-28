@@ -20,6 +20,7 @@ class ShopsController < ApplicationController
   end
 
   def show
+    @pos = @shop.pos_machines.paginate(page: params[:page], per_page: 10)
     respond_with(@shop)
   end
 
