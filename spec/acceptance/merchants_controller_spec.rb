@@ -253,8 +253,7 @@ resource "获取商户信息" do
       @merchant = create(:merchant)
       @merchant_user.merchant = @merchant
       @merchant.shops << create(:shop)
-
-      @customer = create(:customer_with_reg_info)
+      @customer = create(:customer_with_reg_info_jaiin_pension)
       @customer.follow! @merchant
     end
 

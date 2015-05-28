@@ -160,6 +160,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :customer_with_reg_info_jaiin_pension do
+      after(:create) do |customer|
+        customer.customer_reg_info = create :verify_customer_reg_info
+        customer.jajin.update_attributes got: attributes_for(:jajin)[:got]
+        create(:pension, customer: customer)
+      end
+    end
     factory :customer_with_raw_reg_info do |customer|
       after(:create) do |customer|
         customer.customer_reg_info = create :customer_reg_info

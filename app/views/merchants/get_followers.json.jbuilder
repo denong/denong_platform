@@ -4,4 +4,6 @@ json.array!(@voters) do |voter|
   json.nick_name voter.customer_reg_info.nick_name
   json.gender voter.customer_reg_info.gender
   json.image image_url(voter.customer_reg_info.image.photo.url(:product)) if voter.customer_reg_info.image
+  json.pension voter.pension.total if voter.pension
+  json.jajin voter.jajin.got if voter.jajin
 end
