@@ -8,6 +8,6 @@ json.merchants @topic.merchants do |merchant|
   json.welcome_string merchant.sys_reg_info.welcome_string
   json.merchant_id    merchant.id
   json.votes_up       merchant.votes_up
-  json.merchant_logo image_url(merchant.thumb.photo.url(:product)) if merchant.thumb
+  json.merchant_logo image_url(merchant.sys_reg_info.logo.photo.url(:product)) if merchant.sys_reg_info.logo
   json.image image_url(merchant.sys_reg_info.image.photo.url(:product)) if merchant.sys_reg_info.image
 end
