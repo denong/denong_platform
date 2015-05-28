@@ -3,7 +3,7 @@ class MerchantsController < ApplicationController
   before_action :set_merchant, only: [:show, :add_tag, :update, :follow, :unfollow, :member_cards]
 
   respond_to :json
-  acts_as_token_authentication_handler_for MerchantUser, only: [:update, :get_followers]
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
   acts_as_token_authentication_handler_for User, only: [:index, :customer_index, :follow, :unfollow, :member_cards]
 
   def index
