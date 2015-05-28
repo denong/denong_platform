@@ -11,6 +11,7 @@ json.merchants @merchants do |merchant|
   json.votes_up       merchant.votes_up
   json.giving_jajin   merchant.get_giving_jajin
   json.image          image_url(merchant.sys_reg_info.image.photo.url(:product)) if merchant.sys_reg_info.image
+  json.logo          image_url(merchant.sys_reg_info.logo.photo.url(:product)) if merchant.sys_reg_info.logo
   json.message        merchant.merchant_messages.last, :time, :title, :content, :summary, :url
   json.message_thumb image_url(merchant.merchant_messages.last.thumb.photo.url(:product)) if merchant.merchant_messages.last.thumb
 end

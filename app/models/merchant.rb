@@ -31,7 +31,6 @@ class Merchant < ActiveRecord::Base
   has_many :shops
   has_many :member_cards
   has_many :tl_trades
-  has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
   has_many :yl_trades, dependent: :destroy
   has_many :merchant_messages, dependent: :destroy
   has_many :merchant_giving_logs, dependent: :destroy
