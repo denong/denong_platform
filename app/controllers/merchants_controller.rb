@@ -1,6 +1,6 @@
 require 'will_paginate/array'
 class MerchantsController < ApplicationController
-  before_action :set_merchant, only: [:show, :add_tag, :update, :follow, :unfollow, :member_cards]
+  before_action :set_merchant, only: [:show, :add_tag, :update, :follow, :unfollow, :member_cards, :get_followers]
 
   respond_to :json
   acts_as_token_authentication_handler_for MerchantUser, only: [:update]
@@ -30,7 +30,7 @@ class MerchantsController < ApplicationController
   end
 
   def get_followers
-    @voters = current_merchant.get_likes.by_type(Customer).voters
+    @voters = @merchant.get_likes.by_type(Customer).voters
   end
 
   def follow
