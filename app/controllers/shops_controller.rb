@@ -2,7 +2,7 @@ require 'will_paginate/array'
 class ShopsController < ApplicationController
   
   respond_to :html, :json
-  acts_as_token_authentication_handler_for User, only: [:follow, :unfollow, :neighbour_shop, :show]
+  acts_as_token_authentication_handler_for User, only: [:follow, :unfollow, :neighbour_shop]
   acts_as_token_authentication_handler_for MerchantUser, only: [:new, :create]
   before_action :set_shop, only: [:show, :follow, :unfollow]
 
