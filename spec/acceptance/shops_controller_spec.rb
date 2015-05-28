@@ -54,10 +54,6 @@ resource "获取门店信息" do
     
     let(:id) { Shop.all.first.id }
 
-    user_attrs = FactoryGirl.attributes_for(:user)
-    header "X-User-Token", user_attrs[:authentication_token]
-    header "X-User-Phone", user_attrs[:phone]
-
     response_field :name, "门店名"
     response_field :addr, "门店地址"
     response_field :contact_person, "联系人"
