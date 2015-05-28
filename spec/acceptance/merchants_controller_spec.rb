@@ -40,6 +40,7 @@ resource "获取商户信息" do
     response_field :giving_jajin, "商户赠送的小金"
     response_field :image, "商户大图"
     response_field :logo, "商户logo"
+    response_field :followed, "是否关注该商户"
 
     response_field :time,  "活动时间"
     response_field :title,  "活动标题"
@@ -49,14 +50,14 @@ resource "获取商户信息" do
     response_field :thumb, "活动宣传图"
 
 
-    example "获取我关注的商户信息列表前十条" do
+    example "获取商户信息列表前十条" do
       do_request
       expect(status).to eq(200)
     end
 
     parameter :page, "页码", required: false
     let(:page) { 3 }
-    example "获取我关注的商户信息列表第三页" do
+    example "获取商户信息列表第三页" do
       do_request
       expect(status).to eq(200)
     end
