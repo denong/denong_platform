@@ -26,10 +26,10 @@
 
 class MerchantSysRegInfo < ActiveRecord::Base
   belongs_to :merchant, touch: true
-  has_one :image, as: :imageable, dependent: :destroy
+  has_one :image, -> { where photo_type: "image" }, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :image, allow_destroy: true
 
-  has_one :logo, class_name: "Image", as: :imageable, dependent: :destroy
+  has_one :logo, { where photo_type: "logo" }, class_name: "Image", as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :logo, allow_destroy: true
 
 end
