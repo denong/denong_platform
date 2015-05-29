@@ -2,7 +2,6 @@ class MemberCardsController < ApplicationController
 
   respond_to :json
   acts_as_token_authentication_handler_for User
-  before_action :set_member_card, only: [:bind]
 
   def index
     @member_cards = current_customer.try(:member_cards).paginate(page: params[:page], per_page: 10)
@@ -13,17 +12,15 @@ class MemberCardsController < ApplicationController
   end
 
   def bind
-    if @member_card.present? && @merchant.present?
-      current_customer.bind_member_card! @member_card
-      @merchant.bind_member_card! @member_card
-    end
+    @member_card = current_customer.member_cards.build bind_params
+    @member_card.save
+    respond_with @member_card
   end
 
   private
 
-    def set_member_card
-      @member_card = MemberCard.find( params[:id] )
-      @merchant = Merchant.find ( params[:merchant_id])
+    def bind_params
+      params.require(:member_card).permit(:merchant_id, :user_name, :passwd)
     end
 
 end

@@ -30,15 +30,16 @@ resource "查询会员卡积分" do
     end
   end
 
-  post "/member_cards/:id/bind" do
+  post "/member_cards/bind" do
     before do
       merchant = create(:merchant)
       customer = create(:customer)
       create(:member_card)
     end
 
-    let(:id) { MemberCard.all.first.id }
-    parameter :merchant_id, "商户ID", required: true
+    parameter :merchant_id, "商户ID", required: true, scope: :member_card
+    parameter :user_name, "会员卡用户", required: true, scope: :member_card
+    parameter :passwd, "会员卡密码", required: true, scope: :member_card
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -51,6 +52,8 @@ resource "查询会员卡积分" do
     response_field :customer_id, "消费者ID"
 
     let(:merchant_id) { Merchant.all.first.id }
+    let(:user_name) { "test_user" }
+    let(:passwd) { "test_passwd" }
     let(:raw_post) { params.to_json }
 
     example "绑定会员卡成功" do

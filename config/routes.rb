@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   end
 
   resources :member_cards, only: [:index, :show] do
-    member do
+    collection do
       post 'bind'
     end
   end
