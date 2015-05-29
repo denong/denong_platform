@@ -60,7 +60,9 @@ gem "faraday"
 gem "multi_json"
 gem 'httparty'
 gem 'ruby-for-xinge', github: "liyijie/ruby-for-xinge"
-# 
+
+# settings logic
+gem 'settingslogic'
 
 #######################################################################
 gem 'unicorn'
