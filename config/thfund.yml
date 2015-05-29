@@ -2,9 +2,9 @@ defaults: &defaults
   create_account:
     code: 001
     params:
-      Address: C-120
-      InstReprIDCode: C-30
-      InstReprIDType: C-1
+      Address: [C, 120]
+      InstReprIDCode: [C, 30]
+      InstReprIDType: [C, 1]
 development:
   <<: *defaults
 
