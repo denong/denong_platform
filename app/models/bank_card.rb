@@ -53,6 +53,10 @@ class BankCard < ActiveRecord::Base
     bank_card
   end
 
+  def self.find_info bankcard_no
+    
+  end
+
   private
     def check_customer
       user = User.find_or_create_by phone:phone do |user|

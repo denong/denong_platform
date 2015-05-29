@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   resources :bank_cards, only: [:index, :create] do
     collection do
       post 'send_msg'
+      get 'bank_info'
     end
   end
 
