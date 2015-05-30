@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527152037) do
+ActiveRecord::Schema.define(version: 20150530081902) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20150527152037) do
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "bank_card_infos", force: true do |t|
+    t.string   "bin"
+    t.string   "bank"
+    t.string   "card_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bank_card_infos", ["bin"], name: "index_bank_card_infos_on_bin"
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -210,7 +220,7 @@ ActiveRecord::Schema.define(version: 20150527152037) do
 
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"
-    t.float    "point",       default: 0.0
+    t.float    "point"
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
