@@ -10,7 +10,5 @@ json.merchants @merchants do |merchant|
   json.giving_jajin   merchant.get_giving_jajin
   json.image image_url(merchant.sys_reg_info.image.photo.url(:product)) if merchant.sys_reg_info.image
   json.logo image_url(merchant.sys_reg_info.logo.photo.url(:product)) if merchant.sys_reg_info.logo
-  json.followed false
-  # json.followed true if (@mechant.index(merchant))%2 == 1
-  # json.followed false if (@mechant.index(merchant))%2 == 0
+  json.followed current_customer.voted_for?(merchant) if current_customer
 end

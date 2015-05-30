@@ -13,6 +13,6 @@ json.welcome_string @merchant.sys_reg_info.welcome_string
 json.comment_text @merchant.sys_reg_info.comment_text
 json.votes_up  @merchant.votes_up
 json.giving_jajin   @merchant.get_giving_jajin
-json.followed false
+json.followed current_customer.voted_for?(merchant) if current_customer
 json.image image_url(@merchant.sys_reg_info.image.photo.url(:product)) if @merchant.sys_reg_info.image
 json.logo image_url(@merchant.sys_reg_info.logo.photo.url(:product)) if @merchant.sys_reg_info.logo
