@@ -22,6 +22,8 @@ class MerchantMessage < ActiveRecord::Base
   belongs_to :customer
   has_one :thumb, class_name: "Image", as: :imageable, dependent: :destroy
 
+  default_scope { order('id DESC') }
+
   accepts_nested_attributes_for :thumb, allow_destroy: true
   
 end

@@ -1,7 +1,7 @@
 class MerchantMessagesController < ApplicationController
 
   acts_as_token_authentication_handler_for MerchantUser, only: [:create]
-  acts_as_token_authentication_handler_for User, only: [:index]
+  # acts_as_token_authentication_handler_for User, only: [:index]
   respond_to :json
 
   def create
@@ -10,7 +10,15 @@ class MerchantMessagesController < ApplicationController
   end
 
   def index
-    @merchant_messages = current_customer.get_unpushed_message params[:last_time]
+    merchant = Merchant.find params[:merchant_id]
+    if merchant.present?
+      puts "merchant is:#{merchant.inspect}"
+      puts "messages is:#{merchant.merchant_messages}"
+      @merchant_messages = merchant.try(:merchant_messages).paginate(page: params[:page], per_page: 10)
+    else
+      @merchant_messages = []
+    end
+    # @merchant_messages = current_customer.get_unpushed_message params[:last_time]
   end
 
   private

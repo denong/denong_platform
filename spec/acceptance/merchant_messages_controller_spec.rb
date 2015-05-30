@@ -9,14 +9,14 @@ resource "商户推送消息" do
       for i in 1..10 do
         date_times << DateTime.new(2020,2,i)
       end
-      merchant = create(:merchant)
+      @merchant = create(:merchant)
       customer = create(:customer)
       date_times.each do |date_time|
-        create(:merchant_message, time: date_time, customer: customer, merchant: merchant)
+        create(:merchant_message, time: date_time, customer: customer, merchant: @merchant)
       end
     end
 
-    parameter :last_time, "上次收到消息的时间", required: true
+    parameter :merchant_id, "商户ID", required: true
     user_attrs = FactoryGirl.attributes_for(:user)
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
@@ -33,9 +33,10 @@ resource "商户推送消息" do
     response_field :updated_at, "更新时间"
     response_field :customer_id, "消费者ID"
 
-    let(:last_time) { DateTime.now }
+    let(:merchant_id) { @merchant.id }
     example "用户获取商户推送消息" do
       do_request
+      puts response_body
       expect(status).to eq(200)
     end
   end
