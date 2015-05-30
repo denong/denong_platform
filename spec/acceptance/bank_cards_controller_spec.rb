@@ -99,7 +99,7 @@ resource "绑定银行卡" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
-    example "获取银行卡指定" do
+    example "获取银行卡的相关信息" do
       do_request
       expect(status).to eq 200
     end
