@@ -90,6 +90,9 @@ resource "绑定银行卡" do
 
     parameter :bankcard_no, "银行卡的卡号", required: true
 
+    let(:bankcard_no) { "955550912376" }
+    let(:raw_post) { params.to_json }
+
     response_field :bank, "银行信息"
     response_field :card_type, "银行卡的类型"
     response_field :bankcard_no, "银行卡的卡号"
