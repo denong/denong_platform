@@ -18,7 +18,7 @@ class BankCardsController < ApplicationController
 
   def bank_info
     @bankbard_no = params[:bankbard_no]
-    @info = BankCard.find_info @bankbard_no
+    @bank_card_info = BankCard.find_info @bankbard_no
   end
 
 

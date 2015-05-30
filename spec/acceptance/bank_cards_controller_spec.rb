@@ -81,4 +81,27 @@ resource "绑定银行卡" do
       expect(status).to eq 200
     end
   end
+
+  get '/bank_cards/bank_info' do
+    before do
+      bank_card_info = FactoryGirl.create :bank_card_info
+      customer = FactoryGirl.create :customer
+    end
+
+    parameter :bankcard_no, "银行卡的卡号", required: true
+
+    response_field :bank, "银行信息"
+    response_field :card_type, "银行卡的类型"
+    response_field :bankcard_no, "银行卡的卡号"
+
+    user_attrs = FactoryGirl.attributes_for(:user)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    example "获取银行卡指定" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
 end

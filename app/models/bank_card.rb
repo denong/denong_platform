@@ -54,7 +54,7 @@ class BankCard < ActiveRecord::Base
   end
 
   def self.find_info bank_card_number
-    @bank_card_info = find_info_by_place(bank_card_number, 5) || find_info_by_place(bank_card_number, 4) || find_info_by_place(bank_card_number, 3)
+    bank_card_info = find_info_by_place(bank_card_number, 5) || find_info_by_place(bank_card_number, 4) || find_info_by_place(bank_card_number, 3)
   end
 
   private

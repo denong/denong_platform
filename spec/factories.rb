@@ -1,8 +1,9 @@
 require 'rack/test'
-FactoryGirl.define do  factory :bank_card_info do
-    bin "MyString"
-bank "MyString"
-card_type "MyString"
+FactoryGirl.define do  
+  factory :bank_card_info do
+    bin "955550"
+    bank "招商银行"
+    card_type "信用卡"
   end
   
   factory :ticket do
