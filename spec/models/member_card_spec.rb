@@ -4,7 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  merchant_id :integer
-#  point       :float            default(0.0)
+#  point       :float
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
