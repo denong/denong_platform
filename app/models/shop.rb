@@ -33,10 +33,10 @@ class Shop < ActiveRecord::Base
   belongs_to :merchant
   has_many :pos_machines
 
-  has_one :pic, class_name: "Image", as: :imageable, dependent: :destroy
+  has_one :pic, -> { where photo_type: "pic" }, class_name: "Image", as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :pic, allow_destroy: true
   
-  has_one :logo, class_name: "Image", as: :imageable, dependent: :destroy
+  has_one :logo, -> { where photo_type: "logo" }, class_name: "Image", as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :logo, allow_destroy: true
 
   def votes_up 
