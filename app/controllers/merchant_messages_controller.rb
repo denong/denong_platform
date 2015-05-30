@@ -12,8 +12,6 @@ class MerchantMessagesController < ApplicationController
   def index
     merchant = Merchant.find params[:merchant_id]
     if merchant.present?
-      puts "merchant is:#{merchant.inspect}"
-      puts "messages is:#{merchant.merchant_messages}"
       @merchant_messages = merchant.try(:merchant_messages).paginate(page: params[:page], per_page: 10)
     else
       @merchant_messages = []
