@@ -53,11 +53,16 @@ class BankCard < ActiveRecord::Base
     bank_card
   end
 
-  def self.find_info bankcard_no
-    
+  def self.find_info bank_card_number
+    @bank_card_info = find_info_by_place(bank_card_number, 5) || find_info_by_place(bank_card_number, 4) || find_info_by_place(bank_card_number, 3)
   end
 
   private
+    def self.find_info_by_place bank_card_number, place
+      bin = bank_card_number.to_s[0..place]
+      BankCardInfo.find_by bin: bin
+    end
+
     def check_customer
       user = User.find_or_create_by phone:phone do |user|
         user.sms_token = "989898"
