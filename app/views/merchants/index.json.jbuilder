@@ -1,5 +1,6 @@
 json.extract! @merchants, :total_pages, :current_page
 json.merchants @merchants do |merchant|
+  json.merchant_id    merchant.id
   json.sys_name       merchant.sys_reg_info.sys_name
   json.service_tel    merchant.sys_reg_info.service_tel
   json.lon            merchant.sys_reg_info.lon
