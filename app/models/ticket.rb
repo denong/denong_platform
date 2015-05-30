@@ -17,6 +17,10 @@ class Ticket < ActiveRecord::Base
   before_save :calculate
   before_save :add_jajin_log
 
+  def company
+    "拍小票送小金"
+  end
+
   private
 
     def add_jajin_log
