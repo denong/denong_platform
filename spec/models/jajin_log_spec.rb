@@ -9,6 +9,7 @@
 #  customer_id    :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  merchant_id    :integer
 #
 
 require 'rails_helper'
@@ -16,4 +17,5 @@ require 'rails_helper'
 RSpec.describe JajinLog, type: :model do
   it { should belong_to :jajinable }
   it { should belong_to :customer }
+  it { should belong_to :merchant }
 end

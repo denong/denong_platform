@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530081902) do
+ActiveRecord::Schema.define(version: 20150531120222) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -189,10 +189,12 @@ ActiveRecord::Schema.define(version: 20150530081902) do
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "merchant_id"
   end
 
   add_index "jajin_logs", ["customer_id"], name: "index_jajin_logs_on_customer_id"
   add_index "jajin_logs", ["jajinable_id", "jajinable_type"], name: "index_jajin_logs_on_jajinable_id_and_jajinable_type"
+  add_index "jajin_logs", ["merchant_id"], name: "index_jajin_logs_on_merchant_id"
 
   create_table "jajin_verify_logs", force: true do |t|
     t.float    "amount"

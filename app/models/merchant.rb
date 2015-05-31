@@ -34,6 +34,7 @@ class Merchant < ActiveRecord::Base
   has_many :yl_trades, dependent: :destroy
   has_many :merchant_messages, dependent: :destroy
   has_many :merchant_giving_logs, dependent: :destroy
+  has_many :jajin_logs, dependent: :destroy
 
   delegate :sys_name, :company_addr, :welcome_string, to: :sys_reg_info
   after_touch :index
@@ -65,6 +66,10 @@ class Merchant < ActiveRecord::Base
 
   def votes_up 
     self.cached_votes_up
+  end
+
+  def customer_jajin_total
+    # self.
   end
 
   def bind_member_card! member_card

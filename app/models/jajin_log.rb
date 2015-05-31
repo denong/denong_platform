@@ -9,11 +9,13 @@
 #  customer_id    :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  merchant_id    :integer
 #
 
 class JajinLog < ActiveRecord::Base
   belongs_to :jajinable, polymorphic: true
   belongs_to :customer
+  belongs_to :merchant
 
   default_scope { order('id DESC') }
 

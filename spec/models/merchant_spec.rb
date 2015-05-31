@@ -32,6 +32,7 @@ RSpec.describe Merchant, type: :model do
   it { should have_many :yl_trades }
   it { should have_many :merchant_messages }
   it { should have_many :merchant_giving_logs }
+  it { should have_many :jajin_logs }
 
   context "searchable" do
     it { should have_searchable_field(:sys_name) }
