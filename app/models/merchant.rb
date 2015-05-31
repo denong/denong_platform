@@ -53,7 +53,7 @@ class Merchant < ActiveRecord::Base
   end
 
   def get_giving_jajin
-    self.merchant_giving_logs.sum(:amount)
+    self.jajin_logs.sum(:amount)
   end
 
   def add_sys_reg_info
@@ -68,8 +68,8 @@ class Merchant < ActiveRecord::Base
     self.cached_votes_up
   end
 
-  def customer_jajin_total
-    # self.
+  def customer_jajin_total customer
+    self.jajin_logs.where(customer_id: customer.id).sum(:amount)
   end
 
   def bind_member_card! member_card
