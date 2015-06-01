@@ -16,6 +16,8 @@
 #
 
 class MerchantMessage < ActiveRecord::Base
+  acts_as_votable
+  
   enum verify_state: [ :unverified, :wait_verify, :verified, :verified_fail]
 
   belongs_to :merchant
