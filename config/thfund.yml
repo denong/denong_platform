@@ -1,10 +1,18 @@
 defaults: &defaults
-  create_account:
-    code: 001
+  create_account_request:
+    code: 01
     params:
-      Address: [C, 120]
-      InstReprIDCode: [C, 30]
-      InstReprIDType: [C, 1]
+      AppSheetSerialNo: [A, 24]
+      CertificateType: [C, 1]
+      CertificateNo: [C, 30]
+      InvestorName: [C, 120]
+      TransactionDate: [A, 8]
+      IndividualOrInstitution: [A, 1]
+      TransactionAccountID: [A, 17]
+      BusinessCode: [A, 3]
+      DepositAcct: [C, 19]
+      MobileTelNo: [C, 24]
+      TransactionTime: [A, 6]
 development:
   <<: *defaults
 

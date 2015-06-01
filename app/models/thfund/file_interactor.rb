@@ -1,15 +1,45 @@
 module Thfund
   class FileInteractor
 
+    def initialize()
+      date = Time.zone.today.strftime('%Y%m%d')
+      @file = File.new("OFD_242_42_#{date}_01.TXT", "w")
+      @file.puts "OFDCFDAT"
+      @file.puts "20"
+      @file.puts "42"
+      @file.puts "242"
+      @file.puts date
+      @file.puts 999
+    end
+
+    def close
+      @file.puts "OFDCFEND"
+      @file.try(:close)
+    end
+
+    # 999
+    # 02
+    # 42      
+    # 095
+    def write_file_header
+      @file.puts "01"
+      @file.puts "42"
+      @file.puts "242"
+    end
+
+    def puts content
+      @file.puts content
+    end
+
     # 读取字符串其中一个属性
     # type: 业务类型
     # content: 一行字符串的内容
     # attribute: 属性的名称
     # index: 偏移
-    def self.read_attribute(type, content, attribute, index)
+    def read_attribute(type, content, attribute, index)
 
       # 读取配置文件
-      attribute_desc = ThfundSettings.send(type).send(attribute)
+      attribute_desc = ThfundSettings.send(type).params.send(attribute)
       attribute_type = attribute_desc[0]
       attribute_length = attribute_desc[1]
 
@@ -37,9 +67,9 @@ module Thfund
     # content: 一行字符串的内容
     # attribute: 属性的名称
     # value: 属性值
-    def self.write_attribute(type, content, attribute, value)
+    def write_attribute(type, content, attribute, value)
       # 读取配置文件
-      attribute_desc = ThfundSettings.send(type).send(attribute)
+      attribute_desc = ThfundSettings.send(type).params.send(attribute)
       attribute_type = attribute_desc[0]
       attribute_length = attribute_desc[1]
 
