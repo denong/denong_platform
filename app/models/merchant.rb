@@ -84,6 +84,10 @@ class Merchant < ActiveRecord::Base
     self.member_cards << member_card
   end
 
+  def bind_member_card? customer
+    self.member_cards.find_by(customer: customer).present?
+  end
+
   def add_tag tag_params
     tags = tag_params[:tags].split(',')
     self.tag_list.add tags
