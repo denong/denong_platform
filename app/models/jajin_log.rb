@@ -28,8 +28,18 @@ class JajinLog < ActiveRecord::Base
       customer_id: customer_id,
       type: jajinable_type,
       company: company,
+      merchant_logo: merchant_logo_url
+      merchant_name: merchant_name
       detail: jajinable.as_json
     }
+  end
+
+  def merchant_logo_url
+    merchant.try(:sys_reg_info).try(:image) ? image_url(merchant.sys_reg_info.image.photo.url(:product)) : ""
+  end
+
+  def merchant_name
+    merchant.try(:sys_reg_info).try(:sys_name)
   end
 
 end
