@@ -13,6 +13,8 @@
 #
 
 class JajinLog < ActiveRecord::Base
+  include ActionView::Helpers::AssetUrlHelper
+  
   belongs_to :jajinable, polymorphic: true
   belongs_to :customer
   belongs_to :merchant

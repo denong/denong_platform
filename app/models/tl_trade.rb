@@ -49,15 +49,6 @@ class TlTrade < ActiveRecord::Base
       trade_ind: trade_ind,
       customer_id: customer_id
     }
-     
-    # 获取merchant信息
-    # merchant_info = merchant.sys_reg_info
-    # {
-    #   card: card,
-    #   price: price,
-    #   merchant_name: merchant_info.sys_name,
-    #   merchant_image: merchant_info.image ? image_url(merchant_info.image.photo.url(:small)) : nil
-    # }
   end
 
   def company

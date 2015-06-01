@@ -13,6 +13,8 @@
 #
 
 class MemberCard < ActiveRecord::Base
+  include ActionView::Helpers::AssetUrlHelper
+  
   belongs_to :merchant
   belongs_to :customer
 
