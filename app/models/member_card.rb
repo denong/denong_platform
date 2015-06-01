@@ -16,5 +16,18 @@ class MemberCard < ActiveRecord::Base
   belongs_to :merchant
   belongs_to :customer
 
-  validates_uniqueness_of :user_name
+  validates_uniqueness_of :user_name, scope: :merchant_id
+
+  def merchant_logo_url
+    merchant.try(:sys_reg_info).try(:image) ? image_url(merchant.sys_reg_info.image.photo.url(:product)) : ""
+  end
+
+  def merchant_name
+    merchant.try(:sys_reg_info).try(:sys_name)
+  end
+
+  def merchant_giving_jajin
+    merchant.try(:get_giving_jajin)
+  end
+
 end
