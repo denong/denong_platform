@@ -78,7 +78,7 @@ class Customer < ActiveRecord::Base
   end
 
   def unlike! votable
-    self.unlikes votable, vote_scope: "like"
+    self.unlike votable, vote_scope: "like"
   end
 
   def bind_member_card! member_card

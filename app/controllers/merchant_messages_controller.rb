@@ -2,9 +2,12 @@ class MerchantMessagesController < ApplicationController
 
   before_action :set_merchant_message, only: [:like, :unlike]
 
-  acts_as_token_authentication_handler_for MerchantUser, only: [:create]
-  # acts_as_token_authentication_handler_for User, only: [:index]
   acts_as_token_authentication_handler_for User, only: [:like, :unlike]
+  acts_as_token_authentication_handler_for MerchantUser, only: [:create]
+
+  acts_as_token_authentication_handler_for User, only: [:index], fallback_to_devise: false
+  acts_as_token_authentication_handler_for MerchantUser, only: [:index], fallback_to_devise: false
+
   respond_to :json
 
   def create
