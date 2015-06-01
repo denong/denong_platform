@@ -28,8 +28,8 @@ class JajinLog < ActiveRecord::Base
       customer_id: customer_id,
       type: jajinable_type,
       company: company,
-      merchant_logo: merchant_logo_url
-      merchant_name: merchant_name
+      merchant_logo: merchant_logo_url,
+      merchant_name: merchant_name,
       detail: jajinable.as_json
     }
   end
