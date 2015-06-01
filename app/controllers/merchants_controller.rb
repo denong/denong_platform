@@ -48,6 +48,18 @@ class MerchantsController < ApplicationController
     end
   end
 
+  def like
+    if @merchant.present?
+      current_customer.like! @merchant
+    end
+  end
+
+  def unlike
+    if @merchant.present?
+      current_customer.unlike! @merchant
+    end
+  end
+
   def member_cards
     if @merchant.present?
       current_customer.add_member_card member_cards_params, @merchant.id

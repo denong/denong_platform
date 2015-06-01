@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       get 'get_followers'
       post 'follow'
       post 'unfollow'
+      post 'like'
+      post 'unlike'
       post 'member_cards'
     end
   end
