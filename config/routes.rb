@@ -41,7 +41,12 @@ Rails.application.routes.draw do
   end
   
   resources :yl_trades, only: [:create, :index, :show]
-  resources :merchant_messages, only: [:create, :index]
+  resources :merchant_messages, only: [:create, :index] do
+    member do
+      post 'like'
+      post 'unlike'
+    end
+  end
   resources :merchant_giving_logs, only: [:index, :show]
 
   resources :bank_cards, only: [:index, :create] do

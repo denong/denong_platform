@@ -1,10 +1,10 @@
 require 'will_paginate/array'
 class MerchantsController < ApplicationController
-  before_action :set_merchant, only: [:show, :add_tag, :update, :follow, :unfollow, :member_cards, :get_followers]
+  before_action :set_merchant, only: [:show, :add_tag, :update, :follow, :unfollow, :like, :unlike :member_cards, :get_followers]
 
   respond_to :json
   acts_as_token_authentication_handler_for User, only: [:index, :show], fallback_to_devise: false
-  acts_as_token_authentication_handler_for User, only: [:customer_index, :follow, :unfollow, :member_cards]
+  acts_as_token_authentication_handler_for User, only: [:customer_index, :follow, :unfollow, :like, :unlike, :member_cards]
 
   acts_as_token_authentication_handler_for MerchantUser, only: [:index, :show], fallback_to_devise: false
   acts_as_token_authentication_handler_for MerchantUser, only: [:update]

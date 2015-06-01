@@ -6,4 +6,6 @@ json.merchant_messages @merchant_messages do |merchant_message|
   else
     json.thumb ""
   end
+  json.like_count merchant_message.like_count
+  json.liked current_customer.voted_for?(merchant_message, vote_scope: "like") if current_customer
 end

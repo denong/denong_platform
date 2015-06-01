@@ -1,7 +1,10 @@
 class MerchantMessagesController < ApplicationController
 
+  before_action :set_merchant_message, only: [:like, :unlike]
+
   acts_as_token_authentication_handler_for MerchantUser, only: [:create]
   # acts_as_token_authentication_handler_for User, only: [:index]
+  acts_as_token_authentication_handler_for User, only: [:like, :unlike]
   respond_to :json
 
   def create
@@ -19,7 +22,23 @@ class MerchantMessagesController < ApplicationController
     # @merchant_messages = current_customer.get_unpushed_message params[:last_time]
   end
 
+  def like
+    if @merchant_message.present?
+      current_customer.like! @merchant_message
+    end
+  end
+
+  def unlike
+    if @merchant_message.present?
+      current_customer.unlike! @merchant_message
+    end
+  end
+
   private
+
+    def set_merchant_message
+      @merchant_message = MerchantMessage.find(params[:id])
+    end
 
     def create_params
       params.require(:merchant_message).permit(:time, :title, :content, 

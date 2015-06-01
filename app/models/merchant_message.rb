@@ -25,5 +25,9 @@ class MerchantMessage < ActiveRecord::Base
   default_scope { order('id DESC') }
 
   accepts_nested_attributes_for :thumb, allow_destroy: true
+
+  def like_count
+    self.get_likes(vote_scope: "like").size
+  end
   
 end
