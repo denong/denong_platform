@@ -86,6 +86,7 @@ RSpec.describe Customer, type: :model do
       
       customer.follow! shop
       expect(shop.get_likes(vote_scope: "follow").size).to eq 1
+      expect(customer.voted_for?(shop, vote_scope: "follow")).to be true
 
       expect {
         customer.unfollow!(shop)

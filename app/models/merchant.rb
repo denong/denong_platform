@@ -68,6 +68,14 @@ class Merchant < ActiveRecord::Base
     self.cached_votes_up
   end
 
+  def follow_count
+    self.get_likes(vote_scope: "follow").size
+  end
+
+  def like_count
+    self.get_likes(vote_scope: "like").size
+  end
+
   def customer_jajin_total customer
     self.jajin_logs.where(customer_id: customer.id).sum(:amount)
   end
