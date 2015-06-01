@@ -55,7 +55,7 @@ module Thfund
         value = value.to_i
       when "N"
         float_ind = attribute_desc[2]
-        value = value.to_f / (10 ** float_ind)
+        value = value.to_f / (10 ** float_ind) if float_ind
       end
 
       # 返回相关的值
@@ -80,7 +80,8 @@ module Thfund
       when "A"
         content = "#{content}#{value.to_s.rjust(attribute_length, '0')}"
       when "N"
-        value = value.to_f * (10 ** float_ind)
+        float_ind = attribute_desc[2]
+        value = value.to_f * (10 ** float_ind) if float_ind
         content = "#{content}#{value.to_i.to_s.rjust(attribute_length, '0')}"
       end
     end
