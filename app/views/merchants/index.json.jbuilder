@@ -13,6 +13,6 @@ json.merchants @merchants do |merchant|
   json.customer_jajin_total merchant.customer_jajin_total(current_customer) if current_customer
   json.image image_url(merchant.sys_reg_info.image.photo.url(:product)) if merchant.sys_reg_info.image
   json.logo image_url(merchant.sys_reg_info.logo.photo.url(:product)) if merchant.sys_reg_info.logo
-  json.followed current_customer.voted_for?(merchant, vote_scope: "follow")) if current_customer
-  json.liked current_customer.voted_for?(merchant, vote_scope: "like")) if current_customer
+  json.followed current_customer.voted_for?(merchant, vote_scope: "follow") if current_customer
+  json.liked current_customer.voted_for?(merchant, vote_scope: "like") if current_customer
 end

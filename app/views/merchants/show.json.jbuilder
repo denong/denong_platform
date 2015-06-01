@@ -17,5 +17,5 @@ json.image image_url(@merchant.sys_reg_info.image.photo.url(:product)) if @merch
 json.logo image_url(@merchant.sys_reg_info.logo.photo.url(:product)) if @merchant.sys_reg_info.logo
 json.follow_count  @merchant.follow_count
 json.like_count @merchant.like_count
-json.followed current_customer.voted_for?(@merchant, vote_scope: "follow")) if current_customer
-json.liked current_customer.voted_for?(@merchant, vote_scope: "like")) if current_customer
+json.followed current_customer.voted_for?(@merchant, vote_scope: "follow") if current_customer
+json.liked current_customer.voted_for?(@merchant, vote_scope: "like") if current_customer
