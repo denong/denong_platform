@@ -66,11 +66,19 @@ class Customer < ActiveRecord::Base
   end
 
   def follow! votable
-    self.likes votable
+    self.likes votable, vote_scope: "follow"
   end
 
   def unfollow! votable
-    self.unlike votable
+    self.unlike votable, vote_scope: "follow"
+  end
+
+  def like! votable
+    self.likes votable, vote_scope: "like"
+  end
+
+  def unlike! votable
+    self.unlikes votable, vote_scope: "like"
   end
 
   def bind_member_card! member_card

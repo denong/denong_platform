@@ -82,14 +82,14 @@ RSpec.describe Customer, type: :model do
     it "follow and unfollow" do
       expect {
         customer.follow!(shop)
-      }.to change{ shop.votes_up }.from(0).to(1)
+      }.to change{ shop.get_likes(vote_scope: "follow").size }.from(0).to(1)
       
       customer.follow! shop
-      expect(shop.votes_up).to eq 1
+      expect(shop.get_likes(vote_scope: "follow").size).to eq 1
 
       expect {
         customer.unfollow!(shop)
-      }.to change{ shop.votes_up }.from(1).to(0)
+      }.to change{ shop.get_likes(vote_scope: "follow").size }.from(1).to(0)
     end
 
 
