@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     collection do
       post 'bind'
     end
+    member do
+      post 'unbind'
+    end
   end
   
   resources :yl_trades, only: [:create, :index, :show]

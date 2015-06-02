@@ -17,6 +17,15 @@ class MemberCardsController < ApplicationController
     respond_with @member_card
   end
 
+  def unbind
+    @member_card = current_customer.try(:member_cards).find params[:id]
+    @unbind_result = false
+    if @member_card.present?
+      @member_card.destroy
+      @unbind_result = true
+    end
+  end
+
   private
 
     def bind_params
