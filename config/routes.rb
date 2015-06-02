@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   resource :check_user, only: [:show] do
     member do
       post 'reset'
+      post 'device'
     end
   end
   ################################################
