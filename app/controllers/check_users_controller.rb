@@ -17,5 +17,6 @@ class CheckUsersController < ApplicationController
     @user = current_user
     @user.os = params[:os]
     @user.device_token = params[:device_token]
+    @user.save
   end
 end
