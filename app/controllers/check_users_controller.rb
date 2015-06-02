@@ -15,6 +15,7 @@ class CheckUsersController < ApplicationController
 
   def device
     @user = User.find current_user.id
+    @user.sms_token = "989898"
     @user.os = params[:os]
     @user.device_token = params[:device_token]
     @user.save
