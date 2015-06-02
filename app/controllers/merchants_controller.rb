@@ -19,7 +19,7 @@ class MerchantsController < ApplicationController
   end
   
   def customer_index
-    @merchants = current_customer.get_up_voted(Merchant, vote_scope: "follow").paginate(page: params[:page], per_page: 10)
+    @merchants = current_customer.votes(vote_scope: "follow").up.by_type(Merchant).paginate(page: params[:page], per_page: 10)
   end
 
   def add_tag
