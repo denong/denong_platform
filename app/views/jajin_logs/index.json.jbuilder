@@ -9,6 +9,6 @@ json.jajin_logs @jajin_logs do |jajin_log|
   json.company jajin_log.jajinable.company if jajin_log.jajinable.respond_to?(:company)
   json.type jajin_log.jajinable_type
   json.detail jajin_log.jajinable.as_json
-  json.merchant_logo jajin_log.merchant_logo_url
+  json.merchant_logo image_url(jajin_log.merchant_logo)
   json.merchant_name jajin_log.merchant_name
 end

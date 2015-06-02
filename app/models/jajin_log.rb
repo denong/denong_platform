@@ -13,8 +13,8 @@
 #
 
 class JajinLog < ActiveRecord::Base
-  include ActionView::Helpers::AssetUrlHelper
-  
+  # include ActionView::Helpers::AssetUrlHelper
+
   belongs_to :jajinable, polymorphic: true
   belongs_to :customer
   belongs_to :merchant
@@ -30,14 +30,14 @@ class JajinLog < ActiveRecord::Base
       customer_id: customer_id,
       type: jajinable_type,
       company: company,
-      merchant_logo: merchant_logo_url,
+      merchant_logo: merchant_logo,
       merchant_name: merchant_name,
       detail: jajinable.as_json
     }
   end
 
-  def merchant_logo_url
-    merchant.try(:sys_reg_info).try(:image) ? image_url(merchant.sys_reg_info.image.photo.url(:product)) : ""
+  def merchant_logo
+    merchant.try(:sys_reg_info).try(:image) ? merchant.sys_reg_info.image.photo.url(:product) : ""
   end
 
   def merchant_name
