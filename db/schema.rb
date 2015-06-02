@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531120222) do
+ActiveRecord::Schema.define(version: 20150602051818) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20150531120222) do
     t.datetime "updated_at"
     t.string   "res_msg"
     t.string   "stat_desc"
+    t.string   "bank_name"
+    t.string   "card_type_name"
   end
 
   add_index "bank_cards", ["customer_id"], name: "index_bank_cards_on_customer_id"

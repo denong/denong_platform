@@ -2,21 +2,23 @@
 #
 # Table name: bank_cards
 #
-#  id          :integer          not null, primary key
-#  bankcard_no :string(255)
-#  id_card     :string(255)
-#  name        :string(255)
-#  phone       :string(255)
-#  card_type   :integer
-#  sn          :string(255)
-#  bank        :integer
-#  bind_state  :integer
-#  bind_time   :datetime
-#  customer_id :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#  res_msg     :string(255)
-#  stat_desc   :string(255)
+#  id             :integer          not null, primary key
+#  bankcard_no    :string(255)
+#  id_card        :string(255)
+#  name           :string(255)
+#  phone          :string(255)
+#  card_type      :integer
+#  sn             :string(255)
+#  bank           :integer
+#  bind_state     :integer
+#  bind_time      :datetime
+#  customer_id    :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  res_msg        :string(255)
+#  stat_desc      :string(255)
+#  bank_name      :string(255)
+#  card_type_name :string(255)
 #
 
 class BankCard < ActiveRecord::Base
@@ -29,6 +31,11 @@ class BankCard < ActiveRecord::Base
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     if result.present? && result["result"].present?
       bank_card = self.find_or_create_by(bankcard_no: params[:card], phone: params[:mobile], customer_id: params[:user_id]) do |bank_card|
+        
+        bank_card_info = find_info params[:card]
+        bank_card.bank_name = bank_card_info.bank
+        bank_card.card_type_name = bank_card_info.card_type
+
         bank_card.name = params[:name]
         if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功"
           bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
