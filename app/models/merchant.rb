@@ -24,7 +24,7 @@ class Merchant < ActiveRecord::Base
   acts_as_votable
   acts_as_taggable
   
-  belongs_to :merchant_user 
+  belongs_to :merchant_user
   belongs_to :topic
   has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
   has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
@@ -91,10 +91,6 @@ class Merchant < ActiveRecord::Base
   def add_tag tag_params
     tags = tag_params[:tags].split(',')
     self.tag_list.add tags
-  end
-
-  def get_follwers
-    self.votes_for.by_type(User).voters
   end
 
 end

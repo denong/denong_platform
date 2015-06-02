@@ -33,7 +33,7 @@ class MerchantsController < ApplicationController
   end
 
   def get_followers
-    @voters = @merchant.get_likes.by_type(Customer).voters
+    @voters = @merchant.get_likes(vote_scope: "follow").by_type(Customer).voters.paginate(page: params[:page], per_page: 10)
   end
 
   def follow
