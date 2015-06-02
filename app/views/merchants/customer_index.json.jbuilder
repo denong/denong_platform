@@ -14,6 +14,6 @@ json.merchants @merchants do |merchant|
   json.logo          image_url(merchant.sys_reg_info.logo.photo.url(:product)) if merchant.sys_reg_info.logo
   if merchant.merchant_messages.present?
     json.message        merchant.merchant_messages.first, :time, :title, :content, :summary, :url
+    json.message_thumb image_url(merchant.merchant_messages.first.thumb.photo.url(:product)) if merchant.merchant_messages.first.thumb
   end
-  json.message_thumb image_url(merchant.merchant_messages.last.thumb.photo.url(:product)) if merchant.merchant_messages.last.thumb
 end
