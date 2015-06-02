@@ -31,10 +31,10 @@ class BankCard < ActiveRecord::Base
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     if result.present? && result["result"].present?
       bank_card = self.find_or_create_by(bankcard_no: params[:card], phone: params[:mobile], customer_id: params[:user_id]) do |bank_card|
-        
+
         bank_card_info = find_info params[:card]
-        bank_card.bank_name = bank_card_info.bank
-        bank_card.card_type_name = bank_card_info.card_type
+        bank_card.bank_name = bank_card_info.try(:bank)
+        bank_card.card_type_name = bank_card_info.try(:card_type)
 
         bank_card.name = params[:name]
         if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功"
