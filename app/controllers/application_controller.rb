@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :sms_token
+    devise_parameter_sanitizer.for(:sign_up).concat [:sms_token, :os, :device_token]
+    devise_parameter_sanitizer.for(:sign_in).concat [:os, :device_token]
   end
 end

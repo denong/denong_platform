@@ -17,6 +17,8 @@
 #  updated_at             :datetime
 #  phone                  :string(255)
 #  authentication_token   :string(255)
+#  os                     :string(255)
+#  device_token           :string(255)
 #
 
 class User < ActiveRecord::Base
