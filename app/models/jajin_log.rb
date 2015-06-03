@@ -59,7 +59,8 @@ class JajinLog < ActiveRecord::Base
           merchant_name: merchant.try(:sys_name),
           amount: amount,
           company: company,
-          customer_id: customer_id
+          customer_id: customer_id,
+          merchant_id: merchant_id
         }
       }
       if user.os.to_s.downcase.to_sym == :andorid
