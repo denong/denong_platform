@@ -21,7 +21,7 @@ class MemberCard < ActiveRecord::Base
   validates_uniqueness_of :user_name, scope: :merchant_id
 
   def merchant_logo
-    merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.image.photo.url(:product) : ""
+    merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : ""
   end
 
   def merchant_name
