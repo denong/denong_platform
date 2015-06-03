@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
   
   respond_to :html, :json
   acts_as_token_authentication_handler_for User, only: [:follow, :unfollow, :neighbour_shop]
-  acts_as_token_authentication_handler_for MerchantUser, only: [:new, :create]
+  acts_as_token_authentication_handler_for MerchantUser, only: [:new, :create, :update]
   before_action :set_shop, only: [:show, :follow, :unfollow]
 
   def index
@@ -45,6 +45,12 @@ class ShopsController < ApplicationController
   def create
     @shop = current_merchant.shops.build(create_params)
     @shop.save
+    respond_with(@shop)
+  end
+
+  def update
+    @shop = current_merchant.shops.find(params[:id])
+    @shop.update(create_params)
     respond_with(@shop)
   end
 
