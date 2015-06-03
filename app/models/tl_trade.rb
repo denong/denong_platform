@@ -89,11 +89,13 @@ class TlTrade < ActiveRecord::Base
   end
 
   def add_jajin_log
-    self.create_jajin_log customer: customer, amount: price
+    self.create_jajin_log customer: customer, amount: price, merchant_id: merchant_id
   end
 
   def add_jajin_identity_code
-    JajinIdentityCode.create amount: price, trade_time: trade_time, verify_state: "unverified", verify_code: trade_ind
+    if phone.blank?
+      JajinIdentityCode.create amount: price, trade_time: trade_time, verify_state: "unverified", verify_code: trade_ind
+    end
   end
 
 end
