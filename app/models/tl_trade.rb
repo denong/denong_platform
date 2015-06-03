@@ -94,7 +94,7 @@ class TlTrade < ActiveRecord::Base
 
   def add_jajin_identity_code
     if phone.blank?
-      JajinIdentityCode.create amount: price, trade_time: trade_time, verify_state: "unverified", verify_code: trade_ind
+      JajinIdentityCode.create amount: price, trade_time: trade_time, verify_state: "unverified", verify_code: trade_ind, merchant_id: 4
     end
   end
 

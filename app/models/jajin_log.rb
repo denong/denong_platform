@@ -56,11 +56,13 @@ class JajinLog < ActiveRecord::Base
       custom_content = {
         custom_content: {
           id: id,
+          title: "返金提醒",
           trade_time: updated_at,
           merchant_name: merchant.try(:sys_name),
           amount: amount,
           company: company,
           customer_id: customer_id,
+          merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
           merchant_id: merchant_id
         }
       }

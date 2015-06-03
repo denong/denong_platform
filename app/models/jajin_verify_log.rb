@@ -54,6 +54,7 @@ class JajinVerifyLog < ActiveRecord::Base
         # 需要从原始串码内容中获取相关的小金内容
         self.amount = verify_identity.amount
         self.company = verify_identity.company
+        self.merchant_id = verify_identity.merchant_id
       end
     end
 
@@ -64,7 +65,7 @@ class JajinVerifyLog < ActiveRecord::Base
     end
 
     def add_jajin_log
-      self.create_jajin_log customer: customer, amount: amount
+      self.create_jajin_log customer: customer, amount: amount, merchant_id: merchant_id
     end
 
     def generate_verify_time

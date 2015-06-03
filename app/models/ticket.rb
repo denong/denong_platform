@@ -24,7 +24,7 @@ class Ticket < ActiveRecord::Base
   private
 
     def add_jajin_log
-      self.create_jajin_log customer: customer, amount: 10
+      self.create_jajin_log customer: customer, amount: 10, merchant: 3
     end
 
     def calculate
