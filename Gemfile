@@ -59,7 +59,7 @@ gem 'sunspot_solr'  # optional pre-packaged Solr distribution for use in develop
 gem "faraday"
 gem "multi_json"
 gem 'httparty'
-gem 'ruby-for-xinge'
+gem 'ruby-for-xinge', github: "https://github.com/liyijie/ruby-for-xinge.git"
 # 
 
 #######################################################################
