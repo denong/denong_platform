@@ -64,7 +64,8 @@ class JajinLog < ActiveRecord::Base
           merchant_id: merchant_id
         }
       }
-      if user.os.to_s.downcase.to_sym == :andorid
+      sender = nil
+      if user.os.to_s.downcase.to_sym == :android
         sender = Xinge::Notification.instance.android
       elsif user.os.to_s.downcase.to_sym == :ios
         sender = Xinge::Notification.instance.ios
