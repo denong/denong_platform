@@ -22,6 +22,7 @@ class TlTradesController < ApplicationController
 
   def create
     @tl_trade = TlTrade.new(tl_trade_params)
+    @tl_trade.merchant_id = 4
     @tl_trade.save
     respond_with(@tl_trade)
   end
