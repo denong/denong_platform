@@ -58,6 +58,9 @@ gem 'sunspot_solr'  # optional pre-packaged Solr distribution for use in develop
 # REST Client
 gem "faraday"
 gem "multi_json"
+gem 'httparty'
+gem 'ruby-for-xinge'
+# 
 
 #######################################################################
 gem 'unicorn'

@@ -19,6 +19,8 @@ class JajinLog < ActiveRecord::Base
   belongs_to :customer
   belongs_to :merchant
 
+  after_create :send_xg_notification
+
   default_scope { order('id DESC') }
 
   def as_json(options=nil)
@@ -42,6 +44,32 @@ class JajinLog < ActiveRecord::Base
 
   def merchant_name
     merchant.try(:sys_reg_info).try(:sys_name)
+  end
+
+  def send_xg_notification
+    user = customer.try(:user)
+    if user.present? && user.os.present?
+      title = "德浓小确幸"
+      content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
+      params = {}
+      custom_content = {
+        custom_content: {
+          id: id,
+          trade_time: updated_at,
+          merchant_name: merchant.try(:sys_name),
+          amount: amount,
+          company: company,
+          customer_id: customer_id
+        }
+      }
+      if user.os.to_s.downcase.to_sym == :andorid
+        sender = Xinge::Notification.instance.android
+      elsif user.os.to_s.downcase.to_sym == :ios
+        sender = Xinge::Notification.instance.ios
+      end
+      response = sender.pushToSingleDevice user.token, title, content, params, custom_content
+      logger.debug "sended xg notification #{id}, response is: #{response.inspect}"
+    end
   end
 
 end
