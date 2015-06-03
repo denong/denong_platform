@@ -39,7 +39,7 @@ class JajinLog < ActiveRecord::Base
   end
 
   def merchant_logo
-    merchant.try(:sys_reg_info).try(:image) ? merchant.sys_reg_info.image.photo.url(:product) : ""
+    merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.image.photo.url(:product) : ""
   end
 
   def merchant_name
