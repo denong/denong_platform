@@ -51,6 +51,7 @@ class JajinLog < ActiveRecord::Base
     if user.present? && user.os.present?
       title = "德浓小确幸"
       content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
+      company = jajinable.company if jajinable.respond_to?(:company)
       params = {}
       custom_content = {
         custom_content: {
