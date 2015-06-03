@@ -87,8 +87,6 @@ gem 'will_paginate', '~> 3.0.6'
 
 gem 'rest-client'
 
-gem 'multi_json'
-
 gem 'geokit-rails'
 
 # for topic
