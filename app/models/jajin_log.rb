@@ -56,12 +56,8 @@ class JajinLog < ActiveRecord::Base
       content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
       company = jajinable.company if jajinable.respond_to?(:company)
       params = {}
-      
+
       custom_content = {
-        action: {
-          action_type: 1,
-          activity: "net.izhuo.app.happilitt.MessageDetailActivity",
-        },
         custom_content: {
           id: id,
           title: "返金提醒",
@@ -76,6 +72,12 @@ class JajinLog < ActiveRecord::Base
       }
       sender = nil
       if user.os.to_s.downcase.to_sym == :android
+        custom_content.merge!({
+            action: {
+              action_type: 1,
+              activity: "net.izhuo.app.happilitt.MessageDetailActivity"
+            }
+          })
         sender = Xinge::Notification.instance.android
       elsif user.os.to_s.downcase.to_sym == :ios
         sender = Xinge::Notification.instance.ios
