@@ -22,8 +22,8 @@ class JajinVerifyLog < ActiveRecord::Base
 
   validates_presence_of :customer, on: :create
   validate :must_verify_state_sucess, on: :create
-  before_save :calculate
-  before_save :add_jajin_log
+  before_create :calculate
+  before_create :add_jajin_log
   before_create :generate_verify_time
 
   def as_json(options=nil)
@@ -53,8 +53,13 @@ class JajinVerifyLog < ActiveRecord::Base
       else
         # 需要从原始串码内容中获取相关的小金内容
         self.amount = verify_identity.amount
-        self.company = verify_identity.company
+        # self.company = verify_identity.company
         self.merchant_id = verify_identity.merchant_id
+        if self.merchant_id.nil?
+          self.company = verify_identity.company
+        else
+          self.company = "扫码送金"
+        end
       end
     end
 

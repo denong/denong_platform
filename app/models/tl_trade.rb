@@ -52,7 +52,7 @@ class TlTrade < ActiveRecord::Base
   end
 
   def company
-    "通联刷卡交易"
+    "刷卡返金"
   end
 
   private
