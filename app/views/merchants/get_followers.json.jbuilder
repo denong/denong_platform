@@ -1,4 +1,9 @@
+json.total_pages @voters.total_pages
+json.current_page @voters.current_page
+
 json.array!(@voters) do |voter|
+  next if voter.blank?
+
   json.customer_id voter.customer_reg_info.customer_id
   json.name voter.customer_reg_info.name
   json.nick_name voter.customer_reg_info.nick_name
