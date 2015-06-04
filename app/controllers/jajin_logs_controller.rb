@@ -6,7 +6,7 @@ class JajinLogsController < ApplicationController
   def index
     if params[:search] == "in"
       @jajin_logs = current_customer.jajin_logs.in.paginate(page: params[:page], per_page: 10)
-    elsif params[search] == "out"
+    elsif params[:search] == "out"
       @jajin_logs = current_customer.jajin_logs.out.paginate(page: params[:page], per_page: 10)
     else
       @jajin_logs = current_customer.jajin_logs.paginate(page: params[:page], per_page: 10)
