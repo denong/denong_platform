@@ -1,7 +1,7 @@
 json.total_pages @voters.total_pages
 json.current_page @voters.current_page
 
-json.array!(@voters) do |voter|
+json.followers(@voters) do |voter|
   next if voter.blank?
 
   json.customer_id voter.customer_reg_info.customer_id
