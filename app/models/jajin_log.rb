@@ -55,14 +55,13 @@ class JajinLog < ActiveRecord::Base
       title = "德浓小确幸"
       content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
       company = jajinable.company if jajinable.respond_to?(:company)
-      params = {
+      params = {}
+      
+      custom_content = {
         action: {
           action_type: 1,
           activity: "net.izhuo.app.happilitt.MessageDetailActivity",
-          
-        }
-      }
-      custom_content = {
+        },
         custom_content: {
           id: id,
           title: "返金提醒",
