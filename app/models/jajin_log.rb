@@ -19,8 +19,8 @@ class JajinLog < ActiveRecord::Base
   belongs_to :customer
   belongs_to :merchant
 
-  scope :in, -> { where(:amount > 0) }
-  scope :out, -> { where(:amount < 0) }
+  scope :in, -> { where "amount > 0" }
+  scope :out, -> { where "amount < 0" }
 
   after_create :send_xg_notification
 
