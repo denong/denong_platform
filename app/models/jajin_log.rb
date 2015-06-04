@@ -81,7 +81,7 @@ class JajinLog < ActiveRecord::Base
         sender = Xinge::Notification.instance.android
       elsif user.os.to_s.downcase.to_sym == :ios
         sender = Xinge::Notification.instance.ios
-        content = "您有小金入账"
+        custom_content = {}
       end
       response = sender.pushToSingleDevice user.device_token, title, content, params, custom_content
       logger.debug "sended xg notification #{id}, response is: #{response.inspect}"
