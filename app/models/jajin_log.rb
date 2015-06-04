@@ -66,7 +66,7 @@ class JajinLog < ActiveRecord::Base
           amount: amount,
           company: company,
           customer_id: customer_id,
-          merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
+          # merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
           merchant_id: merchant_id
         }
       }
