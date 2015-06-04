@@ -66,7 +66,7 @@ class JajinLog < ActiveRecord::Base
           amount: amount,
           company: company,
           customer_id: customer_id,
-          # merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
+          merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
           merchant_id: merchant_id
         }
       }
@@ -81,7 +81,7 @@ class JajinLog < ActiveRecord::Base
         sender = Xinge::Notification.instance.android
       elsif user.os.to_s.downcase.to_sym == :ios
         sender = Xinge::Notification.instance.ios
-        # custom_content = {}
+        custom_content = custom_content[:custom_content]
       end
       logger.info "sender is:#{sender.inspect}"
       logger.info "device_token is:#{user.device_token}"
