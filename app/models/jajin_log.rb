@@ -82,10 +82,7 @@ class JajinLog < ActiveRecord::Base
       elsif user.os.to_s.downcase.to_sym == :ios
         sender = Xinge::Notification.instance.ios
         custom_content = {
-          trade_time: updated_at,
-          amount: amount,
-          company: company,
-          merchant_id: merchant_id
+          id: id
         }
       end
       logger.info "sender is:#{sender.inspect}"
