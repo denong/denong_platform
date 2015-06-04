@@ -37,6 +37,11 @@ class IdentityVerify < ActiveRecord::Base
     customer_reg_info = self.customer.customer_reg_info
     customer_reg_info.name = name
     customer_reg_info.id_card = id_card
+    if id_card[-2].to_i % 2 == 1
+      customer_reg_info.male!
+    else
+      customer_reg_info.female!
+    end
     customer_reg_info.verified!
     customer_reg_info.save
     self.verified!
