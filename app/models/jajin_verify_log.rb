@@ -22,9 +22,9 @@ class JajinVerifyLog < ActiveRecord::Base
 
   validates_presence_of :customer, on: :create
   validate :must_verify_state_sucess, on: :create
-  before_create :calculate
-  before_create :add_jajin_log
   before_create :generate_verify_time
+  after_create :calculate
+  after_create :add_jajin_log
 
   def as_json(options=nil)
     {

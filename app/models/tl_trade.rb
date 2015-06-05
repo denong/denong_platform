@@ -33,8 +33,8 @@ class TlTrade < ActiveRecord::Base
   validate :must_have_merchant, on: :create
   validates :phone, length: { is: 11 }
 
-  before_save :calculate
-  before_save :add_jajin_log
+  after_create :calculate
+  after_create :add_jajin_log
 
   after_create :add_jajin_identity_code
 

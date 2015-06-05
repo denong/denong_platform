@@ -14,8 +14,8 @@ class Ticket < ActiveRecord::Base
   validates_uniqueness_of :customer_id
   
   has_one :jajin_log, as: :jajinable
-  before_save :calculate
-  before_save :add_jajin_log
+  after_create :calculate
+  after_create :add_jajin_log
 
   def company
     "拍票送金"

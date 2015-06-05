@@ -18,8 +18,8 @@ class ExchangeLog < ActiveRecord::Base
   validate :must_have_pension, on: :create
   validate :amount_must_less_than_jajin_got, on: :create
 
-  before_save :calculate
-  before_save :add_jajin_log
+  after_create :calculate
+  after_create :add_jajin_log
 
   def as_json(options=nil)
     {
