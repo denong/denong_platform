@@ -9,7 +9,7 @@ class CustomerRegInfosController < ApplicationController
     else
       @customer_reg_info = current_customer.customer_reg_info
     end
-    respond_with(@customer_reg_info)
+    # respond_with(@customer_reg_info)
   end
 
   def update
