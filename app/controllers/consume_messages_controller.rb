@@ -1,9 +1,9 @@
 class ConsumeMessagesController < ApplicationController
+  acts_as_token_authentication_handler_for User
+  
   before_action :set_consume_message, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
-
-  acts_as_token_authentication_handler_for User
 
 
   def index
