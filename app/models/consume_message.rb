@@ -9,6 +9,8 @@
 #  merchant_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  customer_id :integer
+#  company     :string(255)
 #
 
 class ConsumeMessage < ActiveRecord::Base

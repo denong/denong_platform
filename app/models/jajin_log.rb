@@ -57,10 +57,20 @@ class JajinLog < ActiveRecord::Base
       company = jajinable.company if jajinable.respond_to?(:company)
       params = {}
 
+      message = ConsumeMessage.new
+      message.title = "返金提醒"
+      message.trade_time = updated_at
+      message.amount = amount
+      message.company = company
+      message.customer_id = customer_id
+      message.merchant_id = merchant_id
+      message.save
+      message.reload
+
       custom_content = {
         custom_content: {
-          id: id,
-          title: "返金提醒",
+          id: message.id,
+          title: message.title,
           trade_time: updated_at,
           merchant_name: merchant.try(:sys_name),
           amount: amount,
@@ -82,7 +92,7 @@ class JajinLog < ActiveRecord::Base
       elsif user.os.to_s.downcase.to_sym == :ios
         sender = Xinge::Notification.instance.ios
         custom_content = {
-          id: id
+          id: message.id
         }
       end
       logger.info "sender is:#{sender.inspect}"

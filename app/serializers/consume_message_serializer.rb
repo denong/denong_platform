@@ -13,8 +13,6 @@
 #  company     :string(255)
 #
 
-require 'rails_helper'
-
-RSpec.describe ConsumeMessage, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+class ConsumeMessageSerializer < ActiveModel::Serializer
+  attributes :id
 end

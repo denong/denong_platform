@@ -14,6 +14,7 @@ class Customer < ActiveRecord::Base
   belongs_to :user
   has_one :customer_reg_info, dependent: :destroy
   has_many :member_cards, dependent: :destroy
+  has_many :consume_messages, dependent: :destroy
   has_one :jajin, dependent: :destroy
   has_one :pension, dependent: :destroy
   has_many :identity_verifies, dependent: :destroy
