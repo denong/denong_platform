@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :consume_message do
+    title "MyString"
+trade_time "2015-06-05 14:24:53"
+amount 1.5
+merchant nil
+  end
+  
   factory :bank_card_info do
     bin "955550"
     bank "招商银行"

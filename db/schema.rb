@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602152319) do
+ActiveRecord::Schema.define(version: 20150605062452) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 20150602152319) do
   end
 
   add_index "bank_cards", ["customer_id"], name: "index_bank_cards_on_customer_id"
+
+  create_table "consume_messages", force: true do |t|
+    t.string   "title"
+    t.datetime "trade_time"
+    t.float    "amount"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "consume_messages", ["merchant_id"], name: "index_consume_messages_on_merchant_id"
 
   create_table "customer_reg_infos", force: true do |t|
     t.integer  "customer_id"
