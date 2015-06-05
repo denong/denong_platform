@@ -15,6 +15,7 @@
 
 class ConsumeMessage < ActiveRecord::Base
   belongs_to :merchant
+  belongs_to :customer
 
   default_scope { order('id DESC') }
 end
