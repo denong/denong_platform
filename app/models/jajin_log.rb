@@ -51,7 +51,7 @@ class JajinLog < ActiveRecord::Base
 
   def send_xg_notification
     user = customer.try(:user)
-    if user.present? && user.os.present?
+    if user.present? && user.os.present? && user.device_token.present?
       title = "德浓小确幸"
       content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
       company = jajinable.company if jajinable.respond_to?(:company)
