@@ -1,6 +1,6 @@
 json.extract! @merchants, :total_pages, :current_page
 json.merchant_count @merchants.count
-json.merchant_jajin 1348
+json.merchant_jajin current_customer.try(:jajin).try(:got).to_f / 100
 json.merchants @merchants do |merchant|
   json.sys_name       merchant.sys_reg_info.sys_name
   json.service_tel    merchant.sys_reg_info.service_tel
