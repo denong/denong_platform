@@ -34,8 +34,6 @@ class RewardLog < ActiveRecord::Base
   private
     def must_reward_status      
       reward = Reward.find_by verify_code: verify_code
-      puts "verify code is:#{verify_code}"
-      puts "reward is:#{reward.inspect}"
       if reward.blank?
         errors.add(:verify_code, "该奖励小金不存在或已失效")
       else
