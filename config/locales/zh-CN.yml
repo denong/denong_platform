@@ -20,5 +20,9 @@ zh-CN:
         message: "提示："
         phone: "手机号码"
         verify_code: "提示："
+      reward_log:
+        message: "提示："
+        phone: "手机号码"
+        verify_code: "提示："
       ticket:
         Customer: "消费者"
