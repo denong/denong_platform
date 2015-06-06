@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  factory :consume_message do
+FactoryGirl.define do  factory :reward do
+    amount 1.5
+verify_code "MyString"
+max 1
+merchant nil
+  end
+  factory :consume_message do
     title "MyString"
 trade_time "2015-06-05 14:24:53"
 amount 1.5

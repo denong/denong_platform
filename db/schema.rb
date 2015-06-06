@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605065746) do
+ActiveRecord::Schema.define(version: 20150606031915) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -389,6 +389,18 @@ ActiveRecord::Schema.define(version: 20150605065746) do
   end
 
   add_index "pos_machines", ["shop_id"], name: "index_pos_machines_on_shop_id"
+
+  create_table "rewards", force: true do |t|
+    t.float    "amount"
+    t.string   "verify_code"
+    t.integer  "max"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rewards", ["merchant_id"], name: "index_rewards_on_merchant_id"
+  add_index "rewards", ["verify_code"], name: "index_rewards_on_verify_code"
 
   create_table "shops", force: true do |t|
     t.string   "name"
