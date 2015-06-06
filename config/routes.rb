@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :reward_logs
 
   devise_ios_rails_for :merchant_users  
 
@@ -99,6 +98,9 @@ Rails.application.routes.draw do
   # 转赠小金
   resources :given_logs, only: [:create]
 
+  # 奖励小金
+  resources :reward_logs, only: [:create]
+
   # 扫码赠小金
   resources :jajin_verify_logs, only: [:new, :create] do
     collection do
@@ -129,6 +131,7 @@ Rails.application.routes.draw do
   resources :tickets, only: [:create]
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
+  get 'reward/:verify_code' => 'reward_logs#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

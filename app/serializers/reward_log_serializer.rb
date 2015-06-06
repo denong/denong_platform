@@ -6,12 +6,11 @@
 #  reward_id   :integer
 #  customer_id :integer
 #  merchant_id :integer
-#  amount      :string(255)
-#  float       :string(255)
 #  verify_code :string(255)
 #  verify_time :datetime
 #  created_at  :datetime
 #  updated_at  :datetime
+#  amount      :float
 #
 
 class RewardLogSerializer < ActiveModel::Serializer

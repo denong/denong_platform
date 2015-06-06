@@ -1,5 +1,26 @@
-<h1>New reward_log</h1>
+<div class="container">
+  <!-- <h3 class="about-title text-center">小确幸</h3> -->
+  <div class="jajin-form">
+    <%= simple_form_for(@reward_log) do |f| %>
+      <!-- <%= f.error_notification message: "您输入的信息有误，请重试" %> -->
 
-<%= render 'form' %>
+      <div class="form-inputs">
+        <% if params[:verify_code] %>
+          <%= f.input :verify_code, as: :hidden %>
+        <% else %>
+          <%= f.input :verify_code, label: "请您输入小金串码" %>
+        <% end %>
+        <%= f.input :phone, label: "请您输入手机号码" %>
+      </div>
 
-<%= link_to 'Back', reward_logs_path %>
+      <div>
+        <%= image_tag "jajin_bg.gif" %>
+      </div>
+
+      <div class="form-actions text-center">
+        <%= f.button :submit, "获取小金", class: "btn-warning submit-button" %>
+      </div>
+    <% end %>
+  </div>
+  
+</div>
