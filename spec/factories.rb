@@ -1,5 +1,14 @@
 require 'rack/test'
-FactoryGirl.define do  factory :reward do
+FactoryGirl.define do  factory :reward_log do
+    reward nil
+customer nil
+merchant nil
+amount "MyString"
+float "MyString"
+verify_code "MyString"
+verify_time "2015-06-06 11:28:15"
+  end
+  factory :reward do
     amount 1.5
 verify_code "MyString"
 max 1

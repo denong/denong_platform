@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reward:</strong>
+  <%= @reward_log.reward %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @reward_log.customer %>
+</p>
+
+<p>
+  <strong>Merchant:</strong>
+  <%= @reward_log.merchant %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @reward_log.amount %>
+</p>
+
+<p>
+  <strong>Float:</strong>
+  <%= @reward_log.float %>
+</p>
+
+<p>
+  <strong>Verify code:</strong>
+  <%= @reward_log.verify_code %>
+</p>
+
+<p>
+  <strong>Verify time:</strong>
+  <%= @reward_log.verify_time %>
+</p>
+
+<%= link_to 'Edit', edit_reward_log_path(@reward_log) %> |
+<%= link_to 'Back', reward_logs_path %>

@@ -1,0 +1,17 @@
+<%= simple_form_for(@reward_log) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :reward %>
+    <%= f.association :customer %>
+    <%= f.association :merchant %>
+    <%= f.input :amount %>
+    <%= f.input :float %>
+    <%= f.input :verify_code %>
+    <%= f.input :verify_time %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
