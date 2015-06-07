@@ -2,20 +2,32 @@ module Thfund
   class FileInteractor
 
     def initialize()
-      date = Time.zone.today.strftime('%Y%m%d')
-      @file = File.new("OFD_242_42_#{date}_01.TXT", "w")
-      @file.puts "OFDCFDAT"
-      @file.puts "20"
-      @file.puts "42"
-      @file.puts "242"
-      @file.puts date
-      @file.puts 999
+      
+      
     end
 
     def close
       @file.puts "OFDCFEND"
       @file.try(:close)
     end
+
+    def self.write_instance(filename)
+      date = Time.zone.today.strftime('%Y%m%d')
+      @file = File.new(filename, "w", encoding: 'gbk')
+      @file.puts "OFDCFDAT"
+      @file.puts "20"
+      @file.puts "42"
+      @file.puts "242"
+      @file.puts date
+      @file.puts 999
+      self
+    end
+
+    def self.read_instance(filename)
+      @file = File.new(filename, "r", encoding: 'gbk')
+    end
+
+    
 
     # 999
     # 02
@@ -36,6 +48,7 @@ module Thfund
     # content: 一行字符串的内容
     # attribute: 属性的名称
     # index: 偏移
+    # 读出来的内容是gbk格式
     def read_attribute(type, content, attribute, index)
 
       # 读取配置文件
@@ -44,7 +57,7 @@ module Thfund
       attribute_length = attribute_desc[1]
 
       # 读取内容，更新游标
-      value = content[index, index + attribute_length]
+      value = content.byteslice(index, index + attribute_length).encode('utf-8')
       index += attribute_length
 
       # 根据配置类型，得到最后的Value值
@@ -76,7 +89,8 @@ module Thfund
       # 根据配置类型，将value的值写到content中
       case attribute_type.upcase
       when "C"
-        content = "#{content}#{value.to_s.ljust(attribute_length, ' ')}"
+        chinese_char_count = value.to_s.encode('gbk').bytes.size - value.to_s.size
+        content = "#{content}#{value.to_s.ljust(attribute_length - chinese_char_count, ' ')}".encode('gbk')
       when "A"
         content = "#{content}#{value.to_s.rjust(attribute_length, '0')}"
       when "N"

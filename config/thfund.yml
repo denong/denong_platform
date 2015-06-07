@@ -48,7 +48,7 @@ defaults: &defaults
       TransactorIDType: [C, 1]
       AccountCardID: [C, 8]
       MultiAcctFlag: [A, 1]
-      TargetTransactionAccountID: [A, 18]
+      TargetTransactionAccountID: [A, 17]
       AcctNameOfInvestorInClearingAgency: [C, 60]
       AcctNoOfInvestorInClearingAgency: [C, 28]
       ClearingAgency: [A, 9]

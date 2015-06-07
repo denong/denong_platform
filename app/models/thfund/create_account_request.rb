@@ -7,10 +7,6 @@ module Thfund
       @params = ThfundSettings.send(@type).params.keys
     end
 
-    def read_file
-      
-    end
-
     def write_file
       file = FileInteractor.new
       file.write_file_header
@@ -19,8 +15,8 @@ module Thfund
 
       accounts = test_datas
       file.puts accounts.count
-      content = ""
       accounts.each do |account|
+        content = ""
         account_hash = account.as_json
         @params.each do |param|
           if account_hash[param].present?
@@ -51,7 +47,7 @@ module Thfund
         account = Account.new
         account.id = index
         account.certification_no = "1348681764823476" 
-        account.inverstor_name = "测试开户名"
+        account.inverstor_name = "测试账户"
         account.transaction_date = Time.zone.today.strftime('%Y%m%d')
         account.mobile = "18818188188"
         account.transaction_time = Time.zone.now.strftime('%H%M%S')
