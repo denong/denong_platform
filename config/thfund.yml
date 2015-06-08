@@ -1,6 +1,6 @@
 defaults: &defaults
   create_account_request:
-    code: 01
+    code: "01"
     params:
       Address: [C, 120]
       InstReprIDCode: [C, 30]
