@@ -36,7 +36,6 @@ resource "商户推送消息" do
     let(:merchant_id) { @merchant.id }
     example "用户获取商户推送消息" do
       do_request
-      puts response_body
       expect(status).to eq(200)
     end
   end
