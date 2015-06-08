@@ -63,7 +63,7 @@ resource "用户信息验证" do
     let(:name) { "test" }
     let(:id_card) { "333333333333333333" }
     let(:front_image_attributes) { attributes_for(:image) }
-    # let(:back_image_attributes) { attributes_for(:image) }
+    let(:back_image_attributes) { attributes_for(:image) }
 
     example "上传身份证失败" do
       do_request
@@ -72,11 +72,12 @@ resource "用户信息验证" do
   end
 
   get "/identity_verifies" do
-
     before do
       customer = create(:customer_with_jajin_pension)
       image = create(:image)
-      create(:identity_verify, customer: customer, front_image: image, back_image: image)
+      identity = create(:identity_verify, customer: customer, 
+        front_image_attributes: attributes_for(:image), 
+        back_image_attributes: attributes_for(:image))
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -85,6 +86,33 @@ resource "用户信息验证" do
     header "X-User-Phone", user_attrs[:phone]
 
     response_field :verify_state, "验证状态"
+    
+    example "审核结果查询成功" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
+
+  put "/identity_verifies/:id" do
+    before do
+      customer = create(:customer_with_jajin_pension)
+      image = create(:image)
+      @identity = create(:identity_verify, customer: customer, 
+        front_image_attributes: attributes_for(:image), 
+        back_image_attributes: attributes_for(:image))
+
+      create(:merchant_user)
+    end
+
+    merchant_user_attrs = FactoryGirl.attributes_for(:merchant_user)
+
+    header "X-User-Token", merchant_user_attrs[:authentication_token]
+    header "X-User-Phone", merchant_user_attrs[:phone]
+
+    parameter :verify_state, "验证状态",required: true, scope: :identity_verify
+    
+    let(:id) { @identity.id }
+    let(:verify_state) { :verified }
     
     example "审核结果查询成功" do
       do_request
