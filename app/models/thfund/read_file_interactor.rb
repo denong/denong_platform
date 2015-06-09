@@ -31,6 +31,17 @@ module Thfund
         case type_code
         when "01"
           "create_account_request"
+        when "02"
+          "create_account_response"
+        when "03"
+          "trade_request"
+        when "04"
+          "trade_response"
+        when "05"
+          "asset_file"
+        when "07"
+          "gain_file"
+          
         end
       end
 

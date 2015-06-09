@@ -47,3 +47,5 @@ bower.json
 denong_platform_development
 denong_platform_test
 
+*.TXT
+
