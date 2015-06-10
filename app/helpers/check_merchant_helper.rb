@@ -1,0 +1,2 @@
+module CheckMerchantHelper
+end

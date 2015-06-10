@@ -131,6 +131,8 @@ Rails.application.routes.draw do
 
   resources :jajin_identity_code, only: [:create]
   
+  resources :check_merchant, only: [:reset]
+  
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'
