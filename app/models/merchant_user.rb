@@ -27,10 +27,27 @@ class MerchantUser < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:phone, :email]
-
+  
+  attr_accessor :sms_token
   has_one :merchant
 
   def email_required?
     false
+  end
+
+  def self.reset_user_password params
+    phone = params[:phone]
+    password = params[:password]
+    sms_token = params[:sms_token]
+    merchant_user = MerchantUser.find_by phone: phone
+    if merchant_user.present?
+      merchant_user.password = password
+      merchant_user.sms_token = sms_token
+      merchant_user.save
+    else
+      merchant_user = MerchantUser.new
+      merchant_user.errors.add(:phone, "对应的商户不存在")
+    end
+    merchant_user
   end
 end

@@ -1,4 +1,4 @@
-class CheckMerchantController < ApplicationController
+class CheckMerchantsController < ApplicationController
 
   respond_to :json
 
