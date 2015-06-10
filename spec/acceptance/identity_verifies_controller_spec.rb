@@ -46,7 +46,7 @@ resource "用户信息验证" do
     parameter :name, "用户名称", required: true, scope: :identity_verify
     parameter :id_card, "身份证号码", required: true, scope: :identity_verify
     parameter :front_image_attributes, "正面照片",required: true, scope: :identity_verify
-    parameter :front_image_attributes, "反面照片",required: true, scope: :identity_verify
+    parameter :back_image_attributes, "反面照片",required: true, scope: :identity_verify
 
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -61,7 +61,7 @@ resource "用户信息验证" do
     response_field :back_image, "身份证反面照片"
 
     let(:name) { "test" }
-    let(:id_card) { "333333333333333333" }
+    # let(:id_card) { "333333333333333333" }
     let(:front_image_attributes) { attributes_for(:image) }
     let(:back_image_attributes) { attributes_for(:image) }
 
