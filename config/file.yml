@@ -1,0 +1,11 @@
+defaults: &defaults
+  for_thfund:
+    local_path: "./tmp/for_thfund"
+  for_denong:
+    local_path: "/tmp/for_denong"
+
+development:
+  <<: *defaults
+
+production:
+  <<: *defaults
