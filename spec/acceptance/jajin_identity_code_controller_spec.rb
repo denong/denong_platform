@@ -32,7 +32,6 @@ resource "生成加金二维码" do
 
     example "生成加金二维码成功" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq(200)
     end
 
