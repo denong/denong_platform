@@ -29,6 +29,18 @@ FactoryGirl.define do
     card_type "信用卡"
   end
 
+  factory :thfund_account do
+    sn 1
+    certification_type 1
+    certification_no "MyString"
+    name "MyString"
+    transaction_time "2015-06-10 20:08:03"
+    account_id 1
+    mobile "MyString"
+    customer nil
+    state 1
+  end
+  
   factory :ticket do
 
   end

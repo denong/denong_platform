@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606035012) do
+ActiveRecord::Schema.define(version: 20150610120803) do
 
   create_table "bank_card_infos", force: true do |t|
     t.string   "bin"
@@ -461,6 +461,26 @@ ActiveRecord::Schema.define(version: 20150606035012) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+
+  create_table "thfund_accounts", force: true do |t|
+    t.integer  "sn"
+    t.integer  "certification_type"
+    t.string   "certification_no"
+    t.string   "name"
+    t.datetime "transaction_time"
+    t.integer  "account_id"
+    t.string   "mobile"
+    t.integer  "customer_id"
+    t.integer  "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "thfund_accounts", ["account_id"], name: "index_thfund_accounts_on_account_id"
+  add_index "thfund_accounts", ["customer_id"], name: "index_thfund_accounts_on_customer_id"
+  add_index "thfund_accounts", ["mobile"], name: "index_thfund_accounts_on_mobile"
+  add_index "thfund_accounts", ["sn"], name: "index_thfund_accounts_on_sn"
+  add_index "thfund_accounts", ["state"], name: "index_thfund_accounts_on_state"
 
   create_table "tickets", force: true do |t|
     t.integer  "customer_id"
