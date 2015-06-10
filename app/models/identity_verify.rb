@@ -24,8 +24,8 @@ class IdentityVerify < ActiveRecord::Base
 
   validates :name, presence: true
   validates :id_card, presence: true
-  validates :front_image, presence: true
-  validates :back_image, presence: true
+  # validates :front_image, presence: true
+  # validates :back_image, presence: true
 
   def reject!
     self.verified_fail!
