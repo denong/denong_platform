@@ -1,0 +1,1 @@
+json.extract! @jajin_identity_code, :expiration_time, :merchant_id, :amount, :verify_code, :verify_state, :company

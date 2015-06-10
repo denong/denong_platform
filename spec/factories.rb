@@ -1,56 +1,58 @@
 require 'rack/test'
-FactoryGirl.define do  factory :reward_log do
+FactoryGirl.define do  
+  
+  factory :reward_log do
     reward nil
-customer nil
-merchant nil
-amount "MyString"
-float "MyString"
-verify_code "MyString"
-verify_time "2015-06-06 11:28:15"
+    customer nil
+    merchant nil
+    amount "MyString"
+    float "MyString"
+    verify_code "MyString"
+    verify_time "2015-06-06 11:28:15"
   end
   factory :reward do
     amount 1.5
-verify_code "MyString"
-max 1
-merchant nil
+    verify_code "MyString"
+    max 1
+    merchant nil
   end
   factory :consume_message do
     title "MyString"
-trade_time "2015-06-05 14:24:53"
-amount 1.5
-merchant nil
+    trade_time "2015-06-05 14:24:53"
+    amount 1.5
+    merchant nil
   end
-  
+
   factory :bank_card_info do
     bin "955550"
     bank "招商银行"
     card_type "信用卡"
   end
-  
+
   factory :ticket do
 
   end
-  
+
   factory :topic do
     title "title"
     subtitle "subtitle"
   end
-  
+
   factory :jajin_verify_log do
     verify_code "123456"
   end
-  
+
   factory :jajin_identity_code do
     amount 10.8
     verify_code "123456"
     company "万里通积分兑换"
   end
-  
+
   factory :merchant_giving_log do
     amount 1.5
     giving_time "2015-04-09 20:02:31"
   end
-  
+
   factory :merchant_message do
     time "2015-04-09 18:39:41"
     title "MyString"
@@ -61,7 +63,7 @@ merchant nil
       merchant_message.thumb ||= FactoryGirl.create(:image)
     end
   end
-  
+
   factory :yl_trade do
     trade_time "2015-04-09 17:13:03"
     log_time "2015-04-09"
@@ -79,18 +81,18 @@ merchant nil
     merchant_addr "MyString"
     card "123456789"
   end
-  
+
   factory :gain_history do
     gain 1.5
     gain_date "2015-04-09 16:24:06"
   end
-  
+
 
   factory :image do
     title "MyString"
     photo {Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png')}
   end  
-  
+
   factory :identity_verify do
     name "ExampleName"
     id_card "333333333333333333"
@@ -106,7 +108,7 @@ merchant nil
     bind_state 1
     bind_time "2015-04-05 14:15:05"
   end  
-  
+
   factory :exchange_log do
     amount 1.5
   end
@@ -258,7 +260,7 @@ merchant nil
     lat            "131.20"
     welcome_string "welcome"
     comment_text   "good"
-   end
+  end
 
   factory :shop do
     name "shop_name"

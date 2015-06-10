@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   devise_ios_rails_for :merchant_users  
 
   resources :sms_tokens, only: [:create]
@@ -129,6 +128,9 @@ Rails.application.routes.draw do
   end
 
   resources :tickets, only: [:create]
+
+  resources :jajin_identity_code, only: [:create]
+  
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'
