@@ -2,17 +2,20 @@
 #
 # Table name: identity_verifies
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  verify_state :integer
-#  customer_id  :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#  id_card      :string(255)
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  verify_state  :integer
+#  customer_id   :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  id_card       :string(255)
+#  account_state :integer          default(0)
 #
 
 class IdentityVerify < ActiveRecord::Base
   enum verify_state: [ :unverified, :wait_verify, :verified, :verified_fail]
+  enum account_state: [ :not_created, :created]
+
   belongs_to :customer
   has_one :front_image, -> { where photo_type: "front" }, class_name: "Image", as: :imageable, dependent: :destroy
   has_one :back_image, -> { where photo_type: "back" }, class_name: "Image", as: :imageable, dependent: :destroy

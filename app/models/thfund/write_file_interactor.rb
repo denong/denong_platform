@@ -6,7 +6,9 @@ module Thfund
       @type_code = ThfundSettings.send(type).code
       @params = ThfundSettings.send(@type).params.keys
       filename = "OFD_242_42_#{@date}_#{@type_code}.TXT"
-      @file = File.new(filename, "w", encoding: 'gbk')
+      file_path = FileSettings.for_thfund.local_path
+      @local_file = File.join file_path, filename
+      @file = File.new(@local_file, "w", encoding: 'gbk')
       write_header
       write_params
     end
@@ -14,6 +16,8 @@ module Thfund
     def close
       @file.puts "OFDCFEND"
       @file.try(:close)
+      @ok_file = File.new("#{@local_file}.ok", 'w')
+      @ok_file.close
     end
 
     def write_datas datas

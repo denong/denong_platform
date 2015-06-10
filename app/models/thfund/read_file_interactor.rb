@@ -1,6 +1,6 @@
 module Thfund
   class ReadFileInteractor
-    attr_accessor :file
+    attr_accessor :type
 
     def initialize(filename)
       @file = File.new(filename, "r", encoding: 'gbk')

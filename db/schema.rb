@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610120803) do
+ActiveRecord::Schema.define(version: 20150610130723) do
 
   create_table "bank_card_infos", force: true do |t|
     t.string   "bin"
@@ -145,8 +145,10 @@ ActiveRecord::Schema.define(version: 20150610120803) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "id_card"
+    t.integer  "account_state", default: 0
   end
 
+  add_index "identity_verifies", ["account_state"], name: "index_identity_verifies_on_account_state"
   add_index "identity_verifies", ["customer_id"], name: "index_identity_verifies_on_customer_id"
 
   create_table "images", force: true do |t|
@@ -474,6 +476,7 @@ ActiveRecord::Schema.define(version: 20150610120803) do
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "return_code"
   end
 
   add_index "thfund_accounts", ["account_id"], name: "index_thfund_accounts_on_account_id"
