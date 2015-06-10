@@ -48,4 +48,5 @@ denong_platform_development
 denong_platform_test
 
 *.TXT
+/config/file.yml
 
