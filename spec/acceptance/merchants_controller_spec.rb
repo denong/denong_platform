@@ -143,6 +143,9 @@ resource "获取商户信息" do
     response_field :giving_jajin, "商户赠送的小金"
     response_field :image, "商户大图"
     response_field :logo, "商户logo"
+    response_field :ratio, "小金兑换比例"
+    response_field :contact_tel, "联系电话"
+
 
     example "获取商户详细信息" do
       do_request

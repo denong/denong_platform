@@ -20,3 +20,5 @@ json.like_count @merchant.like_count
 json.followed current_customer.voted_for?(@merchant, vote_scope: "follow") if current_customer
 json.liked current_customer.voted_for?(@merchant, vote_scope: "like") if current_customer
 json.bind_member_card @merchant.bind_member_card?(current_customer) if current_customer
+json.ratio @merchant.ratio
+json.contact_tel @merchant.sys_reg_info.contact_tel
