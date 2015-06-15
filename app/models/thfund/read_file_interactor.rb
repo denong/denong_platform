@@ -84,7 +84,7 @@ module Thfund
         attribute_length = attribute_desc[1]
 
         # 读取内容，更新游标
-        value = content.byteslice(index ... index + attribute_length).encode('utf-8')
+        value = content.byteslice(index ... index + attribute_length).to_s.encode('utf-8')
         index += attribute_length
 
         # 根据配置类型，得到最后的Value值
