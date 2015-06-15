@@ -54,6 +54,7 @@ class JajinLog < ActiveRecord::Base
     def send_notification
       title = "德浓小确幸"
       company = jajinable.company if jajinable.respond_to?(:company)
+      price = jajinable.respond_to?(:price) ? jajinable.price : 0
       params = {}
 
       message = ConsumeMessage.new
@@ -63,6 +64,7 @@ class JajinLog < ActiveRecord::Base
       message.company = company
       message.customer_id = customer_id
       message.merchant_id = merchant_id
+      message.price = price
       message.save
       message.reload
 
@@ -79,6 +81,7 @@ class JajinLog < ActiveRecord::Base
           merchant_name: merchant.try(:sys_name),
           amount: message.amount,
           company: message.company,
+          price: message.price
           trade_time: message.trade_time
         }
         conn = Faraday.new(url: url)
@@ -101,6 +104,7 @@ class JajinLog < ActiveRecord::Base
             amount: message.amount,
             company: message.company,
             customer_id: message.customer_id,
+            price: message.price
             merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
             merchant_id: merchant_id
           }

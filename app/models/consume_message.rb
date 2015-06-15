@@ -11,6 +11,7 @@
 #  updated_at  :datetime
 #  customer_id :integer
 #  company     :string(255)
+#  price       :float
 #
 
 class ConsumeMessage < ActiveRecord::Base

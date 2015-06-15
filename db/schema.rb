@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615053458) do
+ActiveRecord::Schema.define(version: 20150615073837) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150615053458) do
     t.datetime "updated_at"
     t.integer  "customer_id"
     t.string   "company"
+    t.float    "price"
   end
 
   add_index "consume_messages", ["customer_id"], name: "index_consume_messages_on_customer_id"
