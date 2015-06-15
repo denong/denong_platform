@@ -22,7 +22,7 @@ class JajinLog < ActiveRecord::Base
   scope :in, -> { where "amount > 0" }
   scope :out, -> { where "amount < 0" }
 
-  after_create :send_xg_notification
+  after_create :send_notification
 
   default_scope { order('id DESC') }
 
@@ -49,9 +49,9 @@ class JajinLog < ActiveRecord::Base
     merchant.try(:sys_reg_info).try(:sys_name)
   end
 
-  def send_xg_notification
-    user = customer.try(:user)
-    if user.present? && user.os.present? && user.device_token.present?
+  private
+
+    def send_notification
       title = "德浓小确幸"
       content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
       company = jajinable.company if jajinable.respond_to?(:company)
@@ -67,37 +67,62 @@ class JajinLog < ActiveRecord::Base
       message.save
       message.reload
 
-      custom_content = {
-        custom_content: {
-          id: message.id,
-          title: message.title,
-          trade_time: updated_at,
-          merchant_name: merchant.try(:sys_name),
-          amount: amount,
-          company: company,
-          customer_id: customer_id,
-          merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
-          merchant_id: merchant_id
-        }
-      }
-      sender = nil
-      if user.os.to_s.downcase.to_sym == :android
-        custom_content.merge!({
-            action: {
-              action_type: 1,
-              activity: "net.izhuo.app.happilitt.MessageDetailActivity"
-            }
-          })
-        sender = Xinge::Notification.instance.android
-      elsif user.os.to_s.downcase.to_sym == :ios
-        sender = Xinge::Notification.instance.ios
-        custom_content = {
-          id: message.id
-        }
-      end
-      response = sender.pushToSingleDevice user.device_token, title, content, params, custom_content
-      logger.info "sended xg notification #{id}, response is: #{response.inspect}"
+      send_wechat_notification message
+      send_xg_notification message
     end
-  end
+
+    def send_wechat_notification message
+      user = customer.try(:user)
+      if user.present?
+        url = "http://bjj.dingzhiweixin.com/mobilebjj/pushcri"
+        params = {
+          phone: user.phone,
+          merchant_name: merchant.try(:sys_name),
+          amount: message.amount,
+          company: message.company,
+          trade_time: message.trade_time
+        }
+        conn = Faraday.new(url: url)
+        response = conn.post url, params
+        logger.info "sended wechat notification, response is: #{response.inspect}"
+      end
+    end
+
+    def send_xg_notification message
+      user = customer.try(:user)
+      if user.present? && user.os.present? && user.device_token.present?
+
+        custom_content = {
+          custom_content: {
+            id: message.id,
+            title: message.title,
+            trade_time: updated_at,
+            merchant_name: merchant.try(:sys_name),
+            amount: message.amount,
+            company: message.company,
+            customer_id: message.customer_id,
+            merchant_logo: merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : "",
+            merchant_id: merchant_id
+          }
+        }
+        sender = nil
+        if user.os.to_s.downcase.to_sym == :android
+          custom_content.merge!({
+              action: {
+                action_type: 1,
+                activity: "net.izhuo.app.happilitt.MessageDetailActivity"
+              }
+            })
+          sender = Xinge::Notification.instance.android
+        elsif user.os.to_s.downcase.to_sym == :ios
+          sender = Xinge::Notification.instance.ios
+          custom_content = {
+            id: message.id
+          }
+        end
+        response = sender.pushToSingleDevice user.device_token, title, content, params, custom_content
+        logger.info "sended xg notification #{id}, response is: #{response.inspect}"
+      end
+    end
 
 end
