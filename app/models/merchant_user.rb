@@ -26,7 +26,7 @@ class MerchantUser < ActiveRecord::Base
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :authentication_keys => [:phone, :email]
+         :authentication_keys => [:phone]
   
   attr_accessor :sms_token
   has_one :merchant
