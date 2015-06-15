@@ -53,7 +53,6 @@ class JajinLog < ActiveRecord::Base
 
     def send_notification
       title = "德浓小确幸"
-      content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
       company = jajinable.company if jajinable.respond_to?(:company)
       params = {}
 
@@ -91,7 +90,8 @@ class JajinLog < ActiveRecord::Base
     def send_xg_notification message
       user = customer.try(:user)
       if user.present? && user.os.present? && user.device_token.present?
-
+        content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
+        params = {}
         custom_content = {
           custom_content: {
             id: message.id,
@@ -120,7 +120,7 @@ class JajinLog < ActiveRecord::Base
             id: message.id
           }
         end
-        response = sender.pushToSingleDevice user.device_token, title, content, params, custom_content
+        response = sender.pushToSingleDevice user.device_token, message.title, content, params, custom_content
         logger.info "sended xg notification #{id}, response is: #{response.inspect}"
       end
     end
