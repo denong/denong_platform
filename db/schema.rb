@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610130723) do
+ActiveRecord::Schema.define(version: 20150615053458) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20150610130723) do
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "bank_card_infos", force: true do |t|
+    t.string   "bin"
+    t.string   "bank"
+    t.string   "card_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bank_card_infos", ["bin"], name: "index_bank_card_infos_on_bin"
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -380,6 +390,7 @@ ActiveRecord::Schema.define(version: 20150610130723) do
     t.string   "pos_ind"
   end
 
+  add_index "pos_machines", ["pos_ind"], name: "index_pos_machines_on_pos_ind"
   add_index "pos_machines", ["shop_id"], name: "index_pos_machines_on_shop_id"
 
   create_table "reward_logs", force: true do |t|
@@ -512,6 +523,7 @@ ActiveRecord::Schema.define(version: 20150610130723) do
     t.integer  "merchant_id"
     t.string   "trade_time"
     t.integer  "pos_machine_id"
+    t.integer  "shop_id"
   end
 
   add_index "tl_trades", ["customer_id"], name: "index_tl_trades_on_customer_id"
@@ -519,6 +531,7 @@ ActiveRecord::Schema.define(version: 20150610130723) do
   add_index "tl_trades", ["phone"], name: "index_tl_trades_on_phone"
   add_index "tl_trades", ["pos_ind"], name: "index_tl_trades_on_pos_ind"
   add_index "tl_trades", ["pos_machine_id"], name: "index_tl_trades_on_pos_machine_id"
+  add_index "tl_trades", ["shop_id"], name: "index_tl_trades_on_shop_id"
   add_index "tl_trades", ["shop_ind"], name: "index_tl_trades_on_shop_ind"
   add_index "tl_trades", ["trade_ind"], name: "index_tl_trades_on_trade_ind"
 

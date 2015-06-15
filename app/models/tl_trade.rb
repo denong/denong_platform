@@ -15,12 +15,14 @@
 #  merchant_id    :integer
 #  trade_time     :string(255)
 #  pos_machine_id :integer
+#  shop_id        :integer
 #
 
 class TlTrade < ActiveRecord::Base
 
   belongs_to :customer
   belongs_to :merchant
+  belongs_to :shop
   belongs_to :pos_machine
   has_one :jajin_log, as: :jajinable
 
@@ -65,9 +67,11 @@ class TlTrade < ActiveRecord::Base
   def check_pos_machine
     pos_machine = PosMachine.find_by_pos_ind(pos_ind)  
     if pos_machine.nil?
-      pos_machine = PosMachine.create! pos_ind: pos_ind
+      pos_machine = PosMachine.create pos_ind: pos_ind
     end
     self.pos_machine = pos_machine
+    self.shop = pos_machine.shop
+    self.merchant_id = pos_machine.try(:shop).try(:merchant).try(:id) || 4
   end
 
   def must_have_jajin
@@ -89,7 +93,9 @@ class TlTrade < ActiveRecord::Base
   end
 
   def add_jajin_log
-    self.create_jajin_log customer: customer, amount: price, merchant_id: merchant_id
+    ratio = merchant.try(:ratio) || 1
+    amount = price * 100 * ratio
+    self.create_jajin_log customer: customer, amount: amount, merchant_id: merchant_id
   end
 
   def add_jajin_identity_code
