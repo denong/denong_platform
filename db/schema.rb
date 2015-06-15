@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615073837) do
+ActiveRecord::Schema.define(version: 20150615113544) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -360,6 +360,7 @@ ActiveRecord::Schema.define(version: 20150615073837) do
     t.float    "consumption_total"
     t.float    "jajin_total"
     t.integer  "consume_count"
+    t.integer  "verify_state"
   end
 
   add_index "merchants", ["cached_votes_down"], name: "index_merchants_on_cached_votes_down"
@@ -370,6 +371,7 @@ ActiveRecord::Schema.define(version: 20150615073837) do
   add_index "merchants", ["cached_weighted_score"], name: "index_merchants_on_cached_weighted_score"
   add_index "merchants", ["cached_weighted_total"], name: "index_merchants_on_cached_weighted_total"
   add_index "merchants", ["topic_id"], name: "index_merchants_on_topic_id"
+  add_index "merchants", ["verify_state"], name: "index_merchants_on_verify_state"
 
   create_table "pensions", force: true do |t|
     t.float    "total"
