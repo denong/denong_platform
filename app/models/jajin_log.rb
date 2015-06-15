@@ -81,7 +81,7 @@ class JajinLog < ActiveRecord::Base
           merchant_name: merchant.try(:sys_name),
           amount: message.amount,
           company: message.company,
-          price: message.price
+          price: message.price,
           trade_time: message.trade_time
         }
         conn = Faraday.new(url: url)
