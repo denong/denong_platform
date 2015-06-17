@@ -18,6 +18,7 @@
 #  consumption_total       :float
 #  jajin_total             :float
 #  consume_count           :integer
+#  verify_state            :integer
 #
 
 class Merchant < ActiveRecord::Base

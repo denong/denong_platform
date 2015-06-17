@@ -1,5 +1,15 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :agent do
+    name "MyString"
+phone "MyString"
+contant_person "MyString"
+email "MyString"
+fax "MyString"
+addr "MyString"
+lat 1.5
+lon 1.5
+  end
+  
   
   factory :reward_log do
     reward nil
