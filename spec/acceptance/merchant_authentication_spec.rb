@@ -60,7 +60,7 @@ resource "商户用户鉴权" do
     merchant_attrs = FactoryGirl.attributes_for :merchant_user
     
     let(:phone) { merchant_attrs[:phone] }
-    let(:password) { merchant_attrs[:password] }
+    # let(:password) { merchant_attrs[:password] }
     let(:raw_post) { params.to_json }
 
     example "商户用户登录失败" do
