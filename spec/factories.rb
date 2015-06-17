@@ -1,5 +1,9 @@
 require 'rack/test'
-FactoryGirl.define do  factory :agent do
+FactoryGirl.define do  factory :agent_merchant do
+    agent nil
+merchant nil
+  end
+  factory :agent do
     name "MyString"
 phone "MyString"
 contant_person "MyString"
