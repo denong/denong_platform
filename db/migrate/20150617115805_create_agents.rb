@@ -4,7 +4,6 @@ class CreateAgents < ActiveRecord::Migration
       t.string :name
       t.string :phone
       t.string :contact_person
-      t.string :email
       t.string :fax
       t.string :addr
       t.float :lat

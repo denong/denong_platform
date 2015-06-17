@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :agents
   devise_ios_rails_for :merchant_users  
 
   resources :sms_tokens, only: [:create]
