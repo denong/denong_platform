@@ -44,10 +44,10 @@ class ShopsController < ApplicationController
   end
 
   def create
-    puts "params is #{create_params}"
-    # @shop = current_agent.shops.build(create_params)
-    # @shop.save
-    # respond_with(@shop)
+    merchant = Merchant.find_by_id(params[:merchant_id])
+    @shop = merchant.shops.build(create_params)
+    @shop.save
+    respond_with(@shop)
   end
 
   def update

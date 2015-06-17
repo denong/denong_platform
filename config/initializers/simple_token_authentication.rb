@@ -26,6 +26,6 @@ SimpleTokenAuthentication.configure do |config|
     agent: { authentication_token: 'X-User-Token', phone: 'X-User-Phone' } 
   }
   
-  config.identifiers = { user: 'phone', merchant_user: 'phone' }
+  config.identifiers = { user: 'phone', merchant_user: 'phone', agent: 'phone' }
 
 end
