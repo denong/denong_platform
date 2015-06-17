@@ -26,6 +26,7 @@ class RewardLog < ActiveRecord::Base
   after_create :add_jajin_log
 
   validate :must_reward_status, on: :create
+  validate :must_less_than_max, on: :create
 
   def company
     "奖励送金"
@@ -40,6 +41,16 @@ class RewardLog < ActiveRecord::Base
         reward.activate_by_customer customer
         self.amount = reward.amount
         self.merchant_id = reward.merchant_id
+      end
+    end
+
+    def must_less_than_max
+      reward = Reward.find_by verify_code: verify_code
+      
+      max = reward.try(:max).to_i
+      count = RewardLog.where(verify_code: verify_code, customer_id: customer_id).count
+      if count >= max
+        errors.add(:verify_code, "抱歉，您无法重复领取该奖励小金")
       end
     end
 
