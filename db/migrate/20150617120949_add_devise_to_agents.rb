@@ -9,6 +9,9 @@ class AddDeviseToAgents < ActiveRecord::Migration
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
 
+      #Authentication for api
+      t.string   :authentication_token
+      
       ## Rememberable
       t.datetime :remember_created_at
 

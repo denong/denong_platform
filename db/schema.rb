@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617120949) do
-
-  create_table "agent_merchants", force: true do |t|
-    t.integer  "agent_id"
-    t.integer  "merchant_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "agent_merchants", ["agent_id"], name: "index_agent_merchants_on_agent_id"
-  add_index "agent_merchants", ["merchant_id"], name: "index_agent_merchants_on_merchant_id"
+ActiveRecord::Schema.define(version: 20150617124536) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -37,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150617120949) do
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.string   "authentication_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
@@ -378,8 +369,10 @@ ActiveRecord::Schema.define(version: 20150617120949) do
     t.float    "jajin_total"
     t.integer  "consume_count"
     t.integer  "verify_state"
+    t.integer  "agent_id"
   end
 
+  add_index "merchants", ["agent_id"], name: "index_merchants_on_agent_id"
   add_index "merchants", ["cached_votes_down"], name: "index_merchants_on_cached_votes_down"
   add_index "merchants", ["cached_votes_score"], name: "index_merchants_on_cached_votes_score"
   add_index "merchants", ["cached_votes_total"], name: "index_merchants_on_cached_votes_total"

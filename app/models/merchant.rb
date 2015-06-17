@@ -19,6 +19,7 @@
 #  jajin_total             :float
 #  consume_count           :integer
 #  verify_state            :integer
+#  agent_id                :integer
 #
 
 class Merchant < ActiveRecord::Base
@@ -27,6 +28,7 @@ class Merchant < ActiveRecord::Base
   
   belongs_to :merchant_user
   belongs_to :topic
+  belongs_to :agent
   has_one :busi_reg_info, class_name: "MerchantBusiRegInfo", dependent: :destroy
   has_one :sys_reg_info, class_name: "MerchantSysRegInfo", dependent: :destroy
   has_many :shops

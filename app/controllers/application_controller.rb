@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
     current_merchant_user.try(:merchant)
   end
 
+  def current_agent
+    current_agent.try(:agent)
+  end
+
   helper_method :current_customer, :current_merchant
 
   protected

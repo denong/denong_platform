@@ -3,7 +3,8 @@ class ShopsController < ApplicationController
   
   respond_to :html, :json
   acts_as_token_authentication_handler_for User, only: [:follow, :unfollow, :neighbour_shop]
-  acts_as_token_authentication_handler_for MerchantUser, only: [:new, :create, :update]
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
+  acts_as_token_authentication_handler_for Agent, only: [:new, :create]
   before_action :set_shop, only: [:show, :follow, :unfollow]
 
   def index
@@ -16,7 +17,7 @@ class ShopsController < ApplicationController
   end
 
   def new
-    @shop = current_merchant.shops.build
+    @shop = current_agent.shops.build
   end
 
   def show
@@ -43,9 +44,10 @@ class ShopsController < ApplicationController
   end
 
   def create
-    @shop = current_merchant.shops.build(create_params)
-    @shop.save
-    respond_with(@shop)
+    puts "params is #{create_params}"
+    # @shop = current_agent.shops.build(create_params)
+    # @shop.save
+    # respond_with(@shop)
   end
 
   def update
@@ -65,7 +67,7 @@ class ShopsController < ApplicationController
     end 
 
     def create_params
-      params.require(:shop).permit(:name, :addr, :contact_person, 
+      params.require(:shop).permit(:merchant_id, :name, :addr, :contact_person, 
         :contact_tel, :work_time, :lat, :lon, :post_code, :email, :service_tel,
         :welcome_text, :remark,
         pic_attributes: [:id, :photo, :_destroy], 

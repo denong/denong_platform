@@ -19,6 +19,7 @@
 #  jajin_total             :float
 #  consume_count           :integer
 #  verify_state            :integer
+#  agent_id                :integer
 #
 
 require 'rails_helper'

@@ -1,20 +1,20 @@
 require 'rack/test'
-FactoryGirl.define do  factory :agent_merchant do
-    agent nil
-merchant nil
-  end
+FactoryGirl.define do 
+
   factory :agent do
     name "MyString"
-phone "MyString"
-contant_person "MyString"
-email "MyString"
-fax "MyString"
-addr "MyString"
-lat 1.5
-lon 1.5
+    phone "13312345678"
+    authentication_token "qwertyuiop"
+    email "example_agent@example.com"
+    password "abcd.1234"
+    contact_person "MyString"
+    fax "MyString"
+    addr "MyString"
+    lat 1.5
+    lon 1.5
   end
-  
-  
+
+
   factory :reward_log do
     reward nil
     customer nil
@@ -24,6 +24,7 @@ lon 1.5
     verify_code "MyString"
     verify_time "2015-06-06 11:28:15"
   end
+
   factory :reward do
     amount 1.5
     verify_code "MyString"
@@ -54,7 +55,7 @@ lon 1.5
     customer nil
     state 1
   end
-  
+
   factory :ticket do
 
   end
