@@ -3,8 +3,7 @@ class ShopsController < ApplicationController
   
   respond_to :html, :json
   acts_as_token_authentication_handler_for User, only: [:follow, :unfollow, :neighbour_shop]
-  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
-  acts_as_token_authentication_handler_for Agent, only: [:new, :create]
+  acts_as_token_authentication_handler_for Agent, only: [:new, :create, :update]
   before_action :set_shop, only: [:show, :follow, :unfollow]
 
   def index
@@ -51,7 +50,8 @@ class ShopsController < ApplicationController
   end
 
   def update
-    @shop = current_merchant.shops.find(params[:id])
+    merchant = Merchant.find_by_id(params[:merchant_id])
+    @shop = merchant.shops.find(params[:id])
     @shop.update(create_params)
     respond_with(@shop)
   end
