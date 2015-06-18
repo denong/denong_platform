@@ -10,6 +10,7 @@ resource "代理商鉴权" do
     parameter :contact_person, "联系人",required: true, scope: :agent
     parameter :email, "邮箱", required: true, scope: :agent
     parameter :name, "代理商的名字", required: true, scope: :agent
+    parameter :sms_token, "代理商注册的短消息验证码", required: true, scope: :agent
 
     agent_attrs = FactoryGirl.attributes_for :agent
 
@@ -18,6 +19,7 @@ resource "代理商鉴权" do
     let(:email) { "abcd@abcd.com" }
     let(:phone) { agent_attrs[:phone] }
     let(:password) { agent_attrs[:password] }
+    let(:sms_token) { agent_attrs[:sms_token] }
     let(:raw_post) { params.to_json }
 
     response_field :id, "代理商ID"

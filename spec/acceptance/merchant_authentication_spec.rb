@@ -5,8 +5,12 @@ resource "商户用户鉴权" do
   header "Content-Type", "application/json"
 
   post "/merchant_users" do
-    parameter :phone, "商户手机号", :required => true, scope: :merchant_user
-    parameter :password, "商户密码", :required => true, scope: :merchant_user
+    merchant_attrs = FactoryGirl.attributes_for :user
+    sms_attrs = FactoryGirl.attributes_for :sms_token
+
+    parameter :phone, "商户手机号", required: true, scope: :merchant_user
+    parameter :password, "商户密码", required: true, scope: :merchant_user
+    parameter :sms_token, "商户注册的短消息验证码", required: true, scope: :merchant_user
 
     response_field :id, "商户ID"
     response_field :email, "邮箱"
@@ -18,9 +22,11 @@ resource "商户用户鉴权" do
     let(:phone) { "138138138138" }
     let(:email) { "example@example.com" }
     let(:password) { "abcd.1234" }
+    let(:sms_token) { merchant_attrs[:sms_token] }
     let(:raw_post) { params.to_json }
 
     example "商户用户注册" do
+      create :sms_token
       do_request
       expect(status).to eq(201)
     end

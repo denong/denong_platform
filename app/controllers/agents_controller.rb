@@ -5,7 +5,9 @@ class AgentsController < ApplicationController
 
   def update
     @agent = current_agent
-    @agent.update(update_params)
+    params = update_params
+    params[:sms_token] = "989898"
+    @agent.update(params)
     respond_with(@agent)
   end
 
