@@ -7,18 +7,26 @@ resource "代理商鉴权" do
   post "/agents" do
     parameter :phone, "代理商注册的手机号码", required: true, scope: :agent
     parameter :password, "代理商注册的密码", required: true, scope: :agent
+    parameter :contact_person, "联系人",required: true, scope: :agent
+    parameter :email, "邮箱", required: true, scope: :agent
+    parameter :name, "代理商的名字", required: true, scope: :agent
 
     agent_attrs = FactoryGirl.attributes_for :agent
 
+    let(:contact_person) { "abcd" }
+    let(:name) { "agent_name" }
+    let(:email) { "abcd@abcd.com" }
     let(:phone) { agent_attrs[:phone] }
     let(:password) { agent_attrs[:password] }
     let(:raw_post) { params.to_json }
 
     response_field :id, "代理商ID"
+    response_field :contact_person, "联系人"
     response_field :email, "邮箱"
     response_field :created_at, "创建时间"
     response_field :updated_at, "更新时间"
     response_field :phone, "电话号码"
+    response_field :name, "name"
     response_field :authentication_token, "鉴权Token"
 
     example "代理商注册成功" do

@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).concat [:sms_token]
+    # devise_parameter_sanitizer.for(:sign_up).concat [:sms_token]
+    # 此处过滤待完善
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:sms_token, :name, :phone, :contact_person, :email, :password, :password_confirmation) }
   end
 end
