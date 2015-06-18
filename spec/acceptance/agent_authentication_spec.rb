@@ -26,7 +26,7 @@ resource "代理商鉴权" do
     response_field :created_at, "创建时间"
     response_field :updated_at, "更新时间"
     response_field :phone, "电话号码"
-    response_field :name, "name"
+    response_field :name, "代理商的名字"
     response_field :authentication_token, "鉴权Token"
 
     example "代理商注册成功" do

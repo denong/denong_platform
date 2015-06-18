@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_ios_rails_for :agents
   devise_ios_rails_for :merchant_users  
 
@@ -135,6 +134,12 @@ Rails.application.routes.draw do
   resource :check_merchant do
     member do
       post 'reset'
+    end
+  end
+
+  resource :agent do
+    member do
+      post 'update'
     end
   end
 
