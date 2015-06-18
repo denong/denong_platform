@@ -36,7 +36,7 @@ class RewardLog < ActiveRecord::Base
     def must_reward_status      
       reward = Reward.find_by verify_code: verify_code
       if reward.blank?
-        errors.add(:verify_code, "该奖励小金不存在或已失效")
+        errors.add(:message, "该奖励小金不存在或已失效")
       else
         reward.activate_by_customer customer
         self.amount = reward.amount
@@ -46,11 +46,11 @@ class RewardLog < ActiveRecord::Base
 
     def must_less_than_max
       reward = Reward.find_by verify_code: verify_code
-      
+
       max = reward.try(:max).to_i
       count = RewardLog.where(verify_code: verify_code, customer_id: customer_id).count
       if count >= max
-        errors.add(:verify_code, "抱歉，您无法重复领取该奖励小金")
+        errors.add(:message, "抱歉，您无法重复领取该奖励小金")
       end
     end
 

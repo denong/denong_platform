@@ -29,7 +29,7 @@ class RewardLogsController < ApplicationController
     @reward_log = RewardLog.new(reward_log_params)
     if user.errors.present?
       @reward_log.errors.add :phone, "您输入的手机号有误，请重新输入"
-      respond_with(@verify_log)
+      respond_with(@reward_log)
     else
       @reward_log.customer = user.customer
       @reward_log.save

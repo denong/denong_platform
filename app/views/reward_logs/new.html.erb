@@ -2,14 +2,10 @@
   <h3 class="about-title text-center">恭喜您获得小金奖励</h3>
   <div class="jajin-form">
     <%= simple_form_for(@reward_log) do |f| %>
-      <!-- <%= f.error_notification message: "您输入的信息有误，请重试" %> -->
+      <%= f.error_notification message: "抱歉，您无法重复领取该奖励小金" %>
 
       <div class="form-inputs">
-        <% if params[:verify_code] %>
-          <%= f.input :verify_code, as: :hidden %>
-        <% else %>
-          <%= f.input :verify_code, label: "请您输入小金串码" %>
-        <% end %>
+        <%= f.input :verify_code, as: :hidden %>
         <%= f.input :phone, label: "请您输入手机号码" %>
       </div>
 
