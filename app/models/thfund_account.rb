@@ -58,7 +58,7 @@ class ThfundAccount < ActiveRecord::Base
       "InvestorName" => name,
       "TransactionDate" => transaction_time.strftime('%Y%m%d'),
       "IndividualOrInstitution" => 1,
-      "TransactionAccountID" => 242,
+      "TransactionAccountID" => id,
       "BusinessCode" => 1,
       "DepositAcct" => "",
       "MobileTelNo" => mobile,
