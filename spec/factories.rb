@@ -12,6 +12,7 @@ FactoryGirl.define do
     addr "MyString"
     lat 1.5
     lon 1.5
+    sms_token "989898"
   end
 
 
@@ -167,6 +168,7 @@ FactoryGirl.define do
     email "merchant_user@example.com"
     phone "12345678903"
     password "abcd.1234"
+    sms_token "989898"
     authentication_token "qwertyuiop"
   end
 

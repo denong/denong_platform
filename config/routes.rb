@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_ios_rails_for :agents
   devise_ios_rails_for :merchant_users  
 
@@ -132,6 +133,12 @@ Rails.application.routes.draw do
   resources :jajin_identity_code, only: [:create]
   
   resource :check_merchant do
+    member do
+      post 'reset'
+    end
+  end
+
+  resource :check_agent do
     member do
       post 'reset'
     end
