@@ -7,7 +7,10 @@ module Thfund
       @params = ThfundSettings.send(@type).params.keys
       filename = "OFD_242_42_#{@date}_#{@type_code}.TXT"
       file_path = FileSettings.for_thfund.local_path
-      @local_file = File.join file_path, @date ,filename
+      local_dir = File.join file_path, @date
+      FileUtils.makedirs(local_dir) unless File.exist?(local_dir)
+
+      @local_file = File.join local_dir ,filename
       @file = File.new(@local_file, "w", encoding: 'gbk')
       write_header
       write_params
