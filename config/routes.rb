@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   resources :jajin, only: [:index]
   
-  resources :merchants, only: [:index, :show, :update] do
+  resources :merchants, only: [:index, :show, :update, :create] do
     resources :shops, only: [:index, :new, :create, :update]
     collection do
       get 'customer_index'

@@ -9,6 +9,16 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for MerchantUser, only: [:index, :show], fallback_to_devise: false
   acts_as_token_authentication_handler_for MerchantUser, only: [:update]
 
+  acts_as_token_authentication_handler_for Agent, only: [:create]
+
+  def create
+    agent = current_agent
+    @merchant = agent.merchants.build(create_params)
+    @merchant.save
+    @merchant.sys_reg_info.update(update_params)
+    respond_with(@merchant)
+  end
+
   def index
     # @merchants = Merchant.all.paginate(page: params[:page], per_page: 10)
     @merchants = MerchantSearch.search params
@@ -77,7 +87,10 @@ class MerchantsController < ApplicationController
     end
 
     def update_params
-      params.require(:merchant).permit(:sys_name, :contact_person, :service_tel, :fax_tel, :email, :company_addr, :region, :postcode, :lon, :lat, :welcome_string, :comment_text, 
+      params.require(:merchant).permit(:sys_name, 
+        :contact_person, :service_tel, :fax_tel, :email, 
+        :company_addr, :region, :postcode, :lon, :lat, 
+        :welcome_string, :comment_text, 
         image_attributes: [:id, :photo, :_destroy],
         logo_attributes: [:id, :photo, :_destroy])      
     end
@@ -86,5 +99,8 @@ class MerchantsController < ApplicationController
       params.require(:merchant).permit(:user_name, :passwd)
     end
 
+    def create_params
+      params.require(:merchant).permit(:ratio)
+    end
 end
 
