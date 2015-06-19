@@ -404,6 +404,8 @@ resource "获取商户信息" do
     response_field :tags, "标签"
     response_field :image, "商户大图"
     response_field :logo, "商户logo"
+    response_field :contact_tel, "联系电话"
+    response_field :merchant_user_id, "对应的商户用户ID"
 
     parameter :sys_name, "商户名称", required: true, scope: :merchant
     parameter :contact_person, "联系人", required: true, scope: :merchant
@@ -419,6 +421,9 @@ resource "获取商户信息" do
     parameter :comment_text, "备注", required: true, scope: :merchant
     parameter :image_attributes, "图片", required: true, scope: :merchant
     parameter :logo_attributes, "图片", required: true, scope: :merchant
+    parameter :contact_tel, "联系电话", required: true, scope: :merchant
+    parameter :merchant_user_id, "对应的商户用户ID", required: true, scope: :merchant
+    parameter :ratio, "小金兑换比例", required: true, scope: :merchant
 
     let(:sys_name) { "new_sys_name" }
     let(:contact_person) { "new_contact_person" }
@@ -432,6 +437,9 @@ resource "获取商户信息" do
     let(:lat) { 222.222 }
     let(:welcome_string) { "new_welcome_string" }
     let(:comment_text) { "new_comment_text" }
+    let(:contact_tel) { "12345678" }
+    let(:merchant_user_id) { 8 }
+    let(:ratio) { 0.01 }
     let(:image_attributes) { attributes_for(:image) }
     let(:logo_attributes) { attributes_for(:image) }
 

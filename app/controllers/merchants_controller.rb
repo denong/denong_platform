@@ -9,7 +9,7 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for MerchantUser, only: [:index, :show], fallback_to_devise: false
   acts_as_token_authentication_handler_for MerchantUser, only: [:update]
 
-  acts_as_token_authentication_handler_for Agent, only: [:create]
+  acts_as_token_authentication_handler_for Agent, only: [:create, :update], fallback_to_devise: false
 
   def create
     agent = current_agent
@@ -90,7 +90,7 @@ class MerchantsController < ApplicationController
       params.require(:merchant).permit(:sys_name, 
         :contact_person, :service_tel, :fax_tel, :email, 
         :company_addr, :region, :postcode, :lon, :lat, 
-        :welcome_string, :comment_text, 
+        :welcome_string, :comment_text, :contact_tel,
         image_attributes: [:id, :photo, :_destroy],
         logo_attributes: [:id, :photo, :_destroy])      
     end
@@ -100,7 +100,7 @@ class MerchantsController < ApplicationController
     end
 
     def create_params
-      params.require(:merchant).permit(:ratio)
+      params.require(:merchant).permit(:ratio, :merchant_user_id)
     end
 end
 

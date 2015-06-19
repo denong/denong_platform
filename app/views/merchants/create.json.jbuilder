@@ -1,6 +1,8 @@
+json.merchant_user_id @merchant.merchant_user_id
 json.ratio @merchant.ratio
 json.sys_name @merchant.sys_reg_info.sys_name
 json.contact_person @merchant.sys_reg_info.contact_person
+json.contact_tel @merchant.sys_reg_info.contact_tel
 json.service_tel @merchant.sys_reg_info.service_tel
 json.fax_tel @merchant.sys_reg_info.fax_tel
 json.email @merchant.sys_reg_info.email
