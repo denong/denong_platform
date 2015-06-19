@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :boards
+
   devise_ios_rails_for :agents
   devise_ios_rails_for :merchant_users  
 
