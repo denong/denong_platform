@@ -1,21 +1,25 @@
 <div class="container">
-  <h3 class="about-title text-center">恭喜您获得小金奖励</h3>
   <div class="jajin-form">
     <%= simple_form_for(@reward_log) do |f| %>
       <%= f.error_notification message: "抱歉，您无法重复领取该奖励小金" %>
 
       <div class="form-inputs">
         <%= f.input :verify_code, as: :hidden %>
-        <%= f.input :phone, label: "请您输入手机号码" %>
-      </div>
-
-      <div>
-        <%= image_tag "jajin_bg.gif" %>
+        <%= f.input :phone, placeholder: "请您输入手机号码", label: false %>
       </div>
 
       <div class="form-actions text-center">
-        <%= f.button :submit, "获取小金", class: "btn-warning submit-button" %>
+        <%= f.button :submit, "获取小金", class: "btn submit-button" %>
       </div>
+
+      <div class="hint-text">温馨提示</div>
+      <div class="hint-text">输入手机后，有机会获得消费养老金/小金哦。</div>
+
+      <div class="hint-image">
+        <%= image_tag "jajin_hint.png" %>
+      </div>
+
+      
     <% end %>
   </div>
   

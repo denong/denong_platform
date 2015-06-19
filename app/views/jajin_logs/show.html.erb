@@ -1,10 +1,19 @@
 <div class="container">
-  <!-- <h3 class="about-title text-center">小确幸</h3> -->
-  <div class="jajin-detail">
-    <p class="hint-title">恭喜您获得：</p>
-    <p class="jajin-line text-center"><span class="money"><%= @jajin_log.amount %></span>小金</p>  
+  <div class="hint-title">恭喜您获得：</div>
+  <div class="jajin-image text-center">
+    <%= image_tag "jajin_logo.png" %>
+  </div>
+  <div class="jajin-line text-center">
+    <span class="money bold"><%= @jajin_log.amount.to_i %></span>小金！
+  </div>
+  <div class="denong-logo">
+    <%= image_tag "denong_logo.png" %>
+  </div>
 
-    <%= image_tag "jajin_bg2.gif" %>
+  <div class="download text-center">
+    <%= link_to "#", class: "btn" do %>
+      <%= image_tag "download_icon.png" %>去下载APP
+    <% end %>
   </div>
 
 </div>
