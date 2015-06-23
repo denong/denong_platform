@@ -1,5 +1,10 @@
 require 'rack/test'
-FactoryGirl.define do 
+FactoryGirl.define do  
+  factory :pension_log do
+    jajin_amount -150
+    amount 1.5
+  end
+ 
 
   factory :agent do
     name "MyString"

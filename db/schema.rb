@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619061805) do
+ActiveRecord::Schema.define(version: 20150623052111) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -407,6 +407,16 @@ ActiveRecord::Schema.define(version: 20150619061805) do
   add_index "merchants", ["cached_weighted_total"], name: "index_merchants_on_cached_weighted_total"
   add_index "merchants", ["topic_id"], name: "index_merchants_on_topic_id"
   add_index "merchants", ["verify_state"], name: "index_merchants_on_verify_state"
+
+  create_table "pension_logs", force: true do |t|
+    t.integer  "customer_id"
+    t.float    "jajin_amount"
+    t.float    "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pension_logs", ["customer_id"], name: "index_pension_logs_on_customer_id"
 
   create_table "pensions", force: true do |t|
     t.float    "total"
