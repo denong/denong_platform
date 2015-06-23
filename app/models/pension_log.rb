@@ -12,4 +12,6 @@
 
 class PensionLog < ActiveRecord::Base
   belongs_to :customer
+  scope :in, -> { where "amount > 0" }
+  scope :out, -> { where "amount < 0" }
 end
