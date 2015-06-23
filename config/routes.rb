@@ -90,6 +90,9 @@ Rails.application.routes.draw do
   resources :gain_accounts, only: [:index, :show] do
     resources :gain_histories, only: [:index, :show]
   end
+
+  # 养老金明细
+  resources :pension_logs, only: [:index]
   ################################################
 
 

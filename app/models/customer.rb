@@ -19,6 +19,8 @@ class Customer < ActiveRecord::Base
   has_one :pension, dependent: :destroy
   has_many :identity_verifies, dependent: :destroy
   has_many :bank_cards, dependent: :destroy
+  # 养老金详细记录
+  has_many :pension_logs, dependent: :destroy
   # 亲友关系
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, dependent: :destroy
