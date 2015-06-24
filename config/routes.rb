@@ -104,7 +104,11 @@ Rails.application.routes.draw do
   resources :given_logs, only: [:create]
 
   # 奖励小金
-  resources :reward_logs, only: [:create]
+  resources :reward_logs, only: [:create] do
+    collection do
+      post 'verify'
+    end
+  end
 
   # 扫码赠小金
   resources :jajin_verify_logs, only: [:new, :create] do

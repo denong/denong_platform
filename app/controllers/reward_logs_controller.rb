@@ -1,10 +1,10 @@
 class RewardLogsController < ApplicationController
 
-
-
   before_action :set_reward_log, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
+
+  acts_as_token_authentication_handler_for User, only: [:verify]
 
   def index
     @reward_logs = RewardLog.all
@@ -38,6 +38,17 @@ class RewardLogsController < ApplicationController
       else
         respond_with(@reward_log.jajin_log)
       end
+    end
+  end
+
+  def verify
+    @reward_log = current_customer.reward_logs.build(reward_log_params)
+    @reward_log.customer = current_customer
+    @reward_log.save
+    if @reward_log.errors.present?
+      respond_with(@reward_log)
+    else
+      respond_with(@reward_log.jajin_log)
     end
   end
 

@@ -32,11 +32,13 @@ FactoryGirl.define do
   end
 
   factory :reward do
-    amount 1.5
-    verify_code "MyString"
+    amount 100
+    verify_code "008811"
     max 1
+    comment "绑卡送金"
     merchant nil
   end
+  
   factory :consume_message do
     title "MyString"
     trade_time "2015-06-05 14:24:53"

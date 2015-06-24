@@ -30,6 +30,8 @@ class Customer < ActiveRecord::Base
   has_many :exchange_logs, dependent: :destroy
   # 养老金收益记录
   has_many :gain_histories, dependent: :destroy
+  # 奖励小金记录
+  has_many :reward_logs, dependent: :destroy
   # 银联记录
   has_many :yl_trades, dependent: :destroy
   # 通联记录
