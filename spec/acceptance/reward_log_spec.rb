@@ -20,7 +20,7 @@ resource "小金奖励" do
       let(:verify_code) { @reward.verify_code }
       let(:raw_post) { params.to_json }
 
-      example "成功领取小金奖励" do
+      example "领取小金奖励成功" do
         do_request
         expect(status).to eq(201)
       end
@@ -33,7 +33,7 @@ resource "小金奖励" do
       let(:verify_code) { "000" }
       let(:raw_post) { params.to_json }
 
-      example "成功领取小金奖励" do
+      example "领取小金奖励失败" do
         do_request
         expect(status).to eq(422)
       end
