@@ -9,6 +9,7 @@
 #  merchant_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  comment     :string(255)
 #
 
 class Reward < ActiveRecord::Base

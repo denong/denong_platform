@@ -11,6 +11,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  amount      :float
+#  comment     :string(255)
 #
 
 require 'rails_helper'

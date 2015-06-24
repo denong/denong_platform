@@ -11,6 +11,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  amount      :float
+#  comment     :string(255)
 #
 
 class RewardLog < ActiveRecord::Base
@@ -29,7 +30,7 @@ class RewardLog < ActiveRecord::Base
   validate :must_less_than_max, on: :create
 
   def company
-    "奖励送金"
+    comment.blank? ? "奖励送金" : comment
   end
 
   private
@@ -40,6 +41,7 @@ class RewardLog < ActiveRecord::Base
       else
         reward.activate_by_customer customer
         self.amount = reward.amount
+        self.comment = reward.comment
         self.merchant_id = reward.merchant_id
       end
     end
