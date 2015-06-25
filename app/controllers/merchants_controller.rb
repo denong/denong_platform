@@ -7,9 +7,9 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for User, only: [:customer_index, :follow, :unfollow, :like, :unlike, :member_cards]
 
   acts_as_token_authentication_handler_for MerchantUser, only: [:index, :show], fallback_to_devise: false
-  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
 
   acts_as_token_authentication_handler_for Agent, only: [:create, :update], fallback_to_devise: false
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
 
   def create
     agent = current_agent
