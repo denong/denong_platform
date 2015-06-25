@@ -33,7 +33,7 @@ module Thfund
       {
         "AppSheetSerialNo" => id,
         "CertificateType" => 0,
-        "CertificateNo" => certification_no, 
+        "CertificateNo" => certification_no.to_s.upcase, 
         "InvestorName" => inverstor_name,
         "TransactionDate" => transaction_date,
         "IndividualOrInstitution" => 1,
