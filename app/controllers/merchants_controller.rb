@@ -9,7 +9,7 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for MerchantUser, only: [:index, :show], fallback_to_devise: false
 
   acts_as_token_authentication_handler_for Agent, only: [:create, :update], fallback_to_devise: false
-  acts_as_token_authentication_handler_for MerchantUser, only: [:update], fallback_to_devise: false
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
 
   def create
     agent = current_agent
@@ -37,7 +37,7 @@ class MerchantsController < ApplicationController
   end
 
   def update
-    @merchant = current_merchant
+    @merchant = current_merchant || current_agent.try(:merchants).try(:find, params[:id])
     @merchant.sys_reg_info.update(update_params)
     respond_with(@merchant)
   end
