@@ -93,7 +93,7 @@ class JajinLog < ActiveRecord::Base
     def send_xg_notification message
       user = customer.try(:user)
       if user.present? && user.os.present? && user.device_token.present?
-        content = "您有小金入账，快快查收！实名认证后就能转养老金哦～"
+        content = "您有小金入账，快快查收！开户认证后就能转养老金哦～"
         params = {}
         custom_content = {
           custom_content: {
