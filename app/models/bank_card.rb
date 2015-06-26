@@ -48,6 +48,14 @@ class BankCard < ActiveRecord::Base
     end
   end
 
+  def self.filter bank_cards
+    bank_card_hash = {}
+    bank_cards.each do |bank_card|
+      bank_card_hash[bank_card.bankcard_no] = bank_card
+    end
+    bank_card_hash.values
+  end
+
   def self.send_msg params
     # 需要三个参数, user_id, card, answer
     result = MultiJson.load RestClient.post('http://121.40.62.252:3000/auth/answer', params.to_json, content_type: :json, accept: :json)

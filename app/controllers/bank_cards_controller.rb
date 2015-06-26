@@ -13,7 +13,7 @@ class BankCardsController < ApplicationController
   end
 
   def index
-    @bank_cards = current_customer.bank_cards
+    @bank_cards = BankCard.filter current_customer.bank_cards
   end
 
   def bank_info
