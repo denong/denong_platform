@@ -89,14 +89,14 @@ class TlTrade < ActiveRecord::Base
   def calculate
     jajin = self.customer.jajin
     ratio = merchant.try(:ratio) || 0.01
-    amount = price * 100 * ratio
+    amount = (price * 100 * ratio).ceil
     jajin.got += amount
     jajin.save!
   end
 
   def add_jajin_log
     ratio = merchant.try(:ratio) || 0.01
-    amount = price * 100 * ratio
+    amount = (price * 100 * ratio).ceil
     self.create_jajin_log customer: customer, amount: amount, merchant_id: merchant_id
   end
 
