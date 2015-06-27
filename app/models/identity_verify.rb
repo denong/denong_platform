@@ -24,7 +24,7 @@ class IdentityVerify < ActiveRecord::Base
   accepts_nested_attributes_for :back_image, allow_destroy: true
 
   before_create :set_state
-  # after_create :auto_validate!
+  after_create :auto_validate!
 
   validates :name, presence: true
   validates :id_card, presence: true
@@ -64,7 +64,7 @@ class IdentityVerify < ActiveRecord::Base
     self.verify_state ||= :wait_verify
     customer_reg_info = self.customer.customer_reg_info
     customer_reg_info.wait_verify!
-    auto_validate!
+    # auto_validate!
   end
   
 end
