@@ -1,7 +1,4 @@
 zh-CN:
-  devise:
-    failure:
-      not_found_in_database: "手机号码或密码错误"
   activerecord:
     attributes:
       user:
