@@ -29,6 +29,7 @@ class BankCard < ActiveRecord::Base
   def self.add_bank_card params
     # 需要四个参数, user_id, card, mobile, name
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
+    logger.info "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
       bank_card = self.find_or_create_by(bankcard_no: params[:card], phone: params[:mobile], customer_id: params[:user_id]) do |bank_card|
 
