@@ -24,11 +24,21 @@ class IdentityVerify < ActiveRecord::Base
   accepts_nested_attributes_for :back_image, allow_destroy: true
 
   before_create :set_state
+  after_create :auto_validate!
 
   validates :name, presence: true
   validates :id_card, presence: true
   # validates :front_image, presence: true
   # validates :back_image, presence: true
+
+  # 如何身份证符合规则，则直接接收，否则直接拒绝
+  def auto_validate!
+    if id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/
+      accept!
+    else
+      reject!
+    end
+  end
 
   def reject!
     self.verified_fail!
@@ -54,6 +64,7 @@ class IdentityVerify < ActiveRecord::Base
     self.verify_state ||= :wait_verify
     customer_reg_info = self.customer.customer_reg_info
     customer_reg_info.wait_verify!
+    auto_validate!
   end
   
 end
