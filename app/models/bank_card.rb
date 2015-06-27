@@ -38,11 +38,12 @@ class BankCard < ActiveRecord::Base
         bank_card.card_type_name = bank_card_info.try(:card_type)
 
         bank_card.name = params[:name]
-        if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功"
+        if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功" || bank_card.stat_desc != "该卡已认证通过"
           bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
           bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
         end
       end
+      logger.info "bank card is:#{bank_card}"
       bank_card
     else
       nil
