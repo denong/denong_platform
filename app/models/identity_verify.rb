@@ -24,7 +24,7 @@ class IdentityVerify < ActiveRecord::Base
   accepts_nested_attributes_for :back_image, allow_destroy: true
 
   before_create :set_state
-  after_create :auto_validate!
+  # after_create :auto_validate!
 
   validates :name, presence: true
   validates :id_card, presence: true
