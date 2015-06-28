@@ -87,7 +87,7 @@ class MerchantsController < ApplicationController
     end
 
     def update_params
-      params.require(:merchant).permit(:sys_name, 
+      params.require(:merchant).permit(:sys_name, :ratio,
         :contact_person, :service_tel, :fax_tel, :email, 
         :company_addr, :region, :postcode, :lon, :lat, 
         :welcome_string, :comment_text, :contact_tel,
