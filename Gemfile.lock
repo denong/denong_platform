@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/liyijie/ruby-for-xinge.git
-  revision: d8e07a70e8df483dcee5eaec58cff56073302a9c
-  specs:
-    ruby-for-xinge (0.1.4)
-
 GEM
   remote: http://ruby.taobao.org/
   specs:
@@ -189,6 +183,7 @@ GEM
       json (~> 1.4, >= 1.4.6)
       mustache (~> 0.99, >= 0.99.4)
       rspec (>= 3.0.0)
+    ruby-for-xinge (0.1.4)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -279,7 +274,7 @@ DEPENDENCIES
   rest-client
   rspec-rails (~> 3.0)
   rspec_api_documentation
-  ruby-for-xinge!
+  ruby-for-xinge
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   seedbank
