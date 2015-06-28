@@ -7,6 +7,7 @@
 #  content    :text
 #  created_at :datetime
 #  updated_at :datetime
+#  pic_url    :string(255)
 #
 
 class BoardSerializer < ActiveModel::Serializer
