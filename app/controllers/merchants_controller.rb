@@ -38,6 +38,7 @@ class MerchantsController < ApplicationController
 
   def update
     @merchant = current_merchant || current_agent.try(:merchants).try(:find, params[:id])
+    @merchant.update(create_params)
     @merchant.sys_reg_info.update(update_params)
     respond_with(@merchant)
   end
@@ -87,7 +88,7 @@ class MerchantsController < ApplicationController
     end
 
     def update_params
-      params.require(:merchant).permit(:sys_name, :ratio,
+      params.require(:merchant).permit(:sys_name,
         :contact_person, :service_tel, :fax_tel, :email, 
         :company_addr, :region, :postcode, :lon, :lat, 
         :welcome_string, :comment_text, :contact_tel,
