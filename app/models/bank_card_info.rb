@@ -11,4 +11,11 @@
 #
 
 class BankCardInfo < ActiveRecord::Base
+  def certification_type
+    if card_type == "贷记卡" || card_type == "准贷记卡"
+      "sms"
+    else
+      "small_amount"
+    end
+  end
 end
