@@ -4,6 +4,7 @@ class BankCardsController < ApplicationController
 
   def create
     params[:user_id] = current_customer.id
+    params[:auth_type] ||= 1
     @bank_card = BankCard.add_bank_card params
   end
 
