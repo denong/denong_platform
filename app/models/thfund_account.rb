@@ -71,6 +71,7 @@ class ThfundAccount < ActiveRecord::Base
     account = ThfundAccount.find_by sn: sn
     if account.present?
       account.return_code = confirm_hash["ReturnCode"].to_i
+      account.save
       if account.return_code == 0
         account.success!
 
@@ -80,6 +81,10 @@ class ThfundAccount < ActiveRecord::Base
           account_string = account.id.to_s.rjust(10, '0')
           customer.create_pension(total: 0, account: account_string)
         end
+
+        # 发送通知消息
+        account.send_xg_notification
+
         # account.account_id = confirm_hash["TAAccountID"]
       else
         account.fail!
@@ -88,9 +93,36 @@ class ThfundAccount < ActiveRecord::Base
     account
   end
 
+  def send_xg_notification
+    user = customer.try(:user)
+    if user.present? && user.os.present? && user.device_token.present?
+      account_string = id.to_s.rjust(10, '0')
+      content = "您的消费养老金账户已经开户成功，账号是#{account_string}"
+      params = {}
+      custom_content = {
+        account: account_string
+      }
+      sender = nil
+      if user.os.to_s.downcase.to_sym == :android
+        # custom_content.merge!({
+        #     action: {
+        #       action_type: 1,
+        #       activity: "net.izhuo.app.happilitt.MessageDetailActivity"
+        #     }
+        #   })
+        sender = Xinge::Notification.instance.android
+      elsif user.os.to_s.downcase.to_sym == :ios
+        sender = Xinge::Notification.instance.ios
+      end
+      response = sender.pushToSingleDevice user.device_token, message.title, content, params, custom_content
+      logger.info "sended xg notification #{id}, response is: #{response.inspect}"
+    end
+  end
+
   private
     def init_attributes
       self.sn ||= id * 1000 + 1
       self.wait_verify!
     end
+
 end
