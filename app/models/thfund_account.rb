@@ -73,7 +73,14 @@ class ThfundAccount < ActiveRecord::Base
       account.return_code = confirm_hash["ReturnCode"].to_i
       if account.return_code == 0
         account.success!
-        account.account_id = confirm_hash["TAAccountID"]
+
+        # 创建用户的养老金账户
+        customer = account.customer
+        if customer.present?
+          account_string = account.id.to_s.rjust(10, '0')
+          customer.create_pension(total: 0, account: account_string)
+        end
+        # account.account_id = confirm_hash["TAAccountID"]
       else
         account.fail!
       end

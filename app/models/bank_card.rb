@@ -30,7 +30,8 @@ class BankCard < ActiveRecord::Base
     # 需要四个参数, user_id, card, mobile, name
     bank_card = self.find_or_create_by(bankcard_no: params[:card], customer_id: params[:user_id])
     if bank_card.res_code == "2004" # 银行卡正在绑定中，因此需要手动失败一次
-      MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/finish", params.to_json, content_type: :json, accept: :json)
+      response = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/finish", params.to_json, content_type: :json, accept: :json)
+      logger.info "bank card finish response is:#{response}"
     end
 
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
