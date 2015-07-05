@@ -33,7 +33,7 @@ class BankCard < ActiveRecord::Base
     if result.present? && result["result"].present?
       bank_card = self.find_or_create_by(bankcard_no: params[:card], customer_id: params[:user_id]) do |bank_card|
 
-        if bank_card.stat_code != "00"
+        # if bank_card.stat_code != "00"
           bank_card_info = find_info params[:card]
           bank_card.bank_name = bank_card_info.try(:bank)
           bank_card.card_type_name = bank_card_info.try(:card_type)
@@ -42,8 +42,8 @@ class BankCard < ActiveRecord::Base
           bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
           bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
           bank_card.stat_code = result["result"]["stat"] if result["result"]["stat"]
-          bank_card.stat_code = result["result"]["resCode"] if result["result"]["resCode"]
-        end
+          bank_card.res_code = result["result"]["resCode"] if result["result"]["resCode"]
+        # end
       end
       logger.info "bank card is:#{bank_card}"
       bank_card
@@ -67,13 +67,13 @@ class BankCard < ActiveRecord::Base
  
     bank_card = self.find_by bankcard_no: params[:card], customer_id: params[:user_id]
     if bank_card.present? && result.present? && result["result"].present?
-      if bank_card.stat_code != "00"
+      # if bank_card.stat_code != "00"
         bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
         bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
         bank_card.stat_code = result["result"]["stat"] if result["result"]["stat"]
-        bank_card.stat_code = result["result"]["resCode"] if result["result"]["resCode"]
+        bank_card.res_code = result["result"]["resCode"] if result["result"]["resCode"]
         bank_card.save
-      end
+      # end
     end
     bank_card
   end
