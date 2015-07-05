@@ -45,12 +45,11 @@ class BankCard < ActiveRecord::Base
       bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
       bank_card.stat_code = result["result"]["stat"] if result["result"]["stat"]
       bank_card.res_code = result["result"]["resCode"] if result["result"]["resCode"]
-      
+      bank_card.save
+
       logger.info "bank card is:#{bank_card}"
-      bank_card
-    else
-      nil
     end
+    bank_card
   end
 
   def self.filter bank_cards
