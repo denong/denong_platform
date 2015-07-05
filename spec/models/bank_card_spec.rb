@@ -19,6 +19,8 @@
 #  stat_desc      :string(255)
 #  bank_name      :string(255)
 #  card_type_name :string(255)
+#  stat_code      :string(255)
+#  res_code       :string(255)
 #
 
 require 'rails_helper'

@@ -19,28 +19,30 @@
 #  stat_desc      :string(255)
 #  bank_name      :string(255)
 #  card_type_name :string(255)
+#  stat_code      :string(255)
+#  res_code       :string(255)
 #
 
 class BankCard < ActiveRecord::Base
   belongs_to :customer
-
-  validates_uniqueness_of :bankcard_no, scope: :phone
 
   def self.add_bank_card params
     # 需要四个参数, user_id, card, mobile, name
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     logger.info "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
-      bank_card = self.find_or_create_by(bankcard_no: params[:card], phone: params[:mobile], customer_id: params[:user_id]) do |bank_card|
+      bank_card = self.find_or_create_by(bankcard_no: params[:card], customer_id: params[:user_id]) do |bank_card|
 
-        bank_card_info = find_info params[:card]
-        bank_card.bank_name = bank_card_info.try(:bank)
-        bank_card.card_type_name = bank_card_info.try(:card_type)
+        if bank_card.stat_code != "00"
+          bank_card_info = find_info params[:card]
+          bank_card.bank_name = bank_card_info.try(:bank)
+          bank_card.card_type_name = bank_card_info.try(:card_type)
 
-        bank_card.name = params[:name]
-        if bank_card.stat_desc != "认证成功" || bank_card.stat_desc != "认证申请成功" || bank_card.stat_desc != "该卡已认证通过"
+          bank_card.name = params[:name]
           bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
           bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
+          bank_card.stat_code = result["result"]["stat"] if result["result"]["stat"]
+          bank_card.stat_code = result["result"]["resCode"] if result["result"]["resCode"]
         end
       end
       logger.info "bank card is:#{bank_card}"
@@ -61,11 +63,17 @@ class BankCard < ActiveRecord::Base
   def self.send_msg params
     # 需要三个参数, user_id, card, answer
     result = MultiJson.load RestClient.post('http://121.40.62.252:3000/auth/answer', params.to_json, content_type: :json, accept: :json)
+    logger.info "bank card answer result is: #{result}"
  
     bank_card = self.find_by bankcard_no: params[:card], customer_id: params[:user_id]
     if bank_card.present? && result.present? && result["result"].present?
-      bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
-      bank_card.save
+      if bank_card.stat_code != "00"
+        bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
+        bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
+        bank_card.stat_code = result["result"]["stat"] if result["result"]["stat"]
+        bank_card.stat_code = result["result"]["resCode"] if result["result"]["resCode"]
+        bank_card.save
+      end
     end
     bank_card
   end
