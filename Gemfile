@@ -39,6 +39,9 @@ gem 'devise'
 gem 'devise-ios-rails'
 gem 'active_model_serializers' 
 
+# Whenever is a Ruby gem that provides a clear syntax for writing and deploying cron jobs.
+gem 'whenever', :require => false
+
 # SMS
 gem 'china_sms'
 

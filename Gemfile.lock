@@ -46,6 +46,7 @@ GEM
       sass (>= 3.2.19)
     builder (3.2.2)
     china_sms (0.0.7)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.5)
@@ -243,6 +244,8 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     will_paginate (3.0.7)
 
 PLATFORMS
@@ -290,4 +293,5 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   unicorn
+  whenever
   will_paginate (~> 3.0.6)
