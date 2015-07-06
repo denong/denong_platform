@@ -55,9 +55,8 @@ class ThfundAccount < ActiveRecord::Base
   end
 
   def self.create_by_customer customer
-    account = ThfundAccount.new
+    account = customer.create_thfund_account
     account.mobile = customer.try(:user).try(:phone)
-    account.customer = customer
     account.name = customer.try(:customer_reg_info).try(:name)
     account.certification_no = customer.try(:customer_reg_info).try(:id_card)
     account.transaction_time = Time.zone.now
