@@ -59,7 +59,7 @@ class ThfundAccount < ActiveRecord::Base
     account.mobile = customer.try(:user).try(:phone)
     account.customer = customer
     account.name = customer.try(:customer_reg_info).try(:name)
-    account.customer_reg_info = customer.try(:customer_reg_info).try(:id_card)
+    account.certification_no = customer.try(:customer_reg_info).try(:id_card)
     account.transaction_time = Time.zone.now
     account.save
 
