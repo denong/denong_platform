@@ -49,6 +49,35 @@ class ThfundAccount < ActiveRecord::Base
     end
   end
 
+  def self.create_by_phone phone
+    user = User.find_by phone: phone
+    self.create_by_customer user.customer if user.try(:customer).present?
+  end
+
+  def self.create_by_customer customer
+    account = ThfundAccount.new
+    account.mobile = customer.try(:user).try(:phone)
+    account.customer = customer
+    account.name = customer.try(:customer_reg_info).try(:name)
+    account.customer_reg_info = customer.try(:customer_reg_info).try(:id_card)
+    account.transaction_time = Time.zone.now
+    account.save
+
+    account.return_code = 0
+    account.save
+
+    account.success!
+
+    # 创建用户的养老金账户
+    customer = account.customer
+    if customer.present?
+      account_string = account.id.to_s.rjust(10, '0')
+      customer.create_pension(total: 0, account: account_string)
+    end
+
+    # 发送SMS消息
+    account.send_sms_notification
+  end
 
   def as_json(options=nil)
     {
@@ -116,6 +145,18 @@ class ThfundAccount < ActiveRecord::Base
       end
       response = sender.pushToSingleDevice user.device_token, message.title, content, params, custom_content
       logger.info "sended xg notification #{id}, response is: #{response.inspect}"
+    end
+  end
+
+
+  def send_sms_notification
+    user = customer.try(:user)
+    if user.present?
+      company = "德浓消费养老"
+      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      account_string = id.to_s.rjust(10, '0')
+      code = account_string
+      result = ChinaSMS.to phone, {company: company, code: token}, {tpl_id: 2}
     end
   end
 
