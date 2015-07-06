@@ -155,8 +155,7 @@ class ThfundAccount < ActiveRecord::Base
       company = "德浓消费养老"
       ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
       account_string = id.to_s.rjust(10, '0')
-      code = account_string
-      result = ChinaSMS.to phone, {company: company, code: token}, {tpl_id: 2}
+      result = ChinaSMS.to phone, {company: company, account: account_string}, {tpl_id: 875755}
     end
   end
 
