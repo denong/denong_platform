@@ -55,8 +55,9 @@ class ThfundAccount < ActiveRecord::Base
   end
 
   def self.create_by_customer customer
-    account = ThfundAccount.find_or_initialize_by customer: customer
+    account = ThfundAccount.new
 
+    account.customer = customer
     account.mobile = customer.try(:user).try(:phone)
     account.name = customer.try(:customer_reg_info).try(:name)
     account.certification_no = customer.try(:customer_reg_info).try(:id_card)
