@@ -73,7 +73,7 @@ class BankCard < ActiveRecord::Base
       # if bank_card.stat_code != "00"
         if params[:auth_type].to_i == 1
           bank_card.certification_type = "sms"
-        elsif param[:auth_type].to_i == 4
+        elsif params[:auth_type].to_i == 4
           bank_card.certification_type = "small_amount"
         end
             
