@@ -26,13 +26,15 @@
 class BankCard < ActiveRecord::Base
   belongs_to :customer
 
+  scope :success, -> { where(stat_code: ["00", "02"]) }
+
   def self.add_bank_card params
     # 需要四个参数, user_id, card, mobile, name
     bank_card = self.find_or_create_by(bankcard_no: params[:card], customer_id: params[:user_id])
-    if bank_card.res_code == "2004" # 银行卡正在绑定中，因此需要手动失败一次
-      response = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/finish", params.to_json, content_type: :json, accept: :json)
-      logger.info "bank card finish response is:#{response}"
-    end
+    # if bank_card.res_code == "2004" # 银行卡正在绑定中，因此需要手动失败一次
+    #   response = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/finish", params.to_json, content_type: :json, accept: :json)
+    #   logger.info "bank card finish response is:#{response}"
+    # end
 
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     logger.info "bank card bind result is: #{result}"
@@ -69,6 +71,12 @@ class BankCard < ActiveRecord::Base
     bank_card = self.find_by bankcard_no: params[:card], customer_id: params[:user_id]
     if bank_card.present? && result.present? && result["result"].present?
       # if bank_card.stat_code != "00"
+        if params[:auth_type].to_i == 1
+          bank_card.certification_type = "sms"
+        elsif param[:auth_type].to_i == 4
+          bank_card.certification_type = "small_amount"
+        end
+            
         bank_card.res_msg = result["result"]["resMsg"] if result["result"]["resMsg"]
         bank_card.stat_desc = result["result"]["statDesc"] if result["result"]["statDesc"]
         bank_card.stat_code = result["result"]["stat"] if result["result"]["stat"]

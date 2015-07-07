@@ -14,12 +14,14 @@ class BankCardsController < ApplicationController
   end
 
   def index
-    @bank_cards = BankCard.filter current_customer.bank_cards
+    @bank_cards = current_customer.bank_cards.success
   end
 
   def bank_info
     @bankcard_no = params[:bankcard_no]
     @bank_card_info = BankCard.find_info @bankcard_no
+    bank_card = BankCard.find_by bankcard_no: @bankcard_no
+    @certification_type =  bank_card.try(:certification_type) || @bank_card_info.try(:certification_type) || "sms"
   end
 
 
