@@ -33,11 +33,17 @@ class IdentityVerify < ActiveRecord::Base
 
   # 如何身份证符合规则，则直接接收，否则直接拒绝
   def auto_validate!
-    if id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/
+    if id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/ && idcard_verify?
       accept!
     else
       reject!
     end
+  end
+
+  def idcard_verify?
+    response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
+    response_hash = MultiJson.load(response)
+    response_hash["result"]["isok"]
   end
 
   def reject!
