@@ -3,7 +3,7 @@ class PensionLogsController < ApplicationController
 
   respond_to :html, :json
 
-  acts_as_token_authentication_handler_for User, only: [:index]
+  acts_as_token_authentication_handler_for User, only: [:index, :create]
 
   def index
     if params[:search] == "in"
@@ -29,7 +29,7 @@ class PensionLogsController < ApplicationController
   end
 
   def create
-    @pension_log = PensionLog.new(pension_log_params)
+    @pension_log = current_customer.pension_logs.build pension_log_params
     @pension_log.save
     respond_with(@pension_log)
   end
@@ -50,6 +50,6 @@ class PensionLogsController < ApplicationController
     end
 
     def pension_log_params
-      params[:pension_log]
+      params.require(:pension_log).permit(:jajin_amount)
     end
 end
