@@ -35,6 +35,25 @@ class PensionLog < ActiveRecord::Base
     }
   end
 
+  def self.change_all_jajin_to_pension
+    pensions = Pension.all
+    pensions.each do |pension|
+      customer = pension.customer
+      if customer.jajin.got > 0
+        pension_logs = customer.pension_logs.create(jajin_amount: (customer.jajin.got*-1))
+      end
+    end
+  end
+
+  def self.change_jajin_to_pension customer_id
+
+    customer = Customer.find(customer_id)
+    if customer.jajin && customer.pension && customer.jajin.got > 0
+      customer.pension_logs.create(jajin_amount: (customer.jajin.got*-1))
+    end
+    
+  end
+
   def company
     "小金赚养老金"
   end
@@ -44,7 +63,7 @@ class PensionLog < ActiveRecord::Base
       unless jajin_amount < 0
         errors.add(:jajin_amount, "必须小于0")
       end
-
+      puts "a"
       self.amount = jajin_amount.abs/100
     end
 
@@ -80,7 +99,7 @@ class PensionLog < ActiveRecord::Base
 
     def increase_pension
       pension = self.customer.pension
-      pension.total += jajin_amount/100
+      pension.total += amount
       pension.save!
     end
 
