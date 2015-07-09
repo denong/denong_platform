@@ -51,11 +51,11 @@ class PensionLog < ActiveRecord::Base
     if customer.jajin && customer.pension && customer.jajin.got > 0
       customer.pension_logs.create(jajin_amount: (customer.jajin.got*-1))
     end
-    
+
   end
 
   def company
-    "小金赚养老金"
+    "小金转养老金"
   end
 
   private
