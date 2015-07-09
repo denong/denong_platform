@@ -58,7 +58,7 @@ resource "查询养老金" do
   get "/pension_logs" do
     before do
       customer_with_jajin_pension = create(:customer_with_jajin_pension)
-      # create_list(:pension_log, 20, customer: customer_with_jajin_pension)
+      create_list(:pension_log, 20, customer: customer_with_jajin_pension)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -68,8 +68,8 @@ resource "查询养老金" do
     header "X-User-Phone", user_attrs[:phone]
 
     example "获取养老金账户明细" do
-      # do_request
-      # expect(status).to eq(200)
+      do_request
+      expect(status).to eq(200)
     end
 
   end
