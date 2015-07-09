@@ -24,7 +24,7 @@ resource "商户[客户]信息" do
     response_field :message, "返回信息"
     response_field :customer_point, "绑定成功返回客户积分"
 
-    let(:id) { "1" }
+    let(:id) { 1 }
     let(:name) { "Alex" }
     let(:password) { "999999" }
     let(:raw_post) { params.to_json }
