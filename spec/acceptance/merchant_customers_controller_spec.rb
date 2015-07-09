@@ -8,7 +8,7 @@ resource "商户[客户]信息" do
     
     before do
       customer = create(:customer)
-      merchant = create(:merchant)
+      # merchant = create(:merchant)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
@@ -31,7 +31,7 @@ resource "商户[客户]信息" do
 
     example "用户验证" do
       do_request
-      expect(status).to eq(201)
+      expect(status).to eq(200)
     end
   end
 end

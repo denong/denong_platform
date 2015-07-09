@@ -8,7 +8,7 @@ class MerchantCustomersController < ApplicationController
       render json: { status: 'error', message: "手机/姓名/ID不能为空!" } 
       return
     end
-    @merchant = Merchant.find(params[:id])
+    @merchant = Merchant.find_by(params[:id])
     if @merchant.present?
       @m_customer = @merchant.merchant_customers.where("name like ? or u_id like ? or phone like ?", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%")
       if @m_customer.first.present?
