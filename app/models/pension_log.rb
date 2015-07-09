@@ -63,7 +63,6 @@ class PensionLog < ActiveRecord::Base
       unless jajin_amount < 0
         errors.add(:jajin_amount, "必须小于0")
       end
-      puts "a"
       self.amount = jajin_amount.abs/100
     end
 
