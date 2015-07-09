@@ -25,7 +25,10 @@ Rails.application.routes.draw do
       post 'member_cards'
     end
   end
-  resource :merchant, only: [:show]
+
+  resource :merchant, only: [:show] 
+
+  match 'merchant/:id/merchant_customer/verify' => 'merchant_customers#verify', :via => [:post]
 
   resources :shops, only: [:index, :show] do
     member do
