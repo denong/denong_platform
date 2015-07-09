@@ -39,6 +39,7 @@ class Merchant < ActiveRecord::Base
   has_many :merchant_giving_logs, dependent: :destroy
   has_many :jajin_logs, dependent: :destroy
   has_many :jajin_identity_codes, dependent: :destroy
+  has_many :merchant_customers, dependent: :destroy
 
   delegate :sys_name, :company_addr, :welcome_string, to: :sys_reg_info
   after_touch :index
