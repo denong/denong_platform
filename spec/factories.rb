@@ -1,7 +1,7 @@
 require 'rack/test'
 FactoryGirl.define do  
   factory :pension_log do
-    jajin_amount -150
+    jajin_amount -1
     amount 1.5
   end
  
