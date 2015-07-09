@@ -58,7 +58,7 @@ resource "查询养老金" do
   get "/pension_logs" do
     before do
       customer_with_jajin_pension = create(:customer_with_jajin_pension)
-      create_list(:pension_log, 20, customer: customer_with_jajin_pension)
+      # create_list(:pension_log, 20, customer: customer_with_jajin_pension)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
