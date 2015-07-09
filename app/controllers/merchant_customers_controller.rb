@@ -13,7 +13,7 @@ class MerchantCustomersController < ApplicationController
       @m_customer = @merchant.merchant_customers.where("name like ? or u_id like ? or phone like ?", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%")
       if @m_customer.first.present?
         if verify_params[:password].eql?(@m_customer.first.password)
-          render json: { status: "ok", message: "绑定成功.", customer_point: @m_customer.first.jifen }
+          render json: { status: "ok", message: "绑定成功.", customer_point: @m_customer.first.jifen.to_f }
         else
           render json: { status: "error", message: "对不起,您输入的密码有误,请确认后重试!" }
         end
