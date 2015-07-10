@@ -2,25 +2,26 @@
 #
 # Table name: bank_cards
 #
-#  id             :integer          not null, primary key
-#  bankcard_no    :string(255)
-#  id_card        :string(255)
-#  name           :string(255)
-#  phone          :string(255)
-#  card_type      :integer
-#  sn             :string(255)
-#  bank           :integer
-#  bind_state     :integer
-#  bind_time      :datetime
-#  customer_id    :integer
-#  created_at     :datetime
-#  updated_at     :datetime
-#  res_msg        :string(255)
-#  stat_desc      :string(255)
-#  bank_name      :string(255)
-#  card_type_name :string(255)
-#  stat_code      :string(255)
-#  res_code       :string(255)
+#  id                 :integer          not null, primary key
+#  bankcard_no        :string(255)
+#  id_card            :string(255)
+#  name               :string(255)
+#  phone              :string(255)
+#  card_type          :integer
+#  sn                 :string(255)
+#  bank               :integer
+#  bind_state         :integer
+#  bind_time          :datetime
+#  customer_id        :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  res_msg            :string(255)
+#  stat_desc          :string(255)
+#  bank_name          :string(255)
+#  card_type_name     :string(255)
+#  stat_code          :string(255)
+#  res_code           :string(255)
+#  certification_type :string(255)
 #
 
 require 'rails_helper'

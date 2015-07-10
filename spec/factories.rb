@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :member_card_point_log do
+    member_card "MyString"
+point 1.5
+jajin 1.5
+customer nil
+  end
+  
   factory :pension_log do
     jajin_amount -1
     amount 1.5

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707134105) do
+ActiveRecord::Schema.define(version: 20150710044246) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -258,6 +258,17 @@ ActiveRecord::Schema.define(version: 20150707134105) do
 
   add_index "jajins", ["customer_id"], name: "index_jajins_on_customer_id"
 
+  create_table "member_card_point_logs", force: true do |t|
+    t.string   "member_card"
+    t.float    "point"
+    t.float    "jajin"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "member_card_point_logs", ["customer_id"], name: "index_member_card_point_logs_on_customer_id"
+
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"
     t.float    "point",       default: 0.0
@@ -285,6 +296,21 @@ ActiveRecord::Schema.define(version: 20150707134105) do
   end
 
   add_index "merchant_busi_reg_infos", ["merchant_id"], name: "index_merchant_busi_reg_infos_on_merchant_id"
+
+  create_table "merchant_customers", force: true do |t|
+    t.string   "u_id",        default: "", null: false
+    t.string   "password",    default: "", null: false
+    t.string   "name"
+    t.string   "phone"
+    t.float    "jifen"
+    t.integer  "is_changed"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "merchant_customers", ["merchant_id"], name: "index_merchant_customers_on_merchant_id"
+  add_index "merchant_customers", ["u_id"], name: "index_merchant_customers_on_u_id", unique: true
 
   create_table "merchant_giving_logs", force: true do |t|
     t.float    "amount"
