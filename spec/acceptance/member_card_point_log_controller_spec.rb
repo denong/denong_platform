@@ -12,12 +12,12 @@ resource "积分转小金记录" do
     end
 
     let(:id) { MemberCard.all.last.id }
-    parameter :member_card_id, "会员卡卡号", required: true
+    parameter :member_card_id, "会员卡ID", required: true
     parameter :point, "要兑换的积分分值", required: true
 
     response_field :point, "积分分值"
     response_field :jajin, "小金数"
-    response_field :member_card_id, "会员卡卡号"
+    response_field :member_card_id, "会员卡ID"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
