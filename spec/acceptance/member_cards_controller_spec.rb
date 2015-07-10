@@ -8,6 +8,7 @@ resource "查询会员卡积分" do
     before do
       merchant = create(:merchant)
       customer = create(:customer)
+      merchant_customer = create(:merchant_customer)
       create(:member_card, merchant: merchant, customer: customer)
     end
 
@@ -34,7 +35,7 @@ resource "查询会员卡积分" do
     before do
       merchant = create(:merchant)
       customer = create(:customer)
-      create(:member_card)
+      merchant_customer = create(:merchant_customer)
     end
 
     parameter :merchant_id, "商户ID", required: true, scope: :member_card
@@ -52,8 +53,8 @@ resource "查询会员卡积分" do
     response_field :customer_id, "消费者ID"
 
     let(:merchant_id) { Merchant.all.first.id }
-    let(:user_name) { "test_user" }
-    let(:passwd) { "test_passwd" }
+    let(:user_name) { "88888888" }
+    let(:passwd) { "abcd.1234" }
     let(:raw_post) { params.to_json }
 
     example "绑定会员卡成功" do
@@ -61,13 +62,15 @@ resource "查询会员卡积分" do
       expect(status).to eq 200
     end
   end
-
+  
   get "/member_cards" do
     before do
       merchants = create_list(:merchant, 5)
       customer = create(:customer)
+      merchant_customer = 
       merchants.each do |merchant|
-        create(:member_card, customer: customer, merchant: merchant, user_name: "a"+merchants.index(merchant).to_s)
+        create(:merchant_customer,  u_id: "a"+merchants.index(merchant).to_s, password: "a"+merchants.index(merchant).to_s)
+        create(:member_card, customer: customer, merchant: merchant, user_name: "a"+merchants.index(merchant).to_s, passwd: "a"+merchants.index(merchant).to_s)
       end
     end
 

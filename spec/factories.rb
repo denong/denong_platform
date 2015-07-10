@@ -1,9 +1,18 @@
 require 'rack/test'
-FactoryGirl.define do  factory :member_card_point_log do
+FactoryGirl.define do  
+
+  factory :merchant_customer do
+    u_id "88888888"
+    name "card_name"
+    password "abcd.1234"
+  end
+
+
+  factory :member_card_point_log do
     member_card "MyString"
-point 1.5
-jajin 1.5
-customer nil
+    point 1.5
+    jajin 1.5
+    customer nil
   end
   
   factory :pension_log do
@@ -321,8 +330,8 @@ customer nil
 
   factory :member_card do
     point 100.88
-    user_name "abc"
-    passwd "abcd"
+    user_name "88888888"
+    passwd "abcd.1234"
   end
 
   factory :gain_org do

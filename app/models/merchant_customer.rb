@@ -21,7 +21,7 @@ class MerchantCustomer < ActiveRecord::Base
   validates :password, presence: true
 
   belongs_to :merchant
-
+  belongs_to :customer
 
 
 end

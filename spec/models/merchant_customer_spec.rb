@@ -12,6 +12,7 @@
 #  merchant_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  customer_id :integer
 #
 
 require 'rails_helper'
