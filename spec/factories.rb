@@ -5,6 +5,7 @@ FactoryGirl.define do
     u_id "88888888"
     name "card_name"
     password "abcd.1234"
+    jifen 100
   end
 
 

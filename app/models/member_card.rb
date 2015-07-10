@@ -49,8 +49,9 @@ class MemberCard < ActiveRecord::Base
         errors.add(:message, "密码错误")
         return
       end
-
+      self.point = member_card.jifen
     end
+
 
 
 end

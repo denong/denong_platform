@@ -157,7 +157,7 @@ given_log     = GivenLog.create( amount: 10)
 
 
 (0..8).each do |index|
-  MerchantCustomer.create(name:index.to_s*8, u_id: index.to_s*8, password: index.to_s*8)
+  MerchantCustomer.create(name:index.to_s*8, u_id: index.to_s*8, password: index.to_s*8, jifen: index*100)
 end
 
 member_card   = MemberCard.create( point: 100.88, user_name: "11111111", passwd:"11111111")
