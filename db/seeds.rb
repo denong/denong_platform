@@ -109,7 +109,7 @@ gonghang_image = Image.create(
   title: "image_title",
   photo: Rack::Test::UploadedFile.new('./spec/asset/news.png', 'image/png') )
 
-merchant.thumb = merchant_image
+# merchant.thumb = merchant_image
 
 bank_card = BankCard.create(
 	bankcard_no: "0987654321123456",
@@ -125,7 +125,9 @@ user.customer.bank_cards << bank_card
 identity_verify = IdentityVerify.create(
 	name: "ExampleName",
 	id_card: "333333333333333333",
-	verify_state: 1)
+	verify_state: 1,
+  customer: user.customer,
+  )
 
 gain_history = GainHistory.create(
 	gain: 1.5,
@@ -152,7 +154,13 @@ merchant.merchant_messages << merchant_message
 
 exchange_log  = ExchangeLog.create( amount: 1.5)
 given_log     = GivenLog.create( amount: 10)
-member_card   = MemberCard.create( point: 100.88)
+
+
+(0..8).each do |index|
+  MerchantCustomer.create(name:index.to_s*8, u_id: index.to_s*8, password: index.to_s*8)
+end
+
+member_card   = MemberCard.create( point: 100.88, user_name: "11111111", passwd:"11111111")
 
 user.customer.exchange_logs << exchange_log
 user.customer.member_cards << member_card
