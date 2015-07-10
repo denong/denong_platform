@@ -19,4 +19,8 @@ class CustomerRegInfo < ActiveRecord::Base
   belongs_to :customer
   has_one :image, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :image, allow_destroy: true
+
+  def account_state
+    self.try(:customer).try(:identity_verifies).try(:last).try(:account_state)
+  end
 end
