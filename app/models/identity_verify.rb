@@ -14,7 +14,7 @@
 
 class IdentityVerify < ActiveRecord::Base
   enum verify_state: [ :unverified, :wait_verify, :verified, :verified_fail]
-  enum account_state: [ :not_created, :created]
+  enum account_state: [ :not_created, :created, :processing, :fail]
 
   belongs_to :customer
   has_one :front_image, -> { where photo_type: "front" }, class_name: "Image", as: :imageable, dependent: :destroy
