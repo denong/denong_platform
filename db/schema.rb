@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710044246) do
+ActiveRecord::Schema.define(version: 20150710045108) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -259,15 +259,16 @@ ActiveRecord::Schema.define(version: 20150710044246) do
   add_index "jajins", ["customer_id"], name: "index_jajins_on_customer_id"
 
   create_table "member_card_point_logs", force: true do |t|
-    t.string   "member_card"
     t.float    "point"
     t.float    "jajin"
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "member_card_id"
   end
 
   add_index "member_card_point_logs", ["customer_id"], name: "index_member_card_point_logs_on_customer_id"
+  add_index "member_card_point_logs", ["member_card_id"], name: "index_member_card_point_logs_on_member_card_id"
 
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"

@@ -2,13 +2,13 @@
 #
 # Table name: member_card_point_logs
 #
-#  id          :integer          not null, primary key
-#  member_card :string(255)
-#  point       :float
-#  jajin       :float
-#  customer_id :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id             :integer          not null, primary key
+#  point          :float
+#  jajin          :float
+#  customer_id    :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  member_card_id :integer
 #
 
 require 'rails_helper'
