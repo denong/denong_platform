@@ -57,6 +57,8 @@ class ThfundAccount < ActiveRecord::Base
   def self.create_by_customer customer
     account = ThfundAccount.new
 
+    customer.try(:identity_verifies).try(:last).try(:created!)
+
     account.customer = customer
     account.mobile = customer.try(:user).try(:phone)
     account.name = customer.try(:customer_reg_info).try(:name)
