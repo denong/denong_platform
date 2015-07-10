@@ -33,6 +33,8 @@ class Customer < ActiveRecord::Base
   has_many :gain_histories, dependent: :destroy
   # 奖励小金记录
   has_many :reward_logs, dependent: :destroy
+  # 积分转小金记录
+  has_many :member_card_point_logs, dependent: :destroy
   # 银联记录
   has_many :yl_trades, dependent: :destroy
   # 通联记录
