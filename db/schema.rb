@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710074113) do
+ActiveRecord::Schema.define(version: 20150713085742) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -272,12 +272,13 @@ ActiveRecord::Schema.define(version: 20150710074113) do
 
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"
-    t.float    "point",       default: 0.0
+    t.float    "point",             default: 0.0
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_name"
     t.string   "passwd"
+    t.float    "total_trans_jajin", default: 0.0
   end
 
   add_index "member_cards", ["customer_id"], name: "index_member_cards_on_customer_id"
@@ -410,6 +411,7 @@ ActiveRecord::Schema.define(version: 20150710074113) do
     t.integer  "consume_count"
     t.integer  "verify_state"
     t.integer  "agent_id"
+    t.float    "convert_ratio",           default: 1.0
   end
 
   add_index "merchants", ["agent_id"], name: "index_merchants_on_agent_id"
