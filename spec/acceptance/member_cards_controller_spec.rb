@@ -15,7 +15,15 @@ resource "查询会员卡积分" do
     let(:id) { MemberCard.all.last.id }
     parameter :merchant_id, "商户ID", required: true
 
+    response_field :id, "会员卡ID"
     response_field :point, "积分分值"
+    response_field :user_name, "用户名"
+    response_field :merchant_name, "商户名"
+    response_field :merchant_logo, "商户logo"
+    response_field :merchant_giving_jajin, "商户赠送小金数"
+    response_field :customer_jajin_total, "商户给当前用户的小金数"
+    response_field :total_trans_jajin, "已转换的小金"
+    response_field :unconvert_jajin, "可转换的小金"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -80,6 +88,12 @@ resource "查询会员卡积分" do
     response_field :id, "会员卡ID"
     response_field :point, "积分分值"
     response_field :user_name, "用户名"
+    response_field :merchant_name, "商户名"
+    response_field :merchant_logo, "商户logo"
+    response_field :merchant_giving_jajin, "商户赠送小金数"
+    response_field :customer_jajin_total, "商户给当前用户的小金数"
+    response_field :total_trans_jajin, "已转换的小金"
+    response_field :unconvert_jajin, "可转换的小金"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
