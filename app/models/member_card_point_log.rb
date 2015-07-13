@@ -28,7 +28,7 @@ class MemberCardPointLog < ActiveRecord::Base
   validate :point_must_less_than_all_point, on: :create
 
   def company
-    "会员卡积分转小金"
+    "积分转小金"
   end
 
   private
@@ -59,6 +59,9 @@ class MemberCardPointLog < ActiveRecord::Base
 
       member_card = self.member_card
       member_card.point += point
+      member_card.save!
+
+      member_card.total_trans_jajin += jajin.got
       member_card.save!
     end
 
