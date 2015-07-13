@@ -20,6 +20,7 @@
 #  consume_count           :integer
 #  verify_state            :integer
 #  agent_id                :integer
+#  convert_ratio           :float            default(1.0)
 #
 
 require 'rails_helper'
