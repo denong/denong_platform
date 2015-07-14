@@ -59,8 +59,6 @@ class MemberCardPointLog < ActiveRecord::Base
 
       member_card = self.member_card
       member_card.point += point
-      member_card.save!
-
       member_card.total_trans_jajin += point.abs
       member_card.save!
     end
