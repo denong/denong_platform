@@ -130,7 +130,7 @@ Rails.application.routes.draw do
   resources :consume_messages, only: [:show]
   
   # 会员卡积分转小金
-  resources :member_card_point_log, only: [:create, :show]
+  resources :member_card_point_log, only: [:create, :show, :index]
   ################################################
   resource :verify, only: [:show]
 

@@ -13,7 +13,6 @@ FactoryGirl.define do
     member_card "MyString"
     point 1.5
     jajin 1.5
-    customer nil
   end
   
   factory :pension_log do

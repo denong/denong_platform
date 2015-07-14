@@ -19,6 +19,8 @@ class MemberCard < ActiveRecord::Base
   belongs_to :merchant
   belongs_to :customer
 
+  has_many :member_card_point_logs
+
   validates_uniqueness_of :user_name, scope: :merchant_id
   validate :authenticate, on: :create
 
