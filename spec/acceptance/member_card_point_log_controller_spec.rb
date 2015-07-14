@@ -89,7 +89,7 @@ resource "积分转小金记录" do
     end
 
     let(:member_card_id) { MemberCard.last.id }
-    
+
     parameter :page, "页码", required: false
     parameter :member_card_id, "会员卡ID", required: true
 
