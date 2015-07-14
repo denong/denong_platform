@@ -27,6 +27,8 @@ class MemberCardPointLog < ActiveRecord::Base
   validate :must_have_jajin, on: :create
   validate :point_must_less_than_all_point, on: :create
 
+  default_scope { order('id DESC') }
+  
   def company
     "积分转小金"
   end
