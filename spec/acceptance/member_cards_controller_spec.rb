@@ -13,7 +13,6 @@ resource "查询会员卡积分" do
     end
 
     let(:id) { MemberCard.all.last.id }
-    parameter :merchant_id, "商户ID", required: true
 
     response_field :id, "会员卡ID"
     response_field :point, "积分分值"
@@ -31,7 +30,6 @@ resource "查询会员卡积分" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
-    let(:merchant_id) { Merchant.all.first.id }
     let(:raw_post) { params.to_json }
 
     example "查询会员卡积分成功" do
