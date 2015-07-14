@@ -24,6 +24,7 @@ resource "查询会员卡积分" do
     response_field :customer_jajin_total, "商户给当前用户的小金数"
     response_field :total_trans_jajin, "已转换的小金"
     response_field :unconvert_jajin, "可转换的小金"
+    response_field :merchant_id, "商户ID"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -94,7 +95,8 @@ resource "查询会员卡积分" do
     response_field :customer_jajin_total, "商户给当前用户的小金数"
     response_field :total_trans_jajin, "已转换的小金"
     response_field :unconvert_jajin, "可转换的小金"
-
+    response_field :merchant_id, "商户ID"
+    
     user_attrs = FactoryGirl.attributes_for(:user)
 
     header "X-User-Token", user_attrs[:authentication_token]
