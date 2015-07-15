@@ -13,7 +13,6 @@ resource "查询会员卡积分" do
     end
 
     let(:id) { MemberCard.all.last.id }
-    parameter :merchant_id, "商户ID", required: true
 
     response_field :id, "会员卡ID"
     response_field :point, "积分分值"
@@ -24,13 +23,13 @@ resource "查询会员卡积分" do
     response_field :customer_jajin_total, "商户给当前用户的小金数"
     response_field :total_trans_jajin, "已转换的小金"
     response_field :unconvert_jajin, "可转换的小金"
+    response_field :merchant_id, "商户ID"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
-    let(:merchant_id) { Merchant.all.first.id }
     let(:raw_post) { params.to_json }
 
     example "查询会员卡积分成功" do
@@ -94,7 +93,8 @@ resource "查询会员卡积分" do
     response_field :customer_jajin_total, "商户给当前用户的小金数"
     response_field :total_trans_jajin, "已转换的小金"
     response_field :unconvert_jajin, "可转换的小金"
-
+    response_field :merchant_id, "商户ID"
+    
     user_attrs = FactoryGirl.attributes_for(:user)
 
     header "X-User-Token", user_attrs[:authentication_token]

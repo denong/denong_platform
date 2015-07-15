@@ -61,6 +61,8 @@ resource "积分转小金记录" do
     header "X-User-Token", user_attrs[:authentication_token]
     header "X-User-Phone", user_attrs[:phone]
 
+    parameter :page, "页码", required: false
+
     example "获取积分转小金全部记录成功" do
       do_request
       expect(status).to eq 200
@@ -88,6 +90,7 @@ resource "积分转小金记录" do
 
     let(:member_card_id) { MemberCard.last.id }
 
+    parameter :page, "页码", required: false
     parameter :member_card_id, "会员卡ID", required: true
 
     response_field :point, "积分分值"

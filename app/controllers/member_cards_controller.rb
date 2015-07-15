@@ -8,7 +8,12 @@ class MemberCardsController < ApplicationController
   end
 
   def show
-    @member_card = current_customer.try(:member_cards).find_by_merchant_id(params[:merchant_id])
+    if params[:merchant_id].present?
+      @member_card = current_customer.try(:member_cards).find_by(merchant_id: params[:merchant_id])
+    else
+      @member_card = current_customer.try(:member_cards).find_by(id: params[:id])
+    end
+    
   end
 
   def bind

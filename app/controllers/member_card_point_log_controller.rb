@@ -11,7 +11,7 @@ class MemberCardPointLogController < ApplicationController
 
   def index
     if params[:member_card_id].present?
-      @member_card_point_logs = current_customer.try(:member_cards).find_by(params[:member_card_id]).try(:member_card_point_logs).paginate(page: params[:page], per_page: 10)
+      @member_card_point_logs = current_customer.try(:member_cards).find_by(id: params[:member_card_id]).try(:member_card_point_logs).paginate(page: params[:page], per_page: 10)
     else
       @member_card_point_logs = current_customer.try(:member_card_point_logs).paginate(page: params[:page], per_page: 10)
     end
@@ -19,7 +19,7 @@ class MemberCardPointLogController < ApplicationController
   end
 
   def show
-    @member_card_point_log = current_customer.try(:member_card_point_logs).find_by(params[:id])
+    @member_card_point_log = current_customer.try(:member_card_point_logs).find_by(id: params[:id])
   end
 
   private
