@@ -39,6 +39,10 @@ GEM
     autoprefixer-rails (5.1.8.1)
       execjs
       json
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
     bcrypt (3.1.10)
     bcrypt (3.1.10-x86-mingw32)
     bootstrap-sass (3.3.4.1)
@@ -87,6 +91,7 @@ GEM
       geokit (~> 1.5)
       rails (>= 3.0)
     hike (1.2.3)
+    htmlentities (4.3.4)
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -185,6 +190,7 @@ GEM
       mustache (~> 0.99, >= 0.99.4)
       rspec (>= 3.0.0)
     ruby-for-xinge (0.1.4)
+    rubyzip (1.0.0)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -257,6 +263,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
   acts_as_votable
   annotate
+  axlsx
   bootstrap-sass (~> 3.3.4)
   china_sms
   coffee-rails (~> 4.0.0)

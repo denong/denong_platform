@@ -69,6 +69,7 @@ gem 'settingslogic'
 
 #######################################################################
 gem 'unicorn'
+gem 'axlsx'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
