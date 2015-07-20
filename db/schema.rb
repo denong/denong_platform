@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716045409) do
+ActiveRecord::Schema.define(version: 20150720031457) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -119,18 +119,20 @@ ActiveRecord::Schema.define(version: 20150716045409) do
 
   create_table "data_reports", force: true do |t|
     t.date     "report_date"
-    t.float    "u_day_count",    limit: 24, default: 0.0
-    t.float    "u_month_count",  limit: 24, default: 0.0
-    t.float    "u_sum",          limit: 24, default: 0.0
-    t.string   "u_type_count"
-    t.float    "ul_day_count",   limit: 24
-    t.float    "ul_month_count", limit: 24
-    t.float    "ul_sum",         limit: 24
-    t.float    "j_day_count",    limit: 24, default: 0.0
-    t.float    "j_month_count",  limit: 24, default: 0.0
-    t.float    "j_sum",          limit: 24, default: 0.0
+    t.float    "u_day_count",     limit: 24, default: 0.0
+    t.float    "u_month_count",   limit: 24, default: 0.0
+    t.float    "u_sum",           limit: 24, default: 0.0
+    t.float    "ul_day_count",    limit: 24
+    t.float    "ul_month_count",  limit: 24
+    t.float    "ul_sum",          limit: 24
+    t.float    "j_day_count",     limit: 24, default: 0.0
+    t.float    "j_month_count",   limit: 24, default: 0.0
+    t.float    "j_sum",           limit: 24, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "u_ios_count",     limit: 24, default: 0.0
+    t.float    "u_android_count", limit: 24, default: 0.0
+    t.float    "u_other_count",   limit: 24, default: 0.0
   end
 
   create_table "exchange_logs", force: true do |t|

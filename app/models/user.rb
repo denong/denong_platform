@@ -27,10 +27,18 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  scope :today, -> { where('created_at > ?', Time.zone.now.to_date ) }
-  scope :weeks, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
-  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
-
+  scope :today, -> { where('created_at > ?', Time.zone.now.to_date) }
+  scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day) }
+  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day) }
+  
+  scope :today_sign_in, -> { where('last_sign_in_at > ?', Time.zone.now.to_date) }
+  scope :week_sign_in, -> { where('last_sign_in_at > ?', Time.zone.now.to_date) }
+  scope :month_sign_in, -> { where('last_sign_in_at > ?', Time.zone.now.to_date) }
+  scope :all_sign_in, -> { where('last_sign_in_at is not null') }
+  
+  scope :ios_count, -> { where(os: 'ios') }
+  scope :android_count, -> { where(os: 'android') }
+  
   include ActiveModel::Validations
 
   attr_accessor :sms_token
