@@ -28,7 +28,7 @@ class DataReport < ActiveRecord::Base
   class UserReport
 
     def process
-      data_reports = DataReport.find_or_create_by(report_date: Time.zone.now.to_date)
+      data_reports = DataReport.find_or_create_by(report_date: Time.zone.now.to_date - 1.day)
       data_reports.u_day_count = User.today.count
       data_reports.u_month_count = User.month.count
       data_reports.u_sum = User.all.count
