@@ -33,7 +33,7 @@ class IdentityVerify < ActiveRecord::Base
 
   # 如何身份证符合规则，则直接接收，否则直接拒绝
   def auto_validate!
-    if id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/ && idcard_verify?
+    if (id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/) && idcard_verify?
       accept!
     else
       reject!
