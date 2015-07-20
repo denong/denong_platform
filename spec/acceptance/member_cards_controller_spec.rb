@@ -102,7 +102,6 @@ resource "查询会员卡积分" do
 
     example "查询各个会员卡的积分" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end

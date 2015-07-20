@@ -68,7 +68,7 @@ resource "绑定银行卡" do
   get "/bank_cards" do
     before do
       customer = FactoryGirl.create :customer
-      FactoryGirl.create_list :bank_card, 3, customer: customer
+      FactoryGirl.create_list :bank_card, 3, customer: customer, stat_code: "00"
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
