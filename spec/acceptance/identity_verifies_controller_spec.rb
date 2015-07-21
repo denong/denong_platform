@@ -114,7 +114,7 @@ resource "用户信息验证" do
     let(:id) { @identity.id }
     let(:verify_state) { :verified }
     
-    example "审核结果查询成功" do
+    example "更新审核状态成功" do
       do_request
       expect(status).to eq 200
     end
