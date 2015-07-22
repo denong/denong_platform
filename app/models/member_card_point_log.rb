@@ -66,7 +66,9 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     def add_jajin_log
-      self.create_jajin_log customer: customer, amount: jajin
+      member_card = MemberCard.find_by(id: member_card_id)
+      merchant_id = member_card.merchant_id if member_card.present?
+      self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
     end
 
 end

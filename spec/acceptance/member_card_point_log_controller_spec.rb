@@ -7,8 +7,9 @@ resource "积分转小金记录" do
   post "/member_card_point_log" do
     before do
       create(:user)
+      merchant = create(:merchant)
       merchant_customer = create(:merchant_customer)
-      @member_card = create(:member_card)
+      @member_card = create(:member_card, merchant: merchant)
     end
 
     let(:id) { MemberCard.all.last.id }
