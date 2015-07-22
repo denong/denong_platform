@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :pension_account do
+    id_card "MyString"
+state 1
+customer nil
+account "MyString"
+  end
+  
 
   factory :merchant_customer do
     u_id "88888888"

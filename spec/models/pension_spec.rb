@@ -8,6 +8,8 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  account     :string(255)
+#  state       :integer          default(0)
+#  id_card     :string(255)
 #
 
 require 'rails_helper'

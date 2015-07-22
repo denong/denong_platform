@@ -21,6 +21,7 @@
 #  verify_state            :integer
 #  agent_id                :integer
 #  convert_ratio           :float            default(1.0)
+#  balance                 :float            default(0.0)
 #
 
 class Merchant < ActiveRecord::Base

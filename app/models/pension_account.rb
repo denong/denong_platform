@@ -1,17 +1,16 @@
 # == Schema Information
 #
-# Table name: pensions
+# Table name: pension_accounts
 #
 #  id          :integer          not null, primary key
-#  total       :float
+#  id_card     :string(255)
+#  state       :integer          default(0)
 #  customer_id :integer
+#  account     :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  account     :string(255)
-#  state       :integer          default(0)
-#  id_card     :string(255)
 #
 
-class Pension < ActiveRecord::Base
+class PensionAccount < ActiveRecord::Base
   belongs_to :customer
 end
