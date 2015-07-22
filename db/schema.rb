@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722134055) do
+ActiveRecord::Schema.define(version: 20150722135511) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -451,6 +451,8 @@ ActiveRecord::Schema.define(version: 20150722134055) do
     t.string   "account"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phone"
+    t.string   "name"
   end
 
   add_index "pension_accounts", ["customer_id"], name: "index_pension_accounts_on_customer_id"

@@ -9,6 +9,8 @@
 #  account     :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  phone       :string(255)
+#  name        :string(255)
 #
 
 require 'rails_helper'
