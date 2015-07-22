@@ -17,4 +17,12 @@ class PensionAccount < ActiveRecord::Base
   belongs_to :customer
 
   enum state: [ :wait_verify, :success, :fail]
+
+  after_create :add_account_info
+
+  def add_account_info
+    self.account = id.to_s.rjust(10, '0')
+    customer.create_pension(total: 0, account: account)
+  end
+
 end

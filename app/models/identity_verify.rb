@@ -35,9 +35,14 @@ class IdentityVerify < ActiveRecord::Base
   def auto_validate!
     if (id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/) && idcard_verify?
       accept!
+      add_pension_account
     else
       reject!
     end
+  end
+
+  def add_pension_account
+    customer.create_pension_account(id_card: id_card, name: name, phone: customer.user.phone)
   end
 
   def idcard_verify?

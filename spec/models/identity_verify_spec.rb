@@ -46,4 +46,14 @@ RSpec.describe IdentityVerify, type: :model do
     end
   end
 
+  context "create pension account" do
+    before(:each) do
+      @customer = create(:customer)
+      @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "330726199110011333")
+    end
+
+    it "should add the number of pension account" do
+      expect(PensionAccount.all.size).to eq(1)
+    end
+  end
 end
