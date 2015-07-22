@@ -13,4 +13,6 @@
 
 class PensionAccount < ActiveRecord::Base
   belongs_to :customer
+
+  enum state: [ :wait_verify, :success, :fail]
 end
