@@ -2,15 +2,16 @@
 #
 # Table name: customer_reg_infos
 #
-#  id           :integer          not null, primary key
-#  customer_id  :integer
-#  name         :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  verify_state :integer
-#  id_card      :string(255)
-#  nick_name    :string(255)
-#  gender       :integer
+#  id            :integer          not null, primary key
+#  customer_id   :integer
+#  name          :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  verify_state  :integer
+#  id_card       :string(255)
+#  nick_name     :string(255)
+#  gender        :integer
+#  account_state :integer          default(0)
 #
 
 require 'rails_helper'

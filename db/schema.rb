@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722135511) do
+ActiveRecord::Schema.define(version: 20150723074750) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150722135511) do
     t.string   "id_card"
     t.string   "nick_name"
     t.integer  "gender"
+    t.integer  "account_state", default: 0
   end
 
   add_index "customer_reg_infos", ["customer_id"], name: "index_customer_reg_infos_on_customer_id"
