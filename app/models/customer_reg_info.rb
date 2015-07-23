@@ -11,12 +11,12 @@
 #  id_card       :string(255)
 #  nick_name     :string(255)
 #  gender        :integer
-#  account_state :integer          default(0)
+#  account_state :integer          default(3)
 #
 
 class CustomerRegInfo < ActiveRecord::Base
   enum verify_state: [:unverified, :wait_verify, :verified, :verified_fail]
-  enum account_state: [ :not_created, :created, :processing, :fail]
+  enum account_state: [ :processing, :success, :fail, :not_created]
 
   enum gender: [:male, :female]
   belongs_to :customer

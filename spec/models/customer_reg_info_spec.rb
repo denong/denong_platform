@@ -11,7 +11,7 @@
 #  id_card       :string(255)
 #  nick_name     :string(255)
 #  gender        :integer
-#  account_state :integer          default(0)
+#  account_state :integer          default(3)
 #
 
 require 'rails_helper'

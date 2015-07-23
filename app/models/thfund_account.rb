@@ -26,7 +26,7 @@ class ThfundAccount < ActiveRecord::Base
 
 
   def self.create_accounts
-    verifies = IdentityVerify.where(account_state: 1, verify_state: 2)
+    verifies = IdentityVerify.where(account_state: 0, verify_state: 2)
     accounts = []
     verifies.each do |verify_entry|
       account = ThfundAccount.new

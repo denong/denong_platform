@@ -9,7 +9,7 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  id_card       :string(255)
-#  account_state :integer          default(0)
+#  account_state :integer          default(3)
 #
 
 require 'rails_helper'

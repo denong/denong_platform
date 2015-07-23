@@ -9,12 +9,12 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  id_card       :string(255)
-#  account_state :integer          default(0)
+#  account_state :integer          default(3)
 #
 
 class IdentityVerify < ActiveRecord::Base
   enum verify_state: [ :unverified, :wait_verify, :verified, :verified_fail]
-  enum account_state: [ :not_created, :success, :processing, :fail]
+  enum account_state: [ :processing, :success, :fail, :not_created]
 
   belongs_to :customer
   has_one :front_image, -> { where photo_type: "front" }, class_name: "Image", as: :imageable, dependent: :destroy

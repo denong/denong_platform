@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723074750) do
+ActiveRecord::Schema.define(version: 20150723135307) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20150723074750) do
     t.string   "id_card"
     t.string   "nick_name"
     t.integer  "gender"
-    t.integer  "account_state", default: 0
+    t.integer  "account_state", default: 3
   end
 
   add_index "customer_reg_infos", ["customer_id"], name: "index_customer_reg_infos_on_customer_id"
@@ -202,10 +202,9 @@ ActiveRecord::Schema.define(version: 20150723074750) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "id_card"
-    t.integer  "account_state", default: 0
+    t.integer  "account_state", default: 3
   end
 
-  add_index "identity_verifies", ["account_state"], name: "index_identity_verifies_on_account_state"
   add_index "identity_verifies", ["customer_id"], name: "index_identity_verifies_on_customer_id"
 
   create_table "images", force: true do |t|
@@ -447,13 +446,13 @@ ActiveRecord::Schema.define(version: 20150723074750) do
 
   create_table "pension_accounts", force: true do |t|
     t.string   "id_card"
-    t.integer  "state",       default: 0
     t.integer  "customer_id"
     t.string   "account"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone"
     t.string   "name"
+    t.integer  "state",       default: 3
   end
 
   add_index "pension_accounts", ["customer_id"], name: "index_pension_accounts_on_customer_id"

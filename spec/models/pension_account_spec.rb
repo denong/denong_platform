@@ -4,13 +4,13 @@
 #
 #  id          :integer          not null, primary key
 #  id_card     :string(255)
-#  state       :integer          default(0)
 #  customer_id :integer
 #  account     :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
 #  phone       :string(255)
 #  name        :string(255)
+#  state       :integer          default(3)
 #
 
 require 'rails_helper'
