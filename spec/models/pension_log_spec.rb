@@ -13,5 +13,5 @@
 require 'rails_helper'
 
 RSpec.describe PensionLog, type: :model do
-  
+
 end

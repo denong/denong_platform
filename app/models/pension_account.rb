@@ -16,12 +16,12 @@
 class PensionAccount < ActiveRecord::Base
   belongs_to :customer
 
-  enum state: [:not_open, :wait_open, :open_success, :open_fail]
+  enum state: [ :not_created, :success, :processing, :fail]
 
   after_create :add_account_info
 
   def self.create_by_identity_info
-    verifies = IdentityVerify.where(account_state: 1, verify_state: 2)
+    verifies = IdentityVerify.where(account_state: 2, verify_state: 2)
     accounts = []
     verifies.each do |identity_verify|
 
@@ -30,6 +30,7 @@ class PensionAccount < ActiveRecord::Base
       account.id_card = identity_verify.id_card
       account.phone = identity_verify.customer.user.phone
       account.customer = identity_verify.customer
+      account.state = identity_verify.account_state
       account.save
 
       accounts << account
@@ -43,12 +44,12 @@ class PensionAccount < ActiveRecord::Base
 
   def success
     customer.create_pension(total: 0, account: account)
-    customer.identity_verify.state = 3
+    self.customer.identity_verifies.last.success!
     success!
   end
 
   def failed
-    customer.identity_verify.state = 4
+    self.customer.identity_verifies.last.fail!
     fail!
   end
 end

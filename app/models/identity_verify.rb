@@ -14,7 +14,7 @@
 
 class IdentityVerify < ActiveRecord::Base
   enum verify_state: [ :unverified, :wait_verify, :verified, :verified_fail]
-  enum account_state: [ :not_created, :created, :processing, :fail]
+  enum account_state: [ :not_created, :success, :processing, :fail]
 
   belongs_to :customer
   has_one :front_image, -> { where photo_type: "front" }, class_name: "Image", as: :imageable, dependent: :destroy
@@ -69,6 +69,7 @@ class IdentityVerify < ActiveRecord::Base
     customer_reg_info.verified!
     customer_reg_info.save
     self.verified!
+    self.processing!
   end
 
   def set_state

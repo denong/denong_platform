@@ -16,7 +16,7 @@
 
 class CustomerRegInfo < ActiveRecord::Base
   enum verify_state: [:unverified, :wait_verify, :verified, :verified_fail]
-  enum account_state: [:not_open, :wait_open, :open_success, :open_fail]
+  enum account_state: [ :not_created, :created, :processing, :fail]
 
   enum gender: [:male, :female]
   belongs_to :customer
