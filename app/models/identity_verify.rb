@@ -67,6 +67,7 @@ class IdentityVerify < ActiveRecord::Base
       customer_reg_info.female!
     end
     customer_reg_info.verified!
+    customer_reg_info.processing!
     customer_reg_info.save
     self.verified!
     self.processing!
