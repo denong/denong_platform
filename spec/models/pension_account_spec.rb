@@ -32,7 +32,7 @@ RSpec.describe PensionAccount, type: :model do
   # context "create pension log success" do
   #   before(:each) do
   #     @customer = create(:customer)
-  #     @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "")
+  #     @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "1")
   #     PensionAccount.create_by_identity_info
   #     @pension_account = PensionAccount.find_by(id: PensionAccount.first.id)
   #     @pension_account.success
@@ -47,7 +47,7 @@ RSpec.describe PensionAccount, type: :model do
   # context "create pension log success" do
   #   before(:each) do
   #     @customer = create(:customer)
-  #     @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "")
+  #     @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "1")
   #     PensionAccount.create_by_identity_info
   #     @pension_account = PensionAccount.find_by(id: PensionAccount.first.id)
   #     @pension_account.failed

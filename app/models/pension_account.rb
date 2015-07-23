@@ -45,9 +45,10 @@ class PensionAccount < ActiveRecord::Base
   def success
     customer.create_pension(total: 0, account: account)
     self.customer.customer_reg_info.success!
+    self.customer.identity_verifies.last.success!
     success!
     # 发送SMS消息
-    account.send_sms_notification
+    send_sms_notification
   end
 
   def send_sms_notification
@@ -61,6 +62,7 @@ class PensionAccount < ActiveRecord::Base
   end
 
   def failed
+    self.customer.customer_reg_info.fail!
     self.customer.identity_verifies.last.fail!
     fail!
   end
