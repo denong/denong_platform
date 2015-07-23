@@ -16,12 +16,14 @@
 
 class CustomerRegInfo < ActiveRecord::Base
   enum verify_state: [:unverified, :wait_verify, :verified, :verified_fail]
+  enum account_state: [:not_open, :wait_open, :open_success, :open_fail]
+
   enum gender: [:male, :female]
   belongs_to :customer
   has_one :image, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :image, allow_destroy: true
 
-  def account_state
-    self.try(:customer).try(:identity_verifies).try(:last).try(:account_state)
-  end
+  # def account_state
+  #   self.try(:customer).try(:identity_verifies).try(:last).try(:account_state)
+  # end
 end

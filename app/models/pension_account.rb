@@ -16,13 +16,39 @@
 class PensionAccount < ActiveRecord::Base
   belongs_to :customer
 
-  enum state: [ :wait_verify, :success, :fail]
+  enum state: [:not_open, :wait_open, :open_success, :open_fail]
 
   after_create :add_account_info
 
-  def add_account_info
-    self.account = id.to_s.rjust(10, '0')
-    customer.create_pension(total: 0, account: account)
+  def self.create_by_identity_info
+    verifies = IdentityVerify.where(account_state: 1, verify_state: 2)
+    accounts = []
+    verifies.each do |identity_verify|
+
+      account = PensionAccount.new
+      account.name = identity_verify.name
+      account.id_card = identity_verify.id_card
+      account.phone = identity_verify.customer.user.phone
+      account.customer = identity_verify.customer
+      account.save
+
+      accounts << account
+    end
+
   end
 
+  def add_account_info
+    self.account = id.to_s.rjust(10, '0')
+  end
+
+  def success
+    customer.create_pension(total: 0, account: account)
+    customer.identity_verify.state = 3
+    success!
+  end
+
+  def failed
+    customer.identity_verify.state = 4
+    fail!
+  end
 end
