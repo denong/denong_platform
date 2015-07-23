@@ -46,8 +46,20 @@ class PensionAccount < ActiveRecord::Base
     customer.create_pension(total: 0, account: account)
     self.customer.identity_verifies.last.success!
     success!
+    # 发送SMS消息
+    account.send_sms_notification
   end
 
+  def send_sms_notification
+    user = customer.try(:user)
+    if user.present?
+      company = "德浓消费养老"
+      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      account_string = id.to_s.rjust(10, '0')
+      result = ChinaSMS.to user.phone, {account: account_string}, {tpl_id: 875755}
+    end
+  end
+  
   def failed
     self.customer.identity_verifies.last.fail!
     fail!
