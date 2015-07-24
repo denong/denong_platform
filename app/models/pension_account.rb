@@ -38,6 +38,37 @@ class PensionAccount < ActiveRecord::Base
 
   end
 
+  def self.create_by_phone phone
+    user = User.find_by phone: phone
+    self.create_by_customer user.customer if user.try(:customer).present?
+  end
+
+  def self.create_by_customer customer
+    account = PensionAccount.new
+
+    customer.try(:identity_verifies).try(:last).try(:created!)
+
+    account.customer = customer
+    account.mobile = customer.try(:user).try(:phone)
+    account.name = customer.try(:customer_reg_info).try(:name)
+    account.certification_no = customer.try(:customer_reg_info).try(:id_card)
+    account.save
+
+    account.save
+
+    account.success!
+
+    # 创建用户的养老金账户
+    customer = account.customer
+    if customer.present?
+      account_string = account.id.to_s.rjust(10, '0')
+      customer.create_pension(total: 0, account: account_string)
+    end
+
+    # 发送SMS消息
+    account.send_sms_notification
+  end
+
   def add_account_info
     self.account = id.to_s.rjust(10, '0')
     self.save
