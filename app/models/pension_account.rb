@@ -61,6 +61,8 @@ class PensionAccount < ActiveRecord::Base
     if customer.present?
       account_string = account.id.to_s.rjust(10, '0')
       customer.create_pension(total: 0, account: account_string)
+      customer.customer_reg_info.success!
+      customer.identity_verifies.last.success!
     end
 
     # 发送SMS消息
