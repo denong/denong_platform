@@ -49,11 +49,9 @@ class PensionAccount < ActiveRecord::Base
     customer.try(:identity_verifies).try(:last).try(:created!)
 
     account.customer = customer
-    account.mobile = customer.try(:user).try(:phone)
+    account.phone = customer.try(:user).try(:phone)
     account.name = customer.try(:customer_reg_info).try(:name)
-    account.certification_no = customer.try(:customer_reg_info).try(:id_card)
-    account.save
-
+    account.id_card = customer.try(:customer_reg_info).try(:id_card)
     account.save
 
     account.success!
