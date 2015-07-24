@@ -40,6 +40,7 @@ class PensionAccount < ActiveRecord::Base
 
   def add_account_info
     self.account = id.to_s.rjust(10, '0')
+    self.save
   end
 
   def success
