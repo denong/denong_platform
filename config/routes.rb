@@ -164,6 +164,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :balance_logs, only: [:create, :index]
+
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'

@@ -16,5 +16,28 @@ class BalanceLog < ActiveRecord::Base
   scope :in, -> { where "balance > 0" }
   scope :out, -> { where "balance < 0" }
 
-  
+  after_create :calculate
+
+  private
+
+
+    def calculate
+      if balance > 0
+        increase_balance
+      else
+        decrease_balance
+      end
+    end
+
+    def increase_balance
+      self.merchant.balance += balance
+      self.merchant.save
+    end
+
+    def decrease_balance
+      self.merchant.balance += balance
+      self.merchant.save
+      self.jajin = balance.to_f.abs/100
+    end
+
 end

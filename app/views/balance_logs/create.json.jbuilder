@@ -1,0 +1,1 @@
+json.extract! @jajin_identity_code, :id, :jajin, :balance, :merchant_id
