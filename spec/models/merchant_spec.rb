@@ -22,6 +22,7 @@
 #  agent_id                :integer
 #  convert_ratio           :float            default(1.0)
 #  balance                 :float            default(0.0)
+#  money                   :float
 #
 
 require 'rails_helper'
