@@ -12,4 +12,9 @@
 
 class BalanceLog < ActiveRecord::Base
   belongs_to :merchant
+
+  scope :in, -> { where "balance > 0" }
+  scope :out, -> { where "balance < 0" }
+
+  
 end
