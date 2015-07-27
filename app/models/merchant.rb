@@ -99,5 +99,5 @@ class Merchant < ActiveRecord::Base
     tags = tag_params[:tags].split(',')
     self.tag_list.add tags
   end
-
+  
 end
