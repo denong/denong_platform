@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723135307) do
+ActiveRecord::Schema.define(version: 20150727081235) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20150723135307) do
 
   add_index "agents", ["email"], name: "index_agents_on_email", unique: true
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
+
+  create_table "balance_logs", force: true do |t|
+    t.float    "jajin"
+    t.float    "balance"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "balance_logs", ["merchant_id"], name: "index_balance_logs_on_merchant_id"
 
   create_table "bank_card_infos", force: true do |t|
     t.string   "bin"
@@ -431,6 +441,7 @@ ActiveRecord::Schema.define(version: 20150723135307) do
     t.integer  "agent_id"
     t.float    "convert_ratio",           default: 1.0
     t.float    "balance",                 default: 0.0
+    t.float    "money"
   end
 
   add_index "merchants", ["agent_id"], name: "index_merchants_on_agent_id"
