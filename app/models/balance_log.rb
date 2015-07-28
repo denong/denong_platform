@@ -36,8 +36,12 @@ class BalanceLog < ActiveRecord::Base
 
     def decrease_balance
       self.merchant.balance += balance
+      if self.merchant.jajin_total.nil?
+        self.merchant.jajin_total = 0
+      end
+      self.merchant.jajin_total += balance.to_f.abs*100
       self.merchant.save
-      self.jajin = balance.to_f.abs/100
+      self.jajin = balance.to_f.abs*100
     end
 
 end

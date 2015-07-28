@@ -1,16 +1,15 @@
 require 'rack/test'
-FactoryGirl.define do  factory :balance_log do
-    jajin 1.5
-balance 1.5
-merchant nil
+FactoryGirl.define do  
+  factory :balance_log do
+    balance 1.5
   end
+
   factory :pension_account do
     id_card "MyString"
-state 1
-customer nil
-account "MyString"
+    state 1
+    customer nil
+    account "MyString"
   end
-  
 
   factory :merchant_customer do
     u_id "88888888"
