@@ -222,8 +222,11 @@ FactoryGirl.define do
 
     factory :verify_customer_reg_info do
       name    "customer_name"
+      nick_name "customer nick name"
+      gender "male"
       id_card  "333333333"
       verify_state "verified"
+      account_state "processing" 
     end
   end
 
