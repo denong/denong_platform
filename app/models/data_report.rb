@@ -34,7 +34,7 @@ class DataReport < ActiveRecord::Base
 
         prices = TlTrade.sum_day_price
         prices.map do |i, e|
-          merchant = Merchant.find(i)
+          merchant = Merchant.where(id: i).first
           if merchant.present?
             merchant.jajin_total
             merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
@@ -46,7 +46,7 @@ class DataReport < ActiveRecord::Base
         sheet.add_row ["统计时间", "商户名", "代理商", "交易金额", "小金"]
         prices = TlTrade.sum_month_price
         prices.map do |i, e|
-          merchant = Merchant.find(i)
+          merchant = Merchant.where(id: i).first
           if merchant.present?
             merchant.jajin_total
             merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
