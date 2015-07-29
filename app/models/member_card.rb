@@ -57,7 +57,7 @@ class MemberCard < ActiveRecord::Base
     end
 
     def add_merchant_member_card_amount
-      merchant.try()
+      merchant.member_card_amount += 1
     end
 
 end

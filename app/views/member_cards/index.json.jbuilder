@@ -9,4 +9,5 @@ json.member_cards @member_cards do |member_card|
   json.total_trans_jajin member_card.total_trans_jajin
   json.unconvert_jajin member_card.point.to_f * ( member_card.try(:merchant).try(:convert_ratio) || 1)
   json.merchant_id member_card.merchant_id
+  json.member_card_amount member_card.merchant.member_card_amount
 end
