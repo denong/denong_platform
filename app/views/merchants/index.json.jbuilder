@@ -16,4 +16,5 @@ json.merchants @merchants do |merchant|
   json.followed current_customer.voted_for?(merchant, vote_scope: "follow") if current_customer
   json.liked current_customer.voted_for?(merchant, vote_scope: "like") if current_customer
   json.bind_member_card merchant.bind_member_card?(current_customer) if current_customer
+  json.member_card_amount merchant.member_card_amount
 end
