@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727081235) do
+ActiveRecord::Schema.define(version: 20150729081420) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -441,6 +441,7 @@ ActiveRecord::Schema.define(version: 20150727081235) do
     t.integer  "agent_id"
     t.float    "convert_ratio",           default: 1.0
     t.float    "balance",                 default: 0.0
+    t.integer  "member_card_amount",      default: 0
   end
 
   add_index "merchants", ["agent_id"], name: "index_merchants_on_agent_id"

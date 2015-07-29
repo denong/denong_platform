@@ -24,6 +24,8 @@ class MemberCard < ActiveRecord::Base
   validates_uniqueness_of :user_name, scope: :merchant_id
   validate :authenticate, on: :create
 
+  after_create :add_merchant_member_card_amount
+
   def merchant_logo
     merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : ""
   end
@@ -54,6 +56,8 @@ class MemberCard < ActiveRecord::Base
       self.point = member_card.jifen
     end
 
-
+    def add_merchant_member_card_amount
+      merchant.try()
+    end
 
 end
