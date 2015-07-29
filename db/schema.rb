@@ -441,7 +441,6 @@ ActiveRecord::Schema.define(version: 20150727081235) do
     t.integer  "agent_id"
     t.float    "convert_ratio",           default: 1.0
     t.float    "balance",                 default: 0.0
-    t.float    "money"
   end
 
   add_index "merchants", ["agent_id"], name: "index_merchants_on_agent_id"
@@ -484,8 +483,6 @@ ActiveRecord::Schema.define(version: 20150727081235) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "account"
-    t.integer  "state",       default: 0
-    t.string   "id_card"
   end
 
   add_index "pensions", ["customer_id"], name: "index_pensions_on_customer_id"
