@@ -27,7 +27,7 @@ RSpec.describe TlTrade, type: :model do
   it { should have_one :jajin_log }
 
   let(:customer)  { create(:customer_with_jajin_pension) }
-  let(:merchant)  { create(:merchant) }
+  let(:merchant)  { create(:merchant, ) }
 
   describe "tl_trade" do
     before(:each) do
