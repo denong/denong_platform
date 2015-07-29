@@ -37,6 +37,7 @@ resource "积分转小金记录" do
   
   get "/member_card_point_log" do
     before do
+      merchant = create(:merchant)
       customer = create(:customer_with_jajin_pension)
 
       merchant_customers = []
@@ -44,8 +45,8 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer, u_id: "77777777")
 
       member_cards = []
-      member_cards << create(:member_card, customer: customer)
-      member_cards << create(:member_card, user_name: "77777777", customer: customer)
+      member_cards << create(:member_card, customer: customer, merchant: merchant)
+      member_cards << create(:member_card, user_name: "77777777", customer: customer, merchant: merchant)
 
       member_cards.each do |member_card|
         create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
@@ -72,15 +73,16 @@ resource "积分转小金记录" do
 
   get "/member_card_point_log" do
     before do
+      merchant = create(:merchant)
       customer = create(:customer_with_jajin_pension)
 
       merchant_customers = []
-      merchant_customers << create(:merchant_customer)
-      merchant_customers << create(:merchant_customer, u_id: "77777777")
+      merchant_customers << create(:merchant_customer, merchant: merchant)
+      merchant_customers << create(:merchant_customer, u_id: "77777777", merchant: merchant)
 
       member_cards = []
-      member_cards << create(:member_card, customer: customer)
-      member_cards << create(:member_card, user_name: "77777777", customer: customer)
+      member_cards << create(:member_card, customer: customer, merchant: merchant)
+      member_cards << create(:member_card, user_name: "77777777", customer: customer, merchant: merchant)
 
       member_cards.each do |member_card|
         (0..1).each do |index|
@@ -112,15 +114,16 @@ resource "积分转小金记录" do
 
   get "/member_card_point_log/:id" do
     before do
+      merchant = create(:merchant)
       customer = create(:customer_with_jajin_pension)
 
       merchant_customers = []
-      merchant_customers << create(:merchant_customer)
-      merchant_customers << create(:merchant_customer, u_id: "77777777")
+      merchant_customers << create(:merchant_customer, merchant: merchant)
+      merchant_customers << create(:merchant_customer, u_id: "77777777", merchant: merchant)
 
       member_cards = []
-      member_cards << create(:member_card, customer: customer)
-      member_cards << create(:member_card, user_name: "77777777", customer: customer)
+      member_cards << create(:member_card, customer: customer, merchant: merchant)
+      member_cards << create(:member_card, user_name: "77777777", customer: customer, merchant: merchant)
 
       member_cards.each do |member_card|
         create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)

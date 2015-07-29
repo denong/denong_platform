@@ -12,7 +12,7 @@ resource "获取商户信息" do
       end
       merchants.each do |merchant|
         (0..3).each do |i|
-          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant))  
+          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)  
         end
       end
       Sunspot.commit

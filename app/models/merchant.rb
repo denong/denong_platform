@@ -50,6 +50,7 @@ class Merchant < ActiveRecord::Base
 
   after_create :add_sys_reg_info
   after_create :add_busi_reg_info
+  after_create :add_default_value
 
   searchable do
     text :sys_name
@@ -100,6 +101,10 @@ class Merchant < ActiveRecord::Base
   def add_tag tag_params
     tags = tag_params[:tags].split(',')
     self.tag_list.add tags
+  end
+
+  def add_default_value
+    self.jajin_total = 0
   end
   
 end
