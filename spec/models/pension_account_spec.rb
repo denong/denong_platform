@@ -58,4 +58,36 @@ RSpec.describe PensionAccount, type: :model do
   #     expect(@customer.identity_verifies.last.account_state).to eq("fail")
   #   end
   # end
+
+
+  # context "create pension log success" do
+  #   before(:each) do
+  #     @customer = create(:customer)
+  #     @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "1")
+  #     PensionAccount.create_by_identity_info
+  #     PensionAccount.create_by_identity_info
+  #   end
+
+  #   it "should make the pension account be success" do
+  #     expect(@customer.identity_verifies.last.account_state).to eq("success")
+  #     expect(PensionAccount.all.size).to eq(1)
+  #     expect(Pension.all.size).to eq(1)
+  #   end
+  # end
+
+  # context "create pension log success" do
+  #   before(:each) do
+  #     customer_reg_info = create(:verify_customer_reg_info)
+  #     @customer = create(:customer, customer_reg_info: customer_reg_info)
+  #     @identify = create(:identity_verify, customer: @customer, name:"于子洵", id_card: "333333333")
+  #     PensionAccount.create_by_phone @customer.user.phone
+  #     PensionAccount.create_by_phone @customer.user.phone
+  #   end
+
+  #   it "should make the pension account be success" do
+  #     expect(@customer.identity_verifies.last.account_state).to eq("success")
+  #     expect(PensionAccount.all.size).to eq(1)
+  #     expect(Pension.all.size).to eq(1)
+  #   end
+  # end
 end

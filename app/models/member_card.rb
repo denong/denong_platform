@@ -24,6 +24,8 @@ class MemberCard < ActiveRecord::Base
   validates_uniqueness_of :user_name, scope: :merchant_id
   validate :authenticate, on: :create
 
+  after_create :add_merchant_member_card_amount
+
   def merchant_logo
     merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : ""
   end
@@ -42,7 +44,6 @@ class MemberCard < ActiveRecord::Base
       #以后与其他商家对接,以下代码暂时用于内部测试
       member_card = MerchantCustomer.find_by(u_id: user_name)
       if member_card.nil?
-        puts "会员卡不存在"
         errors.add(:message, "会员卡不存在")
         return
       end
@@ -55,6 +56,8 @@ class MemberCard < ActiveRecord::Base
       self.point = member_card.jifen
     end
 
-
+    def add_merchant_member_card_amount
+      merchant.member_card_amount += 1
+    end
 
 end

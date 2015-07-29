@@ -25,22 +25,16 @@ class PensionAccount < ActiveRecord::Base
     accounts = []
     verifies.each do |identity_verify|
 
-      account = PensionAccount.new
-      account.name = identity_verify.name
-      account.id_card = identity_verify.id_card
-      account.phone = identity_verify.customer.user.phone
-      account.customer = identity_verify.customer
-      account.state = identity_verify.account_state
-      account.save
+      next if Pension.find_by_id_card(identity_verify.id_card).present?
 
-      accounts << account
+      self.create_by_customer identity_verify.customer
     end
 
   end
 
   def self.create_by_phone phone
     user = User.find_by phone: phone
-    self.create_by_customer user.customer if user.try(:customer).present?
+    self.create_by_customer user.customer if user.try(:customer).present? && !(user.try(:customer).try(:pension).present?)
   end
 
   def self.create_by_customer customer
@@ -53,9 +47,8 @@ class PensionAccount < ActiveRecord::Base
     account.name = customer.try(:customer_reg_info).try(:name)
     account.id_card = customer.try(:customer_reg_info).try(:id_card)
     account.save
-
     account.success!
-
+    
     # 创建用户的养老金账户
     customer = account.customer
     if customer.present?

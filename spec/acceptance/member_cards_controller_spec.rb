@@ -24,6 +24,7 @@ resource "查询会员卡积分" do
     response_field :total_trans_jajin, "已转换的小金"
     response_field :unconvert_jajin, "可转换的小金"
     response_field :merchant_id, "商户ID"
+    response_field :member_card_amount, "该商户已授权的会员卡数量"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -58,6 +59,7 @@ resource "查询会员卡积分" do
     response_field :point, "积分分值"
     response_field :merchant_id, "商户ID"
     response_field :customer_id, "消费者ID"
+    response_field :member_card_amount, "该商户已授权的会员卡数量"
 
     let(:merchant_id) { Merchant.all.first.id }
     let(:user_name) { "88888888" }
@@ -66,6 +68,7 @@ resource "查询会员卡积分" do
 
     example "绑定会员卡成功" do
       do_request
+      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
@@ -94,6 +97,7 @@ resource "查询会员卡积分" do
     response_field :total_trans_jajin, "已转换的小金"
     response_field :unconvert_jajin, "可转换的小金"
     response_field :merchant_id, "商户ID"
+    response_field :member_card_amount, "该商户已授权的会员卡数量"
     
     user_attrs = FactoryGirl.attributes_for(:user)
 
