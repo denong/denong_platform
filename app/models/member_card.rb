@@ -42,7 +42,6 @@ class MemberCard < ActiveRecord::Base
       #以后与其他商家对接,以下代码暂时用于内部测试
       member_card = MerchantCustomer.find_by(u_id: user_name)
       if member_card.nil?
-        puts "会员卡不存在"
         errors.add(:message, "会员卡不存在")
         return
       end
