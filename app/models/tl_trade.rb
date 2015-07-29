@@ -40,6 +40,8 @@ class TlTrade < ActiveRecord::Base
 
   after_create :add_jajin_identity_code
 
+  scope :sum_price, -> { group(:merchant_id).sum(:price) }
+
   def as_json(options=nil)
     {
       phone: phone,
@@ -65,7 +67,7 @@ class TlTrade < ActiveRecord::Base
   end
 
   def check_pos_machine
-    pos_machine = PosMachine.find_by_pos_ind(pos_ind)  
+    pos_machine = PosMachine.find_by_pos_ind(pos_ind)
     if pos_machine.nil?
       pos_machine = PosMachine.create pos_ind: pos_ind
     end
