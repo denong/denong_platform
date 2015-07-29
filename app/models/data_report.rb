@@ -37,7 +37,7 @@ class DataReport < ActiveRecord::Base
           merchant = Merchant.find(i)
           if merchant.present?
             merchant.jajin_total
-            merchant_info = MerchantSysRegInfo.where(:merchant_id merchant.id).first.sys_name
+            merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
             sheet.add_row [Time.zone.now.strftime("%Y-%m-%d %H:%M"), merchant_info, merchant.agent.name, e, merchant.jajin_total]
           end
         end
@@ -49,7 +49,7 @@ class DataReport < ActiveRecord::Base
           merchant = Merchant.find(i)
           if merchant.present?
             merchant.jajin_total
-            merchant_info = MerchantSysRegInfo.where(:merchant_id merchant.id).first.sys_name
+            merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
             sheet.add_row [Time.zone.now.strftime("%Y-%m-%d %H:%M"), merchant_info, merchant.agent.name, e, merchant.jajin_total]
           end
         end
