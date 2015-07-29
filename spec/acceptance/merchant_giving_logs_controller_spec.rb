@@ -8,7 +8,6 @@ resource "商户赠送小金记录" do
     before(:each) do
       customer = create(:customer)
       merchant = create(:merchant)
-      puts "merchant is #{merchant.inspect}"
       create_list(:merchant_giving_log, 3, customer: customer, merchant: merchant )
     end
 
