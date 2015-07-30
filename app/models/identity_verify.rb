@@ -48,7 +48,6 @@ class IdentityVerify < ActiveRecord::Base
     else
       false
     end
-    
   end
 
   def reject!

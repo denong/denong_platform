@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729081420) do
+ActiveRecord::Schema.define(version: 20150730033216) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -487,6 +487,13 @@ ActiveRecord::Schema.define(version: 20150729081420) do
   end
 
   add_index "pensions", ["customer_id"], name: "index_pensions_on_customer_id"
+
+  create_table "personal_infos", force: true do |t|
+    t.string   "name"
+    t.string   "id_card"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pos_machines", force: true do |t|
     t.integer  "acquiring_bank"

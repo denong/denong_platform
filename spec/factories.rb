@@ -1,5 +1,9 @@
 require 'rack/test'
-FactoryGirl.define do  
+FactoryGirl.define do  factory :personal_info do
+    name "MyString"
+id "MyString"
+  end
+  
   factory :balance_log do
     balance 1.5
   end
