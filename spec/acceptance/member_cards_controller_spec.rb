@@ -9,7 +9,8 @@ resource "查询会员卡积分" do
       merchant = create(:merchant)
       customer = create(:customer)
       merchant_customer = create(:merchant_customer)
-      create(:member_card, merchant: merchant, customer: customer)
+      create(:personal_info, name: "ABC", id_card: "331726199111111111")
+      create(:member_card, merchant: merchant, customer: customer, user_name: "ABC", passwd: "331726199111111111")
     end
 
     let(:id) { MemberCard.all.last.id }
@@ -44,11 +45,12 @@ resource "查询会员卡积分" do
       merchant = create(:merchant)
       customer = create(:customer)
       merchant_customer = create(:merchant_customer)
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
     end
 
     parameter :merchant_id, "商户ID", required: true, scope: :member_card
-    parameter :user_name, "会员卡用户", required: true, scope: :member_card
-    parameter :passwd, "会员卡密码", required: true, scope: :member_card
+    parameter :user_name, "名字", required: true, scope: :member_card
+    parameter :passwd, "身份证号", required: true, scope: :member_card
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -62,8 +64,8 @@ resource "查询会员卡积分" do
     response_field :member_card_amount, "该商户已授权的会员卡数量"
 
     let(:merchant_id) { Merchant.all.first.id }
-    let(:user_name) { "88888888" }
-    let(:passwd) { "abcd.1234" }
+    let(:user_name) { "于子洵" }
+    let(:passwd) { "333333333333333333" }
     let(:raw_post) { params.to_json }
 
     example "绑定会员卡成功" do
@@ -76,10 +78,12 @@ resource "查询会员卡积分" do
     before do
       merchants = create_list(:merchant, 5)
       customer = create(:customer)
-      merchant_customer = 
+
+      merchant_customer =
       merchants.each do |merchant|
-        create(:merchant_customer,  u_id: "a"+merchants.index(merchant).to_s, password: "a"+merchants.index(merchant).to_s)
-        create(:member_card, customer: customer, merchant: merchant, user_name: "a"+merchants.index(merchant).to_s, passwd: "a"+merchants.index(merchant).to_s)
+        pi = create(:personal_info, name: "A"+merchants.index(merchant).to_s, id_card: "33172611111110111"+merchants.index(merchant).to_s)
+        create(:merchant_customer, u_id: "A"+merchants.index(merchant).to_s, password: "33172611111110111"+merchants.index(merchant).to_s)
+        create(:member_card, customer: customer, merchant: merchant, user_name: "A"+merchants.index(merchant).to_s, passwd: "33172611111110111"+merchants.index(merchant).to_s)
       end
     end
 
