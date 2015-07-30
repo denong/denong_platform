@@ -59,7 +59,7 @@ class MemberCard < ActiveRecord::Base
       response_hash = MultiJson.load(response)
       if response_hash["error_code"].to_i == 0
         if response_hash["result"]["isok"]
-          PersonalInfo.find_or_create_by(name: name, id_card: id_card)
+          PersonalInfo.find_or_create_by(name: user_name, id_card: passwd)
         end
         response_hash["result"]["isok"]
       else
