@@ -20,7 +20,7 @@ class MerchantsController < ApplicationController
   end
 
   def index
-    puts "index params is #{params}"
+    logger.info "index params is #{params}"
     # @merchants = Merchant.all.paginate(page: params[:page], per_page: 10)
     @merchants = MerchantSearch.search params
   end
