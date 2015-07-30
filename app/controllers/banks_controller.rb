@@ -4,7 +4,6 @@ class BanksController < ApplicationController
   acts_as_token_authentication_handler_for User, only: [:index]
 
   def index
-    puts "params is #{params}"
     @banks = BankSearch.search params
   end
 

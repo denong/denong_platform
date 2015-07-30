@@ -12,9 +12,9 @@ resource "银行" do
       banks << create(:bank, name:"招商银行")
       banks << create(:bank, name:"工商银行")
       banks << create(:bank, name:"上海银行")
-      banks.each do |bank|
-        bank.index!
-      end
+      banks << create(:bank, name:"a")
+      
+      Bank.reindex
       Sunspot.commit
     end
 
@@ -33,7 +33,6 @@ resource "银行" do
 
     example "搜索银行名称" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq(200)
     end
 

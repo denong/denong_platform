@@ -7,11 +7,9 @@ class BankSearch
     search_text = q[:search] || ""
     order_sym = q[:order].try(:to_sym)
 
-    puts "#{page}. #{per_page}, #{search_text}"
-    puts "bank is #{Bank.all.inspect}"
     # Perform the search
     s = Bank.search do
-      # paginate page: page, per_page: per_page
+      paginate page: page, per_page: per_page
       
       fulltext search_text if search_text.present?
 

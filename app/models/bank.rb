@@ -9,7 +9,13 @@
 #
 
 class Bank < ActiveRecord::Base
+  
   searchable do
     text :name
   end
+
+  def self.name_search search_text
+    where("name LIKE ?", "%#{search_text}%")
+  end
+  
 end
