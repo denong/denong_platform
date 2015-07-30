@@ -55,7 +55,7 @@ class DataReport < ActiveRecord::Base
         end
       end
       p.use_shared_strings = true
-      p.serialize('public/finance.xlsx')
+      p.serialize("public/#{Time.zone.now.strftime('%Y-%m-%d')}.xlsx")
     end
   end
 
