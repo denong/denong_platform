@@ -23,6 +23,7 @@
 class DataReport < ActiveRecord::Base
   def process
     UserReport.new.process
+    FinanceReport.new.process
   end
 
   class FinanceReport
