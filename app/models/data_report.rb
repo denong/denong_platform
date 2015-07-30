@@ -23,6 +23,41 @@
 class DataReport < ActiveRecord::Base
   def process
     UserReport.new.process
+    FinanceReport.new.process
+  end
+
+  class FinanceReport
+    def process
+      p = Axlsx::Package.new
+      p.workbook.add_worksheet(:name => "财务报表") do |sheet|
+        sheet.add_row ["日报表"]
+        sheet.add_row ["统计时间", "商户名", "代理商", "交易金额", "小金"]
+
+        prices = TlTrade.sum_day_price
+        prices.map do |i, e|
+          merchant = Merchant.where(id: i).first
+          if merchant.present?
+            merchant.jajin_total
+            merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
+            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, merchant.agent.name, e, merchant.jajin_total]
+          end
+        end
+
+        sheet.add_row ["月报表"]
+        sheet.add_row ["统计时间", "商户名", "代理商", "交易金额", "小金"]
+        prices = TlTrade.sum_month_price
+        prices.map do |i, e|
+          merchant = Merchant.where(id: i).first
+          if merchant.present?
+            merchant.jajin_total
+            merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
+            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, merchant.agent.name, e, merchant.jajin_total]
+          end
+        end
+      end
+      p.use_shared_strings = true
+      p.serialize("public/#{Time.zone.now.strftime('%Y-%m-%d')}.xlsx")
+    end
   end
 
   class UserReport
