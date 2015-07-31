@@ -50,6 +50,14 @@ class BankCard < ActiveRecord::Base
 
       bank_card_info = find_info params[:card]
       bank_card.bank_name = bank_card_info.try(:bank)
+
+      if bank_card.bank_name.present?
+        bank = Bank.find_by(name:bank_card.bank_name)
+        if bank.present?
+          bank_card.bank_id = bank.id
+          bank.bank_card_amount += 1 
+        end
+      end
       bank_card.card_type_name = bank_card_info.try(:card_type)
 
       bank_card.name = params[:name]
