@@ -10,12 +10,21 @@
 
 class Bank < ActiveRecord::Base
   
+  has_many :bank_cards
+
+  has_one :logo, -> { where photo_type: "logo" }, class_name: "Image", as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :logo, allow_destroy: true
+
   searchable do
     text :name
   end
-
-  def self.name_search search_text
-    where("name LIKE ?", "%#{search_text}%")
-  end
   
+  def bind_bank_card! bank_card
+    self.bank_cards << bank_card
+  end
+
+  def bind_bank_card? customer
+    self.bank_cards.find_by(customer: customer).present?
+  end
+
 end

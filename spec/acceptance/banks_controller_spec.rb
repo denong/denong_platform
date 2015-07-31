@@ -16,6 +16,8 @@ resource "银行" do
       
       Bank.reindex
       Sunspot.commit
+
+      create(:bank_card, customer: customer, bank_name: "招商银行", bank_id: 8)
     end
 
     user_attrs = FactoryGirl.attributes_for(:user)
