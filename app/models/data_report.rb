@@ -26,6 +26,28 @@ class DataReport < ActiveRecord::Base
     FinanceReport.new.process
   end
 
+  class JajinReport
+    def process
+      p = Axlsx::Package.new
+      p.workbook.add_worksheet(:name => "财务报表") do |sheet|
+        sheet.add_row ["小金记录"]
+        sheet.add_row ["统计时间", "商户名", "代理商", "比例", "小金"]
+
+        prices = JajinLog.sum_amount
+        prices.map do |i, e|
+          merchant = Merchant.where(id: i).first
+          if merchant.present?
+            merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
+            agent_name = merchant.agent.name rescue ""
+            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, agent_name, merchant.ratio, e]
+          end
+        end
+        p.use_shared_strings = true
+        p.serialize("public/jajin_#{Time.zone.now.strftime('%Y-%m-%d')}.xlsx")
+      end
+    end
+  end
+
   class FinanceReport
     def process
       p = Axlsx::Package.new

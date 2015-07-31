@@ -21,10 +21,12 @@ class JajinLog < ActiveRecord::Base
 
   scope :in, -> { where "amount > 0" }
   scope :out, -> { where "amount < 0" }
-  
+
   scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
   scope :weeks, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
   scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
+
+  scope :sum_amount, -> { group(:merchant_id).sum(:amount) }
 
   after_create :send_notification
 
