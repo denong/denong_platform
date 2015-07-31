@@ -38,7 +38,8 @@ class DataReport < ActiveRecord::Base
           merchant = Merchant.where(id: i).first
           if merchant.present?
             merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
-            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, merchant.agent.name rescue "", merchant.ratio, e]
+            agent_name = merchant.agent.name rescue ""
+            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, agent_name, merchant.ratio, e]
           end
         end
         p.use_shared_strings = true
