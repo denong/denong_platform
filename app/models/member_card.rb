@@ -85,6 +85,7 @@ class MemberCard < ActiveRecord::Base
 
     def add_merchant_member_card_amount
       merchant.member_card_amount += 1
+      merchant.save
     end
 
 end
