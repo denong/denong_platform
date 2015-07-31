@@ -40,7 +40,6 @@ resource "银行" do
 
     example "搜索银行名称" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq(200)
     end
 
