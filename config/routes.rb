@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   resources :boards
 
   devise_ios_rails_for :agents
-  devise_ios_rails_for :merchant_users
+  devise_ios_rails_for :merchant_users  
 
   resources :sms_tokens, only: [:create]
   resources :pension, only: [:index]
-
+  
   resources :jajin, only: [:index]
-
+  
   resources :merchants, only: [:index, :show, :update, :create] do
     resources :shops, only: [:index, :new, :create, :update]
     collection do
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :merchant, only: [:show]
+  resource :merchant, only: [:show] 
 
   match 'merchant/:id/merchant_customer/verify' => 'merchant_customers#verify', :via => [:post]
 
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       post 'unfollow'
     end
     collection do
-      post 'neighbour_shop'
+      post 'neighbour_shop' 
     end
   end
 
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
       post 'unbind'
     end
   end
-
+  
   resources :yl_trades, only: [:create, :index, :show]
   resources :merchant_messages, only: [:create, :index] do
     member do
@@ -60,7 +60,6 @@ Rails.application.routes.draw do
 
   resources :bank_cards, only: [:index, :create] do
     collection do
-      get 'search'
       post 'send_msg'
       get 'bank_info'
     end
@@ -69,7 +68,7 @@ Rails.application.routes.draw do
   resource :merchant_sys_reg_info
 
 
-  ################################################
+  ################################################ 
   # 用户相关的路由
   devise_ios_rails_for :users
 
@@ -129,7 +128,7 @@ Rails.application.routes.draw do
 
   # 小金消费通知
   resources :consume_messages, only: [:show]
-
+  
   # 会员卡积分转小金
   resources :member_card_point_log, only: [:create, :show, :index]
   ################################################
@@ -146,7 +145,7 @@ Rails.application.routes.draw do
   resources :tickets, only: [:create]
 
   resources :jajin_identity_code, only: [:create]
-
+  
   resource :check_merchant do
     member do
       post 'reset'
@@ -167,6 +166,8 @@ Rails.application.routes.draw do
 
   resources :balance_logs, only: [:create, :index]
 
+  resources :banks, only: [:index]
+  
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'

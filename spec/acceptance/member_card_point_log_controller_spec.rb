@@ -9,7 +9,8 @@ resource "积分转小金记录" do
       create(:user)
       merchant = create(:merchant)
       merchant_customer = create(:merchant_customer)
-      @member_card = create(:member_card, merchant: merchant)
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+      @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333")
     end
 
     let(:id) { MemberCard.all.last.id }
@@ -44,9 +45,12 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer)
       merchant_customers << create(:merchant_customer, u_id: "77777777")
 
+      create(:personal_info, name: "A1", id_card: "111111111111111111")
+      create(:personal_info, name: "A2", id_card: "222222222222222222")
+
       member_cards = []
-      member_cards << create(:member_card, customer: customer, merchant: merchant)
-      member_cards << create(:member_card, user_name: "77777777", customer: customer, merchant: merchant)
+      member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
+      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant)
 
       member_cards.each do |member_card|
         create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
@@ -80,9 +84,12 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer, merchant: merchant)
       merchant_customers << create(:merchant_customer, u_id: "77777777", merchant: merchant)
 
+      create(:personal_info, name: "A1", id_card: "111111111111111111")
+      create(:personal_info, name: "A2", id_card: "222222222222222222")
+
       member_cards = []
-      member_cards << create(:member_card, customer: customer, merchant: merchant)
-      member_cards << create(:member_card, user_name: "77777777", customer: customer, merchant: merchant)
+      member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
+      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant)
 
       member_cards.each do |member_card|
         (0..1).each do |index|
@@ -121,9 +128,12 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer, merchant: merchant)
       merchant_customers << create(:merchant_customer, u_id: "77777777", merchant: merchant)
 
+      create(:personal_info, name: "A1", id_card: "111111111111111111")
+      create(:personal_info, name: "A2", id_card: "222222222222222222")
+
       member_cards = []
-      member_cards << create(:member_card, customer: customer, merchant: merchant)
-      member_cards << create(:member_card, user_name: "77777777", customer: customer, merchant: merchant)
+      member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
+      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant)
 
       member_cards.each do |member_card|
         create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)

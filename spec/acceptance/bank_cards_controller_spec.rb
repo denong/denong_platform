@@ -58,7 +58,9 @@ resource "绑定银行卡" do
     response_field :customer_id, "消费者ID"
     response_field :created_at, "创建时间"
     response_field :updated_at, "更新时间"
-
+    response_field :bank_id, "该银行卡所属银行的ID"
+    response_field :bank_card_amount, "该银行卡所属银行已经授权银行卡的数量"
+    
     example "银联短信验证" do
       do_request
       expect(status).to eq 200

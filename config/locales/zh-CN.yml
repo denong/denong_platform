@@ -26,3 +26,5 @@ zh-CN:
         verify_code: "提示："
       ticket:
         Customer: "消费者"
+      member_card:
+        passwd: "该身份证"

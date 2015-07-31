@@ -22,6 +22,7 @@
 #  stat_code          :string(255)
 #  res_code           :string(255)
 #  certification_type :string(255)
+#  bank_id            :integer
 #
 
 class BankCard < ActiveRecord::Base
@@ -41,6 +42,7 @@ class BankCard < ActiveRecord::Base
 
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     logger.info "bank card bind result is: #{result}"
+    puts "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
 
       if params[:auth_type].to_i == 1
@@ -51,6 +53,15 @@ class BankCard < ActiveRecord::Base
 
       bank_card_info = find_info params[:card]
       bank_card.bank_name = bank_card_info.try(:bank)
+
+      if bank_card.bank_name.present?
+        bank = Bank.find_by(name:bank_card.bank_name)
+        if bank.present?
+          bank_card.bank_id = bank.id
+          bank.bank_card_amount += 1 
+          bank.save
+        end
+      end
       bank_card.card_type_name = bank_card_info.try(:card_type)
 
       bank_card.name = params[:name]

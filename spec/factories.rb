@@ -1,7 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  factory :personal_info do
+FactoryGirl.define do  factory :bank do
     name "MyString"
-id "MyString"
+  end
+  
+  factory :personal_info do
+    name "MyString"
+    id_card "333333333333333333"
   end
   
   factory :balance_log do
@@ -347,8 +351,8 @@ id "MyString"
 
   factory :member_card do
     point 100.88
-    user_name "88888888"
-    passwd "abcd.1234"
+    user_name "MyString"
+    passwd "333333333333333333"
   end
 
   factory :gain_org do
