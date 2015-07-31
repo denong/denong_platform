@@ -11,7 +11,7 @@ resource "绑定银行卡" do
 
     parameter :card, "银行卡号", required: true
     parameter :name, "姓名",  required: true
-    parameter :mobile, "电话号码", required: true
+    parameter :id_card, "身份证号", required: true
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -20,7 +20,7 @@ resource "绑定银行卡" do
 
     let(:card) { "6222520358610001" }
     let(:name) { "张三" }
-    let(:mobile) { "15826541234" }
+    let(:id_card) { "123456789012345678" }
     let(:raw_post) { params.to_json }
 
     example "银联绑定银行卡" do
@@ -60,7 +60,7 @@ resource "绑定银行卡" do
     response_field :updated_at, "更新时间"
     response_field :bank_id, "该银行卡所属银行的ID"
     response_field :bank_card_amount, "该银行卡所属银行已经授权银行卡的数量"
-    
+
     example "银联短信验证" do
       do_request
       expect(status).to eq 200
