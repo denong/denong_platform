@@ -40,6 +40,7 @@ class BankCard < ActiveRecord::Base
 
     result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
     logger.info "bank card bind result is: #{result}"
+    puts "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
 
       if params[:auth_type].to_i == 1
@@ -56,6 +57,7 @@ class BankCard < ActiveRecord::Base
         if bank.present?
           bank_card.bank_id = bank.id
           bank.bank_card_amount += 1 
+          bank.save
         end
       end
       bank_card.card_type_name = bank_card_info.try(:card_type)
