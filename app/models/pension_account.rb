@@ -25,7 +25,7 @@ class PensionAccount < ActiveRecord::Base
     accounts = []
     verifies.each do |identity_verify|
 
-      next if Pension.find_by_id_card(identity_verify.id_card).present?
+      next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
 
       self.create_by_customer identity_verify.customer
     end
@@ -39,7 +39,7 @@ class PensionAccount < ActiveRecord::Base
     verifies.each do |identity_verify|
       i+=1
       break if i >= create_num
-      next if Pension.find_by_id_card(identity_verify.id_card).present?
+      next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
 
       self.create_by_customer identity_verify.customer
     end
