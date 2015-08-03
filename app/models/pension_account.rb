@@ -32,6 +32,19 @@ class PensionAccount < ActiveRecord::Base
 
   end
 
+  def self.create_by_identity_info_and_num create_num
+    verifies = IdentityVerify.where(account_state: 0, verify_state: 2)
+    accounts = []
+    i = 0
+    verifies.each do |identity_verify|
+      i+=1
+      break if i >= create_nums
+      next if Pension.find_by_id_card(identity_verify.id_card).present?
+
+      self.create_by_customer identity_verify.customer
+    end
+  end
+
   def self.create_by_phone phone
     user = User.find_by phone: phone
     self.create_by_customer user.customer if user.try(:customer).present? && !(user.try(:customer).try(:pension).present?)
