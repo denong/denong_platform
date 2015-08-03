@@ -26,6 +26,7 @@ class PensionAccount < ActiveRecord::Base
     verifies.each do |identity_verify|
 
       next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
+      next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
 
       self.create_by_customer identity_verify.customer
       # sleep 0.5
@@ -40,8 +41,10 @@ class PensionAccount < ActiveRecord::Base
     verifies.each do |identity_verify|
       i+=1
       break if i >= create_num
+      puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
-      puts "this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
+      next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
+      puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
       # sleep 0.5
     end
