@@ -28,6 +28,7 @@ class PensionAccount < ActiveRecord::Base
       next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
 
       self.create_by_customer identity_verify.customer
+      sleep 0.5
     end
 
   end
@@ -42,6 +43,7 @@ class PensionAccount < ActiveRecord::Base
       next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
       puts "id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
+      sleep 0.5
     end
   end
 
