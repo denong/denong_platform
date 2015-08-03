@@ -21,7 +21,7 @@ class PensionAccount < ActiveRecord::Base
   after_create :add_account_info
 
   def self.create_by_identity_info
-    verifies = IdentityVerify.where(account_state: 0, verify_state: 2)
+    verifies = CustomerRegInfo.where(account_state: 0, verify_state: 2)
     accounts = []
     verifies.each do |identity_verify|
 
@@ -35,7 +35,7 @@ class PensionAccount < ActiveRecord::Base
   end
 
   def self.create_by_identity_info_and_num create_num
-    verifies = IdentityVerify.where(account_state: 0, verify_state: 2)
+    verifies = CustomerRegInfo.where(account_state: 0, verify_state: 2)
     accounts = []
     i = 0
     verifies.each do |identity_verify|
