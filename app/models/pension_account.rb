@@ -38,16 +38,20 @@ class PensionAccount < ActiveRecord::Base
     verifies = CustomerRegInfo.where(account_state: 0, verify_state: 2)
     accounts = []
     i = 0
+    iSuccess = 0
     verifies.each do |identity_verify|
       i+=1
-      break if i >= create_num
+      break if i > create_num
       puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
       next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
       puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
+      iSuccess += 1
       # sleep 0.5
     end
+
+    puts "#{create_num - iSuccess} failed, #{iSuccess} success !"
   end
 
   def self.create_by_phone phone
