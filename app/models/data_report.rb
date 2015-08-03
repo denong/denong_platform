@@ -31,7 +31,7 @@ class DataReport < ActiveRecord::Base
       p = Axlsx::Package.new
       p.workbook.add_worksheet(:name => "财务报表") do |sheet|
         sheet.add_row ["小金记录"]
-        sheet.add_row ["统计时间", "商户名", "代理商", "比例", "小金"]
+        sheet.add_row ["统计时间", "商户名", "代理商", "比例", "小金", "交易金额"]
 
         prices = JajinLog.sum_amount
         prices.map do |i, e|
@@ -39,7 +39,7 @@ class DataReport < ActiveRecord::Base
           if merchant.present?
             merchant_info = MerchantSysRegInfo.where(merchant_id: merchant.id).first.sys_name
             agent_name = merchant.agent.name rescue ""
-            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, agent_name, merchant.ratio, e]
+            sheet.add_row [Time.now.strftime("%Y-%m-%d %H:%M"), merchant_info, agent_name, merchant.ratio, e, TlTrade.where(merchant_id: i).sum(:price)]
           end
         end
         p.use_shared_strings = true
