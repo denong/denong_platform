@@ -67,6 +67,7 @@ resource "获取商户信息" do
     let(:page) { 1 }
     example "搜索商户名称字段" do
       do_request
+      
       expect(status).to eq(200)
     end
 
