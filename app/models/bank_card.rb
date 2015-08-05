@@ -28,6 +28,8 @@
 class BankCard < ActiveRecord::Base
   require 'openssl'
   require 'base64'
+  require 'cgi'
+
   belongs_to :customer
 
   scope :success, -> { where(stat_code: ["00", "02"]) }
@@ -40,7 +42,10 @@ class BankCard < ActiveRecord::Base
     #   logger.info "bank card finish response is:#{response}"
     # end
 
-    result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
+    # result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
+
+    result = BankCard.new.verify_bank_card_from_xt params
+
     logger.info "bank card bind result is: #{result}"
     puts "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
@@ -58,7 +63,7 @@ class BankCard < ActiveRecord::Base
         bank = Bank.find_by(name:bank_card.bank_name)
         if bank.present?
           bank_card.bank_id = bank.id
-          bank.bank_card_amount += 1 
+          bank.bank_card_amount += 1
           bank.save
         end
       end
@@ -106,48 +111,84 @@ class BankCard < ActiveRecord::Base
     bank_card_info = find_info_by_place(bank_card_number, 5) || find_info_by_place(bank_card_number, 4) || find_info_by_place(bank_card_number, 3)
   end
 
-  def verify_bank_card_from_xt
+  def verify_bank_card_from_xt params
     merchId = '000072'
     tranDate = Time.zone.now.strftime("%Y%m%d")
     tranId = Time.zone.now.strftime("%H%M%S")
     tranTime = Time.zone.now.strftime("%H%M%S")
-    acctNo = "6228480030810636313"
-    acctName = "汤志荣"
-    certNo = "31011519840329383X"
-    phone = "13761964217"
+    acctNo = params[:card]
+    acctName = params[:name]
+    certNo = params[:id_card]
+    phone = ""
 
     key = ""
     key = key<<merchId<<tranDate<<tranId<<tranTime<<acctNo<<acctName<<certNo<<phone
-    p key
-    # signature = EncryptRsa.new().private_encrypt(key)
-    signature = EncryptRsa.process(key)
-    p signature
-    verify_url = "#{xt_base_url}uapi/verify/bankcard/v1"
-    params =  {"merchId" => merchId, "tranDate" => tranDate, "tranId" => tranId, "tranTime" => tranTime, "acctNo" => acctNo, "acctName" => acctName, "certNo" => certNo, "phone" => phone, "signature" => signature}
-    # p params
-    # p "#{verify_url}"
 
-    conn = Faraday.new(:url => 'http://test.trust-one.com') do |faraday|
-      faraday.request  :url_encoded             # form-encode POST params
-      faraday.response :logger                  # log requests to STDOUT
-      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+    signature = EncryptRsa.process(key)
+    verify_url = "#{xt_base_url}/uapi/verify/bankcard/v1"
+    params =  {"merchId" => merchId, "tranDate" => tranDate, "tranId" => tranId, "tranTime" => tranTime, "acctNo" => acctNo, "acctName" => acctName, "certNo" => certNo, "signature" => signature}
+
+    conn = Faraday.new(:url => "#{xt_base_url}") do |faraday|
+      faraday.request  :url_encoded
+      faraday.response :logger
+      faraday.adapter  Faraday.default_adapter
     end
 
-    response = conn.post "http://test.trust-one.com/trust-gateway/uapi/verify/bankcard/v1?tranTime=#{tranTime}&tranDate=#{tranDate}&phone=#{phone}&acctNo=#{acctNo}&acctName=#{acctName}&certNo=#{certNo}&tranId=#{tranId}&merchId=#{merchId}&signature=#{signature}"
-    # response = conn.post verify_url, params
+    response = conn.post "#{xt_base_url}/uapi/verify/bankcard/v1?tranTime=#{tranTime}&tranDate=#{tranDate}&acctNo=#{acctNo}&acctName=#{acctName}&phone=#{phone}&certNo=#{certNo}&tranId=#{tranId}&merchId=#{merchId}&signature=#{signature}"
 
     result = MultiJson.load response.body
     p result
-    # result = MultiJson.load RestClient.post(verify_url, params)
-    # signature = "1CC7E9ACD10A3898ECF5FFE529F3E5E3E749C178CF689A51DB73AD0DEB8A7B6599E62BA82EC99ACF72B692819E5E9E3DD59075A708DB04008562DB6C536168109E1340E815060D46A947A80D7EA040083ABC19E5641B1DAA10BFC25430F038398AEC4B7C8CE62F925EC757048FC491D6AB19E5E1755C243ED06724C3B4DF74C3"
-    # verify_url = "#{xt_base_url}uapi/verify/id/v1?merchId=000001&tranDate=20150416&tranId=888&tranTime=123030&name=张三&certNo=310115198501174210&signature=#{signature}"
-    # result = MultiJson.load RestClient.post(URI.parse(verify_url), "")
 
-    # p result
-    nil
+    result
+  end
+
+  def verify_bank_card_from_dq params
+    params = VerifyParams.new
+    params.api_name = "daqian.pay.verify_card"
+    params.bp_id = "998800001126149"
+    params.api_key = "real_7788000015920364527"
+    params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
+    params.user_name = "于子洵"
+    params.cert_type = "a"
+    params.cert_no = "330726199110011333"
+    # params.card_no = "6228480030810636313"
+    params.card_no = "6226620607696580"
+    params.user_mobile = "18516107607"
+
+    verify_url = "#{dq_base_url}api/api.do"
+    params = params.to_json
+    signature = EncryptRsa.process(params)
+    signature = signature.delete("\n")
+    signature = CGI.escape(signature)
+
+    conn = Faraday.new(:url => "#{dq_base_url}") do |faraday|
+      faraday.request  :url_encoded
+      faraday.response :logger
+      faraday.adapter  Faraday.default_adapter
+    end
+    p "signature: #{signature}"
+    params = CGI.escape(params)
+    request_params = "data=#{params}&sign=#{signature}&sign_type=RSA&version=1.0"
+
+    response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
+
+    result = MultiJson.load response.body
+    data = result["data"]
+    data = URI::decode data
+    data = MultiJson.load data
+    p data
+    # result
+  end
+
+  def URLDecode(str)
+    str.gsub!(/%[a-fA-F0-9]{2}/) { |x| x = x[1..2].hex.chr }
   end
 
   private
+    def dq_base_url
+      "http://121.40.208.138:7080/"
+    end
+
     def xt_base_url
       "http://test.trust-one.com/trust-gateway/"
     end
