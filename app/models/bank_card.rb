@@ -34,6 +34,16 @@ class BankCard < ActiveRecord::Base
 
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
+  def self.verify_bank_card params
+    unless params[:name].present? && params[:id_card].present? && params[:bank_card].present?
+      errors.add(:message, "信息不全")
+      return false
+    end
+
+    # 调用接口
+    
+  end
+
   def self.add_bank_card params
     # 需要四个参数, user_id, card, mobile, name
     bank_card = self.find_or_create_by(bankcard_no: params[:card], customer_id: params[:user_id])
@@ -42,9 +52,9 @@ class BankCard < ActiveRecord::Base
     #   logger.info "bank card finish response is:#{response}"
     # end
 
-    # result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
+    result = MultiJson.load RestClient.post("http://121.40.62.252:3000/auth/card", params.to_json, content_type: :json, accept: :json)
 
-    result = BankCard.new.verify_bank_card_from_xt params
+    # result = BankCard.new.verify_bank_card_from_xt params
 
     logger.info "bank card bind result is: #{result}"
     puts "bank card bind result is: #{result}"

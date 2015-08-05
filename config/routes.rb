@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     collection do
       post 'send_msg'
       get 'bank_info'
+      post 'verify'
     end
   end
 

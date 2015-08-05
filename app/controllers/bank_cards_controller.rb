@@ -28,6 +28,16 @@ class BankCardsController < ApplicationController
     @certification_type =  bank_card.try(:certification_type) || @bank_card_info.try(:certification_type) || "sms"
   end
 
+  def verify
+    
+  end
 
+  # if @bank_card
+  #   json.extract! @bank_card, :id, :bankcard_no, :name, :customer_id, :updated_at, :bank_name, :bank_id
+  #   json.bank_card_amount @bank_card.try(:bank).try(:bank_card_amount)
+  #   json.bank_logo image_url("bank/#{@bank_card.bank_name}.png")
+  # else
+  #   json.error "验证失败"
+  # end
 
 end

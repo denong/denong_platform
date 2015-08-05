@@ -1,0 +1,11 @@
+json.id 1
+json.bankcard_no "6214850212345678"
+json.name "姓名"
+json.id_card "123456789012345678"
+json.customer_id 2
+json.created_at "2015-08-05T15:14:27.248+08:00"
+json.updated_at "2015-08-05T15:15:27.248+08:00"
+json.bank_name "招商银行"
+json.bank_id 1
+json.bank_card_amount 10
+json.bank_logo image_url("bank/招商银行.png")
