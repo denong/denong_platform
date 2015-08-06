@@ -51,7 +51,6 @@ class RewardLog < ActiveRecord::Base
 
       max = reward.try(:max).to_i
       count = RewardLog.where(verify_code: verify_code, customer_id: customer_id).count
-      logger.info "count is #{count}, max is #{max}, count >= max ? #{count >= max}"
       if count >= max
         errors.add(:message, "抱歉，您无法重复领取该奖励小金")
       end

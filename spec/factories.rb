@@ -1,5 +1,9 @@
 require 'rack/test'
-FactoryGirl.define do  factory :bank do
+FactoryGirl.define do  factory :bank_card_type do
+    bank_name "MyString"
+bank_card_type 1
+  end
+  factory :bank do
     name "MyString"
   end
   
