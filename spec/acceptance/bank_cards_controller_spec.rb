@@ -112,12 +112,15 @@ resource "绑定银行卡" do
 
   post "/bank_cards/verify" do
     before do
-      FactoryGirl.create(:customer_with_jajin_pension)
+      create(:customer_with_jajin_pension)
+      create(:bank)
     end
 
     parameter :card, "银行卡号", required: true
     parameter :name, "姓名",  required: true
     parameter :id_card, "身份证号", required: true
+    parameter :bank_card_type, "银行卡类型(0:借记卡,1:信用卡)", required: true
+    parameter :bank_id, "银行ID", required: true
 
     response_field :id, "银行卡ID"
     response_field :bankcard_no, "卡号"
@@ -140,10 +143,13 @@ resource "绑定银行卡" do
     let(:card) { "6222520358610001" }
     let(:name) { "张三" }
     let(:id_card) { "123456789012345678" }
+    let(:bank_card_type) { 0 }
+    let(:bank_id) { 1 }
     let(:raw_post) { params.to_json }
 
     example "授权银行卡" do
       do_request
+      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end

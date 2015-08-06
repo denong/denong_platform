@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731064818) do
+ActiveRecord::Schema.define(version: 20150806085951) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(version: 20150731064818) do
 
   add_index "bank_card_infos", ["bin"], name: "index_bank_card_infos_on_bin"
 
+  create_table "bank_card_types", force: true do |t|
+    t.string   "bank_name"
+    t.integer  "bank_card_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "bank_id"
+  end
+
+  add_index "bank_card_types", ["bank_id"], name: "index_bank_card_types_on_bank_id"
+
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
     t.string   "id_card"
@@ -80,6 +90,7 @@ ActiveRecord::Schema.define(version: 20150731064818) do
     t.string   "res_code"
     t.string   "certification_type"
     t.integer  "bank_id"
+    t.integer  "bank_card_type"
   end
 
   add_index "bank_cards", ["bank_id"], name: "index_bank_cards_on_bank_id"
@@ -89,7 +100,9 @@ ActiveRecord::Schema.define(version: 20150731064818) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "bank_card_amount", default: 0
+    t.integer  "bank_card_amount",   default: 0
+    t.integer  "debit_card_amount",  default: 0
+    t.integer  "credit_card_amount", default: 0
   end
 
   create_table "boards", force: true do |t|

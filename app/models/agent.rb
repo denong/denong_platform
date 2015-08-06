@@ -38,6 +38,13 @@ class Agent < ActiveRecord::Base
   has_many :merchants
   validate :sms_token_validate
 
+  validates_uniqueness_of :phone
+  validates_presence_of :phone
+  validates :phone, length: { is: 11 }
+  validates_uniqueness_of :email
+  validates_presence_of :email
+
+
   def email_required?
     false
   end
