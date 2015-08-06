@@ -155,8 +155,10 @@ class BankCard < ActiveRecord::Base
   def verify_bank_card_from_dq params
     v_params = VerifyParams.new
     v_params.api_name = "daqian.pay.verify_card"
-    v_params.bp_id = "998800001126149"
-    v_params.api_key = "real_7788000015920364527"
+    # v_params.bp_id = "998800001126149"
+    v_params.bp_id = "998800001145881"
+    # v_params.api_key = "real_7788000015920364527"
+    v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
     v_params.user_name = "于子洵"
     v_params.cert_type = "a"
@@ -195,7 +197,8 @@ class BankCard < ActiveRecord::Base
 
   private
     def dq_base_url
-      "http://121.40.208.138:7080/"
+      # "http://121.40.208.138:7080/"
+      "http://120.26.59.208:8443/"
     end
 
     def xt_base_url
