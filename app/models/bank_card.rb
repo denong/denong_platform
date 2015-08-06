@@ -177,7 +177,7 @@ class BankCard < ActiveRecord::Base
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
 
-    conn = Faraday.new(:url => "#{dq_base_url}", { ssl: { verify: false } }) do |faraday|
+    conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
     # conn = Faraday.new(:url => "#{dq_base_url}", :ssl => {:ca_path => "/usr/lib/ssl/certs" }) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
