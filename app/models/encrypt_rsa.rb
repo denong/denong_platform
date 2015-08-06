@@ -25,17 +25,16 @@ class EncryptRsa
 
 
   def self.process(str)
-    # str = 'Alex'
     pri = OpenSSL::PKey::RSA.new File.read('private_key_pkcs8.pem')
     sign = pri.sign("sha1", str.force_encoding("utf-8"))
-    # sign = Base64.encode64(sign)
-    puts "sign is : #{sign.unpack('H*').first}"
+    sign = Base64.encode64(sign)
+    # puts "sign is : #{sign.unpack('H*').first}"
 
-    pub = OpenSSL::PKey::RSA.new File.read('public_key3.pem')
-    result = pub.verify("sha1", sign, str.force_encoding("utf-8"))
-    puts "verify #{result ? 'successful!' : 'failed!'}"
-    sign.unpack('H*').first
-
+    # pub = OpenSSL::PKey::RSA.new File.read('public_key3.pem')
+    # result = pub.verify("sha1", sign, str.force_encoding("utf-8"))
+    # puts "verify #{result ? 'successful!' : 'failed!'}"
+    # sign.unpack('H*').first
+    sign
   end
 
   def change
