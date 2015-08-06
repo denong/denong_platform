@@ -33,10 +33,10 @@ class BankCard < ActiveRecord::Base
 
   # debit_card: 借记卡, credit_card: 信用卡
   enum bank_card_type: { debit_card: 0, credit_card: 1}
-  
+
   belongs_to :customer
   validates_presence_of :bank_id
-  
+  validates_presence_of :bank_card_type
 
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
@@ -78,7 +78,6 @@ class BankCard < ActiveRecord::Base
         bank = Bank.find_by(name:bank_card.bank_name)
         if bank.present?
           bank_card.bank_id = bank.id
-          bank.bank_card_amount += 1
           bank.save
         end
       end
@@ -220,4 +219,24 @@ class BankCard < ActiveRecord::Base
       end
       self.customer = user.customer
     end
+
+    def update_bank_infomation
+      #  bank_id            :integer
+      #  bank_card_type     :integer
+      bank = Bank.find_by_id(bank_id)
+      unless bank.present?
+        errors.add :bank, "该银行不存在"
+        return false
+      end
+
+      bank.bank_card_amount += 1
+      
+      if bank_card_type == 0
+        bank.debit_card_amount += 1
+      elsif bank_card_type == 1
+        bank.credit_card_amount += 1
+      end
+
+    end
+
 end
