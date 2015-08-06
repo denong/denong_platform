@@ -23,6 +23,7 @@
 #  res_code           :string(255)
 #  certification_type :string(255)
 #  bank_id            :integer
+#  bank_card_type     :integer
 #
 
 require 'rails_helper'

@@ -23,6 +23,7 @@
 #  res_code           :string(255)
 #  certification_type :string(255)
 #  bank_id            :integer
+#  bank_card_type     :integer
 #
 
 class BankCard < ActiveRecord::Base
@@ -30,7 +31,12 @@ class BankCard < ActiveRecord::Base
   require 'base64'
   require 'cgi'
 
+  # debit_card: 借记卡, credit_card: 信用卡
+  enum bank_card_type: { debit_card: 0, credit_card: 1}
+  
   belongs_to :customer
+  validates_presence_of :bank_id
+  
 
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
