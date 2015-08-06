@@ -1,4 +1,4 @@
-class BankTypeSearch
+class BankCardTypeSearch
   def self.search q = {}
 
     page = q.delete(:page) || 1
