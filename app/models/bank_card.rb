@@ -198,7 +198,7 @@ class BankCard < ActiveRecord::Base
   private
     def dq_base_url
       # "http://121.40.208.138:7080/"
-      "http://120.26.59.208:8443/"
+      "https://120.26.59.208:8443/"
     end
 
     def xt_base_url
