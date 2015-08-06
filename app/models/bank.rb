@@ -12,7 +12,8 @@
 class Bank < ActiveRecord::Base
   
   has_many :bank_cards
-
+  has_many :bank_card_types
+  
   has_one :logo, -> { where photo_type: "logo" }, class_name: "Image", as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :logo, allow_destroy: true
 

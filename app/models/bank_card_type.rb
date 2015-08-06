@@ -7,13 +7,17 @@
 #  bank_card_type :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  bank_id        :integer
 #
 
 class BankCardType < ActiveRecord::Base
   # debit_card: 借记卡, credit_card: 信用卡
   enum bank_card_type: [ :debit_card, :credit_card]
 
+  belongs_to :bank
+  
   searchable do  
     text :bank_name 
+    integer :bank_card_type
   end 
 end
