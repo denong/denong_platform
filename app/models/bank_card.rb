@@ -41,7 +41,7 @@ class BankCard < ActiveRecord::Base
     end
 
     # 调用接口
-    
+
   end
 
   def self.add_bank_card params
@@ -153,21 +153,21 @@ class BankCard < ActiveRecord::Base
   end
 
   def verify_bank_card_from_dq params
-    params = VerifyParams.new
-    params.api_name = "daqian.pay.verify_card"
-    params.bp_id = "998800001126149"
-    params.api_key = "real_7788000015920364527"
-    params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
-    params.user_name = "于子洵"
-    params.cert_type = "a"
-    params.cert_no = "330726199110011333"
-    # params.card_no = "6228480030810636313"
-    params.card_no = "6226620607696580"
-    params.user_mobile = "18516107607"
+    v_params = VerifyParams.new
+    v_params.api_name = "daqian.pay.verify_card"
+    v_params.bp_id = "998800001126149"
+    v_params.api_key = "real_7788000015920364527"
+    v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
+    v_params.user_name = "于子洵"
+    v_params.cert_type = "a"
+    v_params.cert_no = "330726199110011333"
+    # v_params.card_no = "6228480030810636313"
+    v_params.card_no = "6226620607696580"
+    v_params.user_mobile = "18516107607"
 
     verify_url = "#{dq_base_url}api/api.do"
-    params = params.to_json
-    signature = EncryptRsa.process(params)
+    v_params = v_params.to_json
+    signature = EncryptRsa.process(v_params)
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
 
@@ -176,9 +176,8 @@ class BankCard < ActiveRecord::Base
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
-    p "signature: #{signature}"
-    params = CGI.escape(params)
-    request_params = "data=#{params}&sign=#{signature}&sign_type=RSA&version=1.0"
+    v_params = CGI.escape(v_params)
+    request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
 
     response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
