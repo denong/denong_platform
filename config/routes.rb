@@ -168,6 +168,8 @@ Rails.application.routes.draw do
   resources :balance_logs, only: [:create, :index]
 
   resources :banks, only: [:index]
+
+  resources :bank_card_types, only: [:index]
   
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'

@@ -7,6 +7,7 @@
 #  bank_card_type :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  bank_id        :integer
 #
 
 require 'rails_helper'

@@ -57,7 +57,6 @@ class BankCard < ActiveRecord::Base
     # result = BankCard.new.verify_bank_card_from_xt params
 
     logger.info "bank card bind result is: #{result}"
-    puts "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
 
       if params[:auth_type].to_i == 1

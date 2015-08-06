@@ -12,12 +12,16 @@
 
 class BankCardType < ActiveRecord::Base
   # debit_card: 借记卡, credit_card: 信用卡
-  enum bank_card_type: [ :debit_card, :credit_card]
+  enum bank_card_type: { debit_card: 0, credit_card: 1}
 
   belongs_to :bank
   
   searchable do  
+    integer :bank_card_type_id
     text :bank_name 
-    integer :bank_card_type
   end 
+
+  def bank_card_type_id
+    BankCardType.bank_card_types[self.bank_card_type]
+  end
 end
