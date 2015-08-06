@@ -2,13 +2,13 @@
 #
 # Table name: banks
 #
-#  id                :integer          not null, primary key
-#  name              :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  bank_card_amount  :integer          default(0)
-#  debit_card_amount :integer          default(0)
-#  credit_card       :integer          default(0)
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  bank_card_amount   :integer          default(0)
+#  debit_card_amount  :integer          default(0)
+#  credit_card_amount :integer          default(0)
 #
 
 require 'rails_helper'
