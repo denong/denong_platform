@@ -159,7 +159,7 @@ class BankCard < ActiveRecord::Base
 
   def verify_bank_card_from_dq params
     # v_params = VerifyParams.new
-    name = "于子洵".force_encoding('utf-8'),
+    name = "于子洵".force_encoding('utf-8')
     v_params = {
       api_name: "daqian.pay.verify_card",
       bp_id: "998800001145881",
