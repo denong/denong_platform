@@ -173,9 +173,7 @@ class BankCard < ActiveRecord::Base
 
     verify_url = "#{dq_base_url}api/api.do"
     v_params = v_params.to_json
-    signature = EncryptRsa.process(v_params)
-    signature = signature.delete("\n")
-    signature = CGI.escape(signature)
+    signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
 
     conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
     # conn = Faraday.new(:url => "#{dq_base_url}", :ssl => {:ca_path => "/usr/lib/ssl/certs" }) do |faraday|
@@ -193,7 +191,7 @@ class BankCard < ActiveRecord::Base
     data = URI::decode data
     data = MultiJson.load data
     p data
-    # result
+    result
   end
 
   def URLDecode(str)

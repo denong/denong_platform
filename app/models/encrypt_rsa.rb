@@ -4,37 +4,42 @@ require "cgi"
 
 class EncryptRsa
 
-  def self.test
+  def test
     # Encoding
+    cc = File.read("private_key3.pem")
+    p cc
     priv_key = OpenSSL::PKey::RSA.new(File.read("private_key3.pem"))
     # sign = Base64.encode64(priv_key.sign(OpenSSL::Digest::DSS1.digest("ruby")))
     sign = Base64.encode64(priv_key.sign("sha1", "ruby".force_encoding("utf-8")))
     puts sign.inspect
 
     # Decoding
-    puts priv_key.sysverify(OpenSSL::Digest::DSS1.digest("ruby"),Base64.decode64(sign))
+    # puts priv_key.sysverify(OpenSSL::Digest::DSS1.digest("ruby"),Base64.decode64(sign))
   end
 
   # 创建公钥私钥对
-  def self.create_key
+  def create_key path
     key = OpenSSL::PKey::RSA.new 1024
-
-    File.open('private_key3.pem', 'w') { |io| io.write key.to_pem }
-    File.open('public_key3.pem', 'w') { |io| io.write key.public_key.to_pem }
+    FileUtils.makedirs(path) unless File.exist?(path)
+    File.open("#{path}/private_key3.pem", 'w') { |io| io.write key.to_pem }
+    File.open("#{path}/public_key3.pem", 'w') { |io| io.write key.public_key.to_pem }
   end
 
 
-  def self.process(str)
-    pri = OpenSSL::PKey::RSA.new File.read('private_key_pkcs8.pem')
+  def self.process(str, path)
+    pri = OpenSSL::PKey::RSA.new File.read(path)
     sign = pri.sign("sha1", str.force_encoding("utf-8"))
     sign = Base64.encode64(sign)
+
     # puts "sign is : #{sign.unpack('H*').first}"
 
-    # pub = OpenSSL::PKey::RSA.new File.read('public_key3.pem')
+    # pub = OpenSSL::PKey::RSA.new File.read('public_key4.pem')
     # result = pub.verify("sha1", sign, str.force_encoding("utf-8"))
     # puts "verify #{result ? 'successful!' : 'failed!'}"
     # sign.unpack('H*').first
-    sign
+
+    sign = sign.delete("\n")
+    sign = CGI.escape(sign)
   end
 
   def change
