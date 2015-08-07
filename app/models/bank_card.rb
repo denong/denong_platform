@@ -185,7 +185,7 @@ class BankCard < ActiveRecord::Base
     # v_params = CGI.escape(v_params)
     v_params = URI::encode(v_params)
     p v_params
-    request_params = "\"data\"=\"#{v_params}\"&\"sign\"=\"#{signature}\"&\"sign_type\"=\"RSA\"&\"version\"=\"1.0\""
+    request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
     p signature
     # response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
     response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
