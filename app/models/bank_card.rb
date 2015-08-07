@@ -185,7 +185,7 @@ class BankCard < ActiveRecord::Base
     v_params = CGI.escape(v_params)
     p v_params
     # request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
-    # p request_params
+    p signature
     response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
     # response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
@@ -195,7 +195,7 @@ class BankCard < ActiveRecord::Base
     # data = URI::decode data
     # data = MultiJson.load data
     p result
-    data
+
   end
 
   def URLDecode(str)
