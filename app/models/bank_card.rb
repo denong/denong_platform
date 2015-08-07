@@ -188,8 +188,8 @@ class BankCard < ActiveRecord::Base
     p v_params
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
     p signature
-    response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
-    # response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
+    # response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
+    response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
     result = MultiJson.load response.body
     # p response.body
