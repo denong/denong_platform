@@ -162,7 +162,8 @@ class BankCard < ActiveRecord::Base
     v_params.bp_id = "998800001145881"
     v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
-    v_params.user_name = "于子洵"
+    # v_params.user_name = "于子洵"
+    v_params.user_name = "Alex"
     v_params.cert_type = "a"
     v_params.cert_no = "330726199110011333"
     v_params.card_no = "6214830212259161"
@@ -187,8 +188,8 @@ class BankCard < ActiveRecord::Base
     p v_params
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
     p signature
-    # response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
-    response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
+    response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
+    # response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
     result = MultiJson.load response.body
     # p response.body
