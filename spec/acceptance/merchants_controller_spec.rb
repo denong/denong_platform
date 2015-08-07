@@ -450,4 +450,74 @@ resource "获取商户信息" do
     end
   end
 
+  post "/merchants" do
+    before(:each) do
+      @agent = create(:agent) 
+    end
+
+    response_field :sys_name, "商户名称"
+    response_field :contact_person, "联系人"
+    response_field :service_tel, "客服电话"
+    response_field :fax_tel, "传真"
+    response_field :email, "邮箱"
+    response_field :company_addr, "公司地址"
+    response_field :region, "地区"
+    response_field :postcode, "邮政编码"
+    response_field :lon, "经度"
+    response_field :lat, "纬度"
+    response_field :welcome_string, "欢迎语"
+    response_field :comment_text, "备注"
+    response_field :votes_up, "赞"
+    response_field :tags, "标签"
+    response_field :image, "商户大图"
+    response_field :logo, "商户logo"
+    response_field :contact_tel, "联系电话"
+    response_field :merchant_user_id, "对应的商户用户ID"
+    response_field :agent_id, "代理商ID"
+
+    parameter :sys_name, "商户名称", required: true, scope: :merchant
+    parameter :contact_person, "联系人", required: true, scope: :merchant
+    parameter :service_tel, "客服电话", required: true, scope: :merchant
+    parameter :fax_tel, "传真", required: true, scope: :merchant
+    parameter :email, "邮箱", required: true, scope: :merchant
+    parameter :company_addr, "公司地址", required: true, scope: :merchant
+    parameter :region, "地区", required: true, scope: :merchant
+    parameter :postcode, "邮政编码", required: true, scope: :merchant
+    parameter :lon, "经度", required: true, scope: :merchant
+    parameter :lat, "纬度", required: true, scope: :merchant
+    # parameter :welcome_string, "欢迎语", required: true, scope: :merchant
+    parameter :comment_text, "备注", required: true, scope: :merchant
+    parameter :image_attributes, "图片", required: true, scope: :merchant
+    parameter :logo_attributes, "图片", required: true, scope: :merchant
+    parameter :contact_tel, "联系电话", required: true, scope: :merchant
+    parameter :merchant_user_id, "对应的商户用户ID", required: true, scope: :merchant
+    parameter :ratio, "小金兑换比例", required: true, scope: :merchant
+    parameter :agent_id, "代理商ID", required: true, scope: :merchant
+
+    let(:sys_name) { "new_sys_name" }
+    let(:contact_person) { "new_contact_person" }
+    let(:service_tel) { "new_service_tel" }
+    let(:fax_tel) { "new_fax_tel" }
+    let(:email) { "new_email" }
+    let(:company_addr) { "new_company_addr" }
+    let(:region) { "new_region" }
+    let(:postcode) { "new_postcode" }
+    let(:lon) { 111.111 }
+    let(:lat) { 222.222 }
+    let(:welcome_string) { "new_welcome_string" }
+    let(:comment_text) { "new_comment_text" }
+    let(:contact_tel) { "12345678" }
+    let(:merchant_user_id) { 8 }
+    let(:ratio) { 0.01 }
+    let(:agent_id) { 1 }
+    let(:image_attributes) { attributes_for(:image) }
+    let(:logo_attributes) { attributes_for(:image) }
+    
+
+    example "商户注册" do
+      do_request
+      expect(status).to eq(200)
+    end
+  end
+
 end
