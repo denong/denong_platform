@@ -196,7 +196,7 @@ class BankCard < ActiveRecord::Base
       faraday.adapter  Faraday.default_adapter
     end
     # v_params = CGI.escape(v_params)
-    v_params = v_params.encode('utf-8')
+    # v_params = v_params.encode('utf-8')
     v_params = CGI.escape(v_params)
     # v_params = URI::encode(v_params)
     p v_params
