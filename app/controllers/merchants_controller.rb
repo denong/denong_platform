@@ -15,14 +15,13 @@ class MerchantsController < ApplicationController
     if current_agent.present?
       agent = current_agent
     else
-      agent = Agent.find_by_id(update_params[:agent_id])
+      agent = Agent.find_by_id(create_params[:agent_id].to_i)
     end
 
     unless agent.present?
-      self.errors.add(:message, "代理商ID错误")
       return
     end
-    
+
     @merchant = agent.merchants.build(create_params)
     @merchant.save
     @merchant.sys_reg_info.update(update_params)
@@ -100,9 +99,9 @@ class MerchantsController < ApplicationController
       params.require(:merchant).permit(:sys_name,
         :contact_person, :service_tel, :fax_tel, :email, 
         :company_addr, :region, :postcode, :lon, :lat, 
-        :welcome_string, :comment_text, :contact_tel,
+        :welcome_string, :comment_text, :contact_tel, 
         image_attributes: [:id, :photo, :_destroy],
-        logo_attributes: [:id, :photo, :_destroy], :agent_id)      
+        logo_attributes: [:id, :photo, :_destroy])      
     end
 
     def member_cards_params
@@ -110,7 +109,7 @@ class MerchantsController < ApplicationController
     end
 
     def create_params
-      params.require(:merchant).permit(:ratio, :merchant_user_id)
+      params.require(:merchant).permit(:ratio, :merchant_user_id, :agent_id)
     end
 end
 
