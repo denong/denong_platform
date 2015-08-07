@@ -158,32 +158,30 @@ class BankCard < ActiveRecord::Base
   end
 
   def verify_bank_card_from_dq params
-    name = "于子洵".encode('utf-8')
+
     v_params = {
       api_name: "daqian.pay.verify_card",
       bp_id: "998800001145881",
       api_key: "real_7788000013635914866",
       bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
-      user_name: name,
+      user_name: "于子洵",
       cert_type: "a",
       cert_no: "330726199110011333",
       card_no: "6214830212259161",
-      user_mobile: "18516107607"
+      user_mobile: ""
     }
 
     v_params = v_params.to_json
-    p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
 
-    # conn = Faraday.new(:url => "#{dq_base_url}") do |faraday|
     conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
-    # v_params = CGI.escape(v_params)
+
     v_params = v_params.encode('utf-8')
     v_params = CGI.escape(v_params)
     p v_params
@@ -205,9 +203,7 @@ class BankCard < ActiveRecord::Base
 
   private
     def dq_base_url
-      # "http://121.40.208.138:7080/"
       "https://120.26.59.208:8443/"
-      # "http://127.0.0.1:3000/"
     end
 
     def xt_base_url
