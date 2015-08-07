@@ -162,6 +162,7 @@ class BankCard < ActiveRecord::Base
     v_params.bp_id = "998800001145881"
     v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
+    # v_params.bp_order_id = "20150804154431"
     v_params.user_name = "汤志荣"
     v_params.cert_type = "a"
     v_params.cert_no = "31011519840329383X"
@@ -171,13 +172,16 @@ class BankCard < ActiveRecord::Base
     verify_url = "#{dq_base_url}api/api.do"
     v_params = v_params.to_json
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
-
+    signature = signature.delete("\n")
+    signature = CGI.escape(signature)
+    p signature
     conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
     v_params = CGI.escape(v_params)
+    p v_params
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
 
     response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
@@ -187,7 +191,7 @@ class BankCard < ActiveRecord::Base
     data = URI::decode data
     data = MultiJson.load data
     p data
-    result
+    data
   end
 
   def URLDecode(str)
