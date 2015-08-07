@@ -46,7 +46,8 @@ resource "用户鉴权" do
     before do
       merchant = create(:merchant)
       @user = create(:user)
-      bank_cards = create_list(:bank_card, 3)
+      bank = create(:bank)
+      bank_cards = create_list(:bank_card, 3, bank_card_type: 0, bank_id: bank.id)
       @user.customer.bank_cards = bank_cards
       @user.customer.follow! merchant
     end
