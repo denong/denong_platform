@@ -158,20 +158,32 @@ class BankCard < ActiveRecord::Base
   end
 
   def verify_bank_card_from_dq params
-    v_params = VerifyParams.new
-    v_params.api_name = "daqian.pay.verify_card"
-    v_params.bp_id = "998800001145881"
-    v_params.api_key = "real_7788000013635914866"
-    v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
-    name = "于子洵".force_encoding('utf-8')
-    v_params.user_name = name
-    p v_params.user_name
-    v_params.cert_type = "a"
-    v_params.cert_no = "330726199110011333"
-    v_params.card_no = "6214830212259161"
-    v_params.user_mobile = "18516107607"
+    # v_params = VerifyParams.new
+    name = "于子洵".force_encoding('utf-8'),
+    v_params = {
+      api_name: "daqian.pay.verify_card",
+      bp_id: "998800001145881",
+      api_key: "real_7788000013635914866",
+      bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
+      user_name: name
+      cert_type: "a"
+      cert_no: "330726199110011333"
+      card_no: "6214830212259161"
+      user_mobile: "18516107607"
+    }
+    # v_params.api_name = "daqian.pay.verify_card"
+    # v_params.bp_id = "998800001145881"
+    # v_params.api_key = "real_7788000013635914866"
+    # v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
+    # name = "于子洵".force_encoding('utf-8')
+    # v_params.user_name = name
+    # p v_params.user_name
+    # v_params.cert_type = "a"
+    # v_params.cert_no = "330726199110011333"
+    # v_params.card_no = "6214830212259161"
+    # v_params.user_mobile = "18516107607"
 
-    v_params = v_params.to_json
+    # v_params = v_params.to_json
     p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
