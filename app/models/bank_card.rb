@@ -163,24 +163,25 @@ class BankCard < ActiveRecord::Base
     v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
     # v_params.bp_order_id = "20150804154431"
-    v_params.user_name = "汤志荣"
+    v_params.user_name = "于子洵"
     v_params.cert_type = "a"
-    v_params.cert_no = "31011519840329383X"
-    v_params.card_no = "6228480030810636313"
-    v_params.user_mobile = "13761964217"
+    v_params.cert_no = "330726199110011333"
+    v_params.card_no = "6214830212259161"
+    v_params.user_mobile = "18516107607"
 
     verify_url = "#{dq_base_url}api/api.do"
     v_params = v_params.to_json
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
-    p signature
+
     conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
-    v_params = CGI.escape(v_params)
+    # v_params = CGI.escape(v_params)
+    v_params = URI::encode(v_params)
     p v_params
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
 
