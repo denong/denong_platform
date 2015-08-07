@@ -184,9 +184,8 @@ class BankCard < ActiveRecord::Base
       faraday.adapter  Faraday.default_adapter
     end
     # v_params = CGI.escape(v_params)
-    # v_params = v_params.encode('utf-8')
+    v_params = v_params.encode('utf-8')
     v_params = CGI.escape(v_params)
-    # v_params = URI::encode(v_params)
     p v_params
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
     p signature
@@ -194,10 +193,8 @@ class BankCard < ActiveRecord::Base
     response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
     result = MultiJson.load response.body
-    # p response.body
     data = result["data"]
     data = URI::decode data
-    # data = MultiJson.load data
     p data
 
   end
