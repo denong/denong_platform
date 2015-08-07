@@ -162,7 +162,7 @@ class BankCard < ActiveRecord::Base
     v_params.bp_id = "998800001145881"
     v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
-    name = "于子洵".encode('utf-8')
+    name = "于子洵".force_encoding('utf-8')
     v_params.user_name = CGI.escape(name)
     p v_params.user_name
     v_params.cert_type = "a"
