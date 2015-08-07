@@ -20,6 +20,7 @@ resource "积分转小金记录" do
     response_field :point, "积分分值"
     response_field :jajin, "小金数"
     response_field :member_card_id, "会员卡ID"
+    response_field :pension, "养老金"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -61,6 +62,7 @@ resource "积分转小金记录" do
     response_field :jajin, "小金数"
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
+    response_field :pension, "养老金"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -107,6 +109,7 @@ resource "积分转小金记录" do
     response_field :jajin, "小金数"
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
+    response_field :pension, "养老金"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -148,6 +151,7 @@ resource "积分转小金记录" do
     response_field :jajin, "小金数"
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
+    response_field :pension, "养老金"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
