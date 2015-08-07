@@ -165,10 +165,10 @@ class BankCard < ActiveRecord::Base
       bp_id: "998800001145881",
       api_key: "real_7788000013635914866",
       bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
-      user_name: name
-      cert_type: "a"
-      cert_no: "330726199110011333"
-      card_no: "6214830212259161"
+      user_name: name,
+      cert_type: "a",
+      cert_no: "330726199110011333",
+      card_no: "6214830212259161",
       user_mobile: "18516107607"
     }
     # v_params.api_name = "daqian.pay.verify_card"
