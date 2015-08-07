@@ -159,24 +159,20 @@ class BankCard < ActiveRecord::Base
   def verify_bank_card_from_dq params
     v_params = VerifyParams.new
     v_params.api_name = "daqian.pay.verify_card"
-    # v_params.bp_id = "998800001126149"
     v_params.bp_id = "998800001145881"
-    # v_params.api_key = "real_7788000015920364527"
     v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
-    v_params.user_name = "于子洵"
+    v_params.user_name = "汤志荣"
     v_params.cert_type = "a"
-    v_params.cert_no = "330726199110011333"
-    # v_params.card_no = "6228480030810636313"
-    v_params.card_no = "6226620607696580"
-    v_params.user_mobile = "18516107607"
+    v_params.cert_no = "31011519840329383X"
+    v_params.card_no = "6228480030810636313"
+    v_params.user_mobile = "13761964217"
 
     verify_url = "#{dq_base_url}api/api.do"
     v_params = v_params.to_json
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
 
     conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
-    # conn = Faraday.new(:url => "#{dq_base_url}", :ssl => {:ca_path => "/usr/lib/ssl/certs" }) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
