@@ -185,7 +185,7 @@ class BankCard < ActiveRecord::Base
 
     # v_params = v_params.to_json
     p v_params
-    signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
+    signature = EncryptRsa.process(v_params.to_json, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
 
