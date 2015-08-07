@@ -180,6 +180,7 @@ class BankCard < ActiveRecord::Base
       faraday.adapter  Faraday.default_adapter
     end
     # v_params = CGI.escape(v_params)
+    v_params = v_params.encode('utf-8')
     v_params = URI::encode(v_params)
     p v_params
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
