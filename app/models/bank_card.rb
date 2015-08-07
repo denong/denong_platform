@@ -162,36 +162,39 @@ class BankCard < ActiveRecord::Base
     v_params.bp_id = "998800001145881"
     v_params.api_key = "real_7788000013635914866"
     v_params.bp_order_id = Time.zone.now.strftime("%Y%m%d%H%M%S")
-    # v_params.bp_order_id = "20150804154431"
     v_params.user_name = "于子洵"
     v_params.cert_type = "a"
     v_params.cert_no = "330726199110011333"
     v_params.card_no = "6214830212259161"
     v_params.user_mobile = "18516107607"
 
-    verify_url = "#{dq_base_url}api/api.do"
     v_params = v_params.to_json
+    p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
 
+    # conn = Faraday.new(:url => "#{dq_base_url}") do |faraday|
     conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
     # v_params = CGI.escape(v_params)
-    v_params = URI::encode(v_params)
+    v_params = v_params.encode('utf-8')
+    v_params = CGI.escape(v_params)
     p v_params
-    request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
-
-    response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
+    # request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
+    # p request_params
+    response = conn.post "#{dq_base_url}test", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
+    # response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
     result = MultiJson.load response.body
-    data = result["data"]
-    data = URI::decode data
-    data = MultiJson.load data
-    p data
+    # p response.body
+    # data = result["data"]
+    # data = URI::decode data
+    # data = MultiJson.load data
+    p result
     data
   end
 
@@ -203,6 +206,7 @@ class BankCard < ActiveRecord::Base
     def dq_base_url
       # "http://121.40.208.138:7080/"
       "https://120.26.59.208:8443/"
+      # "http://127.0.0.1:3000/"
     end
 
     def xt_base_url
