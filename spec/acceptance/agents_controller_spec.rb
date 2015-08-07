@@ -22,7 +22,7 @@ resource "代理商" do
     let(:contact_person) { "new_abcd" }
     let(:name) { "new_agent_name" }
     let(:email) { "new_abcd@abcd.com" }
-    let(:phone) { "new_11111111111" }
+    let(:phone) { "11111111111" }
     let(:password) { "password" }
     let(:raw_post) { params.to_json }
 
