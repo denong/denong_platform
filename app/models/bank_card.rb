@@ -25,6 +25,7 @@
 #  bank_id            :integer
 #  bank_card_type     :integer
 #
+# encoding: utf-8
 
 class BankCard < ActiveRecord::Base
   require 'openssl'
