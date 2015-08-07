@@ -168,31 +168,34 @@ class BankCard < ActiveRecord::Base
     v_params.card_no = "6214830212259161"
     v_params.user_mobile = "18516107607"
 
-    verify_url = "#{dq_base_url}api/api.do"
     v_params = v_params.to_json
+    p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
 
-    conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
+    conn = Faraday.new(:url => "#{dq_base_url}") do |faraday|
+    # conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
     end
     # v_params = CGI.escape(v_params)
     v_params = v_params.encode('utf-8')
-    v_params = URI::encode(v_params)
+    v_params = CGI.escape(v_params)
     p v_params
-    request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
+    # request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
+    # p request_params
+    response = conn.post "#{dq_base_url}test", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
+    # response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
-    response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
-
-    result = MultiJson.load response.body
-    data = result["data"]
-    data = URI::decode data
-    data = MultiJson.load data
-    p data
-    data
+    # result = MultiJson.load response.body
+    p response.body
+    # data = result["data"]
+    # data = URI::decode data
+    # data = MultiJson.load data
+    # p data
+    # data
   end
 
   def URLDecode(str)
@@ -202,7 +205,8 @@ class BankCard < ActiveRecord::Base
   private
     def dq_base_url
       # "http://121.40.208.138:7080/"
-      "https://120.26.59.208:8443/"
+      # "https://120.26.59.208:8443/"
+      "http://127.0.0.1:3000/"
     end
 
     def xt_base_url
