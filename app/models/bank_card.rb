@@ -191,10 +191,10 @@ class BankCard < ActiveRecord::Base
 
     result = MultiJson.load response.body
     # p response.body
-    # data = result["data"]
-    # data = URI::decode data
+    data = result["data"]
+    data = URI::decode data
     # data = MultiJson.load data
-    p result
+    p data
 
   end
 
