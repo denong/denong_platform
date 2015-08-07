@@ -12,7 +12,17 @@ class MerchantsController < ApplicationController
   acts_as_token_authentication_handler_for MerchantUser, only: [:update], fallback_to_devise: false
 
   def create
-    agent = current_agent
+    if current_agent.present?
+      agent = current_agent
+    else
+      agent = Agent.find_by_id(update_params[:agent_id])
+    end
+
+    unless agent.present?
+      self.errors.add(:message, "代理商ID错误")
+      return
+    end
+    
     @merchant = agent.merchants.build(create_params)
     @merchant.save
     @merchant.sys_reg_info.update(update_params)
@@ -92,7 +102,7 @@ class MerchantsController < ApplicationController
         :company_addr, :region, :postcode, :lon, :lat, 
         :welcome_string, :comment_text, :contact_tel,
         image_attributes: [:id, :photo, :_destroy],
-        logo_attributes: [:id, :photo, :_destroy])      
+        logo_attributes: [:id, :photo, :_destroy], :agent_id)      
     end
 
     def member_cards_params
