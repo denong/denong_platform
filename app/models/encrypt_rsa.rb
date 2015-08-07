@@ -29,7 +29,7 @@ class EncryptRsa
   def self.process(str, path)
     pri = OpenSSL::PKey::RSA.new File.read(path)
     sign = pri.sign("sha1", str.force_encoding("utf-8"))
-    sign = Base64.encode64(sign)
+    # sign = Base64.encode64(sign)
 
     # puts "sign is : #{sign.unpack('H*').first}"
 
