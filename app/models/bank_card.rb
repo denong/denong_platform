@@ -189,13 +189,13 @@ class BankCard < ActiveRecord::Base
     response = conn.post "#{dq_base_url}test", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
     # response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
 
-    # result = MultiJson.load response.body
-    p response.body
-    # data = result["data"]
-    # data = URI::decode data
+    result = MultiJson.load response.body
+    # p response.body
+    data = result["data"]
+    data = URI::decode data
     # data = MultiJson.load data
-    # p data
-    # data
+    p data
+    data
   end
 
   def URLDecode(str)
