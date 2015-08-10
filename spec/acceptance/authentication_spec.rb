@@ -66,7 +66,7 @@ resource "用户鉴权" do
     response_field :phone, "电话号码"
     response_field :authentication_token, "鉴权Token"
 
-    example "用户注册成功" do
+    example "用户注册成功(带用户来源)" do
       create :sms_token
       do_request
       expect(status).to eq(201)
