@@ -163,7 +163,8 @@ class BankCard < ActiveRecord::Base
       api_name: "daqian.pay.verify_card",
       bp_id: "998800001145881",
       api_key: "real_7788000013635914866",
-      bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
+      bp_order_id: "20150810144233",
+      # bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
       user_name: "于子洵",
       cert_type: "a",
       cert_no: "330726199110011333",
@@ -172,7 +173,7 @@ class BankCard < ActiveRecord::Base
     }
 
     v_params = v_params.to_json
-    # v_params = v_params.encode('utf-8')
+    v_params = v_params.force_encoding('gbk')
 
     p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
