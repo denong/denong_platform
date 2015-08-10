@@ -173,7 +173,7 @@ class BankCard < ActiveRecord::Base
     }
 
     v_params = v_params.to_json
-    v_params = v_params.force_encoding('gbk')
+    v_params = v_params.force_encoding('iso-8859-1')
 
     p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
