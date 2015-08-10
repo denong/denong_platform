@@ -180,7 +180,7 @@ resource "积分转小金记录" do
     let(:end_time) { DateTime.new(2016,8,1)  }
     let(:raw_post) { params.to_json }
 
-    example "商户获取积分转小金全部记录成功" do
+    example "代理商获取积分转小金全部记录成功" do
       do_request
       expect(status).to eq 200
     end
