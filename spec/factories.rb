@@ -205,7 +205,7 @@ bank_card_type 1
     phone "12345678903"
     password "abcd.1234"
     sms_token "989898"
-    authentication_token "qwertyuiop"
+    authentication_token "qwertyuiop_user"
   end
 
   factory :merchant_user do
@@ -213,7 +213,7 @@ bank_card_type 1
     phone "12345678903"
     password "abcd.1234"
     sms_token "989898"
-    authentication_token "qwertyuiop"
+    authentication_token "qwertyuiop_merchant"
   end
 
   factory :friend, class: User do 

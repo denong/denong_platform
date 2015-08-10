@@ -10,7 +10,7 @@ resource "商户充值" do
       create(:merchant_user, merchant: @merchant)
     end
 
-    parameter :balance, "充值额度", require: true, scope: :balance_logs
+    parameter :balance, "充值额度", required: true, scope: :balance_logs
 
     merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
 
@@ -38,7 +38,7 @@ resource "商户充值" do
       create(:merchant_user, merchant: @merchant)
     end
 
-    parameter :balance, "兑换小金数额", require: true, scope: :balance_logs
+    parameter :balance, "兑换小金数额", required: true, scope: :balance_logs
 
     merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
 
@@ -69,7 +69,7 @@ resource "商户充值" do
       create_list(:balance_log, 5, merchant: @merchant, balance: -80)
     end
 
-    parameter :balance, "兑换小金数额", require: true, scope: :balance_logs
+    parameter :balance, "兑换小金数额", required: true, scope: :balance_logs
 
     merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
 

@@ -33,6 +33,29 @@ class MemberCardPointLog < ActiveRecord::Base
     "积分转小金"
   end
 
+  def self.get_point_log_by_merchant merchant_id, params
+    phone = params[:phone]
+    customer = User.find_by_phone(phone).try(:customer)
+    if customer.nil?
+      return
+    end
+    member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: customer.id)
+    if member_card.present?
+      member_card.try(:member_card_point_logs).where(created_at: params[:begin_time]..params[:end_time])
+    else
+      nil
+    end
+  end
+
+  def self.get_point_log_by_agent agent_id, params
+    agent = Agent.find_by_id(agent_id)
+    point_logs = []
+    agent.try(:merchants).each do |merchant|
+      point_logs << get_point_log_by_merchant(merchant_id, params)
+    end
+    point_logs
+  end
+
   private
 
     def must_point_negative
