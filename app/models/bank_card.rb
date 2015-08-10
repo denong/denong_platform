@@ -171,7 +171,7 @@ class BankCard < ActiveRecord::Base
       user_mobile: ""
     }
 
-    v_params = v_params.as_json
+    v_params = v_params.to_json
     v_params = v_params.encode('utf-8')
     v_params = CGI.escape(v_params)
     p v_params
