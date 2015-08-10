@@ -1,5 +1,4 @@
 if @member_card_point_logs.present?
-
   json.total_pages @member_card_point_logs.total_pages
   json.current_page @member_card_point_logs.current_page
 
