@@ -42,6 +42,37 @@ resource "用户鉴权" do
     end
   end
 
+  post "/users" do
+    parameter :phone, "用户注册的手机号码", required: true, scope: :user
+    parameter :password, "用户注册的密码", required: true, scope: :user
+    parameter :sms_token, "用户注册的短消息验证码", required: true, scope: :user
+    parameter :user_source, "用户注册来源类型（0：商户，1：用户）", required: true, scope: :user
+    parameter :source_id, "用户注册来源ID", required: true, scope: :user
+
+    user_attrs = FactoryGirl.attributes_for :user
+    sms_attrs = FactoryGirl.attributes_for :sms_token
+
+    let(:phone) { user_attrs[:phone] }
+    let(:password) { user_attrs[:password] }
+    let(:sms_token) { sms_attrs[:token] }
+    let(:user_source) { 1 }
+    let(:source_id) { 100 }
+    let(:raw_post) { params.to_json }
+
+    response_field :id, "消费者ID"
+    response_field :email, "邮箱"
+    response_field :created_at, "创建时间"
+    response_field :updated_at, "更新时间"
+    response_field :phone, "电话号码"
+    response_field :authentication_token, "鉴权Token"
+
+    example "用户注册成功" do
+      create :sms_token
+      do_request
+      expect(status).to eq(201)
+    end
+  end
+
   post "/users/sign_in" do
     before do
       merchant = create(:merchant)

@@ -216,7 +216,7 @@ bank_card_type 1
     authentication_token "qwertyuiop"
   end
 
-  factory :friend, class: User do   #
+  factory :friend, class: User do 
     email "given_user@example.com"
     phone "13888888888"
     password "abcd.1234"
