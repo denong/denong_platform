@@ -19,6 +19,8 @@
 #  authentication_token   :string(255)
 #  os                     :string(255)
 #  device_token           :string(255)
+#  user_source            :integer          default(0)
+#  source_id              :integer          default(3)
 #
 
 class User < ActiveRecord::Base

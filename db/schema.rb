@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806085951) do
+ActiveRecord::Schema.define(version: 20150810083238) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -715,6 +715,8 @@ ActiveRecord::Schema.define(version: 20150806085951) do
     t.string   "authentication_token"
     t.string   "os"
     t.string   "device_token"
+    t.integer  "user_source",            default: 0
+    t.integer  "source_id",              default: 3
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true

@@ -1,7 +1,8 @@
 class MemberCardPointLogController < ApplicationController
 
   respond_to :json
-  acts_as_token_authentication_handler_for User
+  acts_as_token_authentication_handler_for User, only: [:index], fallback_to_devise: false
+  acts_as_token_authentication_handler_for Agent, only: [:index], fallback_to_devise: false
 
   def create
     @member_card_point_log = current_customer.member_card_point_logs.build create_params
