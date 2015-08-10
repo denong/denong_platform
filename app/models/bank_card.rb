@@ -143,7 +143,7 @@ class BankCard < ActiveRecord::Base
     verify_url = "#{xt_base_url}/uapi/verify/bankcard/v1"
     params =  {"merchId" => merchId, "tranDate" => tranDate, "tranId" => tranId, "tranTime" => tranTime, "acctNo" => acctNo, "acctName" => acctName, "certNo" => certNo, "signature" => signature}
 
-    conn = Faraday.new(:url => "#{xt_base_url}") do |faraday|
+    conn = Faraday.new(url: "#{xt_base_url}") do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.adapter  Faraday.default_adapter
@@ -158,13 +158,11 @@ class BankCard < ActiveRecord::Base
   end
 
   def verify_bank_card_from_dq params
-
-    v_params = {
+    params = {
       api_name: "daqian.pay.verify_card",
       bp_id: "998800001145881",
       api_key: "real_7788000013635914866",
-      bp_order_id: "20150810144233",
-      # bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
+      bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
       user_name: "于子洵",
       cert_type: "a",
       cert_no: "330726199110011333",
@@ -172,32 +170,17 @@ class BankCard < ActiveRecord::Base
       user_mobile: ""
     }
 
-    v_params = v_params.to_json
-    v_params = v_params.force_encoding('iso-8859-1')
+    v_params = params.to_json
 
-    p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
-    signature = CGI.escape(signature)
 
-    conn = Faraday.new(:url => "#{dq_base_url}", :ssl => { :verify => false } ) do |faraday|
-      faraday.request  :url_encoded
-      faraday.response :logger
-      faraday.adapter  Faraday.default_adapter
-    end
-
-    v_params = CGI.escape(v_params)
-
-    request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
-    p signature
-    # response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
-    response = conn.post "#{dq_base_url}api/api.do?#{request_params}"
+    conn = Faraday.new(url: "#{dq_base_url}", ssl: { verify: false } )
+    response = conn.post "#{dq_base_url}api/api.do", {data: v_params, sign: "#{signature}", sign_type: "RSA", version: "1.0"}
 
     result = MultiJson.load response.body
     data = result["data"]
     data = URI::decode data
-    p data
-
   end
 
   def URLDecode(str)
