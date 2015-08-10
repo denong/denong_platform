@@ -172,6 +172,9 @@ class BankCard < ActiveRecord::Base
     }
 
     v_params = v_params.to_json
+    v_params = v_params.encode('utf-8')
+    v_params = CGI.escape(v_params)
+    p v_params
     signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
     signature = signature.delete("\n")
     signature = CGI.escape(signature)
@@ -182,9 +185,7 @@ class BankCard < ActiveRecord::Base
       faraday.adapter  Faraday.default_adapter
     end
 
-    v_params = v_params.encode('utf-8')
-    v_params = CGI.escape(v_params)
-    p v_params
+
     request_params = "data=#{v_params}&sign=#{signature}&sign_type=RSA&version=1.0"
     p signature
     # response = conn.post "#{dq_base_url}api/api.do", {:data => "#{v_params}", :sign => "#{signature}", :sign_type => "RSA", :version => "1.0"}
