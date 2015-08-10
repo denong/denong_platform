@@ -37,7 +37,7 @@ gem "responders"
 # for Authentication
 gem 'devise'
 gem 'devise-ios-rails'
-gem 'active_model_serializers' 
+gem 'active_model_serializers'
 
 # Whenever is a Ruby gem that provides a clear syntax for writing and deploying cron jobs.
 gem 'whenever', :require => false
@@ -48,7 +48,7 @@ gem 'china_sms'
 # File upload
 gem "paperclip", "~> 4.2"
 
-# 
+#
 gem 'acts_as_votable'
 
 # simple form
@@ -60,6 +60,7 @@ gem 'sunspot_solr'  # optional pre-packaged Solr distribution for use in develop
 
 # REST Client
 gem "faraday"
+gem 'faraday-encoding'
 gem "multi_json"
 gem 'httparty'
 gem 'ruby-for-xinge'#, github: "liyijie/ruby-for-xinge"
