@@ -43,7 +43,7 @@ class BankCard < ActiveRecord::Base
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-    bank_card = BankCard.new(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i)
+    bank_card = BankCard.find_or_create_by(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i, customer_id: params[:customer_id])
     unless params[:name].present? && params[:id_card].present? && params[:card].present?
       bank_card.errors.add(:message, "信息不全")
       return bank_card
@@ -66,6 +66,7 @@ class BankCard < ActiveRecord::Base
       bank_card.bank_name = bank.try(:name)
       bank_card.bank_id = params[:bank_id]
       bank_card.bank_card_type = params[:bank_card_type]
+      bank_card.stat_code = "00"
       bank_card.save
     else
       bank_card.errors.add(:message, result["show_msg"])
