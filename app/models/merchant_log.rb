@@ -24,8 +24,7 @@ class MerchantLog < ActiveRecord::Base
     now_day = Time.zone.now
     merchants = Merchant.all
     merchants.each do |item|
-      merchant_log = MerchantLog.find_or_create_by(datetime: (now_day.to_date - 1.day) + 8.hours, data_type: "商户")
-      merchant_log.name = item.sys_reg_info.sys_name
+      merchant_log = MerchantLog.find_or_create_by(datetime: (now_day.to_date - 1.day) + 8.hours, name: item.sys_reg_info.sys_name, data_type: "商户")
       merchant_log.d_jajin_count = item.jajin_logs.today.sum(:amount)
       merchant_log.w_jajin_count = item.jajin_logs.week.sum(:amount)
       merchant_log.m_jajin_count = item.jajin_logs.month.sum(:amount)
@@ -40,9 +39,7 @@ class MerchantLog < ActiveRecord::Base
 
     agents = Agent.all
     agents.each do |item|
-      merchant_log = MerchantLog.find_or_create_by(datetime: (now_day.to_date - 1.day) + 8.hours, data_type: "代理商")
-      merchant_log.name = item.name
-
+      merchant_log = MerchantLog.find_or_create_by(datetime: (now_day.to_date - 1.day) + 8.hours, name: item.name data_type: "代理商")
       merchant_log.d_jajin_count = item.merchants.inject(0) { |sum, item| sum + item.jajin_logs.today.sum(:amount) }
       merchant_log.w_jajin_count = item.merchants.inject(0) { |sum, item| sum + item.jajin_logs.week.sum(:amount) }
       merchant_log.m_jajin_count = item.merchants.inject(0) { |sum, item| sum + item.jajin_logs.month.sum(:amount) }
