@@ -9,7 +9,6 @@
 #  phone              :string(255)
 #  card_type          :integer
 #  sn                 :string(255)
-#  bank               :integer
 #  bind_state         :integer
 #  bind_time          :datetime
 #  customer_id        :integer

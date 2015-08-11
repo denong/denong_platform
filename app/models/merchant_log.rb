@@ -6,10 +6,10 @@
 #  datetime      :datetime
 #  data_type     :string(255)
 #  name          :string(255)
-#  d_jajin_count :float(24)
-#  w_jajin_count :float(24)
-#  m_jajin_count :float(24)
-#  all_jajin     :float(24)
+#  d_jajin_count :float
+#  w_jajin_count :float
+#  m_jajin_count :float
+#  all_jajin     :float
 #  d_user_count  :integer
 #  w_user_count  :integer
 #  m_user_count  :integer

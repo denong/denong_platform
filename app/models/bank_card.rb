@@ -9,7 +9,6 @@
 #  phone              :string(255)
 #  card_type          :integer
 #  sn                 :string(255)
-#  bank               :integer
 #  bind_state         :integer
 #  bind_time          :datetime
 #  customer_id        :integer
@@ -22,10 +21,9 @@
 #  stat_code          :string(255)
 #  res_code           :string(255)
 #  certification_type :string(255)
-#  bank_id            :integer
 #  bank_card_type     :integer
+#  bank_id            :integer
 #
-# encoding: utf-8
 
 class BankCard < ActiveRecord::Base
   require 'openssl'
@@ -36,19 +34,42 @@ class BankCard < ActiveRecord::Base
   enum bank_card_type: { debit_card: 0, credit_card: 1}
 
   belongs_to :customer
+  belongs_to :bank
+  after_create :update_bank_infomation
   validates_presence_of :bank_id
   validates_presence_of :bank_card_type
 
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-    unless params[:name].present? && params[:id_card].present? && params[:bank_card].present?
-      errors.add(:message, "信息不全")
-      return false
+    bank_card = BankCard.new(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type])
+    unless params[:name].present? && params[:id_card].present? && params[:card].present?
+      bank_card.errors.add(:message, "信息不全")
+      return bank_card
+    end
+
+    bank = Bank.find_by_id(params[:bank_id])
+    unless bank.present?
+      bank_card.errors.add(:message, "该银行不存在")
+      return bank_card 
     end
 
     # 调用接口
-
+    result = bank_card.verify_bank_card_from_dq params
+    if result["dq_code"] == "10000"
+      bank_card.bankcard_no = params[:card]
+      bank_card.id_card = params[:id_card]
+      bank_card.name = params[:name]
+      bank_card.card_type = params[:card_type]
+      bank_card.customer_id = params[:customer_id]
+      bank_card.bank_name = bank.try(:name)
+      bank_card.bank_id = params[:bank_id]
+      bank_card.bank_card_type = params[:bank_card_type]
+      bank_card.save
+    else
+      bank_card.errors.add(:message, result["show_msg"])
+    end
+    bank_card
   end
 
   def self.add_bank_card params
@@ -157,30 +178,28 @@ class BankCard < ActiveRecord::Base
     result
   end
 
-  def verify_bank_card_from_dq params
+  def verify_bank_card_from_dq personal_info
     params = {
       api_name: "daqian.pay.verify_card",
       bp_id: "998800001145881",
       api_key: "real_7788000013635914866",
       bp_order_id: Time.zone.now.strftime("%Y%m%d%H%M%S"),
-      user_name: "于子洵",
+      user_name: personal_info[:name],
       cert_type: "a",
-      cert_no: "330726199110011333",
-      card_no: "6214830212259161",
+      cert_no: personal_info[:id_card],
+      card_no: personal_info[:card],
       user_mobile: ""
     }
-
-    v_params = params.to_json
-
-    signature = EncryptRsa.process(v_params, "key/dq/private_key4.pem")
-    signature = signature.delete("\n")
+    json_params = params.to_json
+    signature = EncryptRsa.process(json_params, "key/dq/private_key4.pem").delete("\n")
 
     conn = Faraday.new(url: "#{dq_base_url}", ssl: { verify: false } )
-    response = conn.post "#{dq_base_url}api/api.do", {data: v_params, sign: "#{signature}", sign_type: "RSA", version: "1.0"}
+    response = conn.post "#{dq_base_url}api/api.do", {data: json_params, sign: "#{signature}", sign_type: "RSA", version: "1.0"}
 
     result = MultiJson.load response.body
-    data = result["data"]
-    data = URI::decode data
+    data = URI::decode result["data"]
+    hash_data = MultiJson.load data
+    hash_data
   end
 
   def URLDecode(str)
@@ -226,6 +245,7 @@ class BankCard < ActiveRecord::Base
         bank.credit_card_amount += 1
       end
 
+      bank.save!
     end
 
 end
