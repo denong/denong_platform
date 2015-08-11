@@ -3,7 +3,7 @@
 # Table name: jajin_logs
 #
 #  id             :integer          not null, primary key
-#  amount         :float
+#  amount         :float(24)
 #  jajinable_id   :integer
 #  jajinable_type :string(255)
 #  customer_id    :integer
@@ -23,7 +23,7 @@ class JajinLog < ActiveRecord::Base
   scope :out, -> { where "amount < 0" }
 
   scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
-  scope :weeks, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
+  scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
   scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
 
   scope :sum_amount, -> { group(:merchant_id).sum(:amount) }
