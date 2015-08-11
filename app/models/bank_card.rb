@@ -43,7 +43,7 @@ class BankCard < ActiveRecord::Base
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-    bank_card = BankCard.new(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type])
+    bank_card = BankCard.new(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i)
     unless params[:name].present? && params[:id_card].present? && params[:card].present?
       bank_card.errors.add(:message, "信息不全")
       return bank_card
@@ -196,7 +196,6 @@ class BankCard < ActiveRecord::Base
 
     conn = Faraday.new(url: "#{dq_base_url}", ssl: { verify: false } )
     response = conn.post "#{dq_base_url}api/api.do", {data: json_params, sign: "#{signature}", sign_type: "RSA", version: "1.0"}
-
     result = MultiJson.load response.body
     data = URI::decode result["data"]
     hash_data = MultiJson.load data
