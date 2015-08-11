@@ -29,7 +29,8 @@ class BankCardsController < ApplicationController
   end
 
   def verify
-    
+    params[:customer_id] = current_customer.id
+    @bank_card = BankCard.verify_bank_card params
   end
 
   # if @bank_card
