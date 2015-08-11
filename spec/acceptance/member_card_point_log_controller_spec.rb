@@ -63,6 +63,7 @@ resource "积分转小金记录" do
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
     response_field :pension, "养老金"
+    response_field :log_num, "记录总数"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
@@ -107,6 +108,7 @@ resource "积分转小金记录" do
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
     response_field :pension, "养老金"
+    response_field :log_num, "记录总数"
 
     merchant_attrs = FactoryGirl.attributes_for(:merchant_user)
 
@@ -164,6 +166,7 @@ resource "积分转小金记录" do
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
     response_field :pension, "养老金"
+    response_field :log_num, "记录总数"
 
     merchant_attrs = FactoryGirl.attributes_for(:agent)
 
