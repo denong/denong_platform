@@ -4,13 +4,13 @@
 #
 #  id                :integer          not null, primary key
 #  merchant_id       :integer
-#  point             :float            default(0.0)
+#  point             :float(24)        default(0.0)
 #  customer_id       :integer
 #  created_at        :datetime
 #  updated_at        :datetime
 #  user_name         :string(255)
 #  passwd            :string(255)
-#  total_trans_jajin :float            default(0.0)
+#  total_trans_jajin :float(24)        default(0.0)
 #
 
 class MemberCard < ActiveRecord::Base
@@ -26,6 +26,10 @@ class MemberCard < ActiveRecord::Base
   validate :authenticate, on: :create
 
   after_create :add_merchant_member_card_amount
+
+  scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
+  scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
+  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
 
   def merchant_logo
     merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : ""
