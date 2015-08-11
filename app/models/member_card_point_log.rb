@@ -51,7 +51,9 @@ class MemberCardPointLog < ActiveRecord::Base
     agent = Agent.find_by_id(agent_id)
     point_logs = []
     agent.try(:merchants).each do |merchant|
-      get_point_log_by_merchant(merchant.id, params).each do |point_log|
+      merchant_logs = get_point_log_by_merchant(merchant.id, params)
+      next if merchant_logs.nil?
+      merchant_logs.each do |point_log|
         point_logs << point_log
       end
     end
