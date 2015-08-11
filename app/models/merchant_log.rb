@@ -30,10 +30,10 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_jajin_count = item.jajin_logs.month.sum(:amount)
       merchant_log.all_jajin = item.jajin_logs.all.sum(:amount)
 
-      merchant_log.d_user_count = item.merchant_customers.today.count
-      merchant_log.w_user_count = item.merchant_customers.week.count
-      merchant_log.m_user_count = item.merchant_customers.month.count
-      merchant_log.all_user = item.merchant_customers.count
+      merchant_log.d_user_count = item.member_cards.today.count
+      merchant_log.w_user_count = item.member_cards.week.count
+      merchant_log.m_user_count = item.member_cards.month.count
+      merchant_log.all_user = item.member_cards.count
       merchant_log.save
     end
 
@@ -45,10 +45,10 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_jajin_count = item.merchants.inject(0) { |sum, item| sum + item.jajin_logs.month.sum(:amount) }
       merchant_log.all_jajin = item.merchants.inject(0) { |sum, item| sum + item.jajin_logs.sum(:amount) }
 
-      merchant_log.d_user_count = item.merchants.inject(0) { |sum, item| sum + item.merchant_customers.today.count }
-      merchant_log.w_user_count = item.merchants.inject(0) { |sum, item| sum + item.merchant_customers.week.count }
-      merchant_log.m_user_count = item.merchants.inject(0) { |sum, item| sum + item.merchant_customers.month.count }
-      merchant_log.all_user = item.merchants.inject(0) { |sum, item| sum + item.merchant_customers.count }
+      merchant_log.d_user_count = item.merchants.inject(0) { |sum, item| sum + item.member_cards.today.count }
+      merchant_log.w_user_count = item.merchants.inject(0) { |sum, item| sum + item.member_cards.week.count }
+      merchant_log.m_user_count = item.merchants.inject(0) { |sum, item| sum + item.member_cards.month.count }
+      merchant_log.all_user = item.merchants.inject(0) { |sum, item| sum + item.member_cards.count }
       merchant_log.save
     end
   end
