@@ -22,7 +22,6 @@ resource "银行" do
 
       BankCardType.reindex
       Sunspot.commit
-
       create(:bank_card, customer: customer, bank_name: "招商银行", bank_id: Bank.first.id, bank_card_type: 0)
     end
 

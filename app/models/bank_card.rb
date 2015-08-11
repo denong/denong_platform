@@ -206,6 +206,12 @@ class BankCard < ActiveRecord::Base
     str.gsub!(/%[a-fA-F0-9]{2}/) { |x| x = x[1..2].hex.chr }
   end
 
+  def self.add_bank_card bank_name, debit_card, credit_card
+    bank = Bank.create(name: bank_name)
+    BankCardType.create(bank: bank, bank_name: bank_name, bank_card_type: 0) if debit_card
+    BankCardType.create(bank: bank, bank_name: bank_name, bank_card_type: 1) if credit_card
+  end
+
   private
     def dq_base_url
       "https://120.26.59.208:8443/"
