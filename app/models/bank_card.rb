@@ -207,7 +207,7 @@ class BankCard < ActiveRecord::Base
   end
 
   def self.add_bank_card bank_name, debit_card, credit_card
-    bank = Bank.create(name: bank_name)
+    bank = Bank.find_or_create_by(name: bank_name)
     BankCardType.create(bank: bank, bank_name: bank_name, bank_card_type: 0) if debit_card
     BankCardType.create(bank: bank, bank_name: bank_name, bank_card_type: 1) if credit_card
   end
