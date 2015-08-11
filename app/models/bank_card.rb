@@ -200,6 +200,7 @@ class BankCard < ActiveRecord::Base
     result = MultiJson.load response.body
     data = URI::decode result["data"]
     hash_data = MultiJson.load data
+    logger.info "daqian response result is: #{hash_data}"
     hash_data
   end
 
