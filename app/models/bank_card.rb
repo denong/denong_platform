@@ -9,6 +9,7 @@
 #  phone              :string(255)
 #  card_type          :integer
 #  sn                 :string(255)
+#  bank               :integer
 #  bind_state         :integer
 #  bind_time          :datetime
 #  customer_id        :integer
@@ -21,8 +22,8 @@
 #  stat_code          :string(255)
 #  res_code           :string(255)
 #  certification_type :string(255)
-#  bank_card_type     :integer
 #  bank_id            :integer
+#  bank_card_type     :integer
 #
 
 class BankCard < ActiveRecord::Base
