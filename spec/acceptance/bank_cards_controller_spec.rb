@@ -149,7 +149,6 @@ resource "绑定银行卡" do
 
     example "授权银行卡" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
