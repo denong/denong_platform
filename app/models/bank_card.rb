@@ -64,8 +64,6 @@ class BankCard < ActiveRecord::Base
       bank_card.name = params[:name]
       bank_card.card_type = params[:card_type]
       bank_card.customer_id = params[:customer_id]
-      bank_card.bank_name = bank.try(:name)
-      bank_card.bank_id = params[:bank_id]
       bank_card.bank_card_type = params[:bank_card_type].to_i
       if params[:bank_card_type].to_i == 0
         bank_card.card_type_name = "借记卡"
@@ -73,6 +71,16 @@ class BankCard < ActiveRecord::Base
         bank_card.card_type_name = "贷记卡"
       end
       bank_card.stat_code = "00"
+      bank_card_info = find_info params[:card]
+      bank_card.bank_name = bank_card_info.try(:bank)
+
+      if bank_card.bank_name.present?
+        bank = Bank.find_by(name:bank_card.bank_name)
+        if bank.present?
+          bank_card.bank_id = bank.id
+        end
+      end
+      bank_card.card_type_name = bank_card_info.try(:card_type)
       bank_card.save
     else
       bank_card.errors.add(:message, result["show_msg"])
