@@ -31,7 +31,6 @@ class Bank < ActiveRecord::Base
     if bank_card_type.nil?
       self.bank_cards.success.find_by(customer: customer).present? 
     else
-      logger.info "bind_bank_card? customer is #{customer.try(:user).try(:phone)}, bank_card_type is #{bank_card_type}, #{self.bank_cards.success.find_by(customer: customer, bank_card_type: BankCardType.bank_card_types[bank_card_type]).inspect}"
       self.bank_cards.success.find_by(customer: customer, bank_card_type: BankCardType.bank_card_types[bank_card_type]).present?
     end
   end
