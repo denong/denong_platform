@@ -21,4 +21,5 @@
 
 every 1.day, :at => '00:05' do
   runner "DataReport.new.process"
+  runner "MerchantLog.new.process"
 end
