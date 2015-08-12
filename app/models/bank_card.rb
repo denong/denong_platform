@@ -94,7 +94,7 @@ class BankCard < ActiveRecord::Base
 
       # 添加个人信息
       PersonalInfo.find_or_create_by(name: params[:name], id_card: params[:id_card])
-      IdentityVerify.create_by(name: params[:name], id_card: params[:id_card])
+      IdentityVerify.create(name: params[:name], id_card: params[:id_card])
     else
       bank_card.errors.add(:message, result["show_msg"])
     end
