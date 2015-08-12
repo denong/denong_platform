@@ -28,13 +28,13 @@ class Bank < ActiveRecord::Base
   end
 
   def bind_bank_card? customer, bank_card_type = nil
-    puts "bank_card_type is #{bank_card_type.to_i}, class is #{bank_card_type.class}"
-    logger.info "bank_card_type is #{bank_card_type.to_i}, class is #{bank_card_type.class}"
+    puts "bank_card_type is #{bank_card_type}, class is #{bank_card_type.class}"
+    logger.info "bank_card_type is #{bank_card_type}, class is #{bank_card_type.class}"
     if bank_card_type.nil?
       self.bank_cards.success.find_by(customer: customer).present? 
     else
       logger.info "bind_bank_card? customer is #{customer.try(:user).try(:phone)}, bank_card_type is #{bank_card_type}, #{self.bank_cards.success.find_by(customer: customer, bank_card_type: bank_card_type).inspect}"
-      self.bank_cards.success.find_by(customer: customer, bank_card_type: bank_card_type.to_i).present?
+      self.bank_cards.success.find_by(customer: customer, bank_card_type: bank_card_type).present?
     end
   end
 
