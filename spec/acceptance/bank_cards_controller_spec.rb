@@ -143,7 +143,7 @@ resource "绑定银行卡" do
     let(:card) { "6214830212259161" }
     let(:name) { "于子洵" }
     let(:id_card) { "330726199110011333" }
-    let(:bank_card_type) { "0" }
+    let(:bank_card_type) { 0 }
     let(:bank_id) { 1 }
     let(:raw_post) { params.to_json }
 
