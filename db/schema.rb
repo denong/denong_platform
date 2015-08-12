@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811055907) do
+ActiveRecord::Schema.define(version: 20150810083238) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150811055907) do
     t.string   "phone"
     t.integer  "card_type"
     t.string   "sn"
+    t.integer  "bank"
     t.integer  "bind_state"
     t.datetime "bind_time"
     t.integer  "customer_id"
@@ -88,8 +89,8 @@ ActiveRecord::Schema.define(version: 20150811055907) do
     t.string   "stat_code"
     t.string   "res_code"
     t.string   "certification_type"
-    t.integer  "bank_card_type"
     t.integer  "bank_id"
+    t.integer  "bank_card_type"
   end
 
   add_index "bank_cards", ["bank_id"], name: "index_bank_cards_on_bank_id"

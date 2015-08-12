@@ -5,7 +5,7 @@ class BankCardSearch
     per_page = q.delete(:per_page) || 10
 
     search_text = q[:search] || ""
-    order_sym = q[:order].try(:to_sym)
+    # order_sym = q[:order].try(:to_sym)
 
     # Perform the search
     s = BankCard.search do

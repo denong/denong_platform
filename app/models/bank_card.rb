@@ -9,6 +9,7 @@
 #  phone              :string(255)
 #  card_type          :integer
 #  sn                 :string(255)
+#  bank               :integer
 #  bind_state         :integer
 #  bind_time          :datetime
 #  customer_id        :integer
@@ -21,8 +22,8 @@
 #  stat_code          :string(255)
 #  res_code           :string(255)
 #  certification_type :string(255)
-#  bank_card_type     :integer
 #  bank_id            :integer
+#  bank_card_type     :integer
 #
 
 class BankCard < ActiveRecord::Base
@@ -42,7 +43,8 @@ class BankCard < ActiveRecord::Base
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-    bank_card = BankCard.new(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type])
+
+    bank_card = BankCard.find_or_create_by(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i, customer_id: params[:customer_id], bankcard_no: params[:card])
     unless params[:name].present? && params[:id_card].present? && params[:card].present?
       bank_card.errors.add(:message, "信息不全")
       return bank_card
@@ -64,7 +66,13 @@ class BankCard < ActiveRecord::Base
       bank_card.customer_id = params[:customer_id]
       bank_card.bank_name = bank.try(:name)
       bank_card.bank_id = params[:bank_id]
-      bank_card.bank_card_type = params[:bank_card_type]
+      bank_card.bank_card_type = params[:bank_card_type].to_i
+      if params[:bank_card_type].to_i == 0
+        card_type_name = "借记卡"
+      elsif params[:bank_card_type].to_i == 1
+        card_type_name = "贷记卡"
+      end
+      bank_card.stat_code = "00"
       bank_card.save
     else
       bank_card.errors.add(:message, result["show_msg"])
@@ -195,10 +203,10 @@ class BankCard < ActiveRecord::Base
 
     conn = Faraday.new(url: "#{dq_base_url}", ssl: { verify: false } )
     response = conn.post "#{dq_base_url}api/api.do", {data: json_params, sign: "#{signature}", sign_type: "RSA", version: "1.0"}
-
     result = MultiJson.load response.body
     data = URI::decode result["data"]
     hash_data = MultiJson.load data
+    logger.info "daqian response result is: #{hash_data}"
     hash_data
   end
 
@@ -206,8 +214,8 @@ class BankCard < ActiveRecord::Base
     str.gsub!(/%[a-fA-F0-9]{2}/) { |x| x = x[1..2].hex.chr }
   end
 
-  def self.add_bank_card bank_name, debit_card, credit_card
-    bank = Bank.create(name: bank_name)
+  def self.add_bank_card_seed bank_name, debit_card, credit_card
+    bank = Bank.find_or_create_by(name: bank_name)
     BankCardType.create(bank: bank, bank_name: bank_name, bank_card_type: 0) if debit_card
     BankCardType.create(bank: bank, bank_name: bank_name, bank_card_type: 1) if credit_card
   end
