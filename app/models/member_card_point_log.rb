@@ -47,6 +47,10 @@ class MemberCardPointLog < ActiveRecord::Base
     end
   end
 
+  def self.get_all_merchant_log merchant_id
+    
+  end
+
   def self.get_point_log_by_agent agent_id, params
     agent = Agent.find_by_id(agent_id)
     point_logs = []

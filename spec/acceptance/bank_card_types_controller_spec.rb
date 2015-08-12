@@ -45,7 +45,7 @@ resource "银行" do
     parameter :search, "搜索字段", required: false
     
     let(:search) { "商" }
-    let(:bank_card_type) { 0 }
+    let(:bank_card_type) { 1 }
     let(:page) { 1 }
 
     example "根据银行卡类型搜索银行名称" do
