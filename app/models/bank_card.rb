@@ -43,17 +43,42 @@ class BankCard < ActiveRecord::Base
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-
     bank_card = BankCard.find_or_create_by(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i, customer_id: params[:customer_id], bankcard_no: params[:card])
+
+    # 数据是否完整
     unless params[:name].present? && params[:id_card].present? && params[:card].present?
       bank_card.errors.add(:message, "信息不全")
       return bank_card
     end
 
+    # 银行是否存在
     bank = Bank.find_by_id(params[:bank_id])
     unless bank.present?
       bank_card.errors.add(:message, "该银行不存在")
       return bank_card 
+    end
+
+    bank_card_info = find_info(params[:card])
+    # 验证银行是否正确
+    bank_card.bank_name = bank_card_info.try(:bank)
+    if bank_card.bank_name.present? && (bank.name == bank_card.bank_name)
+      bank_card.bank_id = bank.id
+    else
+      error_message = get_errors(bank.name, params[:bank_card_type]) 
+      bank_card.errors.add(:message, error_message)
+      return bank_card
+    end
+
+    # 验证卡的类型是否正确
+    bank_card.card_type_name = bank_card_info.try(:card_type)
+    if bank_card.card_type_name.present? && (bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type] == 0)
+      bank_card.bank_card_type = params[:bank_card_type].to_i
+    elsif bank_card.card_type_name.present? && !(bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type] == 1)
+      bank_card.bank_card_type = params[:bank_card_type].to_i
+    else
+      error_message = get_errors(bank.name, params[:bank_card_type]) 
+      bank_card.errors.add(:message, error_message)
+      return bank_card
     end
 
     # 调用接口
@@ -64,28 +89,20 @@ class BankCard < ActiveRecord::Base
       bank_card.name = params[:name]
       bank_card.card_type = params[:card_type]
       bank_card.customer_id = params[:customer_id]
-      bank_card.bank_card_type = params[:bank_card_type].to_i
-      if params[:bank_card_type].to_i == 0
-        bank_card.card_type_name = "借记卡"
-      elsif params[:bank_card_type].to_i == 1
-        bank_card.card_type_name = "贷记卡"
-      end
       bank_card.stat_code = "00"
-      bank_card_info = find_info params[:card]
-      bank_card.bank_name = bank_card_info.try(:bank)
-
-      if bank_card.bank_name.present?
-        bank = Bank.find_by(name:bank_card.bank_name)
-        if bank.present?
-          bank_card.bank_id = bank.id
-        end
-      end
-      bank_card.card_type_name = bank_card_info.try(:card_type)
       bank_card.save
     else
       bank_card.errors.add(:message, result["show_msg"])
     end
     bank_card
+  end
+
+  def self.get_errors bank_name, bank_card_type
+    if (bank_card_type.to_i == 0) || (BankCardType.bank_card_types[bank_card_type] == 0)
+      "所填银行卡号非#{bank_name}储蓄卡，请重新输入银行卡信息!"
+    elsif (bank_card_type.to_i == 1) || (BankCardType.bank_card_types[bank_card_type] == 1)
+      "所填银行卡号非#{bank_name}信用卡，请重新输入银行卡信息!"
+    end
   end
 
   def self.add_bank_card params
