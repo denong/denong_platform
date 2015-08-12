@@ -68,9 +68,9 @@ class BankCard < ActiveRecord::Base
       bank_card.bank_id = params[:bank_id]
       bank_card.bank_card_type = params[:bank_card_type].to_i
       if params[:bank_card_type].to_i == 0
-        card_type_name = "借记卡"
+        bank_card.card_type_name = "借记卡"
       elsif params[:bank_card_type].to_i == 1
-        card_type_name = "贷记卡"
+        bank_card.card_type_name = "贷记卡"
       end
       bank_card.stat_code = "00"
       bank_card.save
