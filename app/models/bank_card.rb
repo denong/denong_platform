@@ -77,7 +77,7 @@ class BankCard < ActiveRecord::Base
     elsif bank_card.card_type_name.present? && !(bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type] == 1 || params[:bank_card_type] == "credit_card")
       bank_card.bank_card_type = params[:bank_card_type].to_i
     else
-      logger.info "bank_card.card_type_name is #{bank_card.card_type_name}, #{params[:bank_card_type]}"
+      logger.info "bank_card.card_type_name is #{bank_card.card_type_name}, #{params[:bank_card_type]}, #{bank_card.card_type_name.present?} && (#{bank_card.card_type_name.include? "借记卡"}) && (#{params[:bank_card_type] == 0} || #{params[:bank_card_type] == "debit_card"})"
       error_message = get_errors(bank.name, params[:bank_card_type]) 
       bank_card.errors.add(:message, error_message)
       return bank_card
