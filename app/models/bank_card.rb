@@ -95,7 +95,7 @@ class BankCard < ActiveRecord::Base
       bank_card.save
 
       # 添加个人信息
-      customer = Customer.find_by_id(customer_id)
+      customer = Customer.find_by_id(params[:customer_id])
       if customer.present? && customer.try(:customer_reg_info).try(:verify_state) == "unverified"
         PersonalInfo.find_or_create_by(name: params[:name], id_card: params[:id_card])
         IdentityVerify.create(name: params[:name], id_card: params[:id_card])
