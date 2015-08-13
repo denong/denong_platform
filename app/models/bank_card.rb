@@ -72,9 +72,9 @@ class BankCard < ActiveRecord::Base
 
     # 验证卡的类型是否正确
     bank_card.card_type_name = bank_card_info.try(:card_type)
-    if bank_card.card_type_name.present? && (bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type] == 0 || params[:bank_card_type] == "debit_card")
+    if bank_card.card_type_name.present? && (bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type].to_i == 0 || params[:bank_card_type] == "debit_card")
       bank_card.bank_card_type = params[:bank_card_type].to_i
-    elsif bank_card.card_type_name.present? && !(bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type] == 1 || params[:bank_card_type] == "credit_card")
+    elsif bank_card.card_type_name.present? && !(bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type].to_i == 1 || params[:bank_card_type] == "credit_card")
       bank_card.bank_card_type = params[:bank_card_type].to_i
     else
       logger.info "bank_card.card_type_name is #{bank_card.card_type_name}, #{params[:bank_card_type]}, #{bank_card.card_type_name.present?} && (#{bank_card.card_type_name.include? "借记卡"}) && (#{params[:bank_card_type] == 0} || #{params[:bank_card_type] == "debit_card"})"
