@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   resources :member_cards, only: [:index, :show] do
     collection do
+      post 'check_member_card'
       post 'bind'
     end
     member do

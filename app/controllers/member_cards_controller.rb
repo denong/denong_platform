@@ -1,8 +1,8 @@
 class MemberCardsController < ApplicationController
 
   respond_to :json
-  acts_as_token_authentication_handler_for User
-
+  acts_as_token_authentication_handler_for User, only: [:index, :show, :bind, :unbind]
+  acts_as_token_authentication_handler_for Agent, only: [:check_member_card]
   def index
     @member_cards = current_customer.try(:member_cards).paginate(page: params[:page], per_page: 10)
   end
@@ -31,10 +31,22 @@ class MemberCardsController < ApplicationController
     end
   end
 
+  def check_member_card
+    merchant = current_agent.try(:merchants).find_by_id(check_params[:merchant_id])
+    user = User.find_by_phone(check_params[:phone])
+
+    if merchant.present? && user.present? && user.try(:customer).present?
+      @member_card = merchant.try(:member_cards).find_by_customer_id(user.try(:customer).try(:id))
+    end
+  end
+
   private
 
     def bind_params
       params.require(:member_card).permit(:merchant_id, :user_name, :passwd)
     end
 
+    def check_params
+      params.require(:member_card).permit(:merchant_id, :phone)
+    end
 end
