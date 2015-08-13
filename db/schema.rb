@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810083238) do
+ActiveRecord::Schema.define(version: 20150813145112) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -315,6 +315,7 @@ ActiveRecord::Schema.define(version: 20150810083238) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "member_card_id"
+    t.string   "unique_id"
   end
 
   add_index "member_card_point_logs", ["customer_id"], name: "index_member_card_point_logs_on_customer_id"

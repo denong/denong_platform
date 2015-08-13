@@ -2,7 +2,7 @@ class MemberCardPointLogController < ApplicationController
 
   respond_to :json
   acts_as_token_authentication_handler_for User, only: [:create, :index, :show], fallback_to_devise: false
-  acts_as_token_authentication_handler_for Agent, only: [:index], fallback_to_devise: false
+  acts_as_token_authentication_handler_for Agent, only: [:create, :index], fallback_to_devise: false
   acts_as_token_authentication_handler_for MerchantUser, only: [:index], fallback_to_devise: false
 
   def create
@@ -12,7 +12,6 @@ class MemberCardPointLogController < ApplicationController
   end
 
   def index
-    
     if current_agent.present?
       @member_card_point_logs = MemberCardPointLog.get_point_log_by_agent(current_agent.id, index_params)
       unless @member_card_point_logs.nil?
