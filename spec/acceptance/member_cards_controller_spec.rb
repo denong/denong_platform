@@ -125,20 +125,7 @@ resource "查询会员卡积分" do
     parameter :merchant_id, "商户ID", required: true, scope: :member_card
     parameter :phone, "用户手机号", required: true, scope: :member_card
 
-    response_field :total_pages, "总页数"
-    response_field :current_page, "页码"
-    response_field :member_cards, "会员卡"
-    response_field :id, "会员卡ID"
-    response_field :point, "积分分值"
-    response_field :user_name, "用户名"
-    response_field :merchant_name, "商户名"
-    response_field :merchant_logo, "商户logo"
-    response_field :merchant_giving_jajin, "商户赠送小金数"
-    response_field :customer_jajin_total, "商户给当前用户的小金数"
-    response_field :total_trans_jajin, "已转换的小金"
-    response_field :unconvert_jajin, "可转换的小金"
-    response_field :merchant_id, "商户ID"
-    response_field :member_card_amount, "该商户已授权的会员卡数量"
+    response_field :exist, "是否存在"
     
     user_attrs = FactoryGirl.attributes_for(:agent)
 

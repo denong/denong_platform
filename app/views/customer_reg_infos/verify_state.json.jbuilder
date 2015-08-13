@@ -1,5 +1,5 @@
 if @customer_reg_info.present?
-  json.extract! @customer_reg_info, :customer_id, :name, :id_card, :verify_state, :account_state
+  json.exist true
 else
-  json.error "未找到该用户"
+  json.exist false
 end

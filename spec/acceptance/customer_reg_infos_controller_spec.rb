@@ -106,16 +106,10 @@ resource "用户概要信息查询" do
 
     parameter :phone, "手机号", scope: :customer_reg_info
 
-    response_field :name, "姓名"
-    response_field :customer_id, "消费者ID"
-    response_field :verify_state, "验证状态【未验证: unverified, 验证中: wait_verify, 已验证:verified 】"
-    response_field :id_card, "身份证号码"
-    response_field :image, "用户头像"
-    response_field :nick_name, "用户昵称"
-    response_field :gender, "性别【男: male, 女: female】"
-    response_field :pension, "养老金总额"
+    response_field :exist, "是否存在"
 
     let(:phone) { @user.phone }
+
     example "获取用户实名制验证状态成功" do
       do_request
       expect(status).to eq 200 
