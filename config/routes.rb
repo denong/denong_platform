@@ -74,7 +74,11 @@ Rails.application.routes.draw do
   devise_ios_rails_for :users
 
   # 用户注册资料
-  resources :customer_reg_infos, only: [:show]
+  resources :customer_reg_infos, only: [:show] do
+    collection do
+      get 'verify_state'
+    end
+  end
   resource :customer_reg_info, only: [:show, :update]
 
   # 用户认证

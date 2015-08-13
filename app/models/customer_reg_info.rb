@@ -26,4 +26,11 @@ class CustomerRegInfo < ActiveRecord::Base
   # def account_state
   #   self.try(:customer).try(:identity_verifies).try(:last).try(:account_state)
   # end
+
+  def self.get_reg_info_by_phone phone
+    user = User.find_by_phone phone
+    if user.present?
+       user.try(:customer).try(:customer_reg_info)
+    end
+  end
 end
