@@ -9,6 +9,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  member_card_id :integer
+#  unique_ind     :string(255)
 #
 
 class MemberCardPointLog < ActiveRecord::Base

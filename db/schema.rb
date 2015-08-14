@@ -315,7 +315,7 @@ ActiveRecord::Schema.define(version: 20150813145112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "member_card_id"
-    t.string   "unique_id"
+    t.string   "unique_ind"
   end
 
   add_index "member_card_point_logs", ["customer_id"], name: "index_member_card_point_logs_on_customer_id"
