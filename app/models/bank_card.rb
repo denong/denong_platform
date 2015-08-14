@@ -108,9 +108,9 @@ class BankCard < ActiveRecord::Base
 
   def self.get_errors bank_name, bank_card_type
     if (bank_card_type.to_i == 0) || (BankCardType.bank_card_types[bank_card_type] == 0)
-      "所填银行卡号非#{bank_name}储蓄卡，请重新输入银行卡信息!"
+      "银行卡授权失败，所填银行卡号非#{bank_name}储蓄卡，请重新输入银行卡信息!"
     elsif (bank_card_type.to_i == 1) || (BankCardType.bank_card_types[bank_card_type] == 1)
-      "所填银行卡号非#{bank_name}信用卡，请重新输入银行卡信息!"
+      "银行卡授权失败，所填银行卡号非#{bank_name}信用卡，请重新输入银行卡信息!"
     end
   end
 
