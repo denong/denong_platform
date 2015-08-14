@@ -81,6 +81,8 @@ class BankCard < ActiveRecord::Base
       return bank_card
     end
 
+    
+
     # 调用接口
     result = bank_card.verify_bank_card_from_dq params
     if result["dq_code"] == "10000"
