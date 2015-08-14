@@ -1,8 +1,8 @@
 class MemberCardsController < ApplicationController
 
   respond_to :json
-  acts_as_token_authentication_handler_for User, only: [:index, :show, :bind, :unbind]
-  acts_as_token_authentication_handler_for Agent, only: [:check_member_card]
+  acts_as_token_authentication_handler_for User, only: [:index, :show, :bind, :unbind], fallback_to_devise: false
+  acts_as_token_authentication_handler_for Agent, only: [:bind, :check_member_card], fallback_to_devise: false
   def index
     @member_cards = current_customer.try(:member_cards).paginate(page: params[:page], per_page: 10)
   end
@@ -17,7 +17,18 @@ class MemberCardsController < ApplicationController
   end
 
   def bind
-    @member_card = current_customer.member_cards.build bind_params
+    if current_agent.present? && bind_params[:phone].present?
+      user = User.find_by_phone(bind_params[:phone])
+      if user.present? && user.try(:customer).present?
+        bind_params[:customer_id] = user.customer.id
+        @member_card = MemberCard.find_or_create_by(customer_id: user.customer.id, merchant_id: bind_params[:merchant_id], user_name: bind_params[:user_name], passwd: bind_params[:passwd])
+      else
+        # 错误码： customer不存在
+        @error_code = "7201001"
+      end
+    elsif current_customer.present?
+      @member_card = current_customer.member_cards.build bind_params
+    end
     @member_card.save
     respond_with @member_card
   end
@@ -43,7 +54,7 @@ class MemberCardsController < ApplicationController
   private
 
     def bind_params
-      params.require(:member_card).permit(:merchant_id, :user_name, :passwd)
+      params.require(:member_card).permit(:merchant_id, :user_name, :passwd, :phone)
     end
 
     def check_params
