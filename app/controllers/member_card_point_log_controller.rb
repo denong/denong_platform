@@ -6,9 +6,16 @@ class MemberCardPointLogController < ApplicationController
   acts_as_token_authentication_handler_for MerchantUser, only: [:index], fallback_to_devise: false
 
   def create
-    @member_card_point_log = current_customer.member_card_point_logs.build create_params
-    @member_card_point_log.save
-    respond_with @member_card_point_log
+    if current_agent.present?
+      member_card = MemberCard.find_by_id(create_params[:member_card_id])
+      if member_card.present? && create_params[:unique_ind].present? && !(MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?)
+        @member_card_point_log = member_card.member_card_point_logs.create(create_params)
+        @member_card_point_log.save
+      end
+    elsif current_customer.present?
+      @member_card_point_log = current_customer.member_card_point_logs.build create_params
+      @member_card_point_log.save
+    end
   end
 
   def index
@@ -37,7 +44,7 @@ class MemberCardPointLogController < ApplicationController
 
   private
     def create_params
-      params.require(:member_card_point_log).permit(:member_card_id, :point)
+      params.require(:member_card_point_log).permit(:member_card_id, :point, :unique_ind)
     end
 
     def index_params
