@@ -114,7 +114,8 @@ resource "绑定银行卡" do
   post "/bank_cards/verify" do
     before do
       create(:customer_with_jajin_pension)
-      create(:bank)
+      create(:bank, name: "中国招商银行")
+      create(:bank_card_verify_info, name: "于子洵", id_card: "330726199110011333", bank_card: "6214830212259161")
     end
 
     parameter :card, "银行卡号", required: true

@@ -81,8 +81,26 @@ class BankCard < ActiveRecord::Base
       return bank_card
     end
 
-    
+    # 查询验证历史
+    bank_card_verify_info = BankCardVerifyInfo.find_by(name: params[:name], id_card: params[:id_card], bank_card: params[:card])
+    if bank_card_verify_info.present?
+      case bank_card_verify_info.result
+      when 0  #验证成功
+        bank_card_temp = BankCard.find_by(name: params[:name], id_card: params[:id_card], bankcard_no: params[:card])
+        if bank_card_temp.present?
+          return bank_card_temp
+        end
+      when 1  #身份信息错误
+        bank_card.errors.add(:message, "身份信息验证错误，请重新输入")
+        return bank_card
+      when 2  #银行卡信息错误
+        bank_card.errors.add(:message, "银行卡授权失败，请重新输入银行卡信息")
+        return bank_card
+      end
+    end
 
+    bank_card_verify_info = BankCardVerifyInfo.create(name: params[:name], id_card: params[:id_card], bank_card: params[:card])
+    
     # 调用接口
     result = bank_card.verify_bank_card_from_dq params
     if result["dq_code"] == "10000"
@@ -99,9 +117,20 @@ class BankCard < ActiveRecord::Base
       if customer.present? && customer.try(:customer_reg_info).try(:verify_state) == "unverified"
         PersonalInfo.find_or_create_by(name: params[:name], id_card: params[:id_card])
         IdentityVerify.create(name: params[:name], id_card: params[:id_card])
+        PensionAccount.create_by_phone customer.try(:user).phone
       end
+      bank_card_verify_info.result = 0
+      bank_card_verify_info.save!
     else
-      bank_card.errors.add(:message, result["show_msg"])
+      # 调用实名制认证接口，查询身份证信息是否正确
+      if (IdentityVerify.idcard_verify? params[:name], params[:id_card])
+        bank_card.errors.add(:message, "银行卡授权失败，请重新输入银行卡信息")
+        bank_card_verify_info.result = 2
+      else
+        bank_card.errors.add(:message, "身份信息验证错误，请重新输入")
+        bank_card_verify_info.result = 1
+      end
+      bank_card_verify_info.save!
     end
     bank_card
   end

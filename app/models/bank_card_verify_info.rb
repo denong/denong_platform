@@ -13,6 +13,6 @@
 
 class BankCardVerifyInfo < ActiveRecord::Base
 
-  enum verify_result: { success: 0, fail: 1}
-  
+  enum verify_result: { success: 0, identity_error: 1, bank_error: 2}
+
 end
