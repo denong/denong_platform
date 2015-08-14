@@ -66,7 +66,7 @@ resource "积分转小金记录" do
     let(:point) { -50 }
     let(:raw_post) { params.to_json }
 
-    example "会员卡积分转小金成功" do
+    example "代理商会员卡积分转小金成功" do
       do_request
       expect(status).to eq 200
     end
