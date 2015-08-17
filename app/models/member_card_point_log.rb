@@ -9,6 +9,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  member_card_id :integer
+#  unique_ind     :string(255)
 #
 
 class MemberCardPointLog < ActiveRecord::Base
@@ -45,6 +46,10 @@ class MemberCardPointLog < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def self.get_all_merchant_log merchant_id
+    
   end
 
   def self.get_point_log_by_agent agent_id, params

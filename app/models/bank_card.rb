@@ -43,19 +43,64 @@ class BankCard < ActiveRecord::Base
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-
     bank_card = BankCard.find_or_create_by(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i, customer_id: params[:customer_id], bankcard_no: params[:card])
+
+    # 数据是否完整
     unless params[:name].present? && params[:id_card].present? && params[:card].present?
       bank_card.errors.add(:message, "信息不全")
       return bank_card
     end
 
+    # 银行是否存在
     bank = Bank.find_by_id(params[:bank_id])
     unless bank.present?
       bank_card.errors.add(:message, "该银行不存在")
       return bank_card 
     end
 
+    bank_card_info = find_info(params[:card])
+    # 验证银行是否正确
+    bank_card.bank_name = bank_card_info.try(:bank)
+    if bank_card.bank_name.present? && (bank.name == bank_card.bank_name)
+      bank_card.bank_id = bank.id
+    else
+      error_message = get_errors(bank.name, params[:bank_card_type]) 
+      bank_card.errors.add(:message, error_message)
+      return bank_card
+    end
+
+    # 验证卡的类型是否正确
+    bank_card.card_type_name = bank_card_info.try(:card_type)
+    if bank_card.card_type_name.present? && (bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type].to_i == 0 || params[:bank_card_type] == "debit_card")
+      bank_card.bank_card_type = params[:bank_card_type].to_i
+    elsif bank_card.card_type_name.present? && !(bank_card.card_type_name.include? "借记卡") && (params[:bank_card_type].to_i == 1 || params[:bank_card_type] == "credit_card")
+      bank_card.bank_card_type = params[:bank_card_type].to_i
+    else
+      error_message = get_errors(bank.name, params[:bank_card_type]) 
+      bank_card.errors.add(:message, error_message)
+      return bank_card
+    end
+
+    # 查询验证历史
+    bank_card_verify_info = BankCardVerifyInfo.find_by(name: params[:name], id_card: params[:id_card], bank_card: params[:card])
+    if bank_card_verify_info.present?
+      case bank_card_verify_info.result
+      when 0  #验证成功
+        bank_card_temp = BankCard.find_by(name: params[:name], id_card: params[:id_card], bankcard_no: params[:card])
+        if bank_card_temp.present?
+          return bank_card_temp
+        end
+      when 1  #身份信息错误
+        bank_card.errors.add(:message, "身份信息验证错误，请重新输入")
+        return bank_card
+      when 2  #银行卡信息错误
+        bank_card.errors.add(:message, "银行卡授权失败，请重新输入银行卡信息")
+        return bank_card
+      end
+    end
+
+    bank_card_verify_info = BankCardVerifyInfo.create(name: params[:name], id_card: params[:id_card], bank_card: params[:card])
+    
     # 调用接口
     result = bank_card.verify_bank_card_from_dq params
     if result["dq_code"] == "10000"
@@ -64,20 +109,38 @@ class BankCard < ActiveRecord::Base
       bank_card.name = params[:name]
       bank_card.card_type = params[:card_type]
       bank_card.customer_id = params[:customer_id]
-      bank_card.bank_name = bank.try(:name)
-      bank_card.bank_id = params[:bank_id]
-      bank_card.bank_card_type = params[:bank_card_type].to_i
-      if params[:bank_card_type].to_i == 0
-        card_type_name = "借记卡"
-      elsif params[:bank_card_type].to_i == 1
-        card_type_name = "贷记卡"
-      end
       bank_card.stat_code = "00"
       bank_card.save
+
+      # 添加个人信息
+      customer = Customer.find_by_id(params[:customer_id])
+      if customer.present? && customer.try(:customer_reg_info).try(:verify_state) == "unverified"
+        PersonalInfo.find_or_create_by(name: params[:name], id_card: params[:id_card])
+        IdentityVerify.create(name: params[:name], id_card: params[:id_card])
+        PensionAccount.create_by_phone customer.try(:user).phone
+      end
+      bank_card_verify_info.result = 0
+      bank_card_verify_info.save!
     else
-      bank_card.errors.add(:message, result["show_msg"])
+      # 调用实名制认证接口，查询身份证信息是否正确
+      if (IdentityVerify.idcard_verify? params[:name], params[:id_card])
+        bank_card.errors.add(:message, "银行卡授权失败，请重新输入银行卡信息")
+        bank_card_verify_info.result = 2
+      else
+        bank_card.errors.add(:message, "身份信息验证错误，请重新输入")
+        bank_card_verify_info.result = 1
+      end
+      bank_card_verify_info.save!
     end
     bank_card
+  end
+
+  def self.get_errors bank_name, bank_card_type
+    if (bank_card_type.to_i == 0) || (BankCardType.bank_card_types[bank_card_type] == 0)
+      "银行卡授权失败，所填银行卡号非#{bank_name}储蓄卡，请重新输入银行卡信息!"
+    elsif (bank_card_type.to_i == 1) || (BankCardType.bank_card_types[bank_card_type] == 1)
+      "银行卡授权失败，所填银行卡号非#{bank_name}信用卡，请重新输入银行卡信息!"
+    end
   end
 
   def self.add_bank_card params

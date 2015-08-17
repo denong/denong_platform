@@ -9,5 +9,7 @@ if @member_card_point_logs.present?
     json.merchant member_card_point_log.try(:member_card).try(:merchant_id)
   end
 else
-  json.error "没有符合查询条件的记录"
+  json.total_pages 0
+  json.current_page 1
+  json.log_num 0
 end

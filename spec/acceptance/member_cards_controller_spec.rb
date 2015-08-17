@@ -73,7 +73,44 @@ resource "查询会员卡积分" do
       expect(status).to eq 200
     end
   end
-  
+
+  post "/member_cards/bind" do
+    before do
+      agent = create(:agent)
+      merchant = create(:merchant, agent: agent)
+      @customer = create(:customer)
+      merchant_customer = create(:merchant_customer)
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+    end
+
+    parameter :merchant_id, "商户ID", required: true, scope: :member_card
+    parameter :user_name, "名字", required: true, scope: :member_card
+    parameter :passwd, "身份证号", required: true, scope: :member_card
+    parameter :phone, "用户手机号", required: true, scope: :member_card
+
+    user_attrs = FactoryGirl.attributes_for(:agent)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    response_field :id, "会员卡ID"
+    response_field :point, "积分分值"
+    response_field :merchant_id, "商户ID"
+    response_field :customer_id, "消费者ID"
+    response_field :member_card_amount, "该商户已授权的会员卡数量"
+
+    let(:merchant_id) { Merchant.all.first.id }
+    let(:user_name) { "于子洵" }
+    let(:passwd) { "333333333333333333" }
+    let(:phone) { @customer.user.phone }
+    let(:raw_post) { params.to_json }
+
+    example "商户绑定会员卡成功" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
+
   get "/member_cards" do
     before do
       merchants = create_list(:merchant, 5)
@@ -112,4 +149,35 @@ resource "查询会员卡积分" do
       expect(status).to eq 200
     end
   end
+
+  post "/member_cards/check_member_card" do
+    before do
+      agent = create(:agent)
+      @merchant = create(:merchant, agent: agent)
+      @customer = create(:customer)
+      create(:personal_info, name: "A1", id_card: "331726111111101111")
+      create(:member_card, customer: @customer, merchant: @merchant, user_name: "A1", passwd: "331726111111101111")
+    end
+
+    parameter :merchant_id, "商户ID", required: true, scope: :member_card
+    parameter :phone, "用户手机号", required: true, scope: :member_card
+
+    response_field :exist, "是否存在"
+    response_field :id, "会员卡ID"
+
+    user_attrs = FactoryGirl.attributes_for(:agent)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    let(:merchant_id) { @merchant.id }
+    let(:phone) { @customer.user.phone }
+    let(:raw_post) { params.to_json }
+
+    example "查询某商户是否存在某用户的会员卡" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
+
 end

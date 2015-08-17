@@ -29,9 +29,9 @@ class Bank < ActiveRecord::Base
 
   def bind_bank_card? customer, bank_card_type = nil
     if bank_card_type.nil?
-      self.bank_cards.find_by(customer: customer).present? 
+      self.bank_cards.success.find_by(customer: customer).present? 
     else
-      self.bank_cards.find_by(customer: customer, bank_card_type: bank_card_type).present?
+      self.bank_cards.success.find_by(customer: customer, bank_card_type: BankCardType.bank_card_types[bank_card_type]).present?
     end
   end
 

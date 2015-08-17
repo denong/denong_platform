@@ -43,7 +43,7 @@ class PensionAccount < ActiveRecord::Base
       i+=1
       break if i > create_num
       puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
-      next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
+      # next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
       next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
       puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
@@ -60,6 +60,18 @@ class PensionAccount < ActiveRecord::Base
   end
 
   def self.create_by_customer customer
+
+    # 养老金账户，先查找有没有该身份证开户成功的养老金账户
+    pension_account = PensionAccount.find_by(state: 1, id_card: params[:id_card]).present?
+    if pension_account.present?
+      account_string = pension_account.id.to_s.rjust(10, '0')
+      pension = Pension.find_by(account: account_string)
+      if pension.present?
+        customer.pension = pension
+        return
+      end
+    end
+
     account = PensionAccount.new
 
     customer.try(:identity_verifies).try(:last).try(:created!)
@@ -81,7 +93,7 @@ class PensionAccount < ActiveRecord::Base
     end
 
     # 发送SMS消息
-    account.send_sms_notification
+    # account.send_sms_notification
   end
 
   def add_account_info

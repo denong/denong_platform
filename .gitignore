@@ -17,6 +17,7 @@ capybara-*.html
 /spec/tmp
 /config/database.yml
 /solr/
+/key/
 **.orig
 rerun.txt
 *.TXT

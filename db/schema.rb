@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810083238) do
+ActiveRecord::Schema.define(version: 20150814071239) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -68,6 +68,15 @@ ActiveRecord::Schema.define(version: 20150810083238) do
   end
 
   add_index "bank_card_types", ["bank_id"], name: "index_bank_card_types_on_bank_id"
+
+  create_table "bank_card_verify_infos", force: true do |t|
+    t.string   "name"
+    t.string   "id_card"
+    t.string   "bank_card"
+    t.integer  "result"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bank_cards", force: true do |t|
     t.string   "bankcard_no"
@@ -315,6 +324,7 @@ ActiveRecord::Schema.define(version: 20150810083238) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "member_card_id"
+    t.string   "unique_ind"
   end
 
   add_index "member_card_point_logs", ["customer_id"], name: "index_member_card_point_logs_on_customer_id"

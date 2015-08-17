@@ -1,5 +1,11 @@
 require 'rack/test'
-FactoryGirl.define do  factory :bank_card_type do
+FactoryGirl.define do  factory :bank_card_verify_info do
+    name "MyString"
+    id_card "MyString"
+    bank_card "MyString"
+    result 0
+  end
+  factory :bank_card_type do
     bank_name "MyString"
 bank_card_type 1
   end

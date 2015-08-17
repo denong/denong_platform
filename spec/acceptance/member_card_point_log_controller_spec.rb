@@ -37,6 +37,41 @@ resource "积分转小金记录" do
     end
   end
   
+  post "/member_card_point_log" do
+    before do
+      agent = create(:agent)
+      user = create(:user)
+      merchant = create(:merchant, agent: agent)
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+      @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333")
+      create(:member_card_point_log, unique_ind: "1234567", customer: user.customer, member_card: @member_card, point: -10)
+    end
+
+    parameter :point, "要兑换的积分分值", required: true
+    parameter :member_card_id, "会员卡ID", required: true
+    parameter :unique_ind, "商户兑换记录的唯一标示", required: true
+
+    response_field :point, "积分分值"
+    response_field :jajin, "小金数"
+    response_field :member_card_id, "会员卡ID"
+    response_field :pension, "养老金"
+
+    user_attrs = FactoryGirl.attributes_for(:agent)
+
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
+    let(:member_card_id) { @member_card.id }
+    let(:unique_ind) { "123456" }
+    let(:point) { -50 }
+    let(:raw_post) { params.to_json }
+
+    example "代理商会员卡积分转小金成功" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
+
   get "/member_card_point_log" do
     before do
       merchant = create(:merchant)
