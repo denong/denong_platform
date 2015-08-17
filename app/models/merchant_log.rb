@@ -22,6 +22,7 @@ class MerchantLog < ActiveRecord::Base
 
   def process
     now_day = Time.zone.now
+    # 商户
     merchants = Merchant.all
     merchants.each do |item|
       merchant_log = MerchantLog.find_or_create_by(datetime: (now_day.to_date - 1.day) + 8.hours, name: item.sys_reg_info.sys_name, data_type: "商户")
@@ -42,6 +43,7 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.save
     end
 
+    # 代理商
     agents = Agent.all
     agents.each do |item|
       merchant_log = MerchantLog.find_or_create_by(datetime: (now_day.to_date - 1.day) + 8.hours, name: item.name, data_type: "代理商")
@@ -54,6 +56,11 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.w_user_count = item.merchants.inject(0) { |sum, item| sum + item.member_cards.week.count }
       merchant_log.m_user_count = item.merchants.inject(0) { |sum, item| sum + item.member_cards.month.count }
       merchant_log.all_user = item.merchants.inject(0) { |sum, item| sum + item.member_cards.count }
+
+      merchant_log.d_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.today.count }
+      merchant_log.w_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.week.count }
+      merchant_log.m_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.month.count }
+      merchant_log.all_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.count }
       merchant_log.save
     end
   end
