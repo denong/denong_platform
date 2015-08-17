@@ -86,10 +86,8 @@ class BankCard < ActiveRecord::Base
     if bank_card_verify_info.present?
       case bank_card_verify_info.result
       when 0  #验证成功
-        bank_card_temp = BankCard.find_by(name: params[:name], id_card: params[:id_card], bankcard_no: params[:card])
-        if bank_card_temp.present?
-          return bank_card_temp
-        end
+        bank_card.errors.add(:message, "该银行卡已认证过")
+        return bank_card
       when 1  #身份信息错误
         bank_card.errors.add(:message, "身份信息验证错误，请重新输入")
         return bank_card
