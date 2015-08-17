@@ -34,6 +34,11 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.w_user_count = item.member_cards.week.count
       merchant_log.m_user_count = item.member_cards.month.count
       merchant_log.all_user = item.member_cards.count
+
+      merchant_log.d_price = item.member_cards.today.count
+      merchant_log.w_price = item.member_cards.week.count
+      merchant_log.m_price = item.member_cards.month.count
+      merchant_log.all_price = item.member_cards.count
       merchant_log.save
     end
 

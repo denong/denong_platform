@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  phone          :string(255)
 #  card           :string(255)
-#  price          :float
+#  price          :float(24)
 #  pos_ind        :string(255)
 #  shop_ind       :string(255)
 #  trade_ind      :string(255)
@@ -40,9 +40,10 @@ class TlTrade < ActiveRecord::Base
 
   after_create :add_jajin_identity_code
 
-  scope :sum_day_price, -> { where("created_at > ?", Time.zone.now - 1.day).group(:merchant_id).sum(:price) }
-  scope :sum_month_price, -> { where("created_at > ?", Time.zone.now - 1.month).group(:merchant_id).sum(:price) }
-  scope :all_price, -> { all.group(:merchant_id).sum(:price) }
+  scope :sum_day_price, -> { where("created_at > ?", Time.zone.now - 1.day).sum(:price) }
+  scope :sum_week_price, -> { where("created_at > ?", Time.zone.now - 1.week).sum(:price) }
+  scope :sum_month_price, -> { where("created_at > ?", Time.zone.now - 1.month).sum(:price) }
+  scope :all_price, -> { all.sum(:price) }
 
   def as_json(options=nil)
     {
