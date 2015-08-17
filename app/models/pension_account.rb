@@ -25,7 +25,7 @@ class PensionAccount < ActiveRecord::Base
     accounts = []
     verifies.each do |identity_verify|
 
-      next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
+      # next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
       next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
 
       self.create_by_customer identity_verify.customer
@@ -62,7 +62,7 @@ class PensionAccount < ActiveRecord::Base
   def self.create_by_customer customer
 
     # 养老金账户，先查找有没有该身份证开户成功的养老金账户
-    pension_account = PensionAccount.find_by(state: 1, id_card: params[:id_card]).present?
+    pension_account = PensionAccount.find_by(state: 1, id_card: customer.try(:customer_reg_info).try(:id_card)).present?
     if pension_account.present?
       account_string = pension_account.id.to_s.rjust(10, '0')
       pension = Pension.find_by(account: account_string)
