@@ -62,7 +62,7 @@ class PensionAccount < ActiveRecord::Base
   def self.create_by_customer customer
 
     # 养老金账户，先查找有没有该身份证开户成功的养老金账户
-    pension_account = PensionAccount.find_by(state: 1, id_card: customer.try(:customer_reg_info).try(:id_card)).present?
+    pension_account = PensionAccount.find_by(state: 1, id_card: customer.try(:customer_reg_info).try(:id_card))
     if pension_account.present?
       account_string = pension_account.id.to_s.rjust(10, '0')
       pension = Pension.find_by(account: account_string)
