@@ -60,7 +60,7 @@ gem 'sunspot_solr'  # optional pre-packaged Solr distribution for use in develop
 
 # REST Client
 gem "faraday"
-gem 'faraday-encoding'
+# gem 'faraday-encoding'
 gem "multi_json"
 gem 'httparty'
 gem 'ruby-for-xinge'#, github: "liyijie/ruby-for-xinge"
