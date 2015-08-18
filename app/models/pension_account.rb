@@ -29,7 +29,7 @@ class PensionAccount < ActiveRecord::Base
       # next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
 
       self.create_by_customer identity_verify.customer
-      # sleep 0.5
+      sleep 0.01
     end
 
   end
