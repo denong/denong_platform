@@ -16,6 +16,16 @@
 #  all_user      :integer
 #  created_at    :datetime
 #  updated_at    :datetime
+#  d_price       :integer          default(0)
+#  w_price       :integer          default(0)
+#  m_price       :integer          default(0)
+#  all_price     :integer          default(0)
+#  d_point_sum   :float
+#  m_point_sum   :float
+#  w_point_sum   :float
+#  d_pension_sum :float
+#  m_pension_sum :float
+#  w_pension_sum :float
 #
 
 class MerchantLog < ActiveRecord::Base
@@ -36,10 +46,24 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_user_count = item.member_cards.month.count
       merchant_log.all_user = item.member_cards.count
 
-      merchant_log.d_price = item.member_cards.today.count
-      merchant_log.w_price = item.member_cards.week.count
-      merchant_log.m_price = item.member_cards.month.count
-      merchant_log.all_price = item.member_cards.count
+      
+      # merchant_log.d_price = 0
+      # merchant_log.w_price = 0
+      # merchant_log.m_price = 0
+      # merchant_log.all_price = 0
+
+      merchant_log.d_point_sum = 0
+      merchant_log.m_point_sum = 0
+      merchant_log.w_point_sum = 0
+      item.member_card_point_logs.today.each { |log| merchant_log.d_price += log.jajin } if item.member_card_point_logs.today.present?
+      item.member_card_point_logs.week.each { |log| merchant_log.w_price += log.jajin } if item.member_card_point_logs.week.present?
+      item.member_card_point_logs.month.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.month.present?
+      item.member_card_point_logs.each { |log| merchant_log.m_price += log.jajin }
+
+      merchant_log.d_pension_sum = merchant_log.d_point_sum/100
+      merchant_log.m_pension_sum = merchant_log.m_point_sum/100
+      merchant_log.w_pension_sum = merchant_log.w_point_sum/100
+      
       merchant_log.save
     end
 
