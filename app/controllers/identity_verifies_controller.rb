@@ -16,7 +16,7 @@ class IdentityVerifiesController < ApplicationController
       user = User.find_by_phone(params[:phone])
       if user.present? && user.try(:customer).present?
         params.delete(:phone)
-        params[:name].encode!('utf-8') if params[:name].encoding.name != "UTF-8"
+        params[:name].encode('utf-8')
         @identity_verify = user.try(:customer).identity_verifies.build(params)
         @identity_verify.save
         respond_with(@identity_verify)
