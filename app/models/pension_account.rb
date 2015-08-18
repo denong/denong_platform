@@ -71,6 +71,8 @@ class PensionAccount < ActiveRecord::Base
         puts "original user id is #{pension.try(:customer).try(:user).id}, current user id is #{customer.try(:user).id}"
         customer.pension = pension
         customer.save!
+        customer.customer_reg_info.success!
+        customer.identity_verifies.last.success!
         return
       end
     end
@@ -85,6 +87,8 @@ class PensionAccount < ActiveRecord::Base
         puts "original user id is #{pension.try(:customer).try(:user).id}, current user id is #{customer.try(:user).id}"
         customer.pension = pension
         customer.save!
+        customer.customer_reg_info.success!
+        customer.identity_verifies.last.success!
         return
       end
     end
