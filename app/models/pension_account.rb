@@ -23,11 +23,12 @@ class PensionAccount < ActiveRecord::Base
   def self.create_by_identity_info
     verifies = CustomerRegInfo.where(account_state: 0, verify_state: 2)
     accounts = []
+    i = 0
     verifies.each do |identity_verify|
-
+      i+=1
       # next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
       # next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
-
+      puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
       sleep 0.01
     end
