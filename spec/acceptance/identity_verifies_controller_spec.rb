@@ -6,17 +6,21 @@ resource "用户信息验证" do
   # post "/identity_verifies" do
 
   #   before do
-  #     FactoryGirl.create(:customer_with_jajin_pension)
+  #     create(:agent)
+  #     # create(:customer)
+  #     user = create(:user)
+  #     FactoryGirl.create(:customer_with_jajin_pension, user: user)
   #     FactoryGirl.create(:personal_info, name: "于子洵", id_card: "333333333333333333")
   #   end
 
+  #   parameter :phone, "手机号", required: true, scope: :identity_verify
   #   parameter :name, "用户名称", required: true, scope: :identity_verify
   #   parameter :id_card, "身份证号码", required: true, scope: :identity_verify
   #   parameter :front_image_attributes, "正面照片",required: true, scope: :identity_verify
   #   parameter :back_image_attributes, "反面照片",required: true, scope: :identity_verify
 
 
-  #   user_attrs = FactoryGirl.attributes_for(:user)
+  #   user_attrs = FactoryGirl.attributes_for(:agent)
 
   #   header "X-User-Token", user_attrs[:authentication_token]
   #   header "X-User-Phone", user_attrs[:phone]
@@ -27,6 +31,7 @@ resource "用户信息验证" do
   #   response_field :front_image, "身份证正面照片"
   #   response_field :back_image, "身份证反面照片"
 
+  #   let(:phone) { FactoryGirl.attributes_for(:user)[:phone] }
   #   let(:name) { "于子洵" }
   #   let(:id_card) { "333333333333333333" }
   #   let(:front_image_attributes) { attributes_for(:image) }
@@ -34,6 +39,7 @@ resource "用户信息验证" do
 
   #   example "上传身份证成功" do
   #     do_request
+  #     puts "response is #{response_body}"
   #     expect(status).to eq 200
   #   end
 

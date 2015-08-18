@@ -12,9 +12,16 @@ class IdentityVerifiesController < ApplicationController
       @identity_verify.save
       respond_with(@identity_verify)
     elsif current_agent.present?
-      @identity_verify = IdentityVerify.build(create_params)
-      @identity_verify.save
-      respond_with(@identity_verify)
+      params = create_params
+      user = User.find_by_phone(params[:phone])
+      if user.present? && user.try(:customer).present?
+        params.delete(:phone)
+        @identity_verify = user.try(:customer).identity_verifies.build(params)
+        @identity_verify.save
+        respond_with(@identity_verify)
+      else
+        @error_code = "7201001"
+      end
     end
   end
 
@@ -34,7 +41,7 @@ class IdentityVerifiesController < ApplicationController
     end
 
     def create_params
-      params.require(:identity_verify).permit(:name, :id_card,
+      params.require(:identity_verify).permit(:phone, :name, :id_card,
           front_image_attributes: [:id, :photo, :_destroy],
           back_image_attributes: [:id, :photo, :_destroy]
           )
