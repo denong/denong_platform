@@ -68,7 +68,9 @@ class PensionAccount < ActiveRecord::Base
       pension = Pension.find_by(account: account_string)
       if pension.present?
         puts "find pension account #{account_string} by id card #{customer.try(:customer_reg_info).try(:id_card)}"
+        puts "original user id is #{pension.try(:customer).try(:user).id}, current user id is #{customer.try(:user).id}"
         customer.pension = pension
+        customer.save!
         return
       end
     end
@@ -80,7 +82,9 @@ class PensionAccount < ActiveRecord::Base
       pension = Pension.find_by(account: account_string)
       if pension.present?
         puts "find pension account #{account_string} by id card #{customer.try(:user).try(:phone)}"
+        puts "original user id is #{pension.try(:customer).try(:user).id}, current user id is #{customer.try(:user).id}"
         customer.pension = pension
+        customer.save!
         return
       end
     end
