@@ -26,7 +26,7 @@ class PensionAccount < ActiveRecord::Base
     verifies.each do |identity_verify|
 
       # next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
-      next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
+      # next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
 
       self.create_by_customer identity_verify.customer
       # sleep 0.5
@@ -44,8 +44,8 @@ class PensionAccount < ActiveRecord::Base
       break if i > create_num
       puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       # next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
-      next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
-      puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
+      # next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
+      # puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
       iSuccess += 1
       # sleep 0.5
@@ -67,6 +67,19 @@ class PensionAccount < ActiveRecord::Base
       account_string = pension_account.id.to_s.rjust(10, '0')
       pension = Pension.find_by(account: account_string)
       if pension.present?
+        puts "find pension account #{account_string} by id card #{customer.try(:customer_reg_info).try(:id_card)}"
+        customer.pension = pension
+        return
+      end
+    end
+
+    # 养老金账户，查找有没有该手机号开户成功的养老金账户
+    pension_account = PensionAccount.find_by(state: 1, phone: customer.try(:user).try(:phone))
+    if pension_account.present?
+      account_string = pension_account.id.to_s.rjust(10, '0')
+      pension = Pension.find_by(account: account_string)
+      if pension.present?
+        puts "find pension account #{account_string} by id card #{customer.try(:user).try(:phone)}"
         customer.pension = pension
         return
       end
