@@ -29,6 +29,10 @@ class MemberCardPointLog < ActiveRecord::Base
   validate :point_must_less_than_all_point, on: :create
 
   default_scope { order('id DESC') }
+
+  scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
+  scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
+  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
   
   def company
     "积分转小金"
