@@ -2,7 +2,7 @@ class IdentityVerifiesController < ApplicationController
   before_action :set_identity_verify, only: [:update]
 
   acts_as_token_authentication_handler_for User, only: [:create], fallback_to_devise: false
-  acts_as_token_authentication_handler_for MerchantUser, only: [:update]
+  acts_as_token_authentication_handler_for MerchantUser, only: [:update], fallback_to_devise: false
   acts_as_token_authentication_handler_for Agent, only: [:create], fallback_to_devise: false
   respond_to :html, :json
 
