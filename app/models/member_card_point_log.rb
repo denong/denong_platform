@@ -77,16 +77,6 @@ class MemberCardPointLog < ActiveRecord::Base
       end
     end
 
-    def must_have_jajin
-      if self.customer.try(:jajin).blank?
-      #   errors.add(:message, "小确幸账号不存在")
-      # else
-        self.customer.create_jajin(got: 0,unverify: 0)
-        self.customer.save
-      end
-      self.jajin = point.abs
-    end
-
     def point_must_less_than_all_point
       if self.member_card.point.nil?
         self.member_card.point = 0
