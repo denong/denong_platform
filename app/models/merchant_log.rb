@@ -49,6 +49,10 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_user_count = item.member_cards.month.count
       merchant_log.all_user = item.member_cards.count
 
+      merchant_log.d_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.today.count }
+      merchant_log.w_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.week.count }
+      merchant_log.m_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.month.count }
+      merchant_log.all_price = item.merchants.inject(0) { |sum, item| sum + item.member_cards.count }
       
       # merchant_log.d_price = 0
       # merchant_log.w_price = 0
@@ -58,10 +62,9 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.d_point_sum = 0
       merchant_log.m_point_sum = 0
       merchant_log.w_point_sum = 0
-      item.member_card_point_logs.today.each { |log| merchant_log.d_price += log.jajin } if item.member_card_point_logs.today.present?
-      item.member_card_point_logs.week.each { |log| merchant_log.w_price += log.jajin } if item.member_card_point_logs.week.present?
-      item.member_card_point_logs.month.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.month.present?
-      item.member_card_point_logs.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.present?
+      item.member_card_point_logs.today.each { |log| merchant_log.d_point_sum += log.jajin } if item.member_card_point_logs.today.present?
+      item.member_card_point_logs.week.each { |log| merchant_log.w_point_sum += log.jajin } if item.member_card_point_logs.week.present?
+      item.member_card_point_logs.month.each { |log| merchant_log.m_point_sum += log.jajin } if item.member_card_point_logs.month.present?
 
       merchant_log.d_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.day).group(:customer_id).pluck(:customer_id).size
       merchant_log.w_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.week).group(:customer_id).pluck(:id,:customer_id).size
