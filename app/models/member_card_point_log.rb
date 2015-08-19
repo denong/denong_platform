@@ -25,7 +25,7 @@ class MemberCardPointLog < ActiveRecord::Base
   validates_presence_of :member_card, on: :create
 
   validate :must_point_negative, on: :create
-  validate :must_have_jajin, on: :create
+  # validate :must_have_jajin, on: :create
   validate :point_must_less_than_all_point, on: :create
 
   default_scope { order('id DESC') }
