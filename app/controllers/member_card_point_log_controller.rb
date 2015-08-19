@@ -8,6 +8,9 @@ class MemberCardPointLogController < ApplicationController
   def create
     if current_agent.present?
       member_card = MemberCard.find_by_id(create_params[:member_card_id])
+      if MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?
+        
+      end
       if member_card.present? && create_params[:unique_ind].present? && !(MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?)
         params = create_params 
         params[:point] *= -1 if params[:point] > 0 
