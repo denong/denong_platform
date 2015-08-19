@@ -50,7 +50,7 @@ class MemberCard < ActiveRecord::Base
       if (passwd =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/ && idcard_verify?)
         return true
       else
-        errors.add(:message, "用户信息不正确")
+        errors.add(:message, "身份信息验证错误，请重新输入")
         return false
       end
     end
