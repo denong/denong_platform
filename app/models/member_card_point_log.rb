@@ -82,6 +82,10 @@ class MemberCardPointLog < ActiveRecord::Base
         self.member_card.point = 0
         self.member_card.save
       end
+      # unique_ind存在的话，就不用校验
+      if unique_ind.present?
+        return true
+      end
       if self.member_card.point < point.to_f.abs
         errors.add(:point, "不能大于总积分数")
       end
