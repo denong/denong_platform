@@ -2,30 +2,33 @@
 #
 # Table name: merchant_logs
 #
-#  id            :integer          not null, primary key
-#  datetime      :datetime
-#  data_type     :string(255)
-#  name          :string(255)
-#  d_jajin_count :float
-#  w_jajin_count :float
-#  m_jajin_count :float
-#  all_jajin     :float
-#  d_user_count  :integer
-#  w_user_count  :integer
-#  m_user_count  :integer
-#  all_user      :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#  d_price       :integer          default(0)
-#  w_price       :integer          default(0)
-#  m_price       :integer          default(0)
-#  all_price     :integer          default(0)
-#  d_point_sum   :float
-#  m_point_sum   :float
-#  w_point_sum   :float
-#  d_pension_sum :float
-#  m_pension_sum :float
-#  w_pension_sum :float
+#  id                 :integer          not null, primary key
+#  datetime           :datetime
+#  data_type          :string(255)
+#  name               :string(255)
+#  d_jajin_count      :float
+#  w_jajin_count      :float
+#  m_jajin_count      :float
+#  all_jajin          :float
+#  d_user_count       :integer
+#  w_user_count       :integer
+#  m_user_count       :integer
+#  all_user           :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  d_price            :integer          default(0)
+#  w_price            :integer          default(0)
+#  m_price            :integer          default(0)
+#  all_price          :integer          default(0)
+#  d_point_sum        :float
+#  m_point_sum        :float
+#  w_point_sum        :float
+#  d_pension_sum      :float
+#  m_pension_sum      :float
+#  w_pension_sum      :float
+#  d_point_user_count :integer
+#  w_point_user_count :integer
+#  m_point_user_count :integer
 #
 
 class MerchantLog < ActiveRecord::Base
@@ -59,6 +62,10 @@ class MerchantLog < ActiveRecord::Base
       item.member_card_point_logs.week.each { |log| merchant_log.w_price += log.jajin } if item.member_card_point_logs.week.present?
       item.member_card_point_logs.month.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.month.present?
       item.member_card_point_logs.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.present?
+
+      merchant_log.d_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.day).group(:customer_id).pluck(:customer_id).size
+      merchant_log.w_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.week).group(:customer_id).pluck(:id,:customer_id).size
+      merchant_log.m_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.month).group(:customer_id).pluck(:id,:customer_id).size
 
       merchant_log.d_pension_sum = merchant_log.d_point_sum/100
       merchant_log.m_pension_sum = merchant_log.m_point_sum/100
