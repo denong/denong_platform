@@ -26,6 +26,7 @@ class MemberCard < ActiveRecord::Base
   validate :authenticate, on: :create
 
   after_create :add_merchant_member_card_amount
+  after_create :check_point
 
   scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
   scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
@@ -92,4 +93,7 @@ class MemberCard < ActiveRecord::Base
       merchant.save
     end
 
+    def check_point
+      point = 0 if point.nil?
+    end
 end

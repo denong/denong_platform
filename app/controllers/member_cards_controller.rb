@@ -21,7 +21,7 @@ class MemberCardsController < ApplicationController
       user = User.find_by_phone(bind_params[:phone])
       if user.present? && user.try(:customer).present?
         bind_params[:customer_id] = user.customer.id
-        @member_card = MemberCard.find_or_create_by(customer_id: user.customer.id, merchant_id: bind_params[:merchant_id], user_name: bind_params[:user_name], passwd: bind_params[:passwd])
+        @member_card = MemberCard.find_or_create_by(customer_id: user.customer.id, merchant_id: bind_params[:merchant_id], user_name: bind_params[:user_name], passwd: bind_params[:passwd], point: 0)
       else
         # 错误码： customer不存在
         @error_code = "7201001"
