@@ -28,10 +28,8 @@ class MemberCardsController < ApplicationController
       end
     elsif current_customer.present?
       @member_card = current_customer.member_cards.build bind_params
-      logger.info "#{@member_card.errors.inspect}"
     end
     @member_card.save
-    respond_with @member_card
   end
 
   def unbind
