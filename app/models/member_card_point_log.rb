@@ -85,6 +85,10 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     def point_must_less_than_all_point
+      if self.member_card.point.nil?
+        self.member_card.point = 0
+        self.member_card.save
+      end
       if self.member_card.point < point.to_f.abs
         errors.add(:point, "不能大于总积分数")
       end

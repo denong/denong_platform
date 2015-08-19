@@ -58,7 +58,7 @@ class MerchantLog < ActiveRecord::Base
       item.member_card_point_logs.today.each { |log| merchant_log.d_price += log.jajin } if item.member_card_point_logs.today.present?
       item.member_card_point_logs.week.each { |log| merchant_log.w_price += log.jajin } if item.member_card_point_logs.week.present?
       item.member_card_point_logs.month.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.month.present?
-      item.member_card_point_logs.each { |log| merchant_log.m_price += log.jajin }
+      item.member_card_point_logs.each { |log| merchant_log.m_price += log.jajin } if item.member_card_point_logs.present?
 
       merchant_log.d_pension_sum = merchant_log.d_point_sum/100
       merchant_log.m_pension_sum = merchant_log.m_point_sum/100
