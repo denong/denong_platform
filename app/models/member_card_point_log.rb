@@ -80,6 +80,8 @@ class MemberCardPointLog < ActiveRecord::Base
     def must_have_jajin
       if self.customer.try(:jajin).blank?
         errors.add(:message, "小确幸账号不存在")
+      else
+        self.customer.create_jajin(got: 0,unverify: 0)
       end
       self.jajin = point.abs
     end
