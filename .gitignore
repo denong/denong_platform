@@ -51,3 +51,5 @@ denong_platform_test
 *.TXT
 /config/file.yml
 
+config/unicorn.rb
+config/unicorn_init.sh
