@@ -70,9 +70,9 @@ class MerchantLog < ActiveRecord::Base
       m_member_card_logs = []
 
       merchant_member_cards.each do |member_card|
-        d_member_card_logs << member_card.member_card_point_logs.today
-        w_member_card_logs << member_card.member_card_point_logs.week
-        m_member_card_logs << member_card.member_card_point_logs.month
+        member_card.member_card_point_logs.today.each { |log| d_member_card_logs << log }
+        member_card.member_card_point_logs.week.each { |log| w_member_card_logs << log }
+        member_card.member_card_point_logs.month.each { |log| m_member_card_logs << log }
       end
 
       d_member_card_logs.each { |log| merchant_log.d_point_sum += log.jajin } unless d_member_card_logs.empty?
