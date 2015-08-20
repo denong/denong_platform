@@ -62,9 +62,11 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.d_point_sum = 0
       merchant_log.m_point_sum = 0
       merchant_log.w_point_sum = 0
-      item.member_card_point_logs.today.each { |log| merchant_log.d_point_sum += log.jajin } if item.member_card_point_logs.today.present?
-      item.member_card_point_logs.week.each { |log| merchant_log.w_point_sum += log.jajin } if item.member_card_point_logs.week.present?
-      item.member_card_point_logs.month.each { |log| merchant_log.m_point_sum += log.jajin } if item.member_card_point_logs.month.present?
+
+      merchant_member_cards = item.member_cards.all
+      merchant_member_cards.member_card_point_logs.today.each { |log| merchant_log.d_point_sum += log.jajin } if merchant_member_cards.member_card_point_logs.today.present?
+      merchant_member_cards.member_card_point_logs.week.each { |log| merchant_log.w_point_sum += log.jajin } if merchant_member_cards.member_card_point_logs.week.present?
+      merchant_member_cards.member_card_point_logs.month.each { |log| merchant_log.m_point_sum += log.jajin } if merchant_member_cards.member_card_point_logs.month.present?
 
       merchant_log.d_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.day).group(:customer_id).pluck(:customer_id).size
       merchant_log.w_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.week).group(:customer_id).pluck(:id,:customer_id).size
