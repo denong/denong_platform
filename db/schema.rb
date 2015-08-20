@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814071239) do
+ActiveRecord::Schema.define(version: 20150819074408) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -405,6 +405,19 @@ ActiveRecord::Schema.define(version: 20150814071239) do
     t.integer  "all_user"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "d_price",            default: 0
+    t.integer  "w_price",            default: 0
+    t.integer  "m_price",            default: 0
+    t.integer  "all_price",          default: 0
+    t.float    "d_point_sum"
+    t.float    "m_point_sum"
+    t.float    "w_point_sum"
+    t.float    "d_pension_sum"
+    t.float    "m_pension_sum"
+    t.float    "w_pension_sum"
+    t.integer  "d_point_user_count"
+    t.integer  "w_point_user_count"
+    t.integer  "m_point_user_count"
   end
 
   create_table "merchant_messages", force: true do |t|

@@ -26,6 +26,7 @@ class MemberCard < ActiveRecord::Base
   validate :authenticate, on: :create
 
   after_create :add_merchant_member_card_amount
+  after_create :check_point
 
   scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
   scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
@@ -49,7 +50,7 @@ class MemberCard < ActiveRecord::Base
       if (passwd =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/ && idcard_verify?)
         return true
       else
-        errors.add(:message, "用户信息不正确")
+        errors.add(:message, "身份信息验证错误，请重新输入")
         return false
       end
     end
@@ -92,4 +93,7 @@ class MemberCard < ActiveRecord::Base
       merchant.save
     end
 
+    def check_point
+      point = 0 if point.nil?
+    end
 end

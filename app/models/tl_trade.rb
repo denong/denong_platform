@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  phone          :string(255)
 #  card           :string(255)
-#  price          :float(24)
+#  price          :float
 #  pos_ind        :string(255)
 #  shop_ind       :string(255)
 #  trade_ind      :string(255)

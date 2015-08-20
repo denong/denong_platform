@@ -1,4 +1,4 @@
-if @member_card_point_log.errors.present?
+if @member_card_point_log.present? && @member_card_point_log.errors.present?
   json.error @member_card_point_log.errors.full_messages.last
 elsif @member_card_point_log.present?
   json.extract! @member_card_point_log, :point, :jajin, :member_card_id, :unique_ind

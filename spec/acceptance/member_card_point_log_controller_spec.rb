@@ -33,6 +33,7 @@ resource "积分转小金记录" do
 
     example "会员卡积分转小金成功" do
       do_request
+      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
@@ -43,7 +44,7 @@ resource "积分转小金记录" do
       user = create(:user)
       merchant = create(:merchant, agent: agent)
       create(:personal_info, name: "于子洵", id_card: "333333333333333333")
-      @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333")
+      @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333", customer: user.customer)
       create(:member_card_point_log, unique_ind: "1234567", customer: user.customer, member_card: @member_card, point: -10)
     end
 

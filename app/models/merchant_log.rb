@@ -2,20 +2,33 @@
 #
 # Table name: merchant_logs
 #
-#  id            :integer          not null, primary key
-#  datetime      :datetime
-#  data_type     :string(255)
-#  name          :string(255)
-#  d_jajin_count :float
-#  w_jajin_count :float
-#  m_jajin_count :float
-#  all_jajin     :float
-#  d_user_count  :integer
-#  w_user_count  :integer
-#  m_user_count  :integer
-#  all_user      :integer
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id                 :integer          not null, primary key
+#  datetime           :datetime
+#  data_type          :string(255)
+#  name               :string(255)
+#  d_jajin_count      :float
+#  w_jajin_count      :float
+#  m_jajin_count      :float
+#  all_jajin          :float
+#  d_user_count       :integer
+#  w_user_count       :integer
+#  m_user_count       :integer
+#  all_user           :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  d_price            :integer          default(0)
+#  w_price            :integer          default(0)
+#  m_price            :integer          default(0)
+#  all_price          :integer          default(0)
+#  d_point_sum        :float
+#  m_point_sum        :float
+#  w_point_sum        :float
+#  d_pension_sum      :float
+#  m_pension_sum      :float
+#  w_pension_sum      :float
+#  d_point_user_count :integer
+#  w_point_user_count :integer
+#  m_point_user_count :integer
 #
 
 class MerchantLog < ActiveRecord::Base
@@ -36,10 +49,44 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_user_count = item.member_cards.month.count
       merchant_log.all_user = item.member_cards.count
 
-      merchant_log.d_price = item.member_cards.today.count
-      merchant_log.w_price = item.member_cards.week.count
-      merchant_log.m_price = item.member_cards.month.count
-      merchant_log.all_price = item.member_cards.count
+      merchant_log.d_price = item.tl_trades.sum_day_price
+      merchant_log.w_price = item.tl_trades.sum_week_price
+      merchant_log.m_price = item.tl_trades.sum_month_price
+      merchant_log.all_price = item.tl_trades.all_price
+      
+      # merchant_log.d_price = 0
+      # merchant_log.w_price = 0
+      # merchant_log.m_price = 0
+      # merchant_log.all_price = 0
+
+      merchant_log.d_point_sum = 0
+      merchant_log.m_point_sum = 0
+      merchant_log.w_point_sum = 0
+
+      merchant_member_cards = item.member_cards.all
+
+      d_member_card_logs = []
+      w_member_card_logs = []
+      m_member_card_logs = []
+
+      merchant_member_cards.each do |member_card|
+        member_card.member_card_point_logs.today.each { |log| d_member_card_logs << log }
+        member_card.member_card_point_logs.week.each { |log| w_member_card_logs << log }
+        member_card.member_card_point_logs.month.each { |log| m_member_card_logs << log }
+      end
+
+      d_member_card_logs.each { |log| merchant_log.d_point_sum += log.jajin } unless d_member_card_logs.empty?
+      w_member_card_logs.each { |log| merchant_log.w_point_sum += log.jajin } unless w_member_card_logs.empty?
+      m_member_card_logs.each { |log| merchant_log.m_point_sum += log.jajin } unless m_member_card_logs.empty?
+
+      merchant_log.d_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.day).group(:customer_id).pluck(:customer_id).size
+      merchant_log.w_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.week).group(:customer_id).pluck(:customer_id).size
+      merchant_log.m_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.month).group(:customer_id).pluck(:customer_id).size
+
+      merchant_log.d_pension_sum = merchant_log.d_point_sum/100
+      merchant_log.m_pension_sum = merchant_log.m_point_sum/100
+      merchant_log.w_pension_sum = merchant_log.w_point_sum/100
+      
       merchant_log.save
     end
 

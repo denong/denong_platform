@@ -20,18 +20,22 @@ class PensionAccount < ActiveRecord::Base
 
   after_create :add_account_info
 
+  # PensionAccount.create_by_identity_info
   def self.create_by_identity_info
     verifies = CustomerRegInfo.where(account_state: 0, verify_state: 2)
     accounts = []
+    i = 0
     verifies.each do |identity_verify|
-
-      next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
-      next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
-
+      i+=1
+      logger.info "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
+      if (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
+        PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?)
+        customer.customer_reg_info.fail!
+        customer.identity_verifies.last.fail!
+      end
       self.create_by_customer identity_verify.customer
-      # sleep 0.5
+      sleep 0.1
     end
-
   end
 
   def self.create_by_identity_info_and_num create_num
@@ -43,12 +47,15 @@ class PensionAccount < ActiveRecord::Base
       i+=1
       break if i > create_num
       puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
-      # next if PensionAccount.find_by_id_card(identity_verify.id_card).present?
-      next if PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?
+      if (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
+        PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?)
+        customer.customer_reg_info.fail!
+        customer.identity_verifies.last.fail!
+      end
       puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
       iSuccess += 1
-      # sleep 0.5
+      sleep 0.1
     end
 
     puts "#{create_num - iSuccess} failed, #{iSuccess} success !"
@@ -61,16 +68,37 @@ class PensionAccount < ActiveRecord::Base
 
   def self.create_by_customer customer
 
-    # 养老金账户，先查找有没有该身份证开户成功的养老金账户
-    pension_account = PensionAccount.find_by(state: 1, id_card: params[:id_card]).present?
-    if pension_account.present?
-      account_string = pension_account.id.to_s.rjust(10, '0')
-      pension = Pension.find_by(account: account_string)
-      if pension.present?
-        customer.pension = pension
-        return
-      end
-    end
+    # # 养老金账户，先查找有没有该身份证开户成功的养老金账户
+    # pension_account = PensionAccount.find_by(state: 1, id_card: customer.try(:customer_reg_info).try(:id_card))
+    # if pension_account.present?
+    #   account_string = pension_account.id.to_s.rjust(10, '0')
+    #   pension = Pension.find_by(account: account_string)
+    #   if pension.present?
+    #     puts "find pension account #{account_string} by id card #{customer.try(:customer_reg_info).try(:id_card)}"
+    #     puts "original user id is #{pension.try(:customer).try(:user).try(:id)}, current user id is #{customer.try(:user).try(:id)}"
+    #     customer.pension = pension
+    #     customer.save!
+    #     customer.customer_reg_info.success!
+    #     customer.identity_verifies.last.success!
+    #     return
+    #   end
+    # end
+
+    # # 养老金账户，查找有没有该手机号开户成功的养老金账户
+    # pension_account = PensionAccount.find_by(state: 1, phone: customer.try(:user).try(:phone))
+    # if pension_account.present?
+    #   account_string = pension_account.id.to_s.rjust(10, '0')
+    #   pension = Pension.find_by(account: account_string)
+    #   if pension.present?
+    #     puts "find pension account #{account_string} by id card #{customer.try(:user).try(:phone)}"
+    #     puts "original user id is #{pension.try(:customer).try(:user).id}, current user id is #{customer.try(:user).id}"
+    #     customer.pension = pension
+    #     customer.save!
+    #     customer.customer_reg_info.success!
+    #     customer.identity_verifies.last.success!
+    #     return
+    #   end
+    # end
 
     account = PensionAccount.new
 
@@ -93,7 +121,7 @@ class PensionAccount < ActiveRecord::Base
     end
 
     # 发送SMS消息
-    # account.send_sms_notification
+    account.send_sms_notification
   end
 
   def add_account_info

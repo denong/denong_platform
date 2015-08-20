@@ -1,5 +1,5 @@
 if @member_card.errors.present?
-  json.error @member_card.errors.full_messages.last
+  json.error @member_card.errors.first.last
 elsif @member_card.present?
   json.extract! @member_card, :point, :merchant_id, :customer_id, :id, :user_name
   json.member_card_amount (@member_card.try(:merchant).try(:member_card_amount)||0)
