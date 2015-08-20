@@ -49,10 +49,10 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_user_count = item.member_cards.month.count
       merchant_log.all_user = item.member_cards.count
 
-      merchant_log.d_price = item.member_cards.inject(0) { |sum, item| sum + item.member_cards.today.count }
-      merchant_log.w_price = item.member_cards.inject(0) { |sum, item| sum + item.member_cards.week.count }
-      merchant_log.m_price = item.member_cards.inject(0) { |sum, item| sum + item.member_cards.month.count }
-      merchant_log.all_price = item.member_cards.inject(0) { |sum, item| sum + item.member_cards.count }
+      merchant_log.d_price = item.tl_trades.sum_day_price
+      merchant_log.w_price = item.tl_trades.sum_week_price
+      merchant_log.m_price = item.tl_trades.sum_month_price
+      merchant_log.all_price = item.tl_trades.all_price
       
       # merchant_log.d_price = 0
       # merchant_log.w_price = 0
