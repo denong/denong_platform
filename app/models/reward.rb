@@ -29,7 +29,9 @@ class Reward < ActiveRecord::Base
   private
     def generate_verify_code
       # self.verify_code ||= Devise.friendly_token.first(10)
-      self.verify_code ||= (0..9).to_a.sample(8).join
+      # self.verify_code ||= (0..9).to_a.sample(8).join
+      chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a)
+      self.verify_code ||= chars.sample(8).join
     end
 
 end
