@@ -65,14 +65,19 @@ class MerchantLog < ActiveRecord::Base
 
       merchant_member_cards = item.member_cards.all
 
-      member_card_logs = []
+      d_member_card_logs = []
+      w_member_card_logs = []
+      m_member_card_logs = []
+
       merchant_member_cards.each do |member_card|
-        member_card_logs << member_card.member_card_point_logs
+        d_member_card_logs << member_card.member_card_point_logs.today
+        w_member_card_logs << member_card.member_card_point_logs.week
+        m_member_card_logs << member_card.member_card_point_logs.month
       end
 
-      member_card_logs.today.each { |log| merchant_log.d_point_sum += log.jajin } if member_card_logs.today.present?
-      member_card_logs.week.each { |log| merchant_log.w_point_sum += log.jajin } if member_card_logs.week.present?
-      member_card_logs.month.each { |log| merchant_log.m_point_sum += log.jajin } if member_card_logs.month.present?
+      d_member_card_logs.each { |log| merchant_log.d_point_sum += log.jajin } unless d_member_card_logs.empty?
+      w_member_card_logs.each { |log| merchant_log.w_point_sum += log.jajin } unless w_member_card_logs.empty?
+      m_member_card_logs.each { |log| merchant_log.m_point_sum += log.jajin } unless m_member_card_logs.empty?
 
       merchant_log.d_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.day).group(:customer_id).pluck(:customer_id).size
       merchant_log.w_point_user_count = MemberCardPointLog.where("created_at > ?", Time.zone.now.to_date - 1.week).group(:customer_id).pluck(:id,:customer_id).size
