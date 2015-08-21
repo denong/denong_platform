@@ -28,21 +28,21 @@ class User < ActiveRecord::Base
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  
+
   enum user_source: [:merchant, :customer]
 
   scope :today, -> { where('created_at > ?', Time.now.to_date - 1.day) }
-  scope :week, -> { where('created_at > ?', Time.now.to_date - 7.day) }
-  scope :month, -> { where('created_at > ?', Time.now.to_date - 30.day) }
-  
+  scope :week, -> { where('created_at > ?', Time.now.to_date - 1.week) }
+  scope :month, -> { where('created_at > ?', Time.now.to_date - 1.month) }
+
   scope :today_sign_in, -> { where('last_sign_in_at > ?', Time.now.to_date - 1.day) }
-  scope :week_sign_in, -> { where('last_sign_in_at > ?', Time.now.to_date - 7.day) }
-  scope :month_sign_in, -> { where('last_sign_in_at > ?', Time.now.to_date - 30.day ) }
+  scope :week_sign_in, -> { where('last_sign_in_at > ?', Time.now.to_date - 1.week) }
+  scope :month_sign_in, -> { where('last_sign_in_at > ?', Time.now.to_date - 1.month ) }
   scope :all_sign_in, -> { where('last_sign_in_at is not null') }
-  
+
   scope :ios_count, -> { where(os: 'ios') }
   scope :android_count, -> { where(os: 'android') }
-  
+
   include ActiveModel::Validations
 
   attr_accessor :sms_token
@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
   has_one :customer
   validate :sms_token_validate
   after_create :add_customer
+  after_create :give_reward
 
 
   def self.find_or_create_by_phone phone
@@ -96,7 +97,7 @@ class User < ActiveRecord::Base
       self.errors.add(:sms_token, "未获取，请先获取")
     elsif sms_token_obj.try(:updated_at) < Time.zone.now - 30.minute
       self.errors.add(:sms_token, "已失效，请重新获取")
-    elsif sms_token_obj.try(:token) != sms_token 
+    elsif sms_token_obj.try(:token) != sms_token
       self.errors.add(:sms_token, "不正确，请重试")
     end
   end
@@ -105,8 +106,16 @@ class User < ActiveRecord::Base
   def email_required?
     false
   end
-  
+
   def add_customer
     self.create_customer
+  end
+
+  def give_reward
+    relate_reward = RelateReward.where(phone: self.phone).first
+    if relate_reward.present?
+      reward = Reward.where(verify_code: relate_reward.verify_code).first
+      self.customer.jajin.got += reward.amount
+    end
   end
 end

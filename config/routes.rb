@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :relate_rewards, only: [:create]
+
   resources :boards
 
   devise_ios_rails_for :agents

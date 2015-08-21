@@ -21,9 +21,12 @@ class Reward < ActiveRecord::Base
 
   before_validation :generate_verify_code
 
-
   def activate_by_customer customer
     
+  end
+
+  def self.verify?(verify_code)
+    Reward.where(verify_code: verify_code).first.present?
   end
 
   private
