@@ -30,8 +30,8 @@ class PensionAccount < ActiveRecord::Base
       logger.info "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       if (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
         PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?)
-        customer.customer_reg_info.fail!
-        customer.identity_verifies.last.fail!
+        identity_verify.customer.customer_reg_info.fail!
+        identity_verify.customer.identity_verifies.last.fail!
       end
       self.create_by_customer identity_verify.customer
       sleep 0.1
@@ -49,8 +49,8 @@ class PensionAccount < ActiveRecord::Base
       puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       if (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
         PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?)
-        customer.customer_reg_info.fail!
-        customer.identity_verifies.last.fail!
+        identity_verify.customer.customer_reg_info.fail!
+        identity_verify.customer.identity_verifies.last.fail!
       end
       puts "start this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
       self.create_by_customer identity_verify.customer
