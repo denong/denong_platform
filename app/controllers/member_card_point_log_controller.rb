@@ -9,11 +9,12 @@ class MemberCardPointLogController < ApplicationController
     if current_agent.present?
       member_card = MemberCard.find_by_id(create_params[:member_card_id])
       if MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?
-        
+        return
       end
       if member_card.present? && create_params[:unique_ind].present? && !(MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?)
         params = create_params 
-        params[:point] *= -1 if params[:point] > 0 
+        params[:point] = params[:point].to_i
+        params[:point] *= -1 if params[:point].to_i > 0 
         params[:customer_id] = member_card.try(:customer).id
         @member_card_point_log = member_card.member_card_point_logs.create(params)
         @member_card_point_log.save
