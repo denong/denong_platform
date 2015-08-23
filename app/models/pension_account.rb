@@ -28,7 +28,7 @@ class PensionAccount < ActiveRecord::Base
     verifies.each do |identity_verify|
       i+=1
       logger.info "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
-      if (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
+      if (identity_verify.customer.try(:user).present?) && (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
         PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?)
         identity_verify.customer.customer_reg_info.fail!
         identity_verify.customer.identity_verifies.last.fail!
@@ -48,7 +48,7 @@ class PensionAccount < ActiveRecord::Base
       i+=1
       break if i > create_num
       puts "try this is the #{i} one, id_card is #{identity_verify.id_card}, customer is #{identity_verify.try(:customer).try(:user).try(:phone)}"
-      if (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
+      if (identity_verify.customer.try(:user).present?) && (PensionAccount.find_by_id_card(identity_verify.id_card).present? ||
         PensionAccount.find_by_phone(identity_verify.customer.try(:user).try(:phone)).present?)
         identity_verify.customer.customer_reg_info.fail!
         identity_verify.customer.identity_verifies.last.fail!
