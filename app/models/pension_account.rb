@@ -121,7 +121,7 @@ class PensionAccount < ActiveRecord::Base
     end
 
     # 发送SMS消息
-    account.send_sms_notification
+    # account.send_sms_notification
   end
 
   def add_account_info
@@ -135,7 +135,7 @@ class PensionAccount < ActiveRecord::Base
     self.customer.identity_verifies.last.success!
     success!
     # 发送SMS消息
-    send_sms_notification
+    # send_sms_notification
   end
 
   def send_sms_notification
