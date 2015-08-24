@@ -33,7 +33,6 @@ resource "积分转小金记录" do
 
     example "会员卡积分转小金成功" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
