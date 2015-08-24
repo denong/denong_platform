@@ -9,6 +9,9 @@ resource "小金奖励" do
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
+    header "X-User-Token", user_attrs[:authentication_token]
+    header "X-User-Phone", user_attrs[:phone]
+
     describe "success" do
       before do
         create(:customer_with_jajin_pension)
