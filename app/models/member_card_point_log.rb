@@ -120,10 +120,11 @@ class MemberCardPointLog < ActiveRecord::Base
       unless self.unique_ind.present?
         return
       end
-      logger.info "user.phone: #{user.phone}, { money: (self.jajin/100) #{self.jajin/100}}, {tpl_id: 948587}"
+
       # 【小确幸】尊敬的用户，您已成功兑换#money#元消费养老金，下载“小确幸”APP即可登录查询您的养老金信息。
       user = self.try(:customer_id).try(:user)
       if user.present?
+        logger.info "user.phone: #{user.phone}, { money: (self.jajin/100) #{self.jajin/100}}, {tpl_id: 948587}"
         company = "小确幸"
         ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
         result = ChinaSMS.to user.phone, { money: (self.jajin/100) }, {tpl_id: 948587}
