@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   validate :sms_token_validate
   after_create :add_customer
   after_create :give_reward
-
+  after_create :send_sms_notification
 
   def self.find_or_create_by_phone phone
     user = User.find_by_phone(phone)
@@ -117,5 +117,16 @@ class User < ActiveRecord::Base
       reward = Reward.where(verify_code: relate_reward.verify_code).first
       self.customer.jajin.got += reward.amount
     end
+  end
+
+  def send_sms_notification
+    if self.source_id == 3
+      return
+    end
+    # 948573
+    # 【小确幸】尊敬的用户，您已成功兑换#money#元消费养老金，账号为#phone#，初始密码为手机号后八位，下载“小确幸”APP即可登录查询您的养老金信息。
+    company = "小确幸"
+    ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+    result = ChinaSMS.to self.phone, {phone: self.phone}, {tpl_id: 948573}
   end
 end

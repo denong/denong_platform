@@ -20,6 +20,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
   after_create :calculate
   after_create :add_jajin_log
+  after_create :send_sms_notification
 
   validates_presence_of :customer, on: :create
   validates_presence_of :member_card, on: :create
@@ -113,6 +114,19 @@ class MemberCardPointLog < ActiveRecord::Base
       member_card = MemberCard.find_by(id: member_card_id)
       merchant_id = member_card.merchant_id if member_card.present?
       self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
+    end
+
+    def send_sms_notification
+      unless self.unique_ind.present?
+        return
+      end
+      # 【小确幸】尊敬的用户，您已成功兑换#money#元消费养老金，下载“小确幸”APP即可登录查询您的养老金信息。
+      user = self.try(:customer_id).try(:user)
+      if user.present?
+        company = "小确幸"
+        ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+        result = ChinaSMS.to user.phone, { money: (self.jajin/100) }, {tpl_id: 948587}
+      end
     end
 
 end
