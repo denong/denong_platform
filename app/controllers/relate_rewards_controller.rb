@@ -1,6 +1,6 @@
 class RelateRewardsController < ApplicationController
   # before_action :set_relate_reward, only: [:show]
-  acts_as_token_authentication_handler_for User, only: [:create]
+  # acts_as_token_authentication_handler_for User, only: [:create]
   respond_to :json
 
   def create
