@@ -33,67 +33,44 @@ class MemberCardPointLog < ActiveRecord::Base
   scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
   scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
   scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
-
-  scope :phone, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
-  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
-  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
   
   def company
     "积分转小金"
   end
 
   def self.get_point_log_by_merchant merchant_id, params
-
-    # if params[:phone].present?
-
-    #   if params[:begin_time].present? && params[:end_time].present?
-        
-    #   else
-
-    #   end
-    # else
-      
-    # end
-    # if params[:phone].present? && params[:begin_time].present? && params[:end_time].present?
-
-    # elsif params[:phone].present? && !(params[:begin_time].present? && params[:end_time].present?)
-
-    # elsif !params[:phone].present? && !params[:begin_time].present? && !params[:end_time].present?
-      
-    # end
-
-
-    # phone = params[:phone]
-    # customer = User.find_by_phone(phone).try(:customer)
-    # if customer.nil?
-    #   if condition
-        
-    #   else
-         
-    #   end
-      
-    # end
-
-
-    # member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: customer.id)
-    # if member_card.present?
-    #   if params[:begin_time].present? && params[:end_time].present?
-    #     strin = "created_at: params[:begin_time]..params[:end_time]"
-    #     member_card.try(:member_card_point_logs).where()
-    #   else
-    #     member_card.try(:member_card_point_logs).
-    #   end
-    # else
-    #   nil
-    # end
-  end
-
-  # def self.
+    phone = params[:phone]
+    member_cards = nil
+    member_card_point_logs = []
+    if phone.present?
+      customer = User.find_by_phone(phone).try(:customer)
+      if customer.present?
+        member_cards = MemberCard.where(merchant_id: merchant_id, customer_id: customer.id)
+      else
+        return
+      end
+    else
+      member_cards = MemberCard.where(merchant_id: merchant_id)
+    end
     
-  # end
+    unless member_cards.present?
+      return
+    end
 
-  def self.get_all_merchant_log merchant_id
-    
+    if params[:begin_time].present? && params[:end_time].present?
+      member_cards.each do |member_card|
+        member_card.try(:member_card_point_logs).where(created_at: params[:begin_time]..params[:end_time]).each do |member_card_point_log|
+          member_card_point_logs << member_card_point_log
+        end
+      end
+    else
+      member_cards.each do |member_card|
+        member_card.try(:member_card_point_logs).each do |member_card_point_log|
+          member_card_point_logs << member_card_point_log
+        end
+      end
+    end
+    member_card_point_logs
   end
 
   def self.get_point_log_by_agent agent_id, params

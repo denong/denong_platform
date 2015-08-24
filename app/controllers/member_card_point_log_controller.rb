@@ -30,20 +30,19 @@ class MemberCardPointLogController < ApplicationController
   def index
     if current_agent.present?
       @member_card_point_logs = MemberCardPointLog.get_point_log_by_agent(current_agent.id, index_params)
-      unless @member_card_point_logs.nil?
-        @member_card_point_logs = @member_card_point_logs.paginate(page: params[:page], per_page: 10)
-      end
     elsif current_customer.present?
       if params[:member_card_id].present?
-        @member_card_point_logs = current_customer.try(:member_cards).find_by(id: params[:member_card_id]).try(:member_card_point_logs).paginate(page: params[:page], per_page: 10)
+        @member_card_point_logs = current_customer.try(:member_cards).find_by(id: params[:member_card_id]).try(:member_card_point_logs)
       else
-        @member_card_point_logs = current_customer.try(:member_card_point_logs).paginate(page: params[:page], per_page: 10)
+        @member_card_point_logs = current_customer.try(:member_card_point_logs)
       end
     elsif current_merchant.present?
       @member_card_point_logs = MemberCardPointLog.get_point_log_by_merchant(current_merchant.id, index_params)
-      unless @member_card_point_logs.nil?
-        @member_card_point_logs = @member_card_point_logs.paginate(page: params[:page], per_page: 10)
-      end
+    end
+
+    unless @member_card_point_logs.nil?
+      @size = @member_card_point_logs.size
+      @member_card_point_logs = @member_card_point_logs.paginate(page: params[:page], per_page: 10)
     end
   end
 
