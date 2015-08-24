@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819074408) do
+ActiveRecord::Schema.define(version: 20150821050031) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -569,6 +569,15 @@ ActiveRecord::Schema.define(version: 20150819074408) do
   add_index "pos_machines", ["pos_ind"], name: "index_pos_machines_on_pos_ind"
   add_index "pos_machines", ["shop_id"], name: "index_pos_machines_on_shop_id"
 
+  create_table "relate_rewards", force: true do |t|
+    t.string   "phone"
+    t.string   "verify_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relate_rewards", ["phone"], name: "index_relate_rewards_on_phone"
+
   create_table "reward_logs", force: true do |t|
     t.integer  "reward_id"
     t.integer  "customer_id"
@@ -641,6 +650,15 @@ ActiveRecord::Schema.define(version: 20150819074408) do
   end
 
   add_index "sms_tokens", ["phone"], name: "index_sms_tokens_on_phone"
+
+  create_table "status_codes", force: true do |t|
+    t.string   "level"
+    t.string   "code"
+    t.string   "name"
+    t.string   "interface"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
