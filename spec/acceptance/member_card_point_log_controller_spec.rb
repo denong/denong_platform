@@ -47,9 +47,10 @@ resource "积分转小金记录" do
       create(:member_card_point_log, unique_ind: "1234567", customer: user.customer, member_card: @member_card, point: -10)
     end
 
-    parameter :point, "要兑换的积分分值", required: true
-    parameter :member_card_id, "会员卡ID", required: true
-    parameter :unique_ind, "商户兑换记录的唯一标示", required: true
+    parameter :point, "要兑换的积分分值", required: true, scope: :member_card_point_log 
+    parameter :member_card_id, "会员卡ID", required: true, scope: :member_card_point_log 
+    parameter :unique_ind, "商户兑换记录的唯一标示", required: true, scope: :member_card_point_log 
+    parameter :first_time, "用户是否第一次注册", required: true, scope: :member_card_point_log 
 
     response_field :point, "积分分值"
     response_field :jajin, "小金数"
@@ -64,6 +65,7 @@ resource "积分转小金记录" do
     let(:member_card_id) { @member_card.id }
     let(:unique_ind) { "123456" }
     let(:point) { -50 }
+    let(:first_time) { true }
     let(:raw_post) { params.to_json }
 
     example "代理商会员卡积分转小金成功" do
@@ -152,12 +154,12 @@ resource "积分转小金记录" do
 
     parameter :page, "页码", required: false
     parameter :phone, "用户手机号", required: true, scope: :member_card_point_log 
-    parameter :begin_time, "开始时间", required: true, scope: :member_card_point_log
-    parameter :end_time, "结束时间", required: true, scope: :member_card_point_log
+    parameter :begin_time, "开始时间", required: false, scope: :member_card_point_log
+    parameter :end_time, "结束时间", required: false, scope: :member_card_point_log
 
     let(:phone) { "12345678903" }
-    let(:begin_time) { DateTime.new(2015,8,1)  }
-    let(:end_time) { DateTime.new(2016,8,1)  }
+    # let(:begin_time) { DateTime.new(2015,8,1)  }
+    # let(:end_time) { DateTime.new(2016,8,1)  }
     let(:raw_post) { params.to_json }
 
     example "商户获取积分转小金全部记录成功" do

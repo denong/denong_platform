@@ -20,7 +20,6 @@ class MemberCardPointLog < ActiveRecord::Base
 
   after_create :calculate
   after_create :add_jajin_log
-  after_create :send_sms_notification
 
   validates_presence_of :customer, on: :create
   validates_presence_of :member_card, on: :create
@@ -34,24 +33,64 @@ class MemberCardPointLog < ActiveRecord::Base
   scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
   scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
   scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
+
+  scope :phone, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
+  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
+  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
   
   def company
     "积分转小金"
   end
 
   def self.get_point_log_by_merchant merchant_id, params
-    phone = params[:phone]
-    customer = User.find_by_phone(phone).try(:customer)
-    if customer.nil?
-      return
-    end
-    member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: customer.id)
-    if member_card.present?
-      member_card.try(:member_card_point_logs).where(created_at: params[:begin_time]..params[:end_time])
-    else
-      nil
-    end
+
+    # if params[:phone].present?
+
+    #   if params[:begin_time].present? && params[:end_time].present?
+        
+    #   else
+
+    #   end
+    # else
+      
+    # end
+    # if params[:phone].present? && params[:begin_time].present? && params[:end_time].present?
+
+    # elsif params[:phone].present? && !(params[:begin_time].present? && params[:end_time].present?)
+
+    # elsif !params[:phone].present? && !params[:begin_time].present? && !params[:end_time].present?
+      
+    # end
+
+
+    # phone = params[:phone]
+    # customer = User.find_by_phone(phone).try(:customer)
+    # if customer.nil?
+    #   if condition
+        
+    #   else
+         
+    #   end
+      
+    # end
+
+
+    # member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: customer.id)
+    # if member_card.present?
+    #   if params[:begin_time].present? && params[:end_time].present?
+    #     strin = "created_at: params[:begin_time]..params[:end_time]"
+    #     member_card.try(:member_card_point_logs).where()
+    #   else
+    #     member_card.try(:member_card_point_logs).
+    #   end
+    # else
+    #   nil
+    # end
   end
+
+  # def self.
+    
+  # end
 
   def self.get_all_merchant_log merchant_id
     
@@ -116,17 +155,32 @@ class MemberCardPointLog < ActiveRecord::Base
       self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
     end
 
-    def send_sms_notification
-      unless self.unique_ind.present?
+    def self.send_sms_notification params, first_time
+      customer = Customer.find_by_id(params[:customer_id])
+      user = customer.try(:user)
+      unless user.present?
         return
       end
-      # 【小确幸】尊敬的用户，您已成功兑换#money#元消费养老金，下载“小确幸”APP即可登录查询您的养老金信息。
-      user = self.try(:customer).try(:user)
-      if user.present?
-        company = "小确幸"
-        ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
-        result = ChinaSMS.to user.phone, { money: (self.jajin/100) }, {tpl_id: 948587}
-      end
-    end
 
+      phone = user.phone
+      money = params[:point].abs.to_f/100
+
+      tpl = 948587
+      send_hash = {}
+      if first_time
+        # 刚完成注册之后，第一次兑换
+        # 需发送金额、手机号、手机号后八位
+        tpl = 948573
+        send_hash[:money] = money
+        send_hash[:phone] = phone
+        send_hash[:secret] = phone[-8..-1]
+      else
+        # 非首次兑换
+        # 需发送金额
+        tpl = 948587
+        send_hash[:money] = money
+      end
+      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
+    end
 end

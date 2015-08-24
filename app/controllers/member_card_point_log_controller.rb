@@ -12,12 +12,14 @@ class MemberCardPointLogController < ApplicationController
         return
       end
       if member_card.present? && create_params[:unique_ind].present? && !(MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?)
-        params = create_params 
+        params = create_params
         params[:point] = params[:point].to_i
         params[:point] *= -1 if params[:point].to_i > 0 
         params[:customer_id] = member_card.try(:customer).id
+        first_time = params.delete(:first_time) || false
         @member_card_point_log = member_card.member_card_point_logs.create(params)
         @member_card_point_log.save
+        MemberCardPointLog.send_sms_notification params, first_time
       end
     elsif current_customer.present?
       @member_card_point_log = current_customer.member_card_point_logs.build create_params
@@ -51,7 +53,7 @@ class MemberCardPointLogController < ApplicationController
 
   private
     def create_params
-      params.require(:member_card_point_log).permit(:member_card_id, :point, :unique_ind)
+      params.require(:member_card_point_log).permit(:member_card_id, :point, :unique_ind, :first_time)
     end
 
     def index_params
