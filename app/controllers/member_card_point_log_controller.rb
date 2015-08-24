@@ -19,7 +19,7 @@ class MemberCardPointLogController < ApplicationController
         first_time = params.delete(:first_time) || false
         @member_card_point_log = member_card.member_card_point_logs.create(params)
         @member_card_point_log.save
-        MemberCardPointLog.send_sms_notification params, first_time
+        MemberCardPointLog.send_sms_notification params, first_time unless @member_card_point_log.errors.present?
       end
     elsif current_customer.present?
       @member_card_point_log = current_customer.member_card_point_logs.build create_params
