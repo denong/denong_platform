@@ -10,7 +10,7 @@ before_filter :configure_sign_in_params, only: [:create]
   def create
     super
 
-    p "sign_in"
+    p params["user"]["phone"]
   end
 
   # DELETE /resource/sign_out
