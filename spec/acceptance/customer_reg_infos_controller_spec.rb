@@ -97,7 +97,7 @@ resource "用户概要信息查询" do
       bank_cards = create_list(:bank_card, 3, bank_id:bank.id, bank_card_type: 0)
       @user.customer.bank_cards = bank_cards
       @user.customer.follow! merchant
-      @user.customer.customer_reg_info.image = create(:image)
+      @user.customer.customer_reg_info = create(:verify_customer_reg_info)
     end
 
     user_attrs = FactoryGirl.attributes_for(:agent)
@@ -105,10 +105,14 @@ resource "用户概要信息查询" do
     header "X-User-Phone", user_attrs[:phone]
 
     parameter :phone, "手机号", scope: :customer_reg_info
+    parameter :name, "姓名", scope: :customer_reg_info
+    parameter :id_card, "身份证号码", scope: :customer_reg_info
 
     response_field :exist, "是否存在"
 
     let(:phone) { @user.phone }
+    let(:name) { @user.customer.customer_reg_info.name }
+    let(:id_card) { "3333333333" }
 
     example "获取用户实名制验证状态成功" do
       do_request

@@ -27,10 +27,16 @@ class CustomerRegInfo < ActiveRecord::Base
   #   self.try(:customer).try(:identity_verifies).try(:last).try(:account_state)
   # end
 
-  def self.get_reg_info_by_phone phone
-    user = User.find_by_phone phone
-    if user.present?
-       user.try(:customer).try(:customer_reg_info)
+  def self.get_reg_info_by_phone query_params
+    user = User.find_by_phone query_params[:phone]
+    customer_reg_info = user.try(:customer).try(:customer_reg_info)
+    if customer_reg_info.present?
+       if query_params[:name] == customer_reg_info.name && query_params[:id_card] == customer_reg_info.id_card
+         customer_reg_info
+       else
+        customer_reg_info.errors.add(:identity_verify, "身份证信息错误")
+       end
     end
+    customer_reg_info
   end
 end
