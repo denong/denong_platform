@@ -8,10 +8,12 @@ class MemberCardPointLogController < ApplicationController
   def create
     if current_agent.present?
       member_card = MemberCard.find_by_id(create_params[:member_card_id])
-      if MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?
-        return
-      end
-      if member_card.present? && create_params[:unique_ind].present? && !(MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind]).present?)
+      if member_card.present? && create_params[:unique_ind].present?
+        @member_card_point_log = MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind])
+        if @member_card_point_log.present?
+          @member_card_point_log.errors.add(:unique_ind, "唯一标示已经存在")
+          return
+        end
         params = create_params
         params[:point] = params[:point].to_i
         params[:point] *= -1 if params[:point].to_i > 0 
