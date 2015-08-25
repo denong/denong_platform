@@ -11,7 +11,7 @@ class MemberCardPointLogController < ApplicationController
       if member_card.present? && create_params[:unique_ind].present?
         @member_card_point_log = MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind])
         if @member_card_point_log.present?
-          @member_card_point_log.errors.add(:unique_ind, "唯一标示已经存在")
+          @member_card_point_log.errors.add(:unique_ind, "唯一标示（流水号）已经存在")
           return
         end
         params = create_params
