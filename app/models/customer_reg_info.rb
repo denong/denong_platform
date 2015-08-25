@@ -30,7 +30,7 @@ class CustomerRegInfo < ActiveRecord::Base
   def self.get_reg_info_by_phone query_params
     user = User.find_by_phone query_params[:phone]
     customer_reg_info = user.try(:customer).try(:customer_reg_info)
-    if customer_reg_info.present?
+    if customer_reg_info.present? && customer_reg_info.name.present? && customer_reg_info.id_card.present?
        if query_params[:name] == customer_reg_info.name && query_params[:id_card] == customer_reg_info.id_card
          customer_reg_info
        else
