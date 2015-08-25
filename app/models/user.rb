@@ -57,7 +57,6 @@ class User < ActiveRecord::Base
   has_one :customer
   validate :sms_token_validate
   after_create :add_customer
-  after_create :give_reward
 
   def self.find_or_create_by_phone phone
     user = User.find_by_phone(phone)
@@ -108,14 +107,6 @@ class User < ActiveRecord::Base
 
   def add_customer
     self.create_customer
-  end
-
-  def give_reward
-    relate_reward = RelateReward.where(phone: self.phone).first
-    if relate_reward.present?
-      reward = Reward.where(verify_code: relate_reward.verify_code).first
-      self.customer.jajin.got += reward.amount
-    end
   end
 
 end

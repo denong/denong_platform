@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-before_filter :configure_sign_in_params, only: [:create]
+  before_filter :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
   def new
@@ -9,8 +9,7 @@ before_filter :configure_sign_in_params, only: [:create]
   # POST /resource/sign_in
   def create
     super
-
-    p params["user"]["phone"]
+    RelateReward.give_reward(params["user"]["phone"])
   end
 
   # DELETE /resource/sign_out
