@@ -40,20 +40,37 @@ class MemberCardPointLog < ActiveRecord::Base
 
   def self.get_point_log_by_merchant merchant_id, params
     phone = params[:phone]
-    customer = User.find_by_phone(phone).try(:customer)
-    if customer.nil?
+    member_cards = nil
+    member_card_point_logs = []
+    if phone.present?
+      customer = User.find_by_phone(phone).try(:customer)
+      if customer.present?
+        member_cards = MemberCard.where(merchant_id: merchant_id, customer_id: customer.id)
+      else
+        return
+      end
+    else
+      member_cards = MemberCard.where(merchant_id: merchant_id)
+    end
+    
+    unless member_cards.present?
       return
     end
-    member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: customer.id)
-    if member_card.present?
-      member_card.try(:member_card_point_logs).where(created_at: params[:begin_time]..params[:end_time])
-    else
-      nil
-    end
-  end
 
-  def self.get_all_merchant_log merchant_id
-    
+    if params[:begin_time].present? && params[:end_time].present?
+      member_cards.each do |member_card|
+        member_card.try(:member_card_point_logs).where(created_at: params[:begin_time]..params[:end_time]).each do |member_card_point_log|
+          member_card_point_logs << member_card_point_log
+        end
+      end
+    else
+      member_cards.each do |member_card|
+        member_card.try(:member_card_point_logs).each do |member_card_point_log|
+          member_card_point_logs << member_card_point_log
+        end
+      end
+    end
+    member_card_point_logs
   end
 
   def self.get_point_log_by_agent agent_id, params
@@ -115,4 +132,32 @@ class MemberCardPointLog < ActiveRecord::Base
       self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
     end
 
+    def self.send_sms_notification params, first_time
+      customer = Customer.find_by_id(params[:customer_id])
+      user = customer.try(:user)
+      unless user.present?
+        return
+      end
+
+      phone = user.phone
+      money = params[:point].abs.to_f/100
+
+      tpl = 948587
+      send_hash = {}
+      if first_time
+        # 刚完成注册之后，第一次兑换
+        # 需发送金额、手机号、手机号后八位
+        tpl = 948573
+        send_hash[:money] = money
+        send_hash[:phone] = phone
+        send_hash[:secret] = phone[-8..-1]
+      else
+        # 非首次兑换
+        # 需发送金额
+        tpl = 948587
+        send_hash[:money] = money
+      end
+      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
+    end
 end

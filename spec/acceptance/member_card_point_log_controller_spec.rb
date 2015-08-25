@@ -33,7 +33,6 @@ resource "积分转小金记录" do
 
     example "会员卡积分转小金成功" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
@@ -45,12 +44,13 @@ resource "积分转小金记录" do
       merchant = create(:merchant, agent: agent)
       create(:personal_info, name: "于子洵", id_card: "333333333333333333")
       @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333", customer: user.customer)
-      create(:member_card_point_log, unique_ind: "1234567", customer: user.customer, member_card: @member_card, point: -10)
+      create(:member_card_point_log, unique_ind: "123456", customer: user.customer, member_card: @member_card, point: -10)
     end
 
-    parameter :point, "要兑换的积分分值", required: true
-    parameter :member_card_id, "会员卡ID", required: true
-    parameter :unique_ind, "商户兑换记录的唯一标示", required: true
+    parameter :point, "要兑换的积分分值", required: true, scope: :member_card_point_log 
+    parameter :member_card_id, "会员卡ID", required: true, scope: :member_card_point_log 
+    parameter :unique_ind, "商户兑换记录的唯一标示", required: true, scope: :member_card_point_log 
+    parameter :first_time, "用户是否第一次注册", required: true, scope: :member_card_point_log 
 
     response_field :point, "积分分值"
     response_field :jajin, "小金数"
@@ -65,10 +65,12 @@ resource "积分转小金记录" do
     let(:member_card_id) { @member_card.id }
     let(:unique_ind) { "123456" }
     let(:point) { -50 }
+    let(:first_time) { true }
     let(:raw_post) { params.to_json }
 
     example "代理商会员卡积分转小金成功" do
       do_request
+      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
@@ -77,6 +79,7 @@ resource "积分转小金记录" do
     before do
       merchant = create(:merchant)
       customer = create(:customer_with_jajin_pension)
+      user = create(:user, phone: "12345654321", email: "abcd@abcd.com", authentication_token: "lllll")
 
       merchant_customers = []
       merchant_customers << create(:merchant_customer)
@@ -87,7 +90,7 @@ resource "积分转小金记录" do
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
-      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant)
+      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: user.customer, merchant: merchant)
 
       member_cards.each do |member_card|
         create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
@@ -153,8 +156,8 @@ resource "积分转小金记录" do
 
     parameter :page, "页码", required: false
     parameter :phone, "用户手机号", required: true, scope: :member_card_point_log 
-    parameter :begin_time, "开始时间", required: true, scope: :member_card_point_log
-    parameter :end_time, "结束时间", required: true, scope: :member_card_point_log
+    parameter :begin_time, "开始时间", required: false, scope: :member_card_point_log
+    parameter :end_time, "结束时间", required: false, scope: :member_card_point_log
 
     let(:phone) { "12345678903" }
     let(:begin_time) { DateTime.new(2015,8,1)  }
@@ -229,6 +232,7 @@ resource "积分转小金记录" do
     before do
       merchant = create(:merchant)
       customer = create(:customer_with_jajin_pension)
+      user = create(:user, phone: "12345654321", email: "abcd@abcd.com", authentication_token: "lllll")
 
       merchant_customers = []
       merchant_customers << create(:merchant_customer, merchant: merchant)
@@ -239,7 +243,7 @@ resource "积分转小金记录" do
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
-      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant)
+      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: user.customer, merchant: merchant)
 
       member_cards.each do |member_card|
         (0..1).each do |index|
@@ -274,6 +278,7 @@ resource "积分转小金记录" do
     before do
       merchant = create(:merchant)
       customer = create(:customer_with_jajin_pension)
+      user = create(:user, phone: "12345654321", email: "abcd@abcd.com", authentication_token: "lllll")
 
       merchant_customers = []
       merchant_customers << create(:merchant_customer, merchant: merchant)
@@ -284,7 +289,7 @@ resource "积分转小金记录" do
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
-      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant)
+      member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: user.customer, merchant: merchant)
 
       member_cards.each do |member_card|
         create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)

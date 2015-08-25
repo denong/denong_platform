@@ -17,7 +17,6 @@ class IdentityVerifiesController < ApplicationController
       if user.present? && user.try(:customer).present?
         params.delete(:phone)
         params[:name].encode! 'utf-8', 'gbk', {:invalid => :replace} if params[:name].encoding.name != "UTF-8"
-        logger.info "IdentityVerifiesController is #{params[:name]}, encode is #{params[:name].encoding}"
         @identity_verify = user.try(:customer).identity_verifies.build(params)
         @identity_verify.save
         respond_with(@identity_verify)
@@ -43,7 +42,6 @@ class IdentityVerifiesController < ApplicationController
     end
 
     def create_params
-      logger.info "params is #{params}"
       params.require(:identity_verify).permit(:phone, :name, :id_card,
           front_image_attributes: [:id, :photo, :_destroy],
           back_image_attributes: [:id, :photo, :_destroy]

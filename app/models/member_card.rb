@@ -22,7 +22,7 @@ class MemberCard < ActiveRecord::Base
 
   has_many :member_card_point_logs
 
-  validates_uniqueness_of :passwd, scope: :merchant_id
+  validates_uniqueness_of :customer_id, scope: :merchant_id
   validate :authenticate, on: :create
 
   after_create :add_merchant_member_card_amount

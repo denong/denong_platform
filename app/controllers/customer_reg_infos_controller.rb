@@ -20,7 +20,7 @@ class CustomerRegInfosController < ApplicationController
   end
 
   def verify_state
-    @customer_reg_info = CustomerRegInfo.get_reg_info_by_phone query_params[:phone]
+    @customer_reg_info = CustomerRegInfo.get_reg_info_by_phone query_params
     respond_with(@customer_reg_info)
   end
 
@@ -32,6 +32,6 @@ class CustomerRegInfosController < ApplicationController
     end
 
     def query_params
-      params.require(:customer_reg_info).permit(:phone)      
+      params.require(:customer_reg_info).permit(:phone, :name, :id_card)      
     end
 end

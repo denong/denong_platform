@@ -59,7 +59,6 @@ class User < ActiveRecord::Base
   after_create :add_customer
   after_create :give_reward
 
-
   def self.find_or_create_by_phone phone
     user = User.find_by_phone(phone)
     if user.nil?
@@ -118,4 +117,5 @@ class User < ActiveRecord::Base
       self.customer.jajin.got += reward.amount
     end
   end
+
 end
