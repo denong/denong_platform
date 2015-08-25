@@ -32,9 +32,9 @@ class CustomerRegInfo < ActiveRecord::Base
     customer_reg_info = user.try(:customer).try(:customer_reg_info)
     if customer_reg_info.present? && customer_reg_info.name.present? && customer_reg_info.id_card.present?
        if query_params[:name] == customer_reg_info.name && query_params[:id_card] == customer_reg_info.id_card
-         customer_reg_info
+        customer_reg_info
        else
-        customer_reg_info.errors.add(:identity_verify, "身份证信息错误")
+        customer_reg_info.errors.add(:identity_verify, "身份信息错误")
        end
     end
     customer_reg_info
