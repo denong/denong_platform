@@ -74,8 +74,13 @@ class JajinLog < ActiveRecord::Base
       message.save
       message.reload
 
-      send_wechat_notification message
-      send_xg_notification message
+      begin
+        send_wechat_notification message
+        send_xg_notification message  
+      rescue Exception => e
+        logger.info " Exception is #{e}"
+      end
+
     end
 
     def send_wechat_notification message
