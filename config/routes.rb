@@ -74,7 +74,9 @@ Rails.application.routes.draw do
 
   ################################################ 
   # 用户相关的路由
-  devise_ios_rails_for :users
+  devise_ios_rails_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
 
   # 用户注册资料
   resources :customer_reg_infos, only: [:show] do
