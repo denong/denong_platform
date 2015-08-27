@@ -9,19 +9,20 @@ class MemberCardPointLogController < ApplicationController
     if current_agent.present?
       member_card = MemberCard.find_by_id(create_params[:member_card_id])
       if member_card.present? && create_params[:unique_ind].present?
-        @member_card_point_log = MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind])
+        # @member_card_point_log = MemberCardPointLog.find_by_unique_ind(create_params[:unique_ind])
+        @member_card_point_log = MemberCardPointLog.where(unique_ind: create_params[:unique_ind]).first
         if @member_card_point_log.present?
           @member_card_point_log.errors.add(:unique_ind, "唯一标示（流水号）已经存在")
-          return
+        else
+          params = create_params
+          params[:point] = params[:point].to_i
+          params[:point] *= -1 if params[:point].to_i > 0 
+          params[:customer_id] = member_card.try(:customer).id
+          first_time = params.delete(:first_time) || false
+          @member_card_point_log = member_card.member_card_point_logs.create(params)
+          @member_card_point_log.save
+          MemberCardPointLog.send_sms_notification params, first_time unless @member_card_point_log.errors.present?
         end
-        params = create_params
-        params[:point] = params[:point].to_i
-        params[:point] *= -1 if params[:point].to_i > 0 
-        params[:customer_id] = member_card.try(:customer).id
-        first_time = params.delete(:first_time) || false
-        @member_card_point_log = member_card.member_card_point_logs.create(params)
-        @member_card_point_log.save
-        MemberCardPointLog.send_sms_notification params, first_time unless @member_card_point_log.errors.present?
       end
     elsif current_customer.present?
       @member_card_point_log = current_customer.member_card_point_logs.build create_params
