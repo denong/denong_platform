@@ -69,11 +69,11 @@ class IdentityVerify < ActiveRecord::Base
       if response_hash["result"]["isok"]
         PersonalInfo.find_or_create_by(name: name, id_card: id_card)
       end
-      logger.info "#{response_hash}"
       response_hash["result"]["isok"]
     else
       false
     end
+    logger.info "#{response_hash}"
   end
 
   def reject!
