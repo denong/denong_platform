@@ -75,7 +75,7 @@ class MemberCard < ActiveRecord::Base
       if personal_info.present? && personal_info.name == user_name
         return true
       end
-      logger.info "id_card is #{passwd}, name is #{name}"
+      logger.info "id_card is #{passwd}, name is #{user_name}"
       passwd = change_id_card passwd
       response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
       response_hash = MultiJson.load(response)
