@@ -26,16 +26,31 @@ class CustomerRegInfo < ActiveRecord::Base
   # def account_state
   #   self.try(:customer).try(:identity_verifies).try(:last).try(:account_state)
   # end
-
+  def self.change_id_card id_card
+    id_card = id_card.to_s
+    unless id_card.size == 15
+      return id_card 
+    end
+    id_card = id_card.insert(6,"19")
+    sum = 0
+    m_arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2]
+    (0..id_card.size-1).each do |index|
+      sum += m_arr[index]*id_card[index].to_i
+    end
+    result = ["1","0","X","9","8","7","6","5","4","3","2"]
+    id_card = id_card+result[sum%11]
+  end
+  
   def self.get_reg_info_by_phone query_params
     user = User.find_by_phone query_params[:phone]
     customer_reg_info = user.try(:customer).try(:customer_reg_info)
     if customer_reg_info.present? && customer_reg_info.name.present? && customer_reg_info.id_card.present?
-       if query_params[:name] == customer_reg_info.name && query_params[:id_card] == customer_reg_info.id_card
+      id_card = query_params[:id_card]
+      if query_params[:name] == customer_reg_info.name && id_card == customer_reg_info.id_card
         customer_reg_info
-       else
+      else
         customer_reg_info.errors.add(:identity_verify, "身份信息错误")
-       end
+      end
     end
     customer_reg_info
   end
