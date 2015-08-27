@@ -77,7 +77,6 @@ class MemberCard < ActiveRecord::Base
       end
       
       passwd = change_id_card passwd
-      logger.info "id_card is #{passwd}, name is #{user_name}"
 
       response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
       response_hash = MultiJson.load(response)
@@ -85,11 +84,10 @@ class MemberCard < ActiveRecord::Base
         if response_hash["result"]["isok"]
           PersonalInfo.find_or_create_by(name: user_name, id_card: passwd)
         end
-        response_hash["result"]["isok"]
+        return response_hash["result"]["isok"]
       else
-        false
+        return false
       end
-      logger.info "#{response_hash}"
     end
 
     # def old_authenticate

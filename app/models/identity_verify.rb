@@ -62,18 +62,16 @@ class IdentityVerify < ActiveRecord::Base
     end
 
     id_card = change_id_card id_card
-    logger.info "id_card is #{id_card}, name is #{name}"
     response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
     response_hash = MultiJson.load(response)
     if response_hash["error_code"].to_i == 0
       if response_hash["result"]["isok"]
         PersonalInfo.find_or_create_by(name: name, id_card: id_card)
       end
-      response_hash["result"]["isok"]
+      return response_hash["result"]["isok"]
     else
-      false
+      return false
     end
-    logger.info "#{response_hash}"
   end
 
   def reject!
