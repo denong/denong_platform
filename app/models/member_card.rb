@@ -55,11 +55,28 @@ class MemberCard < ActiveRecord::Base
       end
     end
 
+    def change_id_card id_card
+      id_card = id_card.to_s
+      unless id_card.size == 15
+        return id_card 
+      end
+      id_card = id_card.insert(6,"19")
+      sum = 0
+      m_arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2]
+      (0..id_card.size-1).each do |index|
+        sum += m_arr[index]*id_card[index].to_i
+      end
+      result = ["1","0","X","9","8","7","6","5","4","3","2"]
+      id_card = id_card+result[sum%11]
+    end
+
     def idcard_verify?
       personal_info = PersonalInfo.find_by_id_card(passwd)
       if personal_info.present? && personal_info.name == user_name
         return true
       end
+
+      change_id_card id_card
       response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
       response_hash = MultiJson.load(response)
       if response_hash["error_code"].to_i == 0
