@@ -61,7 +61,7 @@ class IdentityVerify < ActiveRecord::Base
       return true
     end
 
-    change_id_card id_card
+    id_card = change_id_card id_card
     response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
     response_hash = MultiJson.load(response)
     if response_hash["error_code"].to_i == 0
