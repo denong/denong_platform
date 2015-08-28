@@ -4,11 +4,11 @@ class VerifiesController < ApplicationController
   acts_as_token_authentication_handler_for User
 
   def show
-    if JajinVerifyLog.tl_varify verify_params
-      puts "verify_params is #{verify_params}"
+    if JajinVerifyLog.tl_varify params
+      puts "params is #{params}"
       init_params = {}
-      init_params[:verify_code] = verify_params[:ckh]
-      init_params[:amount] = verify_params[:amt]
+      init_params[:verify_code] = params[:ckh]
+      init_params[:amount] = params[:amt]
       @jajin_verify_log = current_customer.jajin_verify_logs.create init_params
     end
 
