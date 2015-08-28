@@ -45,7 +45,7 @@ class JajinVerifyLog < ActiveRecord::Base
 
     if jajin_identity_code && (params[:date] == jajin_identity_code.trade_time[0..7]) &&
       (params[:time] == jajin_identity_code.trade_time[8..13]) &&
-      (params[:amt] == jajin_identity_code.amount.to_s)
+      (params[:amt].to_f == jajin_identity_code.amount.to_f)
       check_result = true
     end
     check_result
