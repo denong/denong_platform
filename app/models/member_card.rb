@@ -60,6 +60,7 @@ class MemberCard < ActiveRecord::Base
       unless id_card.size == 15
         return id_card 
       end
+      
       id_card = id_card.insert(6,"19")
       sum = 0
       m_arr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2]
@@ -72,10 +73,8 @@ class MemberCard < ActiveRecord::Base
     end
 
     def idcard_verify?
-      passwd = change_id_card passwd
-      logger.info "id_card is #{passwd}"
+      change_id_card passwd
       personal_info = PersonalInfo.find_by_id_card(passwd)
-      logger.info "id_card is #{personal_info.inspect}" if personal_info.present?
       if personal_info.present? && personal_info.name == user_name
         return true
       end
