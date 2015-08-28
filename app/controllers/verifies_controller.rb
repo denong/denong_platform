@@ -5,6 +5,7 @@ class VerifiesController < ApplicationController
 
   def show
     if JajinVerifyLog.tl_varify verify_params
+      puts "verify_params is #{verify_params}"
       init_params = {}
       init_params[:verify_code] = verify_params[:ckh]
       init_params[:amount] = verify_params[:amt]
