@@ -36,6 +36,13 @@ class JajinVerifyLog < ActiveRecord::Base
   def self.tl_varify params
     check_result = false
     jajin_identity_code = JajinIdentityCode.find_by_verify_code(params[:ckh])
+    if jajin_identity_code.present?
+      logger.info "params is #{params}"
+      logger.info "#{jajin_identity_code.inspect} "
+      logger.info "date is #{jajin_identity_code.trade_time[0..7]}, time is #{jajin_identity_code.trade_time[8..13]}, amt is #{jajin_identity_code.amount}"
+      logger.info "#{params[:date] == jajin_identity_code.trade_time[0..7]}, #{(params[:time] == jajin_identity_code.trade_time[8..13])}, #{(params[:amt] == jajin_identity_code.amount.to_s)}"
+    end
+
     if jajin_identity_code && (params[:date] == jajin_identity_code.trade_time[0..7]) &&
       (params[:time] == jajin_identity_code.trade_time[8..13]) &&
       (params[:amt] == jajin_identity_code.amount.to_s)
