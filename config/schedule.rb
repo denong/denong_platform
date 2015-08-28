@@ -26,6 +26,6 @@ every 1.day, :at => '00:05' do
   runner "MerchantLog.new.process"
 end
 
-every 1.day, :at => '15:00' do
+every 1.day, :at => '15:20' do
   runner "PensionAccount.create_by_identity_info"
 end
