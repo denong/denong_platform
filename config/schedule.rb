@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, "/log/schedule.log"
+set :output, "./log/schedule.log"
 
 every 1.day, :at => '00:05' do
   runner "DataReport.new.process"
