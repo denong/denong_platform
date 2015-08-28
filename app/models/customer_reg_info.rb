@@ -47,7 +47,7 @@ class CustomerRegInfo < ActiveRecord::Base
     if customer_reg_info.present? && customer_reg_info.name.present? && customer_reg_info.id_card.present?
       logger.info "before is #{id_card}"
       id_card = change_id_card query_params[:id_card]
-      logger.info "--------------"id_card is #{id_card}, customer_reg_info is #{customer_reg_info.name}, #{customer_reg_info.id_card} "
+      logger.info "--------------id_card is #{id_card}, customer_reg_info is #{customer_reg_info.name}, #{customer_reg_info.id_card}"
       if query_params[:name] == customer_reg_info.name && id_card == customer_reg_info.id_card
         customer_reg_info
       else
