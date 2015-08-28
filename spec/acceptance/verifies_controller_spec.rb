@@ -6,7 +6,7 @@ resource "通联交易小金领取" do
     header "Content-Type", "application/json"
 
     before do
-      FactoryGirl.create(:user)
+      user = create(:user)
       @jajin_identity_code = FactoryGirl.create(:jajin_identity_code, trade_time: "20150505221517")
     end
 
@@ -16,10 +16,10 @@ resource "通联交易小金领取" do
     response_field :merchant_id,    "商户ID"
     response_field :verify_code,    "验证码"
 
-    parameter :ckh, "交易参考号", required: true, scope: :verify
-    parameter :date, "交易日期", required: true, scope: :verify
-    parameter :time, "交易时间", required: true, scope: :verify
-    parameter :amt, "交易金额", required: true, scope: :verify
+    parameter :ckh, "交易参考号", required: true
+    parameter :date, "交易日期", required: true
+    parameter :time, "交易时间", required: true
+    parameter :amt, "交易金额", required: true
 
     user_attrs = FactoryGirl.attributes_for(:user)
 
