@@ -38,14 +38,15 @@ class CustomerRegInfo < ActiveRecord::Base
       sum += m_arr[index]*id_card[index].to_i
     end
     result = ["1","0","X","9","8","7","6","5","4","3","2"]
-    id_card = id_card+result[sum%11]
+    id_card << result[sum%11]
+    id_card
   end
 
   def self.get_reg_info_by_phone query_params
     user = User.find_by_phone query_params[:phone]
     customer_reg_info = user.try(:customer).try(:customer_reg_info)
     if customer_reg_info.present? && customer_reg_info.name.present? && customer_reg_info.id_card.present?
-      logger.info "before is #{id_card}"
+      logger.info "before is #{query_params[:id_card]}"
       id_card = change_id_card query_params[:id_card]
       logger.info "--------------id_card is #{id_card}, customer_reg_info is #{customer_reg_info.name}, #{customer_reg_info.id_card}"
       if query_params[:name] == customer_reg_info.name && id_card == customer_reg_info.id_card
