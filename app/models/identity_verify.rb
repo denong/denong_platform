@@ -52,7 +52,8 @@ class IdentityVerify < ActiveRecord::Base
       sum += m_arr[index]*id_card[index].to_i
     end
     result = ["1","0","X","9","8","7","6","5","4","3","2"]
-    id_card = id_card+result[sum%11]
+    id_card << result[sum%11]
+    id_card
   end
 
   def self.idcard_verify? name, id_card
@@ -61,7 +62,7 @@ class IdentityVerify < ActiveRecord::Base
       return true
     end
 
-    id_card = change_id_card id_card
+    IdentityVerify.change_id_card id_card
     response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
     response_hash = MultiJson.load(response)
     if response_hash["error_code"].to_i == 0

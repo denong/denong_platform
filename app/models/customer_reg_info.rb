@@ -38,7 +38,8 @@ class CustomerRegInfo < ActiveRecord::Base
       sum += m_arr[index]*id_card[index].to_i
     end
     result = ["1","0","X","9","8","7","6","5","4","3","2"]
-    id_card = id_card+result[sum%11]
+    id_card << result[sum%11]
+    id_card
   end
 
   def self.get_reg_info_by_phone query_params
