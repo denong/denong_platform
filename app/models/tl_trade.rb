@@ -45,6 +45,11 @@ class TlTrade < ActiveRecord::Base
   scope :sum_month_price, -> { where("created_at > ?", Time.zone.now - 1.month).sum(:price) }
   scope :all_price, -> { all.sum(:price) }
 
+  scope :day_price_merchant, -> { where("created_at > ?", Time.zone.now - 1.day).group(:merchant_id).pluck(:merchant_id) }
+  scope :week_price_merchant, -> { where("created_at > ?", Time.zone.now - 1.week).group(:merchant_id).pluck(:merchant_id) }
+  scope :month_price_merchant, -> { where("created_at > ?", Time.zone.now - 1.month).group(:merchant_id).pluck(:merchant_id) }
+  scope :all_price_merchant, -> { all.group(:merchant_id).pluck(:merchant_id) }
+
   def as_json(options=nil)
     {
       phone: phone,
