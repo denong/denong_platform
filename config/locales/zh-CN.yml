@@ -28,3 +28,5 @@ zh-CN:
         Customer: "消费者"
       member_card:
         passwd: "该身份证"
+      member_card_point_log:
+        unique_ind: "唯一标示（流水号）"
