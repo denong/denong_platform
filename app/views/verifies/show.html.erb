@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="hint-title">恭喜您获得：</div>
+  <div class="jajin-image text-center">
+    <%= image_tag "jajin_logo.png" %>
+  </div>
+  <div class="jajin-line text-center">
+    <span class="money bold"><%= @jajin_verify_log.amount.to_f %></span>小金！
+  </div>
+  <div class="denong-logo">
+    <%= image_tag "denong_logo.png" %>
+  </div>
+
+  <div class="download text-center">
+    <%= link_to "http://www.pgyer.com/hP1R", class: "btn" do %>
+      <%= image_tag "download_icon.png" %>去下载APP
+    <% end %>
+  </div>
+
+</div>
