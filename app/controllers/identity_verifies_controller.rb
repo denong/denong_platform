@@ -8,7 +8,7 @@ class IdentityVerifiesController < ApplicationController
 
   def create
     if current_customer.present?
-      @identity_verify = current_customer.identity_verifies.build(create_params)
+      @identity_verify = current_customer.identity_verifies.find_or_create_by(create_params)
       @identity_verify.save
       respond_with(@identity_verify)
     elsif current_agent.present?
@@ -43,8 +43,8 @@ class IdentityVerifiesController < ApplicationController
 
     def create_params
       params.require(:identity_verify).permit(:phone, :name, :id_card,
-          front_image_attributes: [:id, :photo, :_destroy],
-          back_image_attributes: [:id, :photo, :_destroy]
+          # front_image_attributes: [:id, :photo, :_destroy],
+          # back_image_attributes: [:id, :photo, :_destroy]
           )
     end
 
