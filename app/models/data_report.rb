@@ -55,7 +55,7 @@ class DataReport < ActiveRecord::Base
         sheet.add_row ["日报表"]
         sheet.add_row ["统计时间", "商户名", "代理商", "交易金额", "小金"]
 
-        prices = TlTrade.sum_day_price
+        prices = TlTrade.day_price_merchant
         prices.map do |i, e|
           merchant = Merchant.where(id: i).first
           if merchant.present?
@@ -67,7 +67,7 @@ class DataReport < ActiveRecord::Base
 
         sheet.add_row ["月报表"]
         sheet.add_row ["统计时间", "商户名", "代理商", "交易金额", "小金"]
-        prices = TlTrade.sum_month_price
+        prices = TlTrade.month_price_merchant
         prices.map do |i, e|
           merchant = Merchant.where(id: i).first
           if merchant.present?

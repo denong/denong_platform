@@ -63,22 +63,25 @@ class MerchantLog < ActiveRecord::Base
       merchant_log.m_point_sum = 0
       merchant_log.w_point_sum = 0
 
-      merchant_member_cards = item.member_cards.all
+      # merchant_member_cards = item.member_cards.all
 
-      d_member_card_logs = []
-      w_member_card_logs = []
-      m_member_card_logs = []
+      # d_member_card_logs = []
+      # w_member_card_logs = []
+      # m_member_card_logs = []
 
-      merchant_member_cards.each do |member_card|
-        member_card.member_card_point_logs.today.each { |log| d_member_card_logs << log }
-        member_card.member_card_point_logs.week.each { |log| w_member_card_logs << log }
-        member_card.member_card_point_logs.month.each { |log| m_member_card_logs << log }
-      end
+      # merchant_member_cards.each do |member_card|
+      #   member_card.member_card_point_logs.today.each { |log| d_member_card_logs << log }
+      #   member_card.member_card_point_logs.week.each { |log| w_member_card_logs << log }
+      #   member_card.member_card_point_logs.month.each { |log| m_member_card_logs << log }
+      # end
 
-      d_member_card_logs.each { |log| merchant_log.d_point_sum += log.jajin } unless d_member_card_logs.empty?
-      w_member_card_logs.each { |log| merchant_log.w_point_sum += log.jajin } unless w_member_card_logs.empty?
-      m_member_card_logs.each { |log| merchant_log.m_point_sum += log.jajin } unless m_member_card_logs.empty?
+      # d_member_card_logs.each { |log| merchant_log.d_point_sum += log.jajin } unless d_member_card_logs.empty?
+      # w_member_card_logs.each { |log| merchant_log.w_point_sum += log.jajin } unless w_member_card_logs.empty?
+      # m_member_card_logs.each { |log| merchant_log.m_point_sum += log.jajin } unless m_member_card_logs.empty?
 
+      merchant_log.d_point_sum = item.member_cards.inject(0) { |sum, m| sum += m.member_card_point_logs.today.inject(0) { |sum,l| sum += l.jajin } }
+      merchant_log.w_point_sum = item.member_cards.inject(0) { |sum, m| sum += m.member_card_point_logs.week.inject(0) { |sum,l| sum += l.jajin } }
+      merchant_log.m_point_sum = item.member_cards.inject(0) { |sum, m| sum += m.member_card_point_logs.month.inject(0) { |sum,l| sum += l.jajin } }
 
       merchant_log.d_point_user_count = Merchant.find_by(id: item.id ).member_cards.inject(0) { |sum, member_card| sum + member_card.member_card_point_logs.today.group(:customer_id).pluck(:customer_id).size }
       merchant_log.w_point_user_count = Merchant.find_by(id: item.id ).member_cards.inject(0) { |sum, member_card| sum + member_card.member_card_point_logs.week.group(:customer_id).pluck(:customer_id).size }
