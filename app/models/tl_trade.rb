@@ -75,9 +75,9 @@ class TlTrade < ActiveRecord::Base
   end
 
   def check_pos_machine
-    pos_machine = PosMachine.find_by_pos_ind(pos_ind)
+    pos_machine = PosMachine.where(pos_ind: pos_ind+shop_ind)
     if pos_machine.nil?
-      pos_machine = PosMachine.create pos_ind: pos_ind
+      pos_machine = PosMachine.create pos_ind: (pos_ind+shop_ind)
     end
     self.pos_machine = pos_machine
     self.shop = pos_machine.shop
