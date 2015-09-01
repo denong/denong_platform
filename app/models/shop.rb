@@ -25,6 +25,7 @@
 #  service_tel             :string(255)
 #  welcome_text            :string(255)
 #  remark                  :string(255)
+#  shop_ind                :string(255)
 #
 
 class Shop < ActiveRecord::Base
