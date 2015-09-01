@@ -78,7 +78,7 @@ class TlTrade < ActiveRecord::Base
     logger.info "-----#{pos_ind}, #{shop_ind}"
     unique_ind = pos_ind + shop_ind
     logger.info "-----unique_ind: #{unique_ind}"
-    pos_machine = PosMachine.where(pos_ind: unique_ind)
+    pos_machine = PosMachine.find_by(pos_ind: unique_ind)
     logger.info "-----pos_machine: #{pos_machine}"
     if pos_machine.nil?
       logger.info "-----nil:nil"
