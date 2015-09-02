@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821050031) do
+ActiveRecord::Schema.define(version: 20150901105053) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -631,6 +631,7 @@ ActiveRecord::Schema.define(version: 20150821050031) do
     t.string   "service_tel"
     t.string   "welcome_text"
     t.string   "remark"
+    t.string   "shop_ind"
   end
 
   add_index "shops", ["cached_votes_down"], name: "index_shops_on_cached_votes_down"

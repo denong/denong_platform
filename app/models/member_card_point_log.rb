@@ -21,6 +21,7 @@ class MemberCardPointLog < ActiveRecord::Base
   after_create :calculate
   after_create :add_jajin_log
 
+  validates_uniqueness_of :unique_ind, if: "unique_ind.present?"
   validates_presence_of :customer, on: :create
   validates_presence_of :member_card, on: :create
 
