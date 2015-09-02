@@ -28,9 +28,9 @@ class MemberCard < ActiveRecord::Base
   after_create :add_merchant_member_card_amount
   after_create :check_point
 
-  scope :today, -> { where('created_at > ?', Time.zone.now.to_date - 1.day) }
-  scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
-  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
+  scope :today, -> (datetime) { where('created_at between ? and ?', datetime.to_date - 1.day, datetime.to_date) }
+  scope :week, -> (datetime) { where('created_at between ? and ?', datetime.to_date - 7.day, datetime.to_date ) }
+  scope :month, -> (datetime) { where('created_at between ? and ?', datetime.to_date - 30.day, datetime.to_date ) }
 
   def merchant_logo
     merchant.try(:sys_reg_info).try(:logo) ? merchant.sys_reg_info.logo.photo.url(:product) : ""
