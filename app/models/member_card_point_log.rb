@@ -31,10 +31,10 @@ class MemberCardPointLog < ActiveRecord::Base
 
   default_scope { order('id DESC') }
 
-  scope :today, -> (datetime) { where('created_at between ? and ?',  datetime.to_date - 1.day, datetime.to_date) }
-  scope :week, -> (datetime) { where('created_at between ? and ?',  datetime.to_date - 7.day, datetime.to_date ) }
-  scope :month, -> (datetime) { where('created_at between ? and ?',  datetime.to_date - 30.day, datetime.to_date ) }
-  
+  scope :today, -> (datetime) { where('created_at between ? and ?', (datetime.to_date - 1.day).strftime("%Y-%m-%d 00:00:00"), datetime.to_date.strftime("%Y-%m-%d 23:59:59")) }
+  scope :week, -> (datetime) { where('created_at between ? and ?', (datetime.to_date - 7.day).strftime("%Y-%m-%d 00:00:00"), datetime.to_date.strftime("%Y-%m-%d 23:59:59")) }
+  scope :month, -> (datetime) { where('created_at between ? and ?', (datetime.to_date - 1.month).strftime("%Y-%m-%d 00:00:00"), datetime.to_date.strftime("%Y-%m-%d 23:59:59")) }
+
   def company
     "积分转小金"
   end
