@@ -18,7 +18,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
   has_one :jajin_log, as: :jajinable
 
-  # after_create :calculate
+  after_create :calculate
   after_create :add_jajin_log
 
   validates_uniqueness_of :unique_ind#, if: "unique_ind.present?"
@@ -134,7 +134,6 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     def self.send_sms_notification params, first_time
-      return
       customer = Customer.find_by_id(params[:customer_id])
       user = customer.try(:user)
       unless user.present?

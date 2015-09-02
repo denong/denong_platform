@@ -58,7 +58,6 @@ class JajinLog < ActiveRecord::Base
   private
 
     def send_notification
-      return
       title = "德浓小确幸"
       company = jajinable.company if jajinable.respond_to?(:company)
       price = jajinable.respond_to?(:price) ? jajinable.price : 0
