@@ -22,9 +22,9 @@ class JajinLog < ActiveRecord::Base
   scope :in, -> { where "amount > 0" }
   scope :out, -> { where "amount < 0" }
 
-  scope :today, -> (datetime) { where('created_at > ?', datetime - 1.day) }
-  scope :week, -> { where('created_at > ?', Time.zone.now.to_date - 7.day ) }
-  scope :month, -> { where('created_at > ?', Time.zone.now.to_date - 30.day ) }
+  scope :today, -> (datetime) { where('created_at between ? and ?', datetime.to_date - 1.day, datetime.to_date) }
+  scope :week, -> (datetime) { where('created_at between ? and ?', datetime.to_date - 7.day, datetime.to_date ) }
+  scope :month, -> (datetime) { where('created_at between ? and ?', datetime.to_date - 30.day, datetime.to_date ) }
 
   scope :sum_amount, -> { group(:merchant_id).sum(:amount) }
 
