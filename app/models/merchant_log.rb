@@ -35,7 +35,8 @@ class MerchantLog < ActiveRecord::Base
 
   def self.supply
     now_day = Time.zone.now.to_date
-    (1..7).each do |i|
+    (0..1).each do |i|
+      puts "#{i}"
       MerchantLog.new.process2(now_day - i.day)
     end
   end
