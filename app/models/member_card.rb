@@ -81,6 +81,9 @@ class MemberCard < ActiveRecord::Base
 
       response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
       response_hash = MultiJson.load(response)
+      if response_hash["reason"] == "NoExistERROR"
+        return true
+      end
       if response_hash["error_code"].to_i == 0
         if response_hash["result"]["isok"]
           PersonalInfo.find_or_create_by(name: user_name, id_card: passwd)
