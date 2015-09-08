@@ -72,6 +72,8 @@ gem 'settingslogic'
 gem 'unicorn'
 gem 'axlsx'
 
+gem 'redis'
+gem 'redis-namespace'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
