@@ -21,10 +21,12 @@ class MerchantsController < ApplicationController
     unless agent.present?
       return
     end
-
+    logger.info "-------create_params is #{create_params}--------"
     @merchant = agent.merchants.build(create_params)
     @merchant.save
+    logger.info "-------update_params is #{update_params}--------"
     @merchant.sys_reg_info.update(update_params)
+    logger.info "-------merchant is #{@merchant.inspect}--------"
     respond_with(@merchant)
   end
 
