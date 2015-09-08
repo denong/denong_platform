@@ -184,6 +184,27 @@ Rails.application.routes.draw do
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'
 
+
+  namespace :admin do
+    root :to => "home#index"
+    devise_ios_rails_for :agent, controllers: {
+      sessions: 'admin/agent/sessions'
+    }
+    resources :agents do
+      collection do
+        post 'import'
+      end
+      member do
+        post 'upload'
+      end
+    end
+
+    resources :member_card_point_log do
+      member do
+        # post 'import'
+      end
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
