@@ -1,0 +1,118 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ *= require ./ace
+ *= require ./ace-fonts
+ *= require ./ace.onpage-help
+ *= require ./font-awesome
+ *= require ./sunburst
+ */
+
+@import "variables";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.item { width: 30%; }
+
+.create_access {
+  display: block;
+  border: 2px dotted #d9dadc;
+  line-height: 80px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.create_access i {
+  cursor: pointer;
+}
+.icon36_common.add_gray {
+  background: image_url("base_z25404f.png") 0 -2839px no-repeat;
+}
+
+.icon36_common {
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 300px;
+  overflow: hidden;
+}
+
+.create_access a {
+  display: none;
+  vertical-align: middle;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #d9d9d9;
+  font-size: 14px;
+  line-height: normal;
+}
+.icon_appmsg_create {
+  background: image_url("media_list.png") 0 0 no-repeat;
+  width: 38px;
+  height: 38px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.create_access .multi {
+    background: image_url("media_list.png") 0 -96px no-repeat;
+  }
+
+.new_message_create {
+  display: none;
+}  
+.media_preview_area {
+}
+.media_editor_area {
+}
+.appmsg {
+  min-height: 180px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid #e7e7eb;
+  background-color: #fff;
+  color: #666;
+}
+.appmsg_item {
+  position: relative;
+  padding: 20px 14px;
+  border-top: 1px solid #e7e7eb;
+}
+.appmsg_content {
+  border-bottom-width: 1px;
+}
+.appmsg_add {
+  margin: 20px 14px;
+}
+.create_access_primary {
+  display: block;
+  border: 2px dotted #d9dadc;
+  line-height: 60px;
+  font-size: 0;
+  text-align: center;
+}
+.icon20_common.add_gray {
+  background: image_url('base_z25404f.png') 0 -2809px no-repeat;
+}
+.create_access_primary i {
+  cursor: pointer;
+}
+.icon20_common {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 100px;
+  overflow: hidden;
+}

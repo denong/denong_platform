@@ -39,6 +39,23 @@ class MemberCardPointLog < ActiveRecord::Base
     "积分转小金"
   end
 
+  def import(file)
+    begin
+    p file
+      spreadsheet = MemberCardPointLog.open_spreadsheet(file)
+      # header = spreadsheet.row(0)
+      # (1..spreadsheet.last_row).each do |r|
+      # row = Hash[[header, spreadsheet.row(r)].transpose]
+      #   p row
+      #   # feast = FeastDay.find_or_create_by(year: '2015', feast_day: row['feast_day'])
+      #   # feast.feast_name = row['feast_name']
+      #   # feast.save
+      # end
+    rescue Exception => e
+      p e
+    end
+  end
+
   def self.get_point_log_by_merchant merchant_id, params
     phone = params[:phone]
     member_cards = nil
@@ -85,6 +102,15 @@ class MemberCardPointLog < ActiveRecord::Base
       end
     end
     point_logs
+  end
+
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when ".csv" then Roo::CSV.new(file.path)
+    when ".xls" then Roo::Excel.new(file.path)
+    when ".xlsx" then Roo::Excelx.new(file.path)
+    else raise "未知格式: #{file.original_filename}"
+    end
   end
 
   private

@@ -4,13 +4,14 @@ class MerchantCustomersController < ApplicationController
   acts_as_token_authentication_handler_for User
   
   def verify
+    p "verify method."
     unless verify_params[:name].present?
       render json: { status: 'error', message: "手机/姓名/ID不能为空!" } 
       return
     end
-    @merchant = Merchant.find_by(params[:id])
+    @merchant = Merchant.find_by(id: params[:id])
     if @merchant.present?
-      @m_customer = @merchant.merchant_customers.where("name like ? or u_id like ? or phone like ?", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%")
+      @m_customer = @merchant.merchant_customers.where("name = ? or u_id = ? or phone = ?", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%", "%#{verify_params[:name]}%")
       if @m_customer.first.present?
         if verify_params[:password].eql?(@m_customer.first.password)
           render json: { status: "ok", message: "绑定成功.", customer_point: @m_customer.first.jifen.to_f }
