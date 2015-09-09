@@ -84,7 +84,7 @@ class MemberCard < ActiveRecord::Base
 
       # haoserivce库中不存在的数据，认为是正确的。
       if response_hash["reason"] == "NoExistERROR"
-        PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
+        PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 0)
         return true
       end
       if response_hash["error_code"].to_i == 0
@@ -94,7 +94,7 @@ class MemberCard < ActiveRecord::Base
         return response_hash["result"]["isok"]
       else
         # 错误数据，结果为1
-        PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
+        PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 1)
         return false
       end
     end

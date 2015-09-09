@@ -4,7 +4,6 @@ class MerchantCustomersController < ApplicationController
   acts_as_token_authentication_handler_for User
   
   def verify
-    p "verify method."
     unless verify_params[:name].present?
       render json: { status: 'error', message: "手机/姓名/ID不能为空!" } 
       return

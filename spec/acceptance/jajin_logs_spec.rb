@@ -9,7 +9,7 @@ resource "获取小金明细" do
       customer_with_jajin_pension = create(:customer_with_jajin_pension)
       merchant = create(:merchant)
       create_list(:exchange_log, 3, customer: customer_with_jajin_pension )
-      create_list(:tl_trade, 3, customer: customer_with_jajin_pension, merchant: merchant)
+      create_list(:tl_trade, 3, customer: customer_with_jajin_pension, merchant: merchant, shop_ind: "a", pos_ind: "b")
       create_list(:given_log, 3, customer: customer_with_jajin_pension)
     end
 
@@ -45,7 +45,7 @@ resource "获取小金明细" do
       customer_with_jajin_pension = create(:customer_with_jajin_pension)
       merchant = create(:merchant)
       create_list(:exchange_log, 3, customer: customer_with_jajin_pension )
-      create_list(:tl_trade, 3, customer: customer_with_jajin_pension, merchant: merchant)
+      create_list(:tl_trade, 3, customer: customer_with_jajin_pension, merchant: merchant, shop_ind: "a", pos_ind: "b")
       create_list(:given_log, 3, customer: customer_with_jajin_pension)
     end
     

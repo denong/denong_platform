@@ -9,7 +9,7 @@ resource "查询会员卡积分" do
       merchant = create(:merchant)
       customer = create(:customer)
       merchant_customer = create(:merchant_customer)
-      create(:personal_info, name: "ABC", id_card: "331726199111111111")
+      create(:personal_info, name: "ABC", id_card: "331726199111111111", result: 0)
       create(:member_card, merchant: merchant, customer: customer, user_name: "ABC", passwd: "331726199111111111")
     end
 
@@ -45,7 +45,7 @@ resource "查询会员卡积分" do
       merchant = create(:merchant)
       customer = create(:customer)
       merchant_customer = create(:merchant_customer)
-      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333", result: 0)
     end
 
     parameter :merchant_id, "商户ID", required: true, scope: :member_card
@@ -80,7 +80,7 @@ resource "查询会员卡积分" do
       merchant = create(:merchant, agent: agent)
       @customer = create(:customer)
       merchant_customer = create(:merchant_customer)
-      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333", result: 0)
     end
 
     parameter :merchant_id, "商户ID", required: true, scope: :member_card
@@ -118,7 +118,7 @@ resource "查询会员卡积分" do
 
       merchant_customer =
       merchants.each do |merchant|
-        pi = create(:personal_info, name: "A"+merchants.index(merchant).to_s, id_card: "33172611111110111"+merchants.index(merchant).to_s)
+        pi = create(:personal_info, name: "A"+merchants.index(merchant).to_s, id_card: "33172611111110111"+merchants.index(merchant).to_s, result: 0)
         create(:merchant_customer, u_id: "A"+merchants.index(merchant).to_s, password: "33172611111110111"+merchants.index(merchant).to_s)
         create(:member_card, customer: customer, merchant: merchant, user_name: "A"+merchants.index(merchant).to_s, passwd: "33172611111110111"+merchants.index(merchant).to_s)
       end
@@ -155,7 +155,7 @@ resource "查询会员卡积分" do
       agent = create(:agent)
       @merchant = create(:merchant, agent: agent)
       @customer = create(:customer)
-      create(:personal_info, name: "A1", id_card: "331726111111101111")
+      create(:personal_info, name: "A1", id_card: "331726111111101111", result: 0)
       create(:member_card, customer: @customer, merchant: @merchant, user_name: "A1", passwd: "331726111111101111")
     end
 

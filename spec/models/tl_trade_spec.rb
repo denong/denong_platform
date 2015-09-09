@@ -31,11 +31,11 @@ RSpec.describe TlTrade, type: :model do
 
   describe "tl_trade" do
     before(:each) do
-      @tl_trades = create(:tl_trade, customer: customer, merchant: merchant)
+      @tl_trades = create(:tl_trade, customer: customer, merchant: merchant, shop_ind: "a", pos_ind: "b")
     end
 
     it "should increase the count of exchange log by 1" do
-      expectation = expect {create(:tl_trade, customer: customer, merchant: merchant)}# 
+      expectation = expect {create(:tl_trade, customer: customer, merchant: merchant, shop_ind: "a", pos_ind: "b")}# 
       expectation.to change{TlTrade.count}.by 1
     end
 
@@ -48,12 +48,12 @@ RSpec.describe TlTrade, type: :model do
     end
 
     it "should automatic add customer" do
-      tl_trades_without_customer = create(:tl_trade, merchant: merchant)      
+      tl_trades_without_customer = create(:tl_trade, merchant: merchant, shop_ind: "a", pos_ind: "b")      
       expect(tl_trades_without_customer.customer).not_to be_nil
     end
 
     it "should automatic add pos machine" do
-      tl_trades_without_pos_machine = create(:tl_trade, merchant: merchant)
+      tl_trades_without_pos_machine = create(:tl_trade, merchant: merchant, shop_ind: "a", pos_ind: "b")
       expect(tl_trades_without_pos_machine.pos_machine).not_to be_nil
     end
     # context "通联交易记录创建失败" do
