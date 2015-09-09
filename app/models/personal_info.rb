@@ -7,6 +7,7 @@
 #  id_card    :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  result     :integer
 #
 
 class PersonalInfo < ActiveRecord::Base
