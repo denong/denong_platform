@@ -42,6 +42,7 @@ class MemberCardPointLog < ActiveRecord::Base
   def self.process_data_from_cache
     datas = $redis.hvals("process_data_cache")
     $redis.del("process_data_cache")
+    
     # 校验是否注册
     # 
     # 校验用户是否实名制认证
@@ -49,17 +50,17 @@ class MemberCardPointLog < ActiveRecord::Base
     # 用户是否授权会员卡
     # 
     # 获得小金
-    # 
-    # 
+    #  
   end
 
   def import(file)
     begin
+      Roo::Excelx.new(file.path)
       spreadsheet = MemberCardPointLog.open_spreadsheet(file)
 
       header = spreadsheet.row(1)
       (2..spreadsheet.last_row).each do |r|
-      row = Hash[[header, spreadsheet.row(r)].transpose]
+        row = Hash[[header, spreadsheet.row(r)].transpose]
         # 存入缓存
         $redis.hset("process_data_cache", "#{row['交易的唯一标示']}", row)
       end
@@ -117,12 +118,17 @@ class MemberCardPointLog < ActiveRecord::Base
   end
 
   def self.open_spreadsheet(file)
-    case File.extname(file)
-    when ".csv" then Roo::CSV.new(file.path)
-    when ".xls" then Roo::Excel.new(file.path)
-    when ".xlsx" then Roo::Excelx.new(file.path)
+    result = nil
+    file_type = File.extname(file)
+    case file_type
+    when ".csv" then result = Roo::CSV.new(file.path)
+    when ".xls" then result = Roo::Excel.new(file.path)
+    when ".xlsx" then result = Roo::Excelx.new(file.path)
     else raise "未知格式: #{file}"
     end
+    p "-----------------------------------"
+    p result
+    result
   end
 
   private
