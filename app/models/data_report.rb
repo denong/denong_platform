@@ -106,7 +106,7 @@ class DataReport < ActiveRecord::Base
     def process(start_time)
       datetime = Time.now.strftime("%Y-%m-%d")
       file = File.open("public/tl_#{datetime}.txt", "w")
-      datas = TlTrade.where("created_at > ?", start_time)
+      datas = TlTrade.where("id > 967 and created_at < ?", start_time)
       datas.each do |t|
         customer = t.try(:customer)
         file.write("#{t.trade_time},#{customer.try(:user).try(:phone)},#{customer.try(:customer_reg_info).try(:name)},#{customer.try(:customer_reg_info).try(:id_card)},#{t.jajin_log.amount},#{t.price}\r\n")
