@@ -183,19 +183,20 @@ Rails.application.routes.draw do
   # 加金兑换的对外网址
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'
-
-
+  
+  root 'admin/home#index'
   namespace :admin do
-    root :to => "home#index"
-    devise_ios_rails_for :agent, controllers: {
-      sessions: 'admin/agent/sessions'
+    root 'hoem#index'
+
+    devise_for :agent, :controllers => { 
+      :sessions => 'admin/login/sessions' 
     }
     resources :agents do
       collection do
         post 'import'
       end
       member do
-        post 'upload'
+        get 'upload'
       end
     end
 

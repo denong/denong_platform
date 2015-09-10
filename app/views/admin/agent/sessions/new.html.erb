@@ -1,15 +1,88 @@
-<h2>Log in</h2>
+<div class="login-container">  
+  <div class="row">    
+    <div class="col-sm-6">      
+      <!-- Errors container -->
+      <div class="errors-container">
+      
+      </div>
+        <!-- Add class "fade-in-effect" for login form effect -->
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class => 'login-form fade-in-effect' }) do |f| %>
+        <div class="login-header">
+          <a href="dashboard-1.html" class="logo">
+            <!-- <%= image_tag "logo-white-bg@2x.png" %> -->
+            <h2 style="font-weight: bolder;">德浓信息管理平台</h2>
+          </a>
+          <p>Dear user, log in to access the admin area!</p>
+        </div>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :phone, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        <div class="form-group">
+          <%= f.phone_field :phone, autofocus: true, autocomplete: 'off', placeholder: 'Phone', class: 'form-control' %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.password_field :password, autofocus: true, autocomplete: 'off', placeholder: 'Password', class: 'form-control' %>
+        </div>
+        
+        <!-- <div class="form-group">
+          <input type="submit" class="btn btn-primary  btn-block text-left">
+            <i class="fa-lock"></i>
+            Log In
+          </input>
+        </div> -->
+        <% if devise_mapping.rememberable? -%>
+          <div class="form-actions">
+            <label class="checkbox" style="padding-left:30px;">
+              <%= f.check_box :remember_me %>Remember me
+            </label>
+            <%= f.submit "登录", class: 'btn btn-primary  btn-block text-left' %>
+          </div>
+        <% end -%>
+        
+        <div class="login-footer">
+          <a href="#">Forgot your password?</a>
+          <div class="info-links">
+            <!-- <a href="#">ToS</a> -
+            <a href="#">Privacy Policy</a> -->
+          </div>
+        </div>
+      <% end %>
+        
+        <!-- External login -->
+      <div class="external-login">
+          <!-- <a href="#" class="facebook">
+            <i class="fa-facebook"></i>
+            Facebook Login
+          </a> -->
+          <!-- 
+          <a href="#" class="twitter">
+            <i class="fa-twitter"></i>
+            Login with Twitter
+          </a>
+          <a href="#" class="gplus">
+            <i class="fa-google-plus"></i>
+            Login with Google Plus
+          </a>
+           -->
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
+</div>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    setTimeout(function(){ $(".fade-in-effect").addClass('in'); }, 1);
+      // Validation and Ajax action
+    $("form#new_user").validate({
+      rules: {
+        username: { required: true },
+        passwd: { required: true }
+      },
+      messages: {
+        username: { required: 'Please enter your username.' },
+        passwd: { required: 'Please enter your password.' }
+      }
+    });
+      
+    // Set Form focus
+    $("form#new_user .form-group:has(.form-control):first .form-control").focus();
+  </script>
 <% end %>
-
-<%= render "agents/shared/links" %>

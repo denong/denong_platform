@@ -361,7 +361,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <%= link_to "<i class='ace-icon fa fa-power-off'></i>Logout".html_safe, destroy_admin_agent_session_path, method: :delete %>
+                  <%= link_to "<i class='ace-icon fa fa-power-off'></i>Logout".html_safe, destroy_admin_agent_session_path, :method => :delete %>
                 </li>
               </ul>
             </li>
@@ -443,11 +443,6 @@
     <![endif]-->
 
     <!-- inline scripts related to this page -->
-    <script type="text/javascript">
-      jQuery(function($) {
-      
-      });
-    </script>
-    <script type="text/javascript"> ace.vars['base'] = '..'; </script>
+    <!-- <script type="text/javascript"> ace.vars['base'] = '..'; </script> -->
   </body>
 </html>
