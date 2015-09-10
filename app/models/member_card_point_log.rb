@@ -55,9 +55,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
   def import(file)
     begin
-      Roo::Excelx.new(file.path)
       spreadsheet = MemberCardPointLog.open_spreadsheet(file)
-
       header = spreadsheet.row(1)
       (2..spreadsheet.last_row).each do |r|
         row = Hash[[header, spreadsheet.row(r)].transpose]
@@ -126,8 +124,6 @@ class MemberCardPointLog < ActiveRecord::Base
     when ".xlsx" then result = Roo::Excelx.new(file.path)
     else raise "未知格式: #{file}"
     end
-    p "-----------------------------------"
-    p result
     result
   end
 
