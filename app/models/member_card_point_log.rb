@@ -3,8 +3,8 @@
 # Table name: member_card_point_logs
 #
 #  id             :integer          not null, primary key
-#  point          :float
-#  jajin          :float
+#  point          :float(24)
+#  jajin          :float(24)
 #  customer_id    :integer
 #  created_at     :datetime
 #  updated_at     :datetime

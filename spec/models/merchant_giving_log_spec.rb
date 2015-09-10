@@ -3,14 +3,14 @@
 # Table name: merchant_giving_logs
 #
 #  id          :integer          not null, primary key
-#  amount      :float
+#  amount      :float(24)
 #  giving_time :datetime
 #  merchant_id :integer
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
 #  shop_id     :integer
-#  consumption :float
+#  consumption :float(24)
 #
 
 require 'rails_helper'

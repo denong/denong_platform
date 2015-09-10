@@ -3,7 +3,7 @@
 # Table name: pensions
 #
 #  id          :integer          not null, primary key
-#  total       :float
+#  total       :float(24)
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime

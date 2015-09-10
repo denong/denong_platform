@@ -4,13 +4,13 @@
 #
 #  id                :integer          not null, primary key
 #  merchant_id       :integer
-#  point             :float            default(0.0)
+#  point             :float(24)        default(0.0)
 #  customer_id       :integer
 #  created_at        :datetime
 #  updated_at        :datetime
 #  user_name         :string(255)
 #  passwd            :string(255)
-#  total_trans_jajin :float            default(0.0)
+#  total_trans_jajin :float(24)        default(0.0)
 #
 
 class MemberCard < ActiveRecord::Base

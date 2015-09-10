@@ -3,8 +3,8 @@
 # Table name: jajins
 #
 #  id          :integer          not null, primary key
-#  got         :float
-#  unverify    :float
+#  got         :float(24)
+#  unverify    :float(24)
 #  customer_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime

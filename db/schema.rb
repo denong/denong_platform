@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909061323) do
+ActiveRecord::Schema.define(version: 20150910033513) do
 
   create_table "agents", force: true do |t|
     t.string   "name"
@@ -329,7 +329,7 @@ ActiveRecord::Schema.define(version: 20150909061323) do
 
   add_index "member_card_point_logs", ["customer_id"], name: "index_member_card_point_logs_on_customer_id", using: :btree
   add_index "member_card_point_logs", ["member_card_id"], name: "index_member_card_point_logs_on_member_card_id", using: :btree
-  add_index "member_card_point_logs", ["unique_ind"], name: "index_member_card_point_logs_on_unique_ind", using: :btree
+  add_index "member_card_point_logs", ["unique_ind"], name: "index_member_card_point_logs_on_unique_ind", unique: true, using: :btree
 
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"

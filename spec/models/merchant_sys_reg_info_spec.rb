@@ -15,8 +15,8 @@
 #  postcode       :string(255)
 #  reg_time       :datetime
 #  approve_time   :datetime
-#  lon            :float
-#  lat            :float
+#  lon            :float(24)
+#  lat            :float(24)
 #  welcome_string :string(255)
 #  comment_text   :text
 #  created_at     :datetime

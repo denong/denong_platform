@@ -14,7 +14,7 @@
 #  cached_votes_down       :integer          default(0)
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
-#  cached_weighted_average :float            default(0.0)
+#  cached_weighted_average :float(24)        default(0.0)
 #
 
 require 'rails_helper'

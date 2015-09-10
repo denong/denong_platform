@@ -17,9 +17,9 @@
 #  cached_votes_down       :integer          default(0)
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
-#  cached_weighted_average :float            default(0.0)
-#  lon                     :float
-#  lat                     :float
+#  cached_weighted_average :float(24)        default(0.0)
+#  lon                     :float(24)
+#  lat                     :float(24)
 #  post_code               :string(255)
 #  email                   :string(255)
 #  service_tel             :string(255)

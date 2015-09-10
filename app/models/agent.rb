@@ -8,8 +8,8 @@
 #  contact_person         :string(255)
 #  fax                    :string(255)
 #  addr                   :string(255)
-#  lat                    :float
-#  lon                    :float
+#  lat                    :float(24)
+#  lon                    :float(24)
 #  created_at             :datetime
 #  updated_at             :datetime
 #  email                  :string(255)      default(""), not null

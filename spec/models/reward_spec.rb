@@ -3,7 +3,7 @@
 # Table name: rewards
 #
 #  id          :integer          not null, primary key
-#  amount      :float
+#  amount      :float(24)
 #  verify_code :string(255)
 #  max         :integer
 #  merchant_id :integer
