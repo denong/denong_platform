@@ -65,15 +65,18 @@ gem "multi_json"
 gem 'httparty'
 gem 'ruby-for-xinge'#, github: "liyijie/ruby-for-xinge"
 
+# Publish-Subscribe
+# gem 'wisper'
+
 # settings logic
 gem 'settingslogic'
 
 #######################################################################
 gem 'unicorn'
 gem 'axlsx'
-
+gem 'roo'
 gem 'redis'
-gem 'redis-namespace'
+# gem 'redis-namespace'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
