@@ -109,7 +109,7 @@ class DataReport < ActiveRecord::Base
       datas = TlTrade.where("created_at > ?", start_time)
       datas.each do |t|
         customer = t.try(:customer)
-        file.write("#{Time.parse(t.trade_time).strftime('%Y-%m-%d %H:%M:%S')},#{customer.try(:user).try(:phone)},#{customer.try(:customer_reg_info).try(:name)},#{customer.try(:customer_reg_info).try(:id_card)},#{t.jajin_log.amount},#{t.price}\r\n")
+        file.write("#{t.trade_time},#{customer.try(:user).try(:phone)},#{customer.try(:customer_reg_info).try(:name)},#{customer.try(:customer_reg_info).try(:id_card)},#{t.jajin_log.amount},#{t.price}\r\n")
       end
       file.close
     end
