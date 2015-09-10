@@ -3,7 +3,7 @@
 # Table name: gain_histories
 #
 #  id              :integer          not null, primary key
-#  gain            :float
+#  gain            :float(24)
 #  gain_date       :datetime
 #  customer_id     :integer
 #  created_at      :datetime

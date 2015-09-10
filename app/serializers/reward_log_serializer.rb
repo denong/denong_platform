@@ -10,7 +10,7 @@
 #  verify_time :datetime
 #  created_at  :datetime
 #  updated_at  :datetime
-#  amount      :float
+#  amount      :float(24)
 #  comment     :string(255)
 #
 

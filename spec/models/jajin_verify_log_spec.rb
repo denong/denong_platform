@@ -3,7 +3,7 @@
 # Table name: jajin_verify_logs
 #
 #  id          :integer          not null, primary key
-#  amount      :float
+#  amount      :float(24)
 #  verify_code :string(255)
 #  verify_time :datetime
 #  customer_id :integer

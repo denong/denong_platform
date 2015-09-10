@@ -6,22 +6,22 @@
 #  merchant_user_id        :integer
 #  created_at              :datetime
 #  updated_at              :datetime
-#  ratio                   :float
+#  ratio                   :float(24)
 #  cached_votes_total      :integer          default(0)
 #  cached_votes_score      :integer          default(0)
 #  cached_votes_up         :integer          default(0)
 #  cached_votes_down       :integer          default(0)
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
-#  cached_weighted_average :float            default(0.0)
+#  cached_weighted_average :float(24)        default(0.0)
 #  topic_id                :integer
-#  consumption_total       :float
-#  jajin_total             :float
+#  consumption_total       :float(24)
+#  jajin_total             :float(24)
 #  consume_count           :integer
 #  verify_state            :integer
 #  agent_id                :integer
-#  convert_ratio           :float            default(1.0)
-#  balance                 :float            default(0.0)
+#  convert_ratio           :float(24)        default(1.0)
+#  balance                 :float(24)        default(0.0)
 #  member_card_amount      :integer          default(0)
 #
 

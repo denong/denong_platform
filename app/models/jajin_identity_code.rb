@@ -7,7 +7,7 @@
 #  merchant_id     :integer
 #  created_at      :datetime
 #  updated_at      :datetime
-#  amount          :float
+#  amount          :float(24)
 #  verify_code     :string(255)
 #  verify_state    :integer          default(0)
 #  trade_time      :string(255)

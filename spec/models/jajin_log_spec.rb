@@ -3,7 +3,7 @@
 # Table name: jajin_logs
 #
 #  id             :integer          not null, primary key
-#  amount         :float
+#  amount         :float(24)
 #  jajinable_id   :integer
 #  jajinable_type :string(255)
 #  customer_id    :integer

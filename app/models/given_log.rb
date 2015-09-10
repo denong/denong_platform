@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  giver_or_given_id :integer
-#  amount            :float
+#  amount            :float(24)
 #  created_at        :datetime
 #  updated_at        :datetime
 #  customer_id       :integer

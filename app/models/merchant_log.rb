@@ -6,10 +6,10 @@
 #  datetime           :datetime
 #  data_type          :string(255)
 #  name               :string(255)
-#  d_jajin_count      :float
-#  w_jajin_count      :float
-#  m_jajin_count      :float
-#  all_jajin          :float
+#  d_jajin_count      :float(24)
+#  w_jajin_count      :float(24)
+#  m_jajin_count      :float(24)
+#  all_jajin          :float(24)
 #  d_user_count       :integer
 #  w_user_count       :integer
 #  m_user_count       :integer
@@ -20,12 +20,12 @@
 #  w_price            :integer          default(0)
 #  m_price            :integer          default(0)
 #  all_price          :integer          default(0)
-#  d_point_sum        :float
-#  m_point_sum        :float
-#  w_point_sum        :float
-#  d_pension_sum      :float
-#  m_pension_sum      :float
-#  w_pension_sum      :float
+#  d_point_sum        :float(24)
+#  m_point_sum        :float(24)
+#  w_point_sum        :float(24)
+#  d_pension_sum      :float(24)
+#  m_pension_sum      :float(24)
+#  w_pension_sum      :float(24)
 #  d_point_user_count :integer
 #  w_point_user_count :integer
 #  m_point_user_count :integer

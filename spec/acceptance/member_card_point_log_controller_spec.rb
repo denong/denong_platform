@@ -9,7 +9,7 @@ resource "积分转小金记录" do
       create(:user)
       merchant = create(:merchant)
       merchant_customer = create(:merchant_customer)
-      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333", result: 0)
       @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333")
     end
 
@@ -42,7 +42,7 @@ resource "积分转小金记录" do
       agent = create(:agent)
       user = create(:user)
       merchant = create(:merchant, agent: agent)
-      create(:personal_info, name: "于子洵", id_card: "333333333333333333")
+      create(:personal_info, name: "于子洵", id_card: "333333333333333333", result: 0)
       @member_card = create(:member_card, merchant: merchant, user_name: "于子洵", passwd:"333333333333333333", customer: user.customer)
       create(:member_card_point_log, unique_ind: "123456", customer: user.customer, member_card: @member_card, point: -10)
     end
@@ -63,14 +63,14 @@ resource "积分转小金记录" do
     header "X-User-Phone", user_attrs[:phone]
 
     let(:member_card_id) { @member_card.id }
-    let(:unique_ind) { "123456" }
+    let(:unique_ind) { "1234567" }
     let(:point) { -50 }
     let(:first_time) { true }
     let(:raw_post) { params.to_json }
 
     example "代理商会员卡积分转小金成功" do
       do_request
-      puts "response is #{response_body}"
+      # puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end
@@ -85,15 +85,15 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer)
       merchant_customers << create(:merchant_customer, u_id: "77777777")
 
-      create(:personal_info, name: "A1", id_card: "111111111111111111")
-      create(:personal_info, name: "A2", id_card: "222222222222222222")
+      create(:personal_info, name: "A1", id_card: "111111111111111111", result: 0)
+      create(:personal_info, name: "A2", id_card: "222222222222222222", result: 0)
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
       member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: user.customer, merchant: merchant)
 
       member_cards.each do |member_card|
-        create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
+        create(:member_card_point_log, member_card: member_card, point: -100, customer: customer, unique_ind: member_cards.index(member_card).to_s)
       end
     end
 
@@ -130,15 +130,15 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer)
       merchant_customers << create(:merchant_customer, u_id: "77777777")
 
-      create(:personal_info, name: "A1", id_card: "111111111111111111")
-      create(:personal_info, name: "A2", id_card: "222222222222222222")
+      create(:personal_info, name: "A1", id_card: "111111111111111111", result: 0)
+      create(:personal_info, name: "A2", id_card: "222222222222222222", result: 0)
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
       member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant1)
 
       member_cards.each do |member_card|
-        member_card_point_log = create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
+        member_card_point_log = create(:member_card_point_log, member_card: member_card, point: -100, customer: customer, unique_ind: member_cards.index(member_card).to_s)
       end
     end
 
@@ -188,15 +188,15 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer)
       merchant_customers << create(:merchant_customer, u_id: "77777777")
 
-      create(:personal_info, name: "A1", id_card: "111111111111111111")
-      create(:personal_info, name: "A2", id_card: "222222222222222222")
+      create(:personal_info, name: "A1", id_card: "111111111111111111", result: 0)
+      create(:personal_info, name: "A2", id_card: "222222222222222222", result: 0)
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
       member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: customer, merchant: merchant1)
 
       member_cards.each do |member_card|
-        member_card_point_log = create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
+        member_card_point_log = create(:member_card_point_log, member_card: member_card, point: -100, customer: customer, unique_ind: member_cards.index(member_card).to_s)
       end
     end
 
@@ -238,8 +238,8 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer, merchant: merchant)
       merchant_customers << create(:merchant_customer, u_id: "77777777", merchant: merchant)
 
-      create(:personal_info, name: "A1", id_card: "111111111111111111")
-      create(:personal_info, name: "A2", id_card: "222222222222222222")
+      create(:personal_info, name: "A1", id_card: "111111111111111111", result: 0)
+      create(:personal_info, name: "A2", id_card: "222222222222222222", result: 0)
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
@@ -247,7 +247,7 @@ resource "积分转小金记录" do
 
       member_cards.each do |member_card|
         (0..1).each do |index|
-          create(:member_card_point_log, member_card: member_card, point: -50, customer: customer)
+          create(:member_card_point_log, member_card: member_card, point: -50, customer: customer, unique_ind: member_cards.index(member_card).to_s << index.to_s)
         end
       end
     end
@@ -284,15 +284,16 @@ resource "积分转小金记录" do
       merchant_customers << create(:merchant_customer, merchant: merchant)
       merchant_customers << create(:merchant_customer, u_id: "77777777", merchant: merchant)
 
-      create(:personal_info, name: "A1", id_card: "111111111111111111")
-      create(:personal_info, name: "A2", id_card: "222222222222222222")
+      create(:personal_info, name: "A1", id_card: "111111111111111111", result: 0)
+      create(:personal_info, name: "A2", id_card: "222222222222222222", result: 0)
 
       member_cards = []
       member_cards << create(:member_card, customer: customer, merchant: merchant, user_name: "A2", passwd: "222222222222222222", )
       member_cards << create(:member_card, user_name: "A1", passwd: "111111111111111111", customer: user.customer, merchant: merchant)
 
       member_cards.each do |member_card|
-        create(:member_card_point_log, member_card: member_card, point: -100, customer: customer)
+        puts ""
+        create(:member_card_point_log, member_card: member_card, point: -100, customer: customer, unique_ind: member_cards.index(member_card).to_s)
       end
     end
 
@@ -305,6 +306,7 @@ resource "积分转小金记录" do
     response_field :created_at, "兑换时间"
     response_field :member_card_id, "会员卡ID"
     response_field :pension, "养老金"
+    response_field :unique_ind, "商户兑换记录的唯一标示"
 
     user_attrs = FactoryGirl.attributes_for(:user)
 

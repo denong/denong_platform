@@ -7,8 +7,8 @@
 #  log_time       :date
 #  trade_currency :string(255)
 #  trade_state    :string(255)
-#  gain           :float
-#  expend         :float
+#  gain           :float(24)
+#  expend         :float(24)
 #  merchant_ind   :string(255)
 #  pos_ind        :string(255)
 #  merchant_name  :string(255)

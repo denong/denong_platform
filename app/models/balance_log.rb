@@ -3,8 +3,8 @@
 # Table name: balance_logs
 #
 #  id          :integer          not null, primary key
-#  jajin       :float
-#  balance     :float
+#  jajin       :float(24)
+#  balance     :float(24)
 #  merchant_id :integer
 #  created_at  :datetime
 #  updated_at  :datetime
