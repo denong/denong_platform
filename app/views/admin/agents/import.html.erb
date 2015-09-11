@@ -35,7 +35,7 @@
         <div class="form-group">
           <div class="col-sm-12">
             <div class="col-sm-4">
-              <%= f.file_field :file, class: 'form-control' %>
+              <%= f.file_field :file, accept: "text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", class: 'form-control' %>
             </div>
             <div class="col-sm-2">
               <button class="btn btn-success btn-small" type="submit">
