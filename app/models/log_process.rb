@@ -10,7 +10,7 @@ class LogProcess
 
       @results.each_with_index do |result, index|
         result = eval result
-        sheet.add_row(result.to_a.map { |e| "#{e[-1]}" })
+        sheet.add_row(result.to_a.map { |e| "#{e[-1]}" }, :types => [:string, :string, :string, :string, :string, :string])
       end
       
       file.use_shared_strings = true
