@@ -12,6 +12,21 @@ module Admin
       render :template => "/admin/agents/import"
     end
 
+    def logs
+      @keys = $redis.keys("error_logs_*")
+    end
+
+    def log
+      @results = $redis.hvals(params[:id]).map { |e| eval e }
+    end
+
+    def down
+      file = LogProcess.write_log_to_file params[:id]
+      io = File.open(file)
+      io.binmode
+      send_data(io.read, :filename => "#{params[:id]}.xlsx", :disposition => 'attachment')
+    end
+
     def import
       if params[:import_file].nil? or params[:import_file][:file].nil?
         return redirect_to upload_admin_agent_path(@agent), notice: "文件不能为空!!!"

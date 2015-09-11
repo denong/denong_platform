@@ -194,9 +194,12 @@ Rails.application.routes.draw do
     resources :agents do
       collection do
         post 'import'
+        get 'logs'
       end
       member do
         get 'upload'
+        get 'log'
+        get 'down'
       end
     end
 

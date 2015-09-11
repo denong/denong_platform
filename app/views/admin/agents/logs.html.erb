@@ -1,0 +1,48 @@
+<div class="main-content-inner">
+  <!-- #section:basics/content.breadcrumbs -->
+  <div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+      try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+      <li>
+        <i class="ace-icon fa fa-home home-icon"></i>
+        <%= link_to "代理商", admin_agents_path %>
+      </li>
+      <li class="active">日志列表</li>
+    </ul><!-- /.breadcrumb -->
+
+  </div>
+
+  <!-- /section:basics/content.breadcrumbs -->
+  <div class="page-content">
+    <div class="row panel panel-default">
+      <table id="agents-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <thead>
+            <td>时间</td>
+            <td>操作</td>
+          </thead>
+
+        <tbody>
+          <% @keys.each do |key| %>
+          <tr>
+            <td><%= key %></td>
+            <td>
+              <%= link_to '详细', log_admin_agent_path(key), :class => 'btn btn-xs btn-info' %>
+              <%= link_to '下载', down_admin_agent_path(key), :class => 'btn btn-xs btn-info' %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% content_for :scripts do %>
+      <script type="text/javascript">
+        $('#agents-table').dataTable({
+          bAutoWidth: false
+        });
+      </script>
+    <% end %>
+  </div>  
+</div>
