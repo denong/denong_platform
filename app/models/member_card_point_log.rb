@@ -58,6 +58,11 @@ class MemberCardPointLog < ActiveRecord::Base
       unique_ind = data['交易的唯一标示']
       point = data['兑换积分数']
 
+      unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present?
+        add_error_infos data, "数据缺失"
+        next
+      end
+
       # 校验是否注册
       result = User.exists? phone: phone
 
@@ -71,7 +76,6 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if user.errors.present?
-        puts "-----------user errors"
         add_error_infos data, user.errors.full_messages.to_s
         next
       end
@@ -90,7 +94,6 @@ class MemberCardPointLog < ActiveRecord::Base
 
         # 如果有错误，则增加错误信息
         if identity_verify.verify_state != "verified"
-          puts "-----------identity_verify errors"
           add_error_infos data, "用户实名制认证失败！"
           next
         end
@@ -106,7 +109,6 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if member_card.errors.present?
-        puts "-----------member_card errors is #{member_card.errors.full_messages}"
         add_error_infos data, member_card.errors.full_messages.to_s
         next
       end
@@ -135,7 +137,12 @@ class MemberCardPointLog < ActiveRecord::Base
 
   def self.add_error_infos data, error_info
     data['错误原因'] = error_info
-    $redis.hset("error_logs_#{DateTime.now.to_date}", "#{data['交易的唯一标示']}", data)
+    if data['交易的唯一标示'].nil?
+      key = DateTime.now.strftime("%Y%m%d%H%M%S") + (0..9).to_a.sample(8).join
+    else
+      key = data['交易的唯一标示']
+    end
+    $redis.hset("error_logs_#{DateTime.now.to_date}", "#{key}", data)
   end
 
   def import(file)
@@ -144,6 +151,11 @@ class MemberCardPointLog < ActiveRecord::Base
       header = spreadsheet.row(1)
       (2..spreadsheet.last_row).each do |r|
         row = Hash[[header, spreadsheet.row(r)].transpose]
+      
+        unless row['交易的唯一标示'].present?
+          MemberCardPointLog.add_error_infos row, "唯一标示不能为空"
+          next
+        end
         # 存入缓存
         $redis.hset("process_data_cache", "#{row['交易的唯一标示']}", row)
       end
@@ -285,7 +297,6 @@ class MemberCardPointLog < ActiveRecord::Base
       end
       ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
 
-      puts "-----------send_hash is #{send_hash}, tpl is #{tpl}"
       result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
     end
 end
