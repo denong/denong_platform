@@ -71,18 +71,16 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if user.errors.present?
-        puts "user errors"
-        data['错误原因'] = user.errors.full_messages.first
-        error_logs << data
+        puts "-----------user errors"
+        add_error_infos data, user.errors.full_messages.to_s
         next
       end
 
       # 校验用户是否实名制认证
       customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
-      
+
       if customer_reg_info.errors.present?
-        data['错误原因'] = customer_reg_info.errors.full_messages.first
-        error_logs << data
+        add_error_infos data, customer_reg_info.errors.full_messages.to_s
         next
       end
 
@@ -92,9 +90,8 @@ class MemberCardPointLog < ActiveRecord::Base
 
         # 如果有错误，则增加错误信息
         if identity_verify.verify_state != "verified"
-          puts "identity_verify errors"
-          data['错误原因'] = "用户实名制认证失败！"
-          error_logs << data
+          puts "-----------identity_verify errors"
+          add_error_infos data, "用户实名制认证失败！"
           next
         end
       end
@@ -109,9 +106,8 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if member_card.errors.present?
-        puts "member_card errors is #{member_card.errors.full_messages.first}"
-        data['错误原因'] = member_card.errors.full_messages.first
-        error_logs << data
+        puts "-----------member_card errors is #{member_card.errors.full_messages}"
+        add_error_infos data, member_card.errors.full_messages.to_s
         next
       end
 
@@ -119,30 +115,27 @@ class MemberCardPointLog < ActiveRecord::Base
       member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
       if member_card_point_log.present?
         # 已经存在
-        puts "已经存在"
-        data['错误原因'] = "唯一标示已经存在"
-        error_logs << data
+        add_error_infos data, "唯一标示已经存在"
         next
       else
         member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
       end
       
       if member_card_point_log.errors.present?
-        data['错误原因'] = member_card_point_log.errors.full_messages.first
-        puts data['错误原因']
-        error_logs << data
+        add_error_infos data, member_card_point_log.errors.full_messages.to_s
         next
       end
 
       params = {}
       params[:customer_id] = user.try(:customer).id
       params[:point] = point
-      MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
+      # MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
     end
+  end
 
-    error_logs.each do |log|
-      $redis.hset("error_logs_#{DateTime.now.to_date}", "#{log['交易的唯一标示']}", log)
-    end
+  def self.add_error_infos data, error_info
+    data['错误原因'] = error_info
+    $redis.hset("error_logs_#{DateTime.now.to_date}", "#{data['交易的唯一标示']}", data)
   end
 
   def import(file)
@@ -292,7 +285,7 @@ class MemberCardPointLog < ActiveRecord::Base
       end
       ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
 
-      puts "send_hash is #{send_hash}, tpl is #{tpl}"
+      puts "-----------send_hash is #{send_hash}, tpl is #{tpl}"
       result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
     end
 end
