@@ -136,7 +136,7 @@ class DataReport < ActiveRecord::Base
         file.write(",")
         file.write(t.try(:merchant).try(:sys_reg_info).try(:sys_name))
         file.write(",")
-        file.write(t.try(:jajin_logs).try(:amount))
+        file.write(t.try(:jajin_log).try(:amount))
         file.write("\r\n")
       end
       file.close
