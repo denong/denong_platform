@@ -71,7 +71,7 @@ class MemberCardPointLog < ActiveRecord::Base
         user = User.find_by(phone: phone)
       else
         # 不存在，则创建
-        user = User.create(phone: phone, password: phone[-8..-1], source_id: 0, source_id: 28, sms_token: "989898")
+        user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
       end
 
       # 如果有错误，则增加错误信息
