@@ -114,4 +114,25 @@ class DataReport < ActiveRecord::Base
       file.close
     end
   end
+
+  class TlTradeStatisDetail
+    def process(start_time)
+      datetime = Time.now.strftime("%Y-%m-%d")
+      file = File.open("public/tl_detail_#{datetime}.txt", "w")
+      datas = TlTrade.where("id > 967 and created_at < ?", start_time)
+      datas.each do |t|
+        customer_reg_info = t.try(:customer).try(:customer_reg_info)
+        file.write(t.try(:phone))
+        file.write(customer_reg_info.try(:name))
+        file.write(customer_reg_info.try(:id_card))
+        file.write(t.trade_time)
+        file.write(t.price)
+        file.write(t.try(:merchant).try(:ratio))
+        file.write(t.try(:merchant).try(:sys_reg_info).try(:sys_name))
+        file.write(t.try(:jajin_logs).try(:amount))
+        file.write("\r\n")
+      end
+      file.close
+    end
+  end
 end
