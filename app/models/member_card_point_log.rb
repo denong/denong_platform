@@ -41,7 +41,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
   def self.process_data_from_cache
     datas = $redis.hvals("process_data_cache")
-    # $redis.del("process_data_cache")
+    $redis.del("process_data_cache")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
     datas.each do |data|
@@ -79,6 +79,13 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 校验用户是否实名制认证
       customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
+      
+      if customer_reg_info.errors.present?
+        data['错误原因'] = customer_reg_info.errors.full_messages.first
+        error_logs << data
+        next
+      end
+
       if customer_reg_info.verify_state != "verified"
         identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
         identity_verify.save
@@ -89,7 +96,7 @@ class MemberCardPointLog < ActiveRecord::Base
           data['错误原因'] = "用户实名制认证失败！"
           error_logs << data
           next
-        end 
+        end
       end
 
       # 用户是否授权会员卡
@@ -134,7 +141,7 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     error_logs.each do |log|
-      $redis.hset("#{DateTime.now.to_date}_error_logs", "#{log['交易的唯一标示']}", log)
+      $redis.hset("error_logs_#{DateTime.now.to_date}", "#{log['交易的唯一标示']}", log)
     end
   end
 
