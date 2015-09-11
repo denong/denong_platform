@@ -41,16 +41,101 @@ class MemberCardPointLog < ActiveRecord::Base
 
   def self.process_data_from_cache
     datas = $redis.hvals("process_data_cache")
-    $redis.del("process_data_cache")
-    
-    # 校验是否注册
-    # 
-    # 校验用户是否实名制认证
-    # 
-    # 用户是否授权会员卡
-    # 
-    # 获得小金
-    #  
+    # $redis.del("process_data_cache")
+    error_logs = []
+    merchant = Merchant.find_by(id: 162)
+    datas.each do |data|
+      begin
+        data = eval data  
+      rescue Exception => e
+        logger.info "Exception is #{e}, data is #{data}"
+      end
+
+      # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
+      phone = data['手机号']
+      name = data['姓名']
+      id_card = data['身份证号']
+      unique_ind = data['交易的唯一标示']
+      point = data['兑换积分数']
+
+      # 校验是否注册
+      result = User.exists? phone: phone
+
+      if result
+        # 已经存在
+        user = User.find_by(phone: phone)
+      else
+        # 不存在，则创建
+        user = User.create(phone: phone, password: phone[-8..-1], source_id: 0, source_id: 28, sms_token: "989898")
+      end
+
+      # 如果有错误，则增加错误信息
+      if user.errors.present?
+        puts "user errors"
+        data['错误原因'] = user.errors.full_messages.first
+        error_logs << data
+        next
+      end
+
+      # 校验用户是否实名制认证
+      customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
+      if customer_reg_info.verify_state != "verified"
+        identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
+        identity_verify.save
+
+        # 如果有错误，则增加错误信息
+        if identity_verify.verify_state != "verified"
+          puts "identity_verify errors"
+          data['错误原因'] = "用户实名制认证失败！"
+          error_logs << data
+          next
+        end 
+      end
+
+      # 用户是否授权会员卡
+      if merchant.present? && user.present? && user.try(:customer).present?
+        member_card = merchant.try(:member_cards).find_by_customer_id(user.try(:customer).try(:id))
+        unless member_card.present?
+          member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant: merchant, user_name: name, passwd: id_card, point: 0)
+        end
+      end
+
+      # 如果有错误，则增加错误信息
+      if member_card.errors.present?
+        puts "member_card errors is #{member_card.errors.full_messages.first}"
+        data['错误原因'] = member_card.errors.full_messages.first
+        error_logs << data
+        next
+      end
+
+      # 获得小金
+      member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
+      if member_card_point_log.present?
+        # 已经存在
+        puts "已经存在"
+        data['错误原因'] = "唯一标示已经存在"
+        error_logs << data
+        next
+      else
+        member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
+      end
+      
+      if member_card_point_log.errors.present?
+        data['错误原因'] = member_card_point_log.errors.full_messages.first
+        puts data['错误原因']
+        error_logs << data
+        next
+      end
+
+      params = {}
+      params[:customer_id] = user.try(:customer).id
+      params[:point] = point
+      MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
+    end
+
+    error_logs.each do |log|
+      $redis.hset("#{DateTime.now.to_date}_error_logs", "#{log['交易的唯一标示']}", log)
+    end
   end
 
   def import(file)
@@ -199,6 +284,8 @@ class MemberCardPointLog < ActiveRecord::Base
         send_hash[:money] = money
       end
       ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+
+      puts "send_hash is #{send_hash}, tpl is #{tpl}"
       result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
     end
 end
