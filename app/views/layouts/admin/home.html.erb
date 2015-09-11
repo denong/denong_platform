@@ -354,13 +354,10 @@
                     Settings
                   </a>
                 </li> -->
-               <!--  <li>
-                  <a href="profile.html">
-                    <i class="ace-icon fa fa-user"></i>
-                    Profile
-                  </a>
-                </li> -->
-                <!-- <li class="divider"></li> -->
+                <li>
+                  <%= link_to "<i class='ace-icon fa fa-user'></i>个人中心".html_safe, admin_agent_path(@agent) %>
+                </li>
+                <li class="divider"></li>
                 <li>
                   <%= link_to "<i class='ace-icon fa fa-power-off'></i>登出".html_safe, destroy_admin_agent_session_path, :method => :delete %>
                 </li>

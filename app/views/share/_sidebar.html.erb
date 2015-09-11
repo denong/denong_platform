@@ -30,7 +30,7 @@
       </ul>
     </li>
 
-    <!-- <li class="">
+    <li class="">
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-list"></i>
         <span class="menu-text"> 管理 </span>
@@ -39,14 +39,11 @@
       <b class="arrow"></b>
       <ul class="submenu">
         <li class="">
-          <a href="/">
-            <i class="menu-icon fa fa-caret-right"></i>
-            个人中心
-          </a>
+          <%= link_to "<i class='menu-icon fa fa-caret-right'></i>个人中心".html_safe, admin_agent_path(@agent) %>
           <b class="arrow"></b>
         </li>
       </ul>
-    </li> -->
+    </li>
 
     <!-- <li class="">
       <a href="#" class="dropdown-toggle">
