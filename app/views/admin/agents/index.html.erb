@@ -50,11 +50,11 @@
             <td><%= merchant.sys_reg_info.contact_tel %></td>
             <td><%= merchant.sys_reg_info.email %></td>
             <td><%= merchant.member_cards.size %></td>
-            <td><%= %></td>
-            <td><%= ["","审核通过"][merchant.verify_state] %></td>
+            <td><%= merchant.jajin_total %></td>
+            <td><%= ["待审核","审核通过"][merchant.verify_state] %></td>
             <td>
-              <%= link_to '导入积分兑换数据', upload_admin_agent_path(@agent), :class => "btn btn-xs btn-info" %>
-            <%= link_to '兑换数据统计', edit_admin_agent_path(@agent), :class => "btn btn-xs btn-primary" %>
+              <%= link_to '导入积分兑换数据', upload_admin_agent_path(merchant), :class => "btn btn-xs btn-info" %>
+            <!-- <%= link_to '兑换数据统计', edit_admin_agent_path(@agent), :class => "btn btn-xs btn-primary" %> -->
             </td>
           </tr>
           <% end %>

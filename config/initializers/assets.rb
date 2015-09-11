@@ -5,4 +5,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( admin/home.css devise.css devise.js admin/home.js )
+Rails.application.config.assets.precompile += %w( admin/home.css devise.css admin/devise.js admin/home.js )
