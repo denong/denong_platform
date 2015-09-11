@@ -53,7 +53,7 @@
             <td><%= merchant.jajin_total %></td>
             <td><%= ["待审核","审核通过"][merchant.verify_state] %></td>
             <td>
-              <%= link_to '导入积分兑换数据', upload_admin_agent_path(merchant), :class => "btn btn-xs btn-info" %>
+              <%= link_to '导入积分兑换数据', upload_admin_agent_path(@agent), :class => "btn btn-xs btn-info" %>
             <!-- <%= link_to '兑换数据统计', edit_admin_agent_path(@agent), :class => "btn btn-xs btn-primary" %> -->
             </td>
           </tr>
