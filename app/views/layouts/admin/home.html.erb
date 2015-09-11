@@ -342,27 +342,27 @@
               <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                 <%= image_tag "user.jpg", alt: "#{@agent.name}'s photo", class: "nav-user-photo" %>
                 <span class="user-info">
-                  <small>Welcome,</small>
+                  <small>欢迎,</small>
                   <%= @agent.name %>
                 </span>
                 <i class="ace-icon fa fa-caret-down"></i>
               </a>
               <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                <li>
+                <!-- <li>
                   <a href="#">
                     <i class="ace-icon fa fa-cog"></i>
                     Settings
                   </a>
-                </li>
-                <li>
+                </li> -->
+               <!--  <li>
                   <a href="profile.html">
                     <i class="ace-icon fa fa-user"></i>
                     Profile
                   </a>
-                </li>
-                <li class="divider"></li>
+                </li> -->
+                <!-- <li class="divider"></li> -->
                 <li>
-                  <%= link_to "<i class='ace-icon fa fa-power-off'></i>Logout".html_safe, destroy_admin_agent_session_path, :method => :delete %>
+                  <%= link_to "<i class='ace-icon fa fa-power-off'></i>登出".html_safe, destroy_admin_agent_session_path, :method => :delete %>
                 </li>
               </ul>
             </li>
