@@ -8,9 +8,6 @@ module Admin
     
     def upload
       @agent = Agent.where(id: params[:id]).first
-      p "--------------------------------------------------------"
-      p @agent
-      p "--------------------------------------------------------"
 
       render :template => "/admin/agents/import"
     end
