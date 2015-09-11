@@ -131,7 +131,7 @@ class MemberCardPointLog < ActiveRecord::Base
       params = {}
       params[:customer_id] = user.try(:customer).id
       params[:point] = point
-      # MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
+      MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
     end
   end
 
