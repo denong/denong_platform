@@ -278,7 +278,7 @@ class MemberCardPointLog < ActiveRecord::Base
       end
 
       phone = user.phone
-      money = params[:point].abs.to_f/100
+      money = params[:point].to_f.abs.to_f/100
 
       tpl = 948587
       send_hash = {}
