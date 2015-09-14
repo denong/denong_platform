@@ -46,7 +46,7 @@
             <td><%= merchant.sys_reg_info.contact_person %></td>
             <td><%= merchant.sys_reg_info.contact_tel %></td>
             <td><%= merchant.sys_reg_info.email %></td>
-            <td><%= merchant.member_cards.size %></td>
+            <td><%= User.agent_user_count(@agent) %></td>
             <td><%= merchant.get_giving_jajin %></td>
             <td><%= ["待审核","审核通过"][merchant.verify_state] %></td>
             <td>
