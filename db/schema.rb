@@ -13,23 +13,38 @@
 
 ActiveRecord::Schema.define(version: 20150910033513) do
 
+  create_table "account", primary_key: "account_id", force: true do |t|
+    t.string   "username",   limit: 200
+    t.string   "nickname",   limit: 200
+    t.string   "password",   limit: 200
+    t.string   "email",      limit: 200
+    t.integer  "purview"
+    t.string   "power",      limit: 200
+    t.integer  "status"
+    t.integer  "sex"
+    t.string   "tel",        limit: 200
+    t.text     "memo"
+    t.datetime "createDate"
+    t.datetime "updateDate"
+  end
+
   create_table "agents", force: true do |t|
     t.string   "name"
-    t.string   "phone"
     t.string   "contact_person"
+    t.string   "phone"
+    t.string   "encrypted_password",                default: "",  null: false
+    t.string   "email",                             default: "",  null: false
     t.string   "fax"
     t.string   "addr"
-    t.float    "lat",                    limit: 24
-    t.float    "lon",                    limit: 24
+    t.float    "lat",                    limit: 24, default: 0.0
+    t.float    "lon",                    limit: 24, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                             default: "", null: false
-    t.string   "encrypted_password",                default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string   "authentication_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                     default: 0,  null: false
+    t.integer  "sign_in_count",                     default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -85,7 +100,6 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.string   "phone"
     t.integer  "card_type"
     t.string   "sn"
-    t.integer  "bank"
     t.integer  "bind_state"
     t.datetime "bind_time"
     t.integer  "customer_id"
@@ -99,10 +113,10 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.string   "res_code"
     t.string   "certification_type"
     t.integer  "bank_id"
+    t.integer  "bank"
     t.integer  "bank_card_type"
   end
 
-  add_index "bank_cards", ["bank_id"], name: "index_bank_cards_on_bank_id", using: :btree
   add_index "bank_cards", ["customer_id"], name: "index_bank_cards_on_customer_id", using: :btree
 
   create_table "banks", force: true do |t|
@@ -236,6 +250,13 @@ ActiveRecord::Schema.define(version: 20150910033513) do
   add_index "given_logs", ["customer_id"], name: "index_given_logs_on_customer_id", using: :btree
   add_index "given_logs", ["giver_or_given_id"], name: "index_given_logs_on_giver_or_given_id", using: :btree
 
+  create_table "identity_infos", force: true do |t|
+    t.string "name",     limit: 200
+    t.string "phone",    limit: 200
+    t.string "password", limit: 200
+    t.string "id_card",  limit: 200
+  end
+
   create_table "identity_verifies", force: true do |t|
     t.string   "name"
     t.integer  "verify_state"
@@ -333,7 +354,7 @@ ActiveRecord::Schema.define(version: 20150910033513) do
 
   create_table "member_cards", force: true do |t|
     t.integer  "merchant_id"
-    t.float    "point",             limit: 24, default: 0.0
+    t.float    "point",             limit: 24
     t.integer  "customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -431,7 +452,7 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "customer_id"
-    t.integer  "verify_state"
+    t.integer  "verify_state", default: 0
   end
 
   add_index "merchant_messages", ["customer_id"], name: "index_merchant_messages_on_customer_id", using: :btree
@@ -440,9 +461,9 @@ ActiveRecord::Schema.define(version: 20150910033513) do
   create_table "merchant_sys_reg_infos", force: true do |t|
     t.string   "sys_name"
     t.string   "contact_person"
-    t.string   "contact_tel",               default: "--- []\n"
-    t.string   "service_tel",               default: "--- []\n"
-    t.string   "fax_tel",                   default: "--- []\n"
+    t.string   "contact_tel"
+    t.string   "service_tel"
+    t.string   "fax_tel"
     t.string   "email"
     t.string   "company_addr"
     t.string   "region"
@@ -450,8 +471,8 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.string   "postcode"
     t.datetime "reg_time"
     t.datetime "approve_time"
-    t.float    "lon",            limit: 24
-    t.float    "lat",            limit: 24
+    t.float    "lon",            limit: 24, default: 0.0
+    t.float    "lat",            limit: 24, default: 0.0
     t.string   "welcome_string"
     t.text     "comment_text"
     t.datetime "created_at"
@@ -496,10 +517,10 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.integer  "cached_weighted_total",              default: 0
     t.float    "cached_weighted_average", limit: 24, default: 0.0
     t.integer  "topic_id"
-    t.float    "consumption_total",       limit: 24
-    t.float    "jajin_total",             limit: 24
-    t.integer  "consume_count"
-    t.integer  "verify_state"
+    t.float    "consumption_total",       limit: 24, default: 0.0
+    t.float    "jajin_total",             limit: 24, default: 0.0
+    t.integer  "consume_count",                      default: 0
+    t.integer  "verify_state",                       default: 0
     t.integer  "agent_id"
     t.float    "convert_ratio",           limit: 24, default: 1.0
     t.float    "balance",                 limit: 24, default: 0.0
@@ -626,8 +647,8 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.integer  "cached_weighted_score",              default: 0
     t.integer  "cached_weighted_total",              default: 0
     t.float    "cached_weighted_average", limit: 24, default: 0.0
-    t.float    "lon",                     limit: 24
-    t.float    "lat",                     limit: 24
+    t.float    "lon",                     limit: 24, default: 0.0
+    t.float    "lat",                     limit: 24, default: 0.0
     t.string   "post_code"
     t.string   "email"
     t.string   "service_tel"

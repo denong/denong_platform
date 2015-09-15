@@ -28,7 +28,7 @@ class JajinLog < ActiveRecord::Base
 
   scope :sum_amount, -> { group(:merchant_id).sum(:amount) }
 
-  after_create :send_notification
+  # after_create :send_notification
 
   default_scope { order('id DESC') }
 
