@@ -21,10 +21,6 @@
 
 set :output, "./log/schedule.log"
 
-every 1.minutes, do
-  runner "MemberCardPointLog.process_data_from_cache"
-end
-
 every 1.day, :at => '00:05' do
   runner "DataReport.new.process"
   runner "MerchantLog.new.process"

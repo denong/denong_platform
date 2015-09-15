@@ -39,9 +39,10 @@ class MemberCardPointLog < ActiveRecord::Base
     "积分转小金"
   end
 
-  def self.process_data_from_cache
-    datas = $redis.hvals("process_data_cache")
-    $redis.del("process_data_cache")
+  # 处理缓存数据
+  def self.process_data_from_cache(key)
+    datetime = key.split('_')[-1]
+    datas = $redis.hvals("#{key}")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
     datas.each do |data|
@@ -59,7 +60,7 @@ class MemberCardPointLog < ActiveRecord::Base
       point = data['兑换积分数']
 
       unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present?
-        add_error_infos data, "数据缺失"
+        add_error_infos datetime, data, "数据缺失"
         next
       end
 
@@ -76,7 +77,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if user.errors.present?
-        add_error_infos data, user.errors.full_messages.to_s
+        add_error_infos datetime, data, user.errors.full_messages.to_s
         next
       end
 
@@ -84,7 +85,7 @@ class MemberCardPointLog < ActiveRecord::Base
       customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
 
       if customer_reg_info.errors.present?
-        add_error_infos data, customer_reg_info.errors.full_messages.to_s
+        add_error_infos datetime, data, customer_reg_info.errors.full_messages.to_s
         next
       end
 
@@ -94,7 +95,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
         # 如果有错误，则增加错误信息
         if identity_verify.verify_state != "verified"
-          add_error_infos data, "用户实名制认证失败！"
+          add_error_infos datetime, data, "用户实名制认证失败！"
           next
         end
       end
@@ -109,7 +110,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if member_card.errors.present?
-        add_error_infos data, member_card.errors.full_messages.to_s
+        add_error_infos datetime, data, member_card.errors.full_messages.to_s
         next
       end
 
@@ -117,35 +118,39 @@ class MemberCardPointLog < ActiveRecord::Base
       member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
       if member_card_point_log.present?
         # 已经存在
-        add_error_infos data, "唯一标示已经存在"
+        add_error_infos datetime, data, "唯一标示已经存在"
         next
       else
         member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
       end
       
       if member_card_point_log.errors.present?
-        add_error_infos data, member_card_point_log.errors.full_messages.to_s
+        add_error_infos datetime, data, member_card_point_log.errors.full_messages.to_s
         next
       end
 
       params = {}
       params[:customer_id] = user.try(:customer).id
       params[:point] = point
-      MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
+      # MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
     end
+    $redis.del("#{key}")
   end
 
-  def self.add_error_infos data, error_info
+  def self.add_error_infos datetime, data, error_info
     data['错误原因'] = error_info
     if data['交易的唯一标示'].nil?
       key = DateTime.now.strftime("%Y%m%d%H%M%S") + (0..9).to_a.sample(8).join
     else
       key = data['交易的唯一标示']
     end
-    $redis.hset("error_logs_#{DateTime.now.to_date}", "#{key}", data)
+    $redis.hset("error_logs_#{datetime}", "#{key}", data)
   end
 
+  # 处理上传数据,写入缓存
+  # 按文件分类
   def import(file)
+    key = "process_data_cache_#{Time.now.strftime('%Y%m%d%H%M')}"
     begin
       spreadsheet = MemberCardPointLog.open_spreadsheet(file)
       header = spreadsheet.row(1)
@@ -157,11 +162,12 @@ class MemberCardPointLog < ActiveRecord::Base
           next
         end
         # 存入缓存
-        $redis.hset("process_data_cache", "#{row['交易的唯一标示']}", row)
+        $redis.hset(key, "#{row['交易的唯一标示']}", row)
       end
     rescue Exception => e
       p e
     end
+    # MemberCardPointLog.process_data_from_cache key
   end
 
   def self.get_point_log_by_merchant merchant_id, params

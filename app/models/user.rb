@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   scope :ios_count, -> { where(os: 'ios') }
   scope :android_count, -> { where(os: 'android') }
 
+  scope :agent_user_count, -> (agent) { where("source_id = ? and user_source = 0", agent.id).size }
   include ActiveModel::Validations
 
   attr_accessor :sms_token

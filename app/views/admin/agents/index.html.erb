@@ -13,14 +13,6 @@
       <li class="active">商户列表</li>
     </ul><!-- /.breadcrumb -->
 
-    <!-- <div class="nav-search" id="nav-search">
-      <form class="form-search">
-        <span class="input-icon">
-          <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-          <i class="ace-icon fa fa-search nav-search-icon"></i>
-        </span>
-      </form>
-    </div> -->
   </div>
 
   <!-- /section:basics/content.breadcrumbs -->
@@ -46,7 +38,7 @@
             <td><%= merchant.sys_reg_info.contact_person %></td>
             <td><%= merchant.sys_reg_info.contact_tel %></td>
             <td><%= merchant.sys_reg_info.email %></td>
-            <td><%= merchant.member_cards.size %></td>
+            <td><%= User.agent_user_count(@agent) %></td>
             <td><%= merchant.get_giving_jajin %></td>
             <td><%= ["待审核","审核通过"][merchant.verify_state] %></td>
             <td>

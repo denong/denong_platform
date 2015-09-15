@@ -16,6 +16,9 @@
 //= require ./flot/jquery.flot
 //= require ./flot/jquery.flot.pie
 //= require ./flot/jquery.flot.resize
+//= require ./jquery.dataTables
+//= require ./jquery.dataTables.bootstrap
+//= require ./dataTables.tableTools
 //= require ./ace/elements.scroller
 //= require ./ace/elements.colorpicker
 //= require ./ace/elements.typeahead

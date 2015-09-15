@@ -5,6 +5,10 @@ module Admin
 
     def index
     end
+
+    def show
+      p @agent
+    end
     
     def upload
       @agent = Agent.where(id: params[:id]).first
