@@ -1,0 +1,14 @@
+{
+  "lengthMenu": "显示 _MENU_ 条记录",
+  "zeroRecords": "查询失败",
+  "info": "第 _PAGE_ 页/共 _PAGES_ 页",
+  "infoEmpty": "没有记录",
+  "infoFiltered": "(filtered from _MAX_ total records)",
+  "search": "搜索",
+  "paginate": {
+    "first": "首页",
+    "last": "末页",
+    "next": "下一页",
+    "previous": "上一页"
+  }
+}
