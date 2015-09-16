@@ -167,7 +167,6 @@ class MemberCardPointLog < ActiveRecord::Base
     rescue Exception => e
       p e
     end
-    # MemberCardPointLog.process_data_from_cache key
   end
 
   def self.get_point_log_by_merchant merchant_id, params
