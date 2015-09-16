@@ -186,7 +186,7 @@ Rails.application.routes.draw do
   
   root 'admin/home#index'
   namespace :admin do
-    root 'hoem#index'
+    root 'home#index'
 
     devise_for :agent, :controllers => { 
       :sessions => 'admin/login/sessions' 
