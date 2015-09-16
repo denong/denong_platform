@@ -107,6 +107,7 @@ class Merchant < ActiveRecord::Base
     self.jajin_total = 0
   end
   
+  # 用于审核商户
   def self.verify_merchant_by_name merchant_name
     merchant_info = MerchantSysRegInfo.find_by(sys_name: merchant_name)
 
@@ -119,5 +120,6 @@ class Merchant < ActiveRecord::Base
     merchant.verify_state = 1
     merchant.save
 
+    true
   end
 end

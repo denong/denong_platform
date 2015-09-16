@@ -21,12 +21,9 @@ class MerchantsController < ApplicationController
     unless agent.present?
       return
     end
-    logger.info "-------create_params is #{create_params}--------"
     @merchant = agent.merchants.build(create_params)
     @merchant.save
-    logger.info "-------update_params is #{update_params}--------"
     @merchant.sys_reg_info.update(update_params)
-    logger.info "-------merchant is #{@merchant.inspect}--------"
     respond_with(@merchant)
   end
 
@@ -87,6 +84,10 @@ class MerchantsController < ApplicationController
     end
   end
 
+  def verify_merchant
+    @verify_result = Merchant.verify_merchant_by_name create_params[:merchant_name]
+  end
+
   private
 
     def set_merchant
@@ -112,6 +113,10 @@ class MerchantsController < ApplicationController
 
     def create_params
       params.require(:merchant).permit(:ratio, :merchant_user_id, :agent_id)
+    end
+
+    def verify_params
+      params.require(:merchant).permit(:merchant_name)
     end
 end
 

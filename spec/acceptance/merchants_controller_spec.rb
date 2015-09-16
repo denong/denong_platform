@@ -12,7 +12,7 @@ resource "获取商户信息" do
       end
       merchants.each do |merchant|
         (0..3).each do |i|
-          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)  
+          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)
         end
       end
       Sunspot.commit
@@ -67,7 +67,7 @@ resource "获取商户信息" do
     let(:page) { 1 }
     example "搜索商户名称字段" do
       do_request
-      
+
       expect(status).to eq(200)
     end
 
@@ -80,12 +80,12 @@ resource "获取商户信息" do
       merchants = create_list(:merchant, 3)
       merchants.each do |merchant|
         (0..3).each do |i|
-          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)  
+          create(:merchant_giving_log, merchant: merchant, amount: merchants.index(merchant), customer: customer)
           create_list(:merchant_message, 2, merchant: merchant)
         end
         customer.follow! merchant
       end
-      
+
     end
 
     response_field :total_pages, "总页数"
@@ -124,7 +124,7 @@ resource "获取商户信息" do
       @merchant = create(:merchant)
       @merchant.sys_reg_info = create(:merchant_sys_reg_info)
     end
-    
+
     parameter :id, "商户ID", required: true
     let(:id) { @merchant.id }
 
@@ -156,7 +156,7 @@ resource "获取商户信息" do
 
   post "/merchants/:id/add_tag" do
     before(:each) do
-      @merchant = create(:merchant)  
+      @merchant = create(:merchant)
     end
 
     let(:id) { @merchant.id }
@@ -196,7 +196,7 @@ resource "获取商户信息" do
     before(:each) do
       @merchant_user = create(:merchant_user)
       @merchant = create(:merchant)
-      @merchant_user.merchant = @merchant 
+      @merchant_user.merchant = @merchant
     end
 
     let(:id) { @merchant.id }
@@ -382,7 +382,7 @@ resource "获取商户信息" do
 
   post "/merchants" do
     before(:each) do
-      @agent = create(:agent) 
+      @agent = create(:agent)
     end
 
     agent_attrs = FactoryGirl.attributes_for(:agent)
@@ -452,7 +452,7 @@ resource "获取商户信息" do
 
   post "/merchants" do
     before(:each) do
-      @agent = create(:agent) 
+      @agent = create(:agent)
     end
 
     response_field :sys_name, "商户名称"
@@ -512,7 +512,7 @@ resource "获取商户信息" do
     let(:agent_id) { 1 }
     let(:image_attributes) { attributes_for(:image) }
     let(:logo_attributes) { attributes_for(:image) }
-    
+
 
     example "商户注册" do
       do_request
@@ -520,4 +520,20 @@ resource "获取商户信息" do
     end
   end
 
+  post "/verify_merchant" do
+    before(:each) do
+      merchant = create(:merchant)
+    end
+
+    agent_attrs = FactoryGirl.attributes_for(:agent)
+    header "X-User-Token", agent_attrs[:authentication_token]
+    header "X-User-Phone", agent_attrs[:phone]
+
+    example "商户审核" do
+      do_request
+      puts "response is #{response_body}"
+      expect(status).to eq(200)
+    end
+
+  end
 end
