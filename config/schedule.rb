@@ -21,7 +21,7 @@
 
 set :output, "./log/schedule.log"
 
-every 1.minutes, do
+every 1.minutes do
   runner "MemberCardPointLog.process_data_from_cache"
 end
 
