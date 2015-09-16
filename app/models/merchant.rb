@@ -107,4 +107,17 @@ class Merchant < ActiveRecord::Base
     self.jajin_total = 0
   end
   
+  def self.verify_merchant_by_name merchant_name
+    merchant_info = MerchantSysRegInfo.find_by(sys_name: merchant_name)
+
+    puts "未找到此商家" unless merchant_info.present?
+    puts "未找到详细信息"  unless merchant_info.try(:merchant).present?
+
+    return false unless merchant_info.present? && merchant_info.try(:merchant).present?
+
+    merchant = merchant_info.try(:merchant)
+    merchant.verify_state = 1
+    merchant.save
+
+  end
 end
