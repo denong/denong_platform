@@ -5,9 +5,9 @@
 #  id             :integer          not null, primary key
 #  sys_name       :string(255)
 #  contact_person :string(255)
-#  contact_tel    :string(255)      default("--- []\n")
-#  service_tel    :string(255)      default("--- []\n")
-#  fax_tel        :string(255)      default("--- []\n")
+#  contact_tel    :string(255)
+#  service_tel    :string(255)
+#  fax_tel        :string(255)
 #  email          :string(255)
 #  company_addr   :string(255)
 #  region         :string(255)
@@ -15,8 +15,8 @@
 #  postcode       :string(255)
 #  reg_time       :datetime
 #  approve_time   :datetime
-#  lon            :float(24)
-#  lat            :float(24)
+#  lon            :float(24)        default(0.0)
+#  lat            :float(24)        default(0.0)
 #  welcome_string :string(255)
 #  comment_text   :text
 #  created_at     :datetime

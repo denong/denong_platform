@@ -12,7 +12,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #  customer_id  :integer
-#  verify_state :integer
+#  verify_state :integer          default(0)
 #
 
 class MerchantMessage < ActiveRecord::Base

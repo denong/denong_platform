@@ -4,16 +4,16 @@
 #
 #  id                     :integer          not null, primary key
 #  name                   :string(255)
-#  phone                  :string(255)
 #  contact_person         :string(255)
+#  phone                  :string(255)
+#  encrypted_password     :string(255)      default(""), not null
+#  email                  :string(255)      default(""), not null
 #  fax                    :string(255)
 #  addr                   :string(255)
-#  lat                    :float(24)
-#  lon                    :float(24)
+#  lat                    :float(24)        default(0.0)
+#  lon                    :float(24)        default(0.0)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  email                  :string(255)      default(""), not null
-#  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
 #  authentication_token   :string(255)

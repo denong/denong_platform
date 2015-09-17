@@ -15,10 +15,10 @@
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float(24)        default(0.0)
 #  topic_id                :integer
-#  consumption_total       :float(24)
-#  jajin_total             :float(24)
-#  consume_count           :integer
-#  verify_state            :integer
+#  consumption_total       :float(24)        default(0.0)
+#  jajin_total             :float(24)        default(0.0)
+#  consume_count           :integer          default(0)
+#  verify_state            :integer          default(0)
 #  agent_id                :integer
 #  convert_ratio           :float(24)        default(1.0)
 #  balance                 :float(24)        default(0.0)
