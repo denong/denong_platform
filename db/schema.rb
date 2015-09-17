@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910033513) do
+ActiveRecord::Schema.define(version: 20150917080215) do
 
   create_table "account", primary_key: "account_id", force: true do |t|
     t.string   "username",   limit: 200
@@ -497,8 +497,10 @@ ActiveRecord::Schema.define(version: 20150910033513) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "api_key"
   end
 
+  add_index "merchant_users", ["api_key"], name: "index_merchant_users_on_api_key", unique: true, using: :btree
   add_index "merchant_users", ["authentication_token"], name: "index_merchant_users_on_authentication_token", unique: true, using: :btree
   add_index "merchant_users", ["email"], name: "index_merchant_users_on_email", using: :btree
   add_index "merchant_users", ["phone"], name: "index_merchant_users_on_phone", using: :btree

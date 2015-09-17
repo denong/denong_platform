@@ -17,6 +17,7 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  api_key                :string(255)
 #
 
 class MerchantUser < ActiveRecord::Base
@@ -31,6 +32,10 @@ class MerchantUser < ActiveRecord::Base
   attr_accessor :sms_token
   has_one :merchant
   validate :sms_token_validate
+
+  validates_uniqueness_of :api_key
+  validates_presence_of :api_key
+  before_validation :generate_api_key
 
   def email_required?
     false
@@ -66,4 +71,11 @@ class MerchantUser < ActiveRecord::Base
     end
   end
   
+  private
+
+  def generate_api_key
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    self.api_key ||= chars.sample(16).join
+  end
+
 end
