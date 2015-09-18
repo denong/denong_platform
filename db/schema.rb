@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917080215) do
+ActiveRecord::Schema.define(version: 20150918035135) do
 
   create_table "account", primary_key: "account_id", force: true do |t|
     t.string   "username",   limit: 200
@@ -580,6 +580,20 @@ ActiveRecord::Schema.define(version: 20150917080215) do
     t.datetime "updated_at"
     t.integer  "result"
   end
+
+  create_table "point_log_failure_infos", force: true do |t|
+    t.string   "id_card"
+    t.string   "name"
+    t.string   "phone"
+    t.integer  "point"
+    t.string   "unique_ind"
+    t.integer  "merchant_id"
+    t.integer  "error_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "point_log_failure_infos", ["merchant_id"], name: "index_point_log_failure_infos_on_merchant_id", using: :btree
 
   create_table "pos_machines", force: true do |t|
     t.integer  "acquiring_bank"

@@ -1,14 +1,26 @@
 require 'rack/test'
-FactoryGirl.define do  factory :bank_card_verify_info do
+FactoryGirl.define do  factory :point_log_failure_info do
+    id_card "MyString"
+name "MyString"
+phone "MyString"
+point 1
+unique_ind "MyString"
+merchant nil
+error_code ""
+  end
+  
+  factory :bank_card_verify_info do
     name "MyString"
     id_card "MyString"
     bank_card "MyString"
     result 0
   end
+  
   factory :bank_card_type do
     bank_name "MyString"
-bank_card_type 1
+    bank_card_type 1
   end
+
   factory :bank do
     name "MyString"
   end
@@ -220,6 +232,7 @@ bank_card_type 1
     password "abcd.1234"
     sms_token "989898"
     authentication_token "qwertyuiop_merchant"
+    api_key "1234567890"
   end
 
   factory :friend, class: User do 
