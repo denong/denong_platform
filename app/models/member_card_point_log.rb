@@ -39,8 +39,8 @@ class MemberCardPointLog < ActiveRecord::Base
     "积分转小金"
   end
 
-  # 处理缓存数据
-  def self.process_data_from_cache(key)
+  # 处理数据
+  def self.process(key)
     datetime = key.split('_')[-1]
     datas = $redis.hvals("#{key}")
     error_logs = []
@@ -134,7 +134,17 @@ class MemberCardPointLog < ActiveRecord::Base
       params[:point] = point
       MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
     end
-    $redis.del("#{key}")
+  end
+
+  # 开线程
+  def self.process_data_from_cache
+    keys = $redis.keys("process_data_cache_*")
+    # proc = []
+    keys.each do |key|
+      process(key)
+      $redis.del("#{key}")
+    end
+    
   end
 
   def self.add_error_infos datetime, data, error_info
