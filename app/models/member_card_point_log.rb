@@ -64,16 +64,7 @@ class MemberCardPointLog < ActiveRecord::Base
         next
       end
 
-      # 校验是否注册
-      result = User.exists? phone: phone
-
-      if result
-        # 已经存在
-        user = User.find_by(phone: phone)
-      else
-        # 不存在，则创建
-        user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
-      end
+      user = User.build(phone)
 
       # 如果有错误，则增加错误信息
       if user.errors.present?
@@ -121,6 +112,7 @@ class MemberCardPointLog < ActiveRecord::Base
         add_error_infos datetime, data, "唯一标示已经存在"
         next
       else
+        # 发微信提醒和小确信消息推送
         member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
       end
       
@@ -129,6 +121,7 @@ class MemberCardPointLog < ActiveRecord::Base
         next
       end
 
+      # 短信提醒
       params = {}
       params[:customer_id] = user.try(:customer).id
       params[:point] = point
