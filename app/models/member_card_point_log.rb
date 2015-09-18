@@ -194,7 +194,9 @@ class MemberCardPointLog < ActiveRecord::Base
         row = Hash[[header, spreadsheet.row(r)].transpose]
 
         unless row['交易的唯一标示'].present?
-          MemberCardPointLog.add_error_infos row, "唯一标示不能为空"
+          row['错误原因'] = "唯一标示不能为空"
+          row['error_code'] = 10002
+          MemberCardPointLog.add_error_infos Time.now.strftime('%Y%m%d%H%M'), row
           next
         end
         # 存入缓存
