@@ -24,6 +24,10 @@ class MemberCardPointLogController < ApplicationController
     end
   end
 
+  def verify
+    @error_code, @reason = MemberCardPointLog.verify_process verify_params
+  end
+
   def index
     if current_agent.present?
       @member_card_point_logs = MemberCardPointLog.get_point_log_by_agent(current_agent.id, index_params)
@@ -54,6 +58,10 @@ class MemberCardPointLogController < ApplicationController
 
     def index_params
       params.require(:member_card_point_log).permit(:phone, :begin_time, :end_time)
+    end
+
+    def verify_params
+      params.require(:member_card_point_log).permit(:api_key, :id_card, :name, :phone, :point, :unique_ind, :sign, :timestamp)
     end
 
 end

@@ -45,9 +45,10 @@ class MemberCardPointLog < ActiveRecord::Base
     # 10001 表示 签名验证失败
     return 10001 unless data_verify params
 
+    timestamp = params[:timestamp]
     merchant_user = MerchantUser.find_by(api_key: params[:api_key])
-
-    process_one_data params[:phone], params[:name], params[:id_card], params[:unique_ind], params[:point], merchant_user.try(:merchant)
+    params[:merchant_id] = merchant_user.try(:merchant).try(:id) if merchant_user.present?
+    process_one_data params, DateTime.new(timestamp[0..3].to_i, timestamp[4..5].to_i, timestamp[6..7].to_i)
   end
 
   def self.data_verify hash
@@ -58,68 +59,55 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     params_array.sort!
-    sign_string = params_array.join
-    encrypt_rsa = EncryptRsa.encode sign_string, "private_key3.pem"
-    encrypt_rsa.delete!("\n")
-
-    if encrypt_rsa == hash["sign"]
-      true
-    else
-      false
-    end
+    origin_string = params_array.join
+    result = EncryptRsa.verify hash[:sign], origin_string, "public_key3.pem"
+    result
   end
 
-
-  # 处理缓存数据
-  def self.process_data_from_cache(key)
+  # 处理数据
+  def self.process key
     datetime = key.split('_')[-1]
     datas = $redis.hvals("#{key}")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
     datas.each do |data|
       begin
-        data = eval data  
+        data = eval data
       rescue Exception => e
         logger.info "Exception is #{e}, data is #{data}"
       end
-
-      process_one_data data['手机号'], data['姓名'], data['身份证号'], data['交易的唯一标示'], data['兑换积分数']
-
+      data[:merchant_id] = 162
+      process_one_data data, datetime
     end
     $redis.del("#{key}")
   end
 
-  def self.process_one_data phone, name, id_card, unique_ind, point, merchant
-    
+  def self.process_one_data data, datetime
 
+    # phone, id_card, name, unique_ind, point, merchant
     # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
-    unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present?
-      add_error_infos datetime, data, "数据缺失"
-      return 10002
+
+    phone = data[:phone] || data['手机号']
+    name = data[:name] || data['姓名']
+    id_card = data[:id_card] || data['身份证号']
+    unique_ind = data[:unique_ind] || data['交易的唯一标示']
+    point = data[:point] || data['兑换积分数']
+    merchant = Merchant.find_by(id: data[:merchant_id]) if data[:merchant_id].present?
+
+    unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant.present?
+      return error_process datetime, data, 10002, "数据缺失"
     end
 
-    # 校验是否注册
-    result = User.exists? phone: phone
-    if result
-      # 已经存在
-      user = User.find_by(phone: phone)
-    else
-      # 不存在，则创建
-      user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
-    end
-
+    user, result = User.build_by_phone(phone)
     # 如果有错误，则增加错误信息
     if user.errors.present?
-      add_error_infos datetime, data, user.errors.full_messages.to_s
-      return 10003
+      return error_process datetime, data, 10003, user.errors.full_messages.to_s
     end
 
     # 校验用户是否实名制认证
     customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
-
     if customer_reg_info.errors.present?
-      add_error_infos datetime, data, customer_reg_info.errors.full_messages.to_s
-      return 10004
+      return error_process datetime, data, 10004, customer_reg_info.errors.full_messages.to_s
     end
 
     if customer_reg_info.verify_state != "verified"
@@ -128,8 +116,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
       # 如果有错误，则增加错误信息
       if identity_verify.verify_state != "verified"
-        add_error_infos datetime, data, "用户实名制认证失败！"
-        return 10005
+        return error_process datetime, data, 10005, "用户实名制认证失败！"
       end
     end
 
@@ -143,34 +130,47 @@ class MemberCardPointLog < ActiveRecord::Base
 
     # 如果有错误，则增加错误信息
     if member_card.errors.present?
-      add_error_infos datetime, data, member_card.errors.full_messages.to_s
-      return 10006
+      return error_process datetime, data, 10006, member_card.errors.full_messages.to_s
     end
 
     # 获得小金
     member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
     if member_card_point_log.present?
       # 已经存在
-      add_error_infos datetime, data, "唯一标示已经存在", 
-      return 10007
+      return error_process datetime, data, 10007, "唯一标示已经存在"
     else
       member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
     end
-    
+
     if member_card_point_log.errors.present?
-      add_error_infos datetime, data, member_card_point_log.errors.full_messages.to_s
-      return 10008
+      return error_process datetime, data, 10008, member_card_point_log.errors.full_messages.to_s
     end
 
     params = {}
     params[:customer_id] = user.try(:customer).id
     params[:point] = point
     MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
-    10000
+    return 0, "成功"
   end
 
-  def self.add_error_infos datetime, data, error_info, error_code
-    data['错误原因'] = error_info
+  def self.error_process datetime, data, error_code, reason
+    data[:error_code] = error_code
+    data['错误原因'] = reason
+    add_error_infos datetime, data
+    return error_code, reason
+  end
+
+  # 开线程
+  def self.process_data_from_cache
+    keys = $redis.keys("process_data_cache_*")
+    keys.each do |key|
+      process(key)
+      $redis.del("#{key}")
+    end
+  end
+
+  def self.add_error_infos datetime, data
+    
     if data['交易的唯一标示'].nil?
       key = DateTime.now.strftime("%Y%m%d%H%M%S") + (0..9).to_a.sample(8).join
     else
@@ -178,8 +178,8 @@ class MemberCardPointLog < ActiveRecord::Base
     end
     $redis.hset("error_logs_#{datetime}", "#{key}", data)
 
-    PointLogFailureInfo.create(id_card: data[:id_card], name: data[:name], 
-      phone: data[:phone], point: data[:point], unique_ind: data[:unique_ind], 
+    PointLogFailureInfo.create(id_card: data[:id_card], name: data[:name],
+      phone: data[:phone], point: data[:point], unique_ind: data[:unique_ind],
       merchant_id: data[:merchant_id], error_code: data[:error_code])
   end
 
@@ -192,7 +192,7 @@ class MemberCardPointLog < ActiveRecord::Base
       header = spreadsheet.row(1)
       (2..spreadsheet.last_row).each do |r|
         row = Hash[[header, spreadsheet.row(r)].transpose]
-      
+
         unless row['交易的唯一标示'].present?
           MemberCardPointLog.add_error_infos row, "唯一标示不能为空"
           next
@@ -220,7 +220,7 @@ class MemberCardPointLog < ActiveRecord::Base
     else
       member_cards = MemberCard.where(merchant_id: merchant_id)
     end
-    
+
     unless member_cards.present?
       return
     end
@@ -268,77 +268,77 @@ class MemberCardPointLog < ActiveRecord::Base
 
   private
 
-    def must_point_negative
-      unless point < 0
-        errors.add(:point, "必须小于0")
-      end
+  def must_point_negative
+    unless point < 0
+      errors.add(:point, "必须小于0")
+    end
+  end
+
+  def must_have_jajin
+    if self.customer.try(:jajin).blank?
+      errors.add(:message, "小确幸账号不存在")
+    end
+    self.jajin = point.abs
+  end
+
+  def point_must_less_than_all_point
+    if self.member_card.point.nil?
+      self.member_card.point = 0
+      self.member_card.save
+    end
+    # unique_ind存在的话，就不用校验
+    if unique_ind.present?
+      return true
+    end
+    if self.member_card.point < point.to_f.abs
+      errors.add(:point, "不能大于总积分数")
+    end
+  end
+
+  def calculate
+    jajin = self.customer.jajin
+    jajin.got += point.abs
+    jajin.save!
+
+    member_card = self.member_card
+    member_card.point += point
+    member_card.total_trans_jajin += point.abs
+    member_card.save!
+  end
+
+  def add_jajin_log
+    member_card = MemberCard.find_by(id: member_card_id)
+    merchant_id = member_card.merchant_id if member_card.present?
+    self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
+  end
+
+  def self.send_sms_notification params, first_time
+    customer = Customer.find_by_id(params[:customer_id])
+    user = customer.try(:user)
+    unless user.present?
+      return
     end
 
-    def must_have_jajin
-      if self.customer.try(:jajin).blank?
-        errors.add(:message, "小确幸账号不存在")
-      end
-      self.jajin = point.abs
-    end
+    phone = user.phone
+    money = params[:point].to_f.abs.to_f/100
 
-    def point_must_less_than_all_point
-      if self.member_card.point.nil?
-        self.member_card.point = 0
-        self.member_card.save
-      end
-      # unique_ind存在的话，就不用校验
-      if unique_ind.present?
-        return true
-      end
-      if self.member_card.point < point.to_f.abs
-        errors.add(:point, "不能大于总积分数")
-      end
-    end
-
-    def calculate
-      jajin = self.customer.jajin
-      jajin.got += point.abs
-      jajin.save!
-
-      member_card = self.member_card
-      member_card.point += point
-      member_card.total_trans_jajin += point.abs
-      member_card.save!
-    end
-
-    def add_jajin_log
-      member_card = MemberCard.find_by(id: member_card_id)
-      merchant_id = member_card.merchant_id if member_card.present?
-      self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
-    end
-
-    def self.send_sms_notification params, first_time
-      customer = Customer.find_by_id(params[:customer_id])
-      user = customer.try(:user)
-      unless user.present?
-        return
-      end
-
-      phone = user.phone
-      money = params[:point].to_f.abs.to_f/100
-
+    tpl = 948587
+    send_hash = {}
+    if first_time
+      # 刚完成注册之后，第一次兑换
+      # 需发送金额、手机号、手机号后八位
+      tpl = 948573
+      send_hash[:money] = money
+      send_hash[:phone] = phone
+      send_hash[:secret] = phone[-8..-1]
+    else
+      # 非首次兑换
+      # 需发送金额
       tpl = 948587
-      send_hash = {}
-      if first_time
-        # 刚完成注册之后，第一次兑换
-        # 需发送金额、手机号、手机号后八位
-        tpl = 948573
-        send_hash[:money] = money
-        send_hash[:phone] = phone
-        send_hash[:secret] = phone[-8..-1]
-      else
-        # 非首次兑换
-        # 需发送金额
-        tpl = 948587
-        send_hash[:money] = money
-      end
-      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
-
-      result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
+      send_hash[:money] = money
     end
+    ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+
+    result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
+  end
 end

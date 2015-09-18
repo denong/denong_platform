@@ -25,6 +25,18 @@ class EncryptRsa
     File.open("#{path}/public_key3.pem", 'w') { |io| io.write key.public_key.to_pem }
   end
 
+  def self.encode str, path
+    rsa = OpenSSL::PKey::RSA.new File.read(path)
+    encrypted = rsa.sign("sha1", str)
+    string = CGI.escape(encrypted)
+    string
+  end
+
+  def self.verify encrypted, origin_string, path
+    encrypted = CGI.unescape encrypted
+    rsa = OpenSSL::PKey::RSA.new File.read(path)
+    rsa.verify("sha1", encrypted, origin_string)
+  end
 
   def self.process(str, path)
     pri = OpenSSL::PKey::RSA.new File.read(path)
@@ -59,9 +71,10 @@ class EncryptRsa
     # rsa = OpenSSL::PKey::RSA.new(num)
     # @public_key = rsa.public_key.to_pem
     # @private_key = rsa.to_pem
-    @private_key = File.read('private_key.pem')#.gsub("\\n", "\n")
+
+    @private_key = File.read('private_key3.pem')#.gsub("\\n", "\n")
     # @private_key = private_key
-    @public_key = File.read('public_key.pem')
+    @public_key = File.read('public_key3.pem')
     # @public_key = public_key.gsub("\\n", "\n")
     nil
   end
@@ -73,7 +86,7 @@ class EncryptRsa
 
   # 私密解密
   def private_decrypt(value)
-    rsa_public_decrypt(value, @public_key)
+    rsa_private_decrypt(value, @private_key)
   end
 
   # 公密加密
@@ -83,7 +96,7 @@ class EncryptRsa
 
   # 公密解密
   def public_decrypt(value)
-    rsa_private_decrypt(value, @private_key)
+    rsa_public_decrypt(value, @public_key)
   end
 
   private

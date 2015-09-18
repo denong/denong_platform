@@ -184,6 +184,8 @@ Rails.application.routes.draw do
   get 'code' => 'jajin_verify_logs#new'
   get 'reward/:verify_code' => 'reward_logs#new'
   
+  post 'point_log' => 'member_card_point_log#verify'
+
   root 'admin/home#index'
   namespace :admin do
     root 'home#index'

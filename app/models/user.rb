@@ -54,10 +54,22 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :phone
   validates_presence_of :phone
-  validates :phone, length: { is: 11 }
+  validates :phone, length: { is: 11 }#, format: { with: /^[1]([3|4|5|][0-9]{1}|59|58|88|89|77|)[0-9]{8}$/, :multiline => true }
   has_one :customer
   validate :sms_token_validate
   after_create :add_customer
+  
+  
+  def self.build_by_phone(phone)
+    exist = true
+    user = User.where(phone: phone).first
+    unless user.present?
+      user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
+      exist = false
+    end
+    # 返回用户对象， exist表示用户是否之前存在
+    return user, exist
+  end
 
   def self.find_or_create_by_phone phone
     user = User.find_by_phone(phone)

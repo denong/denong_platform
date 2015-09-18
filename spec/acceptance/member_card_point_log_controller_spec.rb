@@ -319,4 +319,67 @@ resource "积分转小金记录" do
     end
   end
 
+  post "/point_log" do
+    before do
+      @user = create(:user, phone: "13316107607")
+      @merchant = create(:merchant)
+      merchant_user = create(:merchant_user, merchant: @merchant)
+      merchant_customer = create(:merchant_customer)
+      create(:personal_info, name: "张三", id_card: "333333333333333333", result: 0)
+      member_card = create(:member_card, customer: @user.customer, merchant: @merchant, user_name: "张三", passwd: "333333333333333333")
+      create(:member_card_point_log, unique_ind: "abcd", member_card: member_card, point: -1, customer: @user.customer)
+    end
+
+    def generate_params 
+      origin = {}
+      origin[:api_key] = attributes_for(:merchant_user)[:api_key]
+      origin[:id_card] = "333333333333333333"
+      origin[:name] = "张三"
+      origin[:phone] = "13316107607"
+      origin[:point] = 100
+      origin[:unique_ind] = "abcd"
+      origin[:timestamp] = 20150801142903
+
+      params_array = []
+      origin.to_a.each do |par_info|
+        params_array << par_info.join
+      end
+      params_array.sort!
+      sign_string = params_array.join
+      string = EncryptRsa.encode sign_string, "private_key3.pem"
+
+      # encrypted = CGI.unescape string
+      # rsa = OpenSSL::PKey::RSA.new File.read("public_key3.pem")
+      # puts rsa.verify("sha1", encrypted, sign_string)
+      string
+    end
+
+    parameter :api_key, "商户的唯一编号", required: true, scope: :member_card_point_log
+    parameter :id_card, "用户身份证号码", required: true, scope: :member_card_point_log
+    parameter :name, "用户姓名", required: true, scope: :member_card_point_log
+    parameter :phone, "用户手机号码", required: true, scope: :member_card_point_log
+    parameter :point, "积分分值", required: true, scope: :member_card_point_log
+    parameter :unique_ind, "流水号（交易的唯一标示）", required: true, scope: :member_card_point_log
+    parameter :sign, "签名认证", required: true, scope: :member_card_point_log
+    parameter :timestamp, "时间戳", required: true, scope: :member_card_point_log
+
+    response_field :error_code, "错误码"
+    response_field :reason, "错误原因"
+
+    let(:api_key) { @merchant.merchant_user.api_key }
+    let(:id_card) { "333333333333333333" }
+    let(:name) { "张三" }
+    let(:phone) { 13316107607 }
+    let(:point) { 100 }
+    let(:unique_ind) { "abcd" }
+    let(:timestamp) { "20150801142903" }
+    let(:sign) { generate_params }
+    let(:raw_post) { params.to_json }
+
+    example "Open API接口" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
+
 end
