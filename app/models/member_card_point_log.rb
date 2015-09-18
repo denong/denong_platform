@@ -39,6 +39,37 @@ class MemberCardPointLog < ActiveRecord::Base
     "积分转小金"
   end
 
+  def self.verify_process params
+    # api_key, id_card, name, phone, point, unique_ind, sign, timestamp
+
+    # 10001 表示 签名验证失败
+    return 10001 unless data_verify params
+
+    merchant_user = MerchantUser.find_by(api_key: params[:api_key])
+
+    process_one_data params[:phone], params[:name], params[:id_card], params[:unique_ind], params[:point], merchant_user.try(:merchant)
+  end
+
+  def self.data_verify hash
+    params_array = []
+    hash.to_a.each do |param|
+      next if param.include? "sign"
+      params_array << param.join
+    end
+
+    params_array.sort!
+    sign_string = params_array.join
+    encrypt_rsa = EncryptRsa.encode sign_string, "private_key3.pem"
+    encrypt_rsa.delete!("\n")
+
+    if encrypt_rsa == hash["sign"]
+      true
+    else
+      false
+    end
+  end
+
+
   # 处理缓存数据
   def self.process_data_from_cache(key)
     datetime = key.split('_')[-1]
@@ -52,92 +83,93 @@ class MemberCardPointLog < ActiveRecord::Base
         logger.info "Exception is #{e}, data is #{data}"
       end
 
-      # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
-      phone = data['手机号']
-      name = data['姓名']
-      id_card = data['身份证号']
-      unique_ind = data['交易的唯一标示']
-      point = data['兑换积分数']
+      process_one_data data['手机号'], data['姓名'], data['身份证号'], data['交易的唯一标示'], data['兑换积分数']
 
-      unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present?
-        add_error_infos datetime, data, "数据缺失"
-        next
-      end
-
-      # 校验是否注册
-      result = User.exists? phone: phone
-
-      if result
-        # 已经存在
-        user = User.find_by(phone: phone)
-      else
-        # 不存在，则创建
-        user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
-      end
-
-      # 如果有错误，则增加错误信息
-      if user.errors.present?
-        add_error_infos datetime, data, user.errors.full_messages.to_s
-        next
-      end
-
-      # 校验用户是否实名制认证
-      customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
-
-      if customer_reg_info.errors.present?
-        add_error_infos datetime, data, customer_reg_info.errors.full_messages.to_s
-        next
-      end
-
-      if customer_reg_info.verify_state != "verified"
-        identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
-        identity_verify.save
-
-        # 如果有错误，则增加错误信息
-        if identity_verify.verify_state != "verified"
-          add_error_infos datetime, data, "用户实名制认证失败！"
-          next
-        end
-      end
-
-      # 用户是否授权会员卡
-      if merchant.present? && user.present? && user.try(:customer).present?
-        member_card = merchant.try(:member_cards).find_by_customer_id(user.try(:customer).try(:id))
-        unless member_card.present?
-          member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant: merchant, user_name: name, passwd: id_card, point: 0)
-        end
-      end
-
-      # 如果有错误，则增加错误信息
-      if member_card.errors.present?
-        add_error_infos datetime, data, member_card.errors.full_messages.to_s
-        next
-      end
-
-      # 获得小金
-      member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
-      if member_card_point_log.present?
-        # 已经存在
-        add_error_infos datetime, data, "唯一标示已经存在"
-        next
-      else
-        member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
-      end
-      
-      if member_card_point_log.errors.present?
-        add_error_infos datetime, data, member_card_point_log.errors.full_messages.to_s
-        next
-      end
-
-      params = {}
-      params[:customer_id] = user.try(:customer).id
-      params[:point] = point
-      MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
     end
     $redis.del("#{key}")
   end
 
-  def self.add_error_infos datetime, data, error_info
+  def self.process_one_data phone, name, id_card, unique_ind, point, merchant
+    
+
+    # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
+    unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present?
+      add_error_infos datetime, data, "数据缺失"
+      return 10002
+    end
+
+    # 校验是否注册
+    result = User.exists? phone: phone
+    if result
+      # 已经存在
+      user = User.find_by(phone: phone)
+    else
+      # 不存在，则创建
+      user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
+    end
+
+    # 如果有错误，则增加错误信息
+    if user.errors.present?
+      add_error_infos datetime, data, user.errors.full_messages.to_s
+      return 10003
+    end
+
+    # 校验用户是否实名制认证
+    customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
+
+    if customer_reg_info.errors.present?
+      add_error_infos datetime, data, customer_reg_info.errors.full_messages.to_s
+      return 10004
+    end
+
+    if customer_reg_info.verify_state != "verified"
+      identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
+      identity_verify.save
+
+      # 如果有错误，则增加错误信息
+      if identity_verify.verify_state != "verified"
+        add_error_infos datetime, data, "用户实名制认证失败！"
+        return 10005
+      end
+    end
+
+    # 用户是否授权会员卡
+    if merchant.present? && user.present? && user.try(:customer).present?
+      member_card = merchant.try(:member_cards).find_by_customer_id(user.try(:customer).try(:id))
+      unless member_card.present?
+        member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant: merchant, user_name: name, passwd: id_card, point: 0)
+      end
+    end
+
+    # 如果有错误，则增加错误信息
+    if member_card.errors.present?
+      add_error_infos datetime, data, member_card.errors.full_messages.to_s
+      return 10006
+    end
+
+    # 获得小金
+    member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
+    if member_card_point_log.present?
+      # 已经存在
+      add_error_infos datetime, data, "唯一标示已经存在", 
+      return 10007
+    else
+      member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
+    end
+    
+    if member_card_point_log.errors.present?
+      add_error_infos datetime, data, member_card_point_log.errors.full_messages.to_s
+      return 10008
+    end
+
+    params = {}
+    params[:customer_id] = user.try(:customer).id
+    params[:point] = point
+    MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
+    10000
+  end
+
+  def self.add_error_infos datetime, data, error_info, error_code
     data['错误原因'] = error_info
     if data['交易的唯一标示'].nil?
       key = DateTime.now.strftime("%Y%m%d%H%M%S") + (0..9).to_a.sample(8).join
@@ -145,6 +177,10 @@ class MemberCardPointLog < ActiveRecord::Base
       key = data['交易的唯一标示']
     end
     $redis.hset("error_logs_#{datetime}", "#{key}", data)
+
+    PointLogFailureInfo.create(id_card: data[:id_card], name: data[:name], 
+      phone: data[:phone], point: data[:point], unique_ind: data[:unique_ind], 
+      merchant_id: data[:merchant_id], error_code: data[:error_code])
   end
 
   # 处理上传数据,写入缓存
@@ -167,6 +203,7 @@ class MemberCardPointLog < ActiveRecord::Base
     rescue Exception => e
       p e
     end
+    # MemberCardPointLog.process_data_from_cache key
   end
 
   def self.get_point_log_by_merchant merchant_id, params
