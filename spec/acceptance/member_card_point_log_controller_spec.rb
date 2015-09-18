@@ -347,10 +347,6 @@ resource "积分转小金记录" do
       params_array.sort!
       sign_string = params_array.join
       string = EncryptRsa.encode sign_string, "private_key3.pem"
-
-      # encrypted = CGI.unescape string
-      # rsa = OpenSSL::PKey::RSA.new File.read("public_key3.pem")
-      # puts rsa.verify("sha1", encrypted, sign_string)
       string
     end
 

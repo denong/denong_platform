@@ -67,13 +67,7 @@ class EncryptRsa
   end
 
   def initialize()
-    # num = 1024 if num < 32
-    # rsa = OpenSSL::PKey::RSA.new(num)
-    # @public_key = rsa.public_key.to_pem
-    # @private_key = rsa.to_pem
-
     @private_key = File.read('private_key3.pem')#.gsub("\\n", "\n")
-    # @private_key = private_key
     @public_key = File.read('public_key3.pem')
     # @public_key = public_key.gsub("\\n", "\n")
     nil
