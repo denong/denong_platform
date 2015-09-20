@@ -28,7 +28,7 @@ class JajinLog < ActiveRecord::Base
 
   scope :sum_amount, -> { group(:merchant_id).sum(:amount) }
 
-  after_create :send_notification
+  after_create :send_notification_thread
 
   default_scope { order('id DESC') }
 
@@ -57,6 +57,12 @@ class JajinLog < ActiveRecord::Base
 
   private
 
+    def send_notification_thread
+      thread = Thread.new {
+        send_notification
+      }
+    end
+
     def send_notification
       title = "德浓小确幸"
       company = jajinable.company if jajinable.respond_to?(:company)
@@ -80,7 +86,6 @@ class JajinLog < ActiveRecord::Base
       rescue Exception => e
         logger.info " Exception is #{e}"
       end
-
     end
 
     def send_wechat_notification message
