@@ -74,6 +74,8 @@ class IdentityVerify < ActiveRecord::Base
     if response_hash["error_code"].to_i == 0
       if response_hash["result"]["isok"]
         PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
+      else
+        PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
       end
       return response_hash["result"]["isok"]
     else
