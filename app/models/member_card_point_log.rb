@@ -94,6 +94,11 @@ class MemberCardPointLog < ActiveRecord::Base
     point = data[:point] || data['兑换积分数']
     merchant = Merchant.find_by(id: data[:merchant_id]) if data[:merchant_id].present?
 
+    customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
+    if customer_reg_info.present?
+    	return error_process datetime, data, 10009, "用户已存在"
+    end
+
     unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant.present?
       return error_process datetime, data, 10002, "数据缺失"
     end
@@ -139,6 +144,12 @@ class MemberCardPointLog < ActiveRecord::Base
       # 已经存在
       return error_process datetime, data, 10007, "唯一标示已经存在"
     else
+    	if point.abs < 1000
+    		point = 500
+    	elsif point.abs >= 1000
+    		point = 1000
+    	end
+
       member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
     end
 
