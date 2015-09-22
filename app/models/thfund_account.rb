@@ -155,10 +155,14 @@ class ThfundAccount < ActiveRecord::Base
   def send_sms_notification
     user = customer.try(:user)
     if user.present?
-      company = "德浓消费养老"
-      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
-      account_string = id.to_s.rjust(10, '0')
-      result = ChinaSMS.to user.phone, {account: account_string}, {tpl_id: 875755}
+      # company = "德浓消费养老"
+      # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      # account_string = id.to_s.rjust(10, '0')
+      # result = ChinaSMS.to user.phone, {account: account_string}, {tpl_id: 875755}
+
+      # account_string = id.to_s.rjust(10, '0')
+      # content = ""
+      # TextMessage.send_msg 0, content, user.phone, 2
     end
   end
 
