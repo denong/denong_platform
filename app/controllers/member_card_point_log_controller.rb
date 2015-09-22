@@ -25,7 +25,7 @@ class MemberCardPointLogController < ApplicationController
   end
 
   def verify
-    @error_code, @reason = MemberCardPointLog.verify_process verify_params
+    @error_code, @reason = MemberCardPointLog.verify_process params
   end
 
   def index
@@ -61,7 +61,7 @@ class MemberCardPointLogController < ApplicationController
     end
 
     def verify_params
-      params.require(:member_card_point_log).permit(:api_key, :id_card, :name, :phone, :point, :unique_ind, :sign, :timestamp)
+      params.permit(:api_key, :id_card, :name, :phone, :point, :unique_ind, :sign, :timestamp)
     end
 
 end
