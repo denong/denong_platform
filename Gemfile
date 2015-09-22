@@ -66,7 +66,7 @@ gem 'httparty'
 gem 'ruby-for-xinge'#, github: "liyijie/ruby-for-xinge"
 
 # Publish-Subscribe
-# gem 'wisper'
+gem 'wisper'
 
 # settings logic
 gem 'settingslogic'
@@ -83,6 +83,8 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'sunspot_matchers'
 end
+
+gem 'savon', '~> 2.10.0'
 
 # Rspec Api Doc generator
 gem 'rspec_api_documentation'
