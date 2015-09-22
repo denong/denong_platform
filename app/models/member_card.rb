@@ -90,6 +90,8 @@ class MemberCard < ActiveRecord::Base
       if response_hash["error_code"].to_i == 0
         if response_hash["result"]["isok"]
           PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 0)
+        else
+          PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 1)
         end
         return response_hash["result"]["isok"]
       else
