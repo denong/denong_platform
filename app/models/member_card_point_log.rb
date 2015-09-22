@@ -173,11 +173,17 @@ class MemberCardPointLog < ActiveRecord::Base
 
   # 开线程
   def self.process_data_from_cache
+  	
+  	return if $redis.keys.include? "processing"
+
     keys = $redis.keys("process_data_cache_*")
     keys.each do |key|
+    	$redis.set("processing","true")
       process(key)
       $redis.del("#{key}")
+      $redis.del("processing")
     end
+    
   end
 
   def self.add_error_infos datetime, data
