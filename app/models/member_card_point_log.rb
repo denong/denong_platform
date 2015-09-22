@@ -144,9 +144,9 @@ class MemberCardPointLog < ActiveRecord::Base
       # 已经存在
       return error_process datetime, data, 10007, "唯一标示已经存在"
     else
-    	if point.abs < 1000
+    	if point.to_i.abs < 1000
     		point = 500
-    	elsif point.abs >= 1000
+    	elsif point.to_i.abs >= 1000
     		point = 1000
     	end
 
