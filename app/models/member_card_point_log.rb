@@ -94,10 +94,10 @@ class MemberCardPointLog < ActiveRecord::Base
     point = data[:point] || data['兑换积分数']
     merchant = Merchant.find_by(id: data[:merchant_id]) if data[:merchant_id].present?
 
-    customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
-    if customer_reg_info.present?
-    	return error_process datetime, data, 10009, "用户已存在"
-    end
+    # customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
+    # if customer_reg_info.present?
+    # 	return error_process datetime, data, 10009, "用户已存在"
+    # end
 
     unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant.present?
       return error_process datetime, data, 10002, "数据缺失"
@@ -144,11 +144,11 @@ class MemberCardPointLog < ActiveRecord::Base
       # 已经存在
       return error_process datetime, data, 10007, "唯一标示已经存在"
     else
-    	if point.to_i.abs < 1000
-    		point = 500
-    	elsif point.to_i.abs >= 1000
-    		point = 1000
-    	end
+    	# if point.to_i.abs < 1000
+    	# 	point = 500
+    	# elsif point.to_i.abs >= 1000
+    	# 	point = 1000
+    	# end
 
       member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
     end
@@ -340,18 +340,22 @@ class MemberCardPointLog < ActiveRecord::Base
     if first_time
       # 刚完成注册之后，第一次兑换
       # 需发送金额、手机号、手机号后八位
-      tpl = 948573
-      send_hash[:money] = money
-      send_hash[:phone] = phone
-      send_hash[:secret] = phone[-8..-1]
+      # tpl = 948573
+      # send_hash[:money] = money
+      # send_hash[:phone] = phone
+      # send_hash[:secret] = phone[-8..-1]
+
+      content = "尊敬的用户，您已成功兑换#{money}元消费养老金，账号#{phone}，初始密码#{phone[-8..-1]}，点击http://xqx.com/active/gd.html 快速查询！"
     else
       # 非首次兑换
       # 需发送金额
-      tpl = 948587
-      send_hash[:money] = money
+      # tpl = 948587
+      # send_hash[:money] = money
+      # 尊敬的用户，您已成功兑换20.0元消费养老金，账号18923418382，初始密码23418382，点击http://xqx.com/active/gd.html 快速查询！
+      content = "尊敬的用户，您已成功兑换#{money}元消费养老金，点击http://xqx.com/active/gd.html 快速查询！"
     end
-    ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
-
-    result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
+    # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+    # result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
+    TextMessage.send_msg 1, content, phone, 1
   end
 end

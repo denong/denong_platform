@@ -108,6 +108,7 @@ gem 'acts-as-taggable-on', '~> 3.4'
 
 gem "seedbank"
 
+gem 'digest'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

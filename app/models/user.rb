@@ -76,9 +76,14 @@ class User < ActiveRecord::Base
     if user.nil?
       password = (0..9).to_a.sample(6).join
       user = User.create phone: phone, sms_token: "989898", password: password
-      company = "小确幸"
-      ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
-      result = ChinaSMS.to phone, {company: company, code: password}, {tpl_id: 787073}
+      # company = "小确幸"
+      # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
+      # result = ChinaSMS.to phone, {company: company, code: password}, {tpl_id: 787073}
+
+      # 注册短信 【小确幸】  触发类短信
+      content = "欢迎您使用消费养老小确幸产品，您的账号为本手机号，动态密码是#{password}。本条信息无需回复。如非本人操作，请忽略本短信。"
+      TextMessage.send_msg 1, content, user.phone, 2
+
     end
     user
   end
