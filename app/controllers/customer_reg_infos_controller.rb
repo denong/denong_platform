@@ -2,7 +2,7 @@ class CustomerRegInfosController < ApplicationController
 
   acts_as_token_authentication_handler_for User, only: [:show, :update]
   acts_as_token_authentication_handler_for Agent, only: [:verify_state]
-  after_filter :cors_set_access_control_headers, :update
+  # after_filter :cors_set_access_control_headers, :update
   respond_to :html, :json
 
   def show
