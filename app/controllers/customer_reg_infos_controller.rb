@@ -2,6 +2,7 @@ class CustomerRegInfosController < ApplicationController
 
   acts_as_token_authentication_handler_for User, only: [:show, :update]
   acts_as_token_authentication_handler_for Agent, only: [:verify_state]
+  after_filter :cors_set_access_control_headers, :update
   respond_to :html, :json
 
   def show
@@ -25,6 +26,12 @@ class CustomerRegInfosController < ApplicationController
   end
 
   private
+    def cors_set_access_control_headers
+      headers['Access-Control-Allow-Origin'] = '*'
+      # headers['Access-Control-Allow-Headers'] = 'X-AUTH-TOKEN, X-API-VERSION, X-Requested-With, Content-Type, Accept, Origin'
+      # headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+      # headers['Access-Control-Max-Age'] = "1728000"
+    end
 
     def update_params
       params.require(:customer_reg_info).permit(:nick_name, :gender,
