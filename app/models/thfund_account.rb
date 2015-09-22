@@ -162,7 +162,7 @@ class ThfundAccount < ActiveRecord::Base
 
       # account_string = id.to_s.rjust(10, '0')
       # content = ""
-      # TextMessage.send_msg 0, content, user.phone, 2
+      # TextMessage.send_msg 1, content, user.phone, 2
     end
   end
 

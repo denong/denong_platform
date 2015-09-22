@@ -356,6 +356,6 @@ class MemberCardPointLog < ActiveRecord::Base
     end
     # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
     # result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
-    TextMessage.send_msg 2, content, phone, 1
+    TextMessage.send_msg 1, content, phone, 1
   end
 end
