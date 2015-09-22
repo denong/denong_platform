@@ -84,7 +84,7 @@ Rails.application.routes.draw do
       get 'verify_state'
     end
   end
-  resource :customer_reg_info, only: [:show, :update]
+  resource :customer_reg_info, only: [:show, :update], :via => :options
 
   # 用户认证
   resources :identity_verifies, only: [:create, :update, :index]
