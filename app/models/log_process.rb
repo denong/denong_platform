@@ -53,7 +53,6 @@ class LogProcess
       sheet.add_row ["商户号", "终端号", "交易日期", "交易时间", "交易金额", "手机号", "交易卡号", "姓名"]
 
       logs.each do |log|
-        # puts log.try(:customer).try(:customer_reg_info).try(:verify_state)
         next if log.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
 
         shop_ind = log.try(:shop_ind)
@@ -64,7 +63,7 @@ class LogProcess
         phone = log.try(:phone)
         card = log.try(:card)
         name = log.try(:customer).try(:customer_reg_info).try(:name)
-        sheet.add_row([name, phone, id_card, point, time], :types => [:string, :string, :string, :string, :string, :string])
+        sheet.add_row([shop_ind, pos_ind, trade_date, trade_time, price, phone, card, name], :types => [:string, :string, :string, :string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true  
       file.serialize("#{logs_folder}/#{filename}.xlsx")
