@@ -15,7 +15,7 @@
 class MemberCardPointLog < ActiveRecord::Base
   belongs_to :customer
   belongs_to :member_card
-
+  
   has_one :jajin_log, as: :jajinable
 
   after_create :calculate
@@ -70,7 +70,7 @@ class MemberCardPointLog < ActiveRecord::Base
     datas = $redis.hvals("#{key}")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
-    pool = ThreadPool.new(20)
+    pool = ThreadPool.new(10)
     datas.each do |data|
       begin
         data = eval data
@@ -78,13 +78,18 @@ class MemberCardPointLog < ActiveRecord::Base
         logger.info "Exception is #{e}, data is #{data}"
       end
       data[:merchant_id] = 162
-      pool.process { process_one_data data, datetime }
+      pool.process do
+        process_one_data data, datetime
+        # p "------------------------------------------------- process on #{data} ----------------------------------------------" 
+      end
+      sleep 0.01
+      # pool.process { process_one_data data, datetime }
     end
     $redis.del("#{key}")
   end
 
   def self.process_one_data data, datetime
-
+    
     # phone, id_card, name, unique_ind, point, merchant
     # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
 
@@ -95,10 +100,10 @@ class MemberCardPointLog < ActiveRecord::Base
     point = data[:point] || data['兑换积分数']
     merchant = Merchant.find_by(id: data[:merchant_id]) if data[:merchant_id].present?
 
-    # customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
-    # if customer_reg_info.present?
-    # 	return error_process datetime, data, 10009, "用户已存在"
-    # end
+    customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
+    if customer_reg_info.present?
+    	return error_process datetime, data, 10009, "用户已存在"
+    end
 
     unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant.present?
       return error_process datetime, data, 10002, "数据缺失"
@@ -145,11 +150,11 @@ class MemberCardPointLog < ActiveRecord::Base
       # 已经存在
       return error_process datetime, data, 10007, "唯一标示已经存在"
     else
-    	# if point.to_i.abs < 1000
-    	# 	point = 500
-    	# elsif point.to_i.abs >= 1000
-    	# 	point = 1000
-    	# end
+    	if point.to_i.abs < 1000
+    		point = 500
+    	elsif point.to_i.abs >= 1000
+    		point = 1000
+    	end
 
       member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
     end
@@ -175,14 +180,14 @@ class MemberCardPointLog < ActiveRecord::Base
   # 开线程
   def self.process_data_from_cache
   	
-  	return if $redis.keys.include? "processing"
+    return if $redis.keys.include? "processing"
 
     keys = $redis.keys("process_data_cache_*")
     keys.each do |key|
-    	$redis.set("processing","true")
+    	# $redis.set("processing","true")
       process(key)
       $redis.del("#{key}")
-      $redis.del("processing")
+      # $redis.del("processing")
     end
     
   end

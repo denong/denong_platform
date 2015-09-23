@@ -1,5 +1,6 @@
-class ThreadPool
+require 'thread'
 
+class ThreadPool
   class Worker
     def initialize
       @mutex = Mutex.new
@@ -14,27 +15,27 @@ class ThreadPool
         end
       end
     end
-
+    
     def get_block
-      @mutex.synchronize { @block }
+      @mutex.synchronize {@block}
     end
-
+    
     def set_block(block)
       @mutex.synchronize do
-        raise RuntimeError, "Thread alread busy." if @block
+        raise RuntimeError, "Thread already busy." if @block
         @block = block
       end
     end
-
+    
     def reset_block
-      @mutex.synchronize(@block=nil)
+      @mutex.synchronize {@block = nil}
     end
-
+    
     def busy?
-      @mutex.synchronize { !@block.nil? }
+      @mutex.synchronize {!@block.nil?}
     end
   end
-
+  
   attr_accessor :max_size
   attr_reader :workers
 
@@ -43,23 +44,31 @@ class ThreadPool
     @workers = []
     @mutex = Mutex.new
   end
-
+  
   def size
-    @mutex.synchronize { @workers.size }
+    @mutex.synchronize {@workers.size}
   end
-
+  
   def busy?
-    @mutex.synchronize { @workers.any? { |w| w.busy? } }
+    @mutex.synchronize {@workers.any? {|w| w.busy?}}
   end
-
+  
   def join
     sleep 0.01 while busy?
   end
-
+  
   def process(&block)
-    wait_for_worker.set_block(block)
+    while true
+      @mutex.synchronize do
+        worker = find_available_worker 
+        if worker
+          return worker.set_block(block)
+        end
+      end
+      sleep 0.01
+    end
   end
-
+  
   def wait_for_worker
     while true
       worker = find_available_worker
@@ -67,15 +76,15 @@ class ThreadPool
       sleep 0.01
     end
   end
-
+  
   def find_available_worker
-    @mutex.synchronize { free_worker || create_worker }
+    free_worker || create_worker
   end
-
+  
   def free_worker
-    @workers.each { |w| return w unless w.busy? }; nil
+    @workers.each {|w| return w unless w.busy?}; nil
   end
-
+  
   def create_worker
     return nil if @workers.size >= @max_size
     worker = Worker.new
