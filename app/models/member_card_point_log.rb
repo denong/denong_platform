@@ -79,7 +79,7 @@ class MemberCardPointLog < ActiveRecord::Base
       data[:merchant_id] = 162
       process_one_data data, datetime
     end
-    $redis.del("#{key}")
+
   end
 
   def self.process_one_data data, datetime
@@ -107,6 +107,12 @@ class MemberCardPointLog < ActiveRecord::Base
     # 如果有错误，则增加错误信息
     if user.errors.present?
       return error_process datetime, data, 10003, user.errors.full_messages.to_s
+    end
+
+    if check_id_card_info name, id_card
+    	PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
+    else
+    	PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
     end
 
     # 校验用户是否实名制认证
@@ -171,6 +177,12 @@ class MemberCardPointLog < ActiveRecord::Base
     return error_code, reason
   end
 
+  def self.check_id_card_info name, id_card
+		return false if name =~ /\p{Lt}|\p{Ll}|\p{Lm}|\p{Lt}|\p{Lu}|\p{N}|\p{P}|广场\z|办公室\z|医院\z|公司\z|小学\z/
+		return false unless (id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/) && !(id_card =~ /\p{P}/)
+		return true
+  end
+
   # 开线程
   def self.process_data_from_cache
   	
@@ -183,7 +195,7 @@ class MemberCardPointLog < ActiveRecord::Base
       $redis.del("#{key}")
       $redis.del("processing")
     end
-    
+
   end
 
   def self.add_error_infos datetime, data
