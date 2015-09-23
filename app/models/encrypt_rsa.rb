@@ -66,6 +66,11 @@ class EncryptRsa
     p key
   end
 
+  def self.generate_public_key_by_string string
+    string = string.insert(192, "\n").insert(128, "\n").insert(64, "\n")
+    string
+  end
+
   def initialize()
     @private_key = File.read('private_key3.pem')#.gsub("\\n", "\n")
     @public_key = File.read('public_key3.pem')
