@@ -53,7 +53,8 @@ class LogProcess
       sheet.add_row ["商户号", "终端号", "交易日期", "交易时间", "交易金额", "手机号", "交易卡号", "姓名"]
 
       logs.each do |log|
-        next if log.try(:customer).try(:customer_reg_info).try(:verify_state) != 2
+        # puts log.try(:customer).try(:customer_reg_info).try(:verify_state)
+        next if log.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
 
         shop_ind = log.try(:shop_ind)
         pos_ind = log.try(:pos_ind)
