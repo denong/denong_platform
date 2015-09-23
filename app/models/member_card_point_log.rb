@@ -70,6 +70,7 @@ class MemberCardPointLog < ActiveRecord::Base
     datas = $redis.hvals("#{key}")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
+    pool = ThreadPool.new(20)
     datas.each do |data|
       begin
         data = eval data
@@ -77,7 +78,7 @@ class MemberCardPointLog < ActiveRecord::Base
         logger.info "Exception is #{e}, data is #{data}"
       end
       data[:merchant_id] = 162
-      process_one_data data, datetime
+      pool.process { process_one_data data, datetime }
     end
 
   end
