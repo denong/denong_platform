@@ -81,7 +81,6 @@ class MemberCardPointLog < ActiveRecord::Base
       data[:merchant_id] = 162
       
       pool.process do
-        
         process_one_data data, datetime
       end
       count += 1
@@ -131,8 +130,6 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10004, customer_reg_info.errors.full_messages.to_s
     end
 
-    if customer_reg_info.verify_state != "verified"
-      identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
     if customer_reg_info.verify_state != "verified"
       identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
       identity_verify.save
