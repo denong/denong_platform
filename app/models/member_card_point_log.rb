@@ -71,6 +71,7 @@ class MemberCardPointLog < ActiveRecord::Base
     error_logs = []
     merchant = Merchant.find_by(id: 162)
     pool = ThreadPool.new(10)
+    count = 0
     datas.each do |data|
       begin
         data = eval data
@@ -78,10 +79,13 @@ class MemberCardPointLog < ActiveRecord::Base
         logger.info "Exception is #{e}, data is #{data}"
       end
       data[:merchant_id] = 162
+      
       pool.process do
+        
         process_one_data data, datetime
-        # p "------------------------------------------------- process on #{data} ----------------------------------------------" 
       end
+      count += 1
+      p "------------------------------------------------- #{count} ----------------------------------------------" 
       sleep 0.01
       # pool.process { process_one_data data, datetime }
     end
@@ -89,7 +93,7 @@ class MemberCardPointLog < ActiveRecord::Base
   end
 
   def self.process_one_data data, datetime
-    
+    p "------------------------------------------------- process on #{data} ----------------------------------------------" 
     # phone, id_card, name, unique_ind, point, merchant
     # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
 
@@ -127,6 +131,8 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10004, customer_reg_info.errors.full_messages.to_s
     end
 
+    if customer_reg_info.verify_state != "verified"
+      identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
     if customer_reg_info.verify_state != "verified"
       identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
       identity_verify.save
@@ -196,10 +202,10 @@ class MemberCardPointLog < ActiveRecord::Base
 
     keys = $redis.keys("process_data_cache_*")
     keys.each do |key|
-    	# $redis.set("processing","true")
+    	$redis.set("processing","true")
       process(key)
       $redis.del("#{key}")
-      # $redis.del("processing")
+      $redis.del("processing")
     end
 
   end
