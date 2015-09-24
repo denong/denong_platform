@@ -71,4 +71,33 @@ class LogProcess
     end
     return "#{logs_folder}/#{filename}.xlsx", logs.size
   end
+
+  def self.export_user_info_by_merchant merchant_id
+    users = User.where(user_source: 0, source_id: 28)
+
+    merchant = Merchant.find_by(id: merchant_id)
+    filename = "#{Time.now.to_date}-#{merchant.try(:sys_reg_info).try(:sys_name)}.xlsx"
+    logs_folder = File.join("public", "logs", filename)
+    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    file = Axlsx::Package.new
+
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["手机号", "姓名", "身份证", "小金"]
+
+      users.each do |user|
+
+        phone = user.try(:phone)
+        name = user.try(:customer).try(:customer_reg_info).try(:name)
+        id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
+        jajin = user.try(:customer).try(:jajin).try(:got)
+
+        sheet.add_row([phone, name, id_card, jajin], :types => [:string, :string, :string, :string, :string])
+      end
+      file.use_shared_strings = true  
+      file.serialize("#{logs_folder}/#{filename}")
+    end
+
+    return "#{logs_folder}/#{filename}", users.size
+  end
+
 end
