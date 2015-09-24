@@ -114,7 +114,7 @@ class BankCard < ActiveRecord::Base
       customer = Customer.find_by_id(params[:customer_id])
       if customer.present? && customer.try(:customer_reg_info).try(:verify_state) == "unverified"
         PersonalInfo.find_or_create_by(name: params[:name], id_card: params[:id_card], result: 0)
-        IdentityVerify.create(name: params[:name], id_card: params[:id_card])
+        IdentityVerify.create(name: params[:name], id_card: params[:id_card], customer: customer)
         PensionAccount.create_by_phone customer.try(:user).phone
       end
       bank_card_verify_info.result = 0
