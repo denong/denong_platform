@@ -38,9 +38,9 @@ class LogProcess
         sheet.add_row([name, phone, id_card, point, time, unique_ind], :types => [:string, :string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true
-      file.serialize("#{logs_folder}/#{start_time}到#{end_time}.xlsx")
+      file.serialize("#{logs_folder}/#{start_time.strftime("%m%d")}到#{end_time.strftime("%m%d")}.xlsx")
     end
-    "#{logs_folder}/#{start_time}到#{end_time}.xlsx"
+    "#{logs_folder}/#{start_time.strftime("%m%d")}到#{end_time.strftime("%m%d")}.xlsx"
   end
 
 
