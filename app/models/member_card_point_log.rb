@@ -70,7 +70,7 @@ class MemberCardPointLog < ActiveRecord::Base
     datas = $redis.hvals("#{key}")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
-    pool = ThreadPool.new(10)
+    pool = ThreadPool.new(30)
     count = 0
     datas.each do |data|
       begin
