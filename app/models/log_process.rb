@@ -26,7 +26,7 @@ class LogProcess
     FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
     file = Axlsx::Package.new
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
-      sheet.add_row ["姓名", "手机号", "身份证", "小金", "兑换时间"]
+      sheet.add_row ["姓名", "手机号", "身份证", "小金", "兑换时间", "唯一标示"]
 
       logs.each do |log|
         name = log.try(:customer).try(:customer_reg_info).try(:name)
@@ -34,12 +34,13 @@ class LogProcess
         id_card = log.try(:customer).try(:customer_reg_info).try(:id_card)
         point = log.try(:jajin)
         time = log.try(:created_at).strftime("%Y%m%d%H%M%S")
-        sheet.add_row([name, phone, id_card, point, time], :types => [:string, :string, :string, :string, :string, :string])
+        unique_ind = log.try(:unique_ind)
+        sheet.add_row([name, phone, id_card, point, time, unique_ind], :types => [:string, :string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true
-      file.serialize("#{logs_folder}/#{start_time}到#{end_time}.xlsx")
+      file.serialize("#{logs_folder}/#{start_time.strftime("%m%d")}到#{end_time.strftime("%m%d")}.xlsx")
     end
-    "#{logs_folder}/#{start_time}到#{end_time}.xlsx"
+    "#{logs_folder}/#{start_time.strftime("%m%d")}到#{end_time.strftime("%m%d")}.xlsx"
   end
 
 
@@ -70,4 +71,33 @@ class LogProcess
     end
     return "#{logs_folder}/#{filename}.xlsx", logs.size
   end
+
+  def self.export_user_info_by_merchant merchant_id
+    users = User.where(user_source: 0, source_id: merchant_id)
+
+    merchant = Merchant.find_by(id: merchant_id)
+    filename = "#{Time.now.to_date}-#{merchant.try(:sys_reg_info).try(:sys_name)}.xlsx"
+    logs_folder = File.join("public", "logs", filename)
+    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    file = Axlsx::Package.new
+
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["手机号", "姓名", "身份证", "小金"]
+
+      users.each do |user|
+
+        phone = user.try(:phone)
+        name = user.try(:customer).try(:customer_reg_info).try(:name)
+        id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
+        jajin = user.try(:customer).try(:jajin).try(:got)
+
+        sheet.add_row([phone, name, id_card, jajin], :types => [:string, :string, :string, :string, :string])
+      end
+      file.use_shared_strings = true  
+      file.serialize("#{logs_folder}/#{filename}")
+    end
+
+    return "#{logs_folder}/#{filename}", users.size
+  end
+
 end

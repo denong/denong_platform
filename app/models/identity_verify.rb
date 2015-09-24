@@ -109,8 +109,8 @@ class IdentityVerify < ActiveRecord::Base
 
   def set_state
     self.verify_state ||= :wait_verify
-    customer_reg_info = self.customer.customer_reg_info
-    customer_reg_info.wait_verify!
+    customer_reg_info = self.try(:customer).try(:customer_reg_info)
+    customer_reg_info.wait_verify! if customer_reg_info.present?
     # auto_validate!
   end
   
