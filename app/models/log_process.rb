@@ -26,7 +26,7 @@ class LogProcess
     FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
     file = Axlsx::Package.new
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
-      sheet.add_row ["姓名", "手机号", "身份证", "小金", "兑换时间"]
+      sheet.add_row ["姓名", "手机号", "身份证", "小金", "兑换时间", "唯一标示"]
 
       logs.each do |log|
         name = log.try(:customer).try(:customer_reg_info).try(:name)
@@ -34,7 +34,8 @@ class LogProcess
         id_card = log.try(:customer).try(:customer_reg_info).try(:id_card)
         point = log.try(:jajin)
         time = log.try(:created_at).strftime("%Y%m%d%H%M%S")
-        sheet.add_row([name, phone, id_card, point, time], :types => [:string, :string, :string, :string, :string, :string])
+        unique_ind = log.try(:unique_ind)
+        sheet.add_row([name, phone, id_card, point, time, unique_ind], :types => [:string, :string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true
       file.serialize("#{logs_folder}/#{start_time}到#{end_time}.xlsx")
