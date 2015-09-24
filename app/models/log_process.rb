@@ -73,7 +73,7 @@ class LogProcess
   end
 
   def self.export_user_info_by_merchant merchant_id
-    users = User.where(user_source: 0, source_id: 28)
+    users = User.where(user_source: 0, source_id: merchant_id)
 
     merchant = Merchant.find_by(id: merchant_id)
     filename = "#{Time.now.to_date}-#{merchant.try(:sys_reg_info).try(:sys_name)}.xlsx"
