@@ -22,8 +22,12 @@
 
 class DataReport < ActiveRecord::Base
   def process
-    UserReport.new.process
-    FinanceReport.new.process
+    p "----------------------------------------------DataReport Start--------------------------------------------------"
+    sleep 100
+    p "----------------------------------------------DataReport End---------------------------------------------------"
+
+    # UserReport.new.process
+    # FinanceReport.new.process
   end
 
   class JajinReport
