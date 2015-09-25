@@ -72,8 +72,8 @@ class LogProcess
     return "#{logs_folder}/#{filename}.xlsx", logs.size
   end
 
-  def self.export_user_info_by_merchant merchant_id
-    users = User.where(user_source: 0, source_id: merchant_id)
+  def self.export_user_info_by_merchant merchant_id, start_time, end_time
+    users = User.where(user_source: 0, source_id: merchant_id, created_at: start_time..end_time)
 
     merchant = Merchant.find_by(id: merchant_id)
     filename = "#{Time.now.to_date}-#{merchant.try(:sys_reg_info).try(:sys_name)}.xlsx"
