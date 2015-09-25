@@ -58,8 +58,12 @@ class IdentityVerify < ActiveRecord::Base
 
   def self.idcard_verify? name, id_card
     personal_info = PersonalInfo.find_by(id_card: id_card, name: name)
-    if personal_info.present? && personal_info.result == 0
-      return true
+    if personal_info.present?
+      if personal_info.result == 0
+        return true
+      else
+        return false
+      end
     end
 
     IdentityVerify.change_id_card id_card

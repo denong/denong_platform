@@ -75,8 +75,12 @@ class MemberCard < ActiveRecord::Base
     def idcard_verify?
       change_id_card passwd
       personal_info = PersonalInfo.find_by(id_card: passwd, name: user_name)
-      if personal_info.present? && personal_info.result == 0
-        return true
+      if personal_info.present?
+        if personal_info.result == 0
+          return true
+        else
+          return false
+        end
       end
 
       response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
