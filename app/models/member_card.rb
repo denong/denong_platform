@@ -83,7 +83,7 @@ class MemberCard < ActiveRecord::Base
         end
       end
 
-      gets 
+      # gets 
       response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
       response_hash = MultiJson.load(response)
 
