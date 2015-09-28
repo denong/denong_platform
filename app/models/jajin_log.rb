@@ -59,30 +59,30 @@ class JajinLog < ActiveRecord::Base
 
     def send_notification_thread
       thread = Thread.new {
-        # send_notification
+        send_notification
       }
     end
 
     def send_notification
-      # title = "德浓小确幸"
-      # company = jajinable.company if jajinable.respond_to?(:company)
-      # price = jajinable.respond_to?(:price) ? jajinable.price : 0
-      # params = {}
+      title = "德浓小确幸"
+      company = jajinable.company if jajinable.respond_to?(:company)
+      price = jajinable.respond_to?(:price) ? jajinable.price : 0
+      params = {}
 
-      # message = ConsumeMessage.new
-      # message.title = "返金提醒"
-      # message.trade_time = updated_at
-      # message.amount = amount
-      # message.company = company
-      # message.customer_id = customer_id
-      # message.merchant_id = merchant_id
-      # message.price = price
-      # message.save
-      # message.reload
+      message = ConsumeMessage.new
+      message.title = "返金提醒"
+      message.trade_time = updated_at
+      message.amount = amount
+      message.company = company
+      message.customer_id = customer_id
+      message.merchant_id = merchant_id
+      message.price = price
+      message.save
+      message.reload
 
       begin
-        # send_wechat_notification message
-        # send_xg_notification message  
+        send_wechat_notification message
+        send_xg_notification message  
       rescue Exception => e
         logger.info " Exception is #{e}"
       end
