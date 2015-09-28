@@ -1,19 +1,19 @@
 class TextMessage
 
   # 企业代码  用户ID  密码  企业签名  适用范围
-  # dnwl  80560 dnwl2015  【CCPP合格计划】  触发类短信
-  # dlwl  80508 dlwl66  【小确幸】 触发类短信
-  # dlwl  805081  dlwl66  【小确幸】 会员短信
+  # dnwl  80560   dnwl2015  【CCPP合格计划】  触发类短信
+  # dlwl  80508   dlwl66    【小确幸】 触发类短信 (一般用这个)
+  # dlwl  805081  dlwl66    【小确幸】 会员短信
   # enum content_type: { ccpp: 0, xqx: 1, xqx_member: 2 }
 
   # dnwl  80560
-  # expid: 工行开户: 1; 天弘开户：2
+  # expid: 
   
   # dlwl  80508 
-  # expid: 短信随机码: 1; 用户注册： 2
+  # expid: 短信随机码: 1; 用户注册: 2; 指定的短信: 3
 
   # dlwl  805081
-  # expid: member_card_point_log 积分兑换： 1
+  # expid: 
 
   def self.send_msg content_type, content, phone, expid
 

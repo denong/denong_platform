@@ -199,7 +199,8 @@ class MemberCardPointLog < ActiveRecord::Base
 		return true
   end
 
-  # 开线程
+  # 开线程 
+  # MemberCardPointLog.process_data_from_cache
   def self.process_data_from_cache
   	
     return if $redis.keys.include? "processing"
