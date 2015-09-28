@@ -83,9 +83,9 @@ class MemberCardPointLog < ActiveRecord::Base
 			data[:merchant] = merchant
 
       begin
-      	pool.process { 
+      	# pool.process { 
       		process_one_data data, datetime 
-      	}
+      	# }
       rescue Exception => e
       	logger.info "pool.process exception is #{e}"
       	key = "#{datetime}_error"
