@@ -82,11 +82,13 @@ class MemberCardPointLog < ActiveRecord::Base
       data[:merchant_id] = 162
       
       begin
-      	pool.process { process_one_data data, datetime }
+      	pool.process { 
+      		process_one_data data, datetime 
+      	}
       rescue Exception => e
       	logger.info "pool.process exception is #{e}"
-      	key = "#{Time.now.strftime('%Y%m%d%H%M')}_error_info"
-      	$redis.hset(key, "#{row['交易的唯一标示']}", data)
+      	key = "#{datetime}_error"
+      	$redis.hset(key, "#{data['交易的唯一标示']}", data)
       end
       
       count += 1
@@ -101,6 +103,8 @@ class MemberCardPointLog < ActiveRecord::Base
     p "------------------------------------------------- process on #{data} ----------------------------------------------" 
     # phone, id_card, name, unique_ind, point, merchant
     # 手机号  身份证号  姓名  交易的唯一标示 兑换积分数
+    key = "#{datetime}_processing"
+    $redis.hset(key, "#{data['交易的唯一标示']}", data)
 
     phone = data[:phone] || data['手机号']
     name = data[:name] || data['姓名']
@@ -181,6 +185,8 @@ class MemberCardPointLog < ActiveRecord::Base
     params = {}
     params[:customer_id] = user.try(:customer).id
     params[:point] = point
+    key = "#{datetime}_processed"
+    $redis.hset(key, "#{data['交易的唯一标示']}", data)
     MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
     return 0, "成功"
   end
