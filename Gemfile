@@ -77,6 +77,9 @@ gem 'axlsx'
 gem 'roo'
 gem 'redis'
 # gem 'redis-namespace'
+ 
+gem 'thread'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
