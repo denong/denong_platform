@@ -11,6 +11,7 @@
 #  member_card_id :integer
 #  unique_ind     :string(255)
 #
+require 'thread/pool'
 
 class MemberCardPointLog < ActiveRecord::Base
   belongs_to :customer
@@ -70,7 +71,7 @@ class MemberCardPointLog < ActiveRecord::Base
     datas = $redis.hvals("#{key}")
     error_logs = []
     merchant = Merchant.find_by(id: 162)
-    pool = ThreadPool.new(30)
+    pool = Thread.pool(50)
     count = 0
     datas.each do |data|
       begin
@@ -80,16 +81,14 @@ class MemberCardPointLog < ActiveRecord::Base
       end
       data[:merchant_id] = 162
       
-      
       begin
-      	pool.process do
-      	  process_one_data data, datetime
-      	end
+      	pool.process { process_one_data data, datetime }
       rescue Exception => e
       	logger.info "pool.process exception is #{e}"
       	key = "#{Time.now.strftime('%Y%m%d%H%M')}_error_info"
       	$redis.hset(key, "#{row['交易的唯一标示']}", data)
       end
+      
       count += 1
       p "------------------------------------------------- #{count} ----------------------------------------------" 
       sleep 0.01
