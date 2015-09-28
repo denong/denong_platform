@@ -79,8 +79,9 @@ class MemberCardPointLog < ActiveRecord::Base
       rescue Exception => e
         logger.info "Exception is #{e}, data is #{data}"
       end
-      data[:merchant_id] = 162
-      
+
+			data[:merchant] = merchant
+
       begin
       	pool.process { 
       		process_one_data data, datetime 
@@ -96,7 +97,6 @@ class MemberCardPointLog < ActiveRecord::Base
       sleep 0.01
       # pool.process { process_one_data data, datetime }
     end
-
   end
 
   def self.process_one_data data, datetime
@@ -111,9 +111,8 @@ class MemberCardPointLog < ActiveRecord::Base
     id_card = data[:id_card] || data['身份证号']
     unique_ind = data[:unique_ind] || data['交易的唯一标示']
     point = data[:point] || data['兑换积分数']
-    merchant = Merchant.find_by(id: data[:merchant_id]) if data[:merchant_id].present?
-
-
+    merchant = data[:merchant]
+    
     member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
     if member_card_point_log.present?
       # 已经存在
@@ -207,7 +206,6 @@ class MemberCardPointLog < ActiveRecord::Base
   # 开线程 
   # MemberCardPointLog.process_data_from_cache
   def self.process_data_from_cache
-  	
     return if $redis.keys.include? "processing"
 
     keys = $redis.keys("process_data_cache_*")
