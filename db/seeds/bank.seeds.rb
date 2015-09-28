@@ -40,21 +40,21 @@
 
 
 
-BankCard.add_bank_card("中国银行", false, true)
-BankCard.add_bank_card("中国工商银行", true, true)
-BankCard.add_bank_card("中国建设银行", false, true)
-BankCard.add_bank_card("中国交通银行", false, true)
-BankCard.add_bank_card("中国民生银行", true, true)
-BankCard.add_bank_card("中国邮政储蓄银行", true, true)
-BankCard.add_bank_card("中国平安银行", true, true)
-BankCard.add_bank_card("北京银行", false, true)
-BankCard.add_bank_card("中国光大银行", true, true)
-BankCard.add_bank_card("兴业银行", true, true)
-BankCard.add_bank_card("中国农业银行", true, false)
-BankCard.add_bank_card("上海浦东发展银行", true, false)
-BankCard.add_bank_card("中信银行", true, false)
-BankCard.add_bank_card("华夏银行", true, false)
-BankCard.add_bank_card("深圳发展银行", true, false)
+BankCard.add_bank_card_seed(1, "中国银行", false, true)
+BankCard.add_bank_card_seed(2, "中国工商银行", true, true)
+BankCard.add_bank_card_seed(3, "中国建设银行", false, true)
+BankCard.add_bank_card_seed(4, "中国交通银行", false, true)
+BankCard.add_bank_card_seed(5, "中国民生银行", true, true)
+BankCard.add_bank_card_seed(6, "中国邮政储蓄银行", true, true)
+BankCard.add_bank_card_seed(7, "中国平安银行", true, true)
+BankCard.add_bank_card_seed(8, "北京银行", false, true)
+BankCard.add_bank_card_seed(9, "中国光大银行", true, true)
+BankCard.add_bank_card_seed(10, "兴业银行", true, true)
+BankCard.add_bank_card_seed(11, "中国农业银行", true, false)
+BankCard.add_bank_card_seed(12, "上海浦东发展银行", true, false)
+BankCard.add_bank_card_seed(13, "中信银行", true, false)
+BankCard.add_bank_card_seed(14, "华夏银行", true, false)
+BankCard.add_bank_card_seed(15, "深圳发展银行", true, false)
 
 
 

@@ -102,6 +102,13 @@ class MemberCardPointLog < ActiveRecord::Base
     point = data[:point] || data['兑换积分数']
     merchant = Merchant.find_by(id: data[:merchant_id]) if data[:merchant_id].present?
 
+
+    member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
+    if member_card_point_log.present?
+      # 已经存在
+      return error_process datetime, data, 10007, "唯一标示已经存在"
+  	end
+
     customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
     if customer_reg_info.present?
     	return error_process datetime, data, 10009, "用户已存在"
@@ -153,20 +160,13 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     # 获得小金
-    member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
-    if member_card_point_log.present?
-      # 已经存在
-      return error_process datetime, data, 10007, "唯一标示已经存在"
-    else
-    	if point.to_i.abs < 1000
-    		point = 500
-    	elsif point.to_i.abs >= 1000
-    		point = 1000
-    	end
-
-      member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
-    end
-
+		if point.to_i.abs < 1000
+			point = 500
+		elsif point.to_i.abs >= 1000
+			point = 1000
+		end
+	  member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
+	
     if member_card_point_log.errors.present?
       return error_process datetime, data, 10008, member_card_point_log.errors.full_messages.to_s
     end

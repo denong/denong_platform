@@ -72,8 +72,8 @@ class LogProcess
     return "#{logs_folder}/#{filename}.xlsx", logs.size
   end
 
-  def self.export_user_info_by_merchant merchant_id
-    users = User.where(user_source: 0, source_id: merchant_id)
+  def self.export_user_info_by_merchant merchant_id, start_time, end_time
+    users = User.where(user_source: 0, source_id: merchant_id, created_at: start_time..end_time)
 
     merchant = Merchant.find_by(id: merchant_id)
     filename = "#{Time.now.to_date}-#{merchant.try(:sys_reg_info).try(:sys_name)}.xlsx"
@@ -98,6 +98,38 @@ class LogProcess
     end
 
     return "#{logs_folder}/#{filename}", users.size
+  end
+
+  def self.export_tl_trade_account_user start_time, end_time
+    logs = TlTrade.where(created_at: start_time..end_time)
+    logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
+    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    file = Axlsx::Package.new
+    filename = "#{start_time.strftime("%m%d")}到#{end_time.strftime("%m%d")}"
+    write_rows = []
+    logs.each do |log|
+      next if log.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
+
+      # 姓名， 身份证号码， 手机号， 小金
+      name = log.try(:customer).try(:customer_reg_info).try(:name)
+      id_card = log.try(:customer).try(:customer_reg_info).try(:id_card)
+      phone = log.try(:phone)
+      jajin = log.try(:customer).try(:jajin).try(:got)
+      write_rows << [name, id_card, phone, jajin]
+    end
+    
+    write_rows.uniq!
+
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["姓名", "身份证号码", "手机号", "小金"]
+
+      write_rows.each do |row|
+        sheet.add_row(row, :types => [:string, :string, :string, :string])
+      end
+      file.use_shared_strings = true  
+      file.serialize("#{logs_folder}/#{filename}.xlsx")
+    end
+    return "#{logs_folder}/#{filename}.xlsx", write_rows.size
   end
 
 end
