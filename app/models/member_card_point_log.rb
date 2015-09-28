@@ -80,8 +80,15 @@ class MemberCardPointLog < ActiveRecord::Base
       end
       data[:merchant_id] = 162
       
-      pool.process do
-        process_one_data data, datetime
+      
+      begin
+      	pool.process do
+      	  process_one_data data, datetime
+      	end
+      rescue Exception => e
+      	logger.info "pool.process exception is #{e}"
+      	key = "#{Time.now.strftime('%Y%m%d%H%M')}_error_info"
+      	$redis.hset(key, "#{row['交易的唯一标示']}", data)
       end
       count += 1
       p "------------------------------------------------- #{count} ----------------------------------------------" 
