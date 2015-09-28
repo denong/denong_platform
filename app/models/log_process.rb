@@ -132,4 +132,34 @@ class LogProcess
     return "#{logs_folder}/#{filename}.xlsx", write_rows.size
   end
 
+  def self.export_zjht_data
+    logs = JajinVerifyLog.where(merchant_id: 136)
+    logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
+    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    file = Axlsx::Package.new
+    filename = "中经汇通#{DateTime.now.strftime("%m%d")}"
+    write_rows = []
+    logs.each do |log|
+      # 姓名， 身份证号码， 手机号， 小金
+      name = log.try(:customer).try(:customer_reg_info).try(:name)
+      id_card = log.try(:customer).try(:customer_reg_info).try(:id_card)
+      phone = log.try(:customer).try(:user).try(:phone)
+      jajin = log.try(:customer).try(:jajin).try(:got)
+      write_rows << [name, id_card, phone, jajin]
+    end
+    
+    write_rows.uniq!
+
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["姓名", "身份证号码", "手机号", "小金"]
+
+      write_rows.each do |row|
+        sheet.add_row(row, :types => [:string, :string, :string, :string])
+      end
+      file.use_shared_strings = true  
+      file.serialize("#{logs_folder}/#{filename}.xlsx")
+    end
+    return "#{logs_folder}/#{filename}.xlsx", write_rows.size
+  end
+
 end
