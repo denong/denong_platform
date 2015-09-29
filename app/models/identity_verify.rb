@@ -122,9 +122,9 @@ class IdentityVerify < ActiveRecord::Base
     customer_reg_info = self.customer.customer_reg_info
     customer_reg_info.name = name
     customer_reg_info.id_card = id_card
-    
-    if (id_card.size == 18 && id_card[-2].to_i % 2 == 1) 
-      || (id_card.size == 15 && id_card[-1].to_i % 2 == 1)
+
+    if (id_card.size == 18 && id_card[-2].to_i % 2 == 1) || 
+      (id_card.size == 15 && id_card[-1].to_i % 2 == 1)
       customer_reg_info.male!
     else
       customer_reg_info.female!
