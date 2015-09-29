@@ -66,26 +66,49 @@ class IdentityVerify < ActiveRecord::Base
       end
     end
 
-    IdentityVerify.change_id_card id_card
-    # response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
-    response_hash = MultiJson.load(response)
-
-    # haoserivce库中不存在的数据，认为是正确的。
-    if response_hash["reason"] == "NoExistERROR"
+    # IdentityVerify.change_id_card id_card
+    if get_result name, id_card
       PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
-      return true
-    end
-    if response_hash["error_code"].to_i == 0
-      if response_hash["result"]["isok"]
-        PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
-      else
-        PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
-      end
-      return response_hash["result"]["isok"]
     else
-      # 错误数据，结果为1
       PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
-      return false
+    end
+
+    # response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
+    # response_hash = MultiJson.load(response)
+
+    # # haoserivce库中不存在的数据，认为是正确的。
+    # if response_hash["reason"] == "NoExistERROR"
+    #   PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
+    #   return true
+    # end
+    # if response_hash["error_code"].to_i == 0
+    #   if response_hash["result"]["isok"]
+    #     PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
+    #   else
+    #     PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
+    #   end
+    #   return response_hash["result"]["isok"]
+    # else
+    #   # 错误数据，结果为1
+    #   PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
+    #   return false
+    # end
+  end
+
+  def self.get_result name, id_card
+    $client = get_client unless $client.present?
+    message = { arg0: name, arg1: id_card, arg2: nil, arg3: "denonginfo", arg4: "kkdn0921", arg5: Time.now.strftime('%Y%m%d%H%M%S%L') }
+    response = $client.call(:request_simple_indentify_match, message: message)
+    body_hash = response.body[:request_simple_indentify_match_response][:return]
+    hash = JSON.parse body_hash
+    # result = CONSISTEN 为 成功， errMsg = ERR1002时， 表示没有查询到信息
+    (hash["result"] == "CONSISTEN") || (hash["errMsg"] == "ERR1002")
+  end
+
+  def self.get_client
+    Savon.client do
+      wsdl "http://119.254.102.55:8079/identifyservice/IdentifyServicePort?wsdl"
+      namespace "http://server.identify.com/"
     end
   end
 

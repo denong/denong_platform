@@ -73,37 +73,7 @@ class MemberCard < ActiveRecord::Base
     end
 
     def idcard_verify?
-      change_id_card passwd
-      personal_info = PersonalInfo.find_by(id_card: passwd, name: user_name)
-      if personal_info.present?
-        if personal_info.result == 0
-          return true
-        else
-          return false
-        end
-      end
-
-      # gets 
-      # response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: passwd, realName: user_name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
-      response_hash = MultiJson.load(response)
-
-      # haoserivce库中不存在的数据，认为是正确的。
-      if response_hash["reason"] == "NoExistERROR"
-        PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 0)
-        return true
-      end
-      if response_hash["error_code"].to_i == 0
-        if response_hash["result"]["isok"]
-          PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 0)
-        else
-          PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 1)
-        end
-        return response_hash["result"]["isok"]
-      else
-        # 错误数据，结果为1
-        PersonalInfo.find_or_create_by(name: user_name, id_card: passwd, result: 1)
-        return false
-      end
+      IdentityVerify.idcard_verify? user_name, passwd
     end
 
     # def old_authenticate
