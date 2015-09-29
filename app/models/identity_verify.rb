@@ -69,8 +69,10 @@ class IdentityVerify < ActiveRecord::Base
     # IdentityVerify.change_id_card id_card
     if get_result name, id_card
       PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 0)
+      return true
     else
       PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
+      return false
     end
 
     # response = RestClient.get 'http://apis.haoservice.com/idcard/VerifyIdcard', {params: {cardNo: id_card, realName: name, key: "0e7253b6cf7f46088c18a11fdf42fd1b"}}
