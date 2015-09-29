@@ -80,7 +80,7 @@ class MemberCardPointLog < ActiveRecord::Base
         logger.info "Exception is #{e}, data is #{data}"
       end
 
-			data[:merchant] = merchant
+			data[:merchant_id] = 162
 
       begin
       	# pool.process { 
@@ -111,7 +111,7 @@ class MemberCardPointLog < ActiveRecord::Base
     id_card = data[:id_card] || data['身份证号']
     unique_ind = data[:unique_ind] || data['交易的唯一标示']
     point = data[:point] || data['兑换积分数']
-    merchant = data[:merchant]
+    merchant_id = data[:merchant_id]
     
     member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
     if member_card_point_log.present?
@@ -124,7 +124,7 @@ class MemberCardPointLog < ActiveRecord::Base
     	return error_process datetime, data, 10009, "用户已存在"
     end
 
-    unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant.present?
+    unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant_id.present?
       return error_process datetime, data, 10002, "数据缺失"
     end
 
@@ -157,10 +157,10 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     # 用户是否授权会员卡
-    if merchant.present? && user.present? && user.try(:customer).present?
-      member_card = merchant.try(:member_cards).find_by_customer_id(user.try(:customer).try(:id))
+    if merchant_id.present? && user.present? && user.try(:customer).present?
+      member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: user.try(:customer).try(:id))
       unless member_card.present?
-        member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant: merchant, user_name: name, passwd: id_card, point: 0)
+        member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant_id: merchant_id, user_name: name, passwd: id_card, point: 0)
       end
     end
 
