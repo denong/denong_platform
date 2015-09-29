@@ -331,6 +331,7 @@ DEPENDENCIES
   settingslogic
   shoulda-matchers
   simple_form
+  spreadsheet
   spring
   sqlite3
   sunspot_matchers
@@ -344,3 +345,6 @@ DEPENDENCIES
   whenever
   will_paginate (~> 3.0.6)
   wisper
+
+BUNDLED WITH
+   1.10.6
