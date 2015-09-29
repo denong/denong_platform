@@ -6,6 +6,7 @@ class TempProcess
     items.map do |i, e|
       content = e.gsub(/\s:merchant=>.*?>,/, '')
       p "#{i} ---> #{content}"
+      $redis.hset(keys[0], i, content)
     end
     nil
   end
