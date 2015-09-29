@@ -74,6 +74,7 @@ gem 'settingslogic'
 #######################################################################
 gem 'unicorn'
 gem 'axlsx'
+gem 'spreadsheet'
 gem 'roo'
 gem 'redis'
 # gem 'redis-namespace'
