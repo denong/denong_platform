@@ -27,13 +27,14 @@ class EncryptRsa
 
   def self.encode str, path
     rsa = OpenSSL::PKey::RSA.new File.read(path)
-    encrypted = rsa.sign("sha1", str)
+    encrypted = Base64.encode64(rsa.sign("sha1", str))
     string = CGI.escape(encrypted)
     string
   end
 
   def self.verify encrypted, origin_string, path
     encrypted = CGI.unescape encrypted
+    encrypted = Base64.decode64 encrypted
     rsa = OpenSSL::PKey::RSA.new File.read(path)
     rsa.verify("sha1", encrypted, origin_string)
   end
