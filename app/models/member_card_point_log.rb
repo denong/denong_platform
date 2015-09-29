@@ -61,7 +61,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
     params_array.sort!
     origin_string = params_array.join
-    result = EncryptRsa.verify hash[:sign], origin_string, "public_key3.pem"
+    result = EncryptRsa.verify hash[:sign], origin_string, "key/guangdong_telecom/public_key3.pem"
     result
   end
 
