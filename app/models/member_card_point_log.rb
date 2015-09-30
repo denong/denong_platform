@@ -45,7 +45,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
     # 10001 表示 签名验证失败
     p "params: #{params}"
-    return 10001 unless params
+    return 10001 unless data_verify params
 
     timestamp = params["timestamp"]
     merchant_user = MerchantUser.find_by(api_key: params["api_key"])
