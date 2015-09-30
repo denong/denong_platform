@@ -34,6 +34,8 @@ class EncryptRsa
 
   def self.verify encrypted, origin_string, path
     # encrypted = CGI.unescape encrypted
+    p "encrypted: #{encrypted}"
+    p "origin_string: origin_string"
     encrypted = Base64.decode64 encrypted
     rsa = OpenSSL::PKey::RSA.new File.read(path)
     rsa.verify("sha1", encrypted, origin_string)
