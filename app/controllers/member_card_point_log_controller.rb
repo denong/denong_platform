@@ -25,6 +25,9 @@ class MemberCardPointLogController < ApplicationController
   end
 
   def verify
+    p "----------------------------------------------------------------------------------------------------"
+    p params
+    p "----------------------------------------------------------------------------------------------------"
     @error_code, @reason = MemberCardPointLog.verify_process params
   end
 
