@@ -48,9 +48,9 @@ class MemberCardPointLog < ActiveRecord::Base
     return 10001 unless data_verify params
 
     timestamp = params["timestamp"]
-    merchant_user = MerchantUser.find_by(api_key: params[:api_key])
+    merchant_user = MerchantUser.find_by(api_key: params["api_key"])
     params[:merchant_id] = merchant_user.try(:merchant).try(:id) if merchant_user.present?
-
+    p "merchant_id: #{params[:merchant_id]}"
     process_one_data params, DateTime.new(timestamp[0..3].to_i, timestamp[4..5].to_i, timestamp[6..7].to_i)
   end
 
