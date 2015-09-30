@@ -151,7 +151,7 @@ class PensionAccount < ActiveRecord::Base
       # 亲爱的用户，恭喜您已成功开通消费养老金账户（0000010032），工商银行查询系统正为您努力升级中，请耐心等待，我们会第一时间提醒您进行查询。
       # 开通消费养老金账号，  【CCPP合格计划】  触发类短信
       account_string = id.to_s.rjust(10, '0')
-      content = "亲爱的用户，恭喜您已成功开通消费养老金账户（#{account_string}），工商银行查询系统正为您努力升级中，请耐心等待，我们会第一时间提醒您进行查询。"
+      content = "尊敬的用户，您已成功认证消费养老金账户，进入工商银行待开户状态，工行开户成功后，我们将提醒您登录查询，请您耐心等待！"
       TextMessage.send_msg 1, content, user.phone, 1
     end
   end
