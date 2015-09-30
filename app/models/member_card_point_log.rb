@@ -45,7 +45,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
     # 10001 表示 签名验证失败
     p "params: #{params}"
-    return 10001 unless data_verify params
+    return 10001 unless params
 
     timestamp = params["timestamp"]
     merchant_user = MerchantUser.find_by(api_key: params["api_key"])
@@ -63,6 +63,9 @@ class MemberCardPointLog < ActiveRecord::Base
 
     params_array.sort!
     origin_string = params_array.join
+    p "----------------------------------------------------------------"
+    p origin_string
+    p "----------------------------------------------------------------"
     result = EncryptRsa.verify hash["sign"], origin_string, "key/guangdong_telecom/public_key3.pem"
     result
   end
