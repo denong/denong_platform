@@ -57,7 +57,7 @@ class MemberCardPointLog < ActiveRecord::Base
   def self.data_verify hash
     params_array = []
     hash.to_a.each do |param|
-      next if param.include?(["sign", "actions", "controller"])
+      next if ["sign", "actions", "controller"].include? param
       params_array << param.join
     end
 
