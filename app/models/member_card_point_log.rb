@@ -67,6 +67,7 @@ class MemberCardPointLog < ActiveRecord::Base
     p origin_string
     p "----------------------------------------------------------------"
     result = EncryptRsa.verify hash["sign"], origin_string, "key/guangdong_telecom/public_key3.pem"
+    p result
     result
   end
 
