@@ -77,7 +77,7 @@ class LogProcess
 
     merchant = Merchant.find_by(id: merchant_id)
     filename = "#{Time.now.to_date}-#{merchant.try(:sys_reg_info).try(:sys_name)}.xlsx"
-    logs_folder = File.join("public", "logs", filename)
+    logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
     FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
     file = Axlsx::Package.new
 
