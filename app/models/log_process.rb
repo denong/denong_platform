@@ -226,11 +226,11 @@ class LogProcess
       id_card = member_card.try(:customer).try(:customer_reg_info).try(:id_card)
       jajin = member_card.try(:customer).try(:jajin).try(:got)
 
-      write_rows << [phone, name, id_card, jajin]
+      write_rows << [phone, name, id_card, jajin, log_size]
     end
 
     write_rows.uniq!
-        
+
     file = Axlsx::Package.new
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
       sheet.add_row ["手机号", "姓名", "身份证号码", "小金", "重复兑换次数"]
