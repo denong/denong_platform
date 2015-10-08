@@ -27,7 +27,7 @@ class EncryptRsa
 
   def self.encode str, path
     rsa = OpenSSL::PKey::RSA.new File.read(path)
-    encrypted = Base64.encode64(rsa.sign("sha1", str.force_encoding("utf-8"))).chomp!
+    encrypted = Base64.encode64(rsa.sign("sha1", str.force_encoding("utf-8"))).gsub("\n","")
     string = CGI.escape(encrypted)
     string
   end
