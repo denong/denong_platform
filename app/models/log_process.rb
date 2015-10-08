@@ -82,7 +82,7 @@ class LogProcess
     file = Axlsx::Package.new
 
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
-      sheet.add_row ["手机号", "姓名", "身份证", "小金"]
+      sheet.add_row ["手机号", "姓名", "身份证", "小金", "注册时间"]
 
       users.each do |user|
 
@@ -90,8 +90,9 @@ class LogProcess
         name = user.try(:customer).try(:customer_reg_info).try(:name)
         id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
         jajin = user.try(:customer).try(:jajin).try(:got)
+        created_time = user.try(:created_at).try(:to_s)
 
-        sheet.add_row([phone, name, id_card, jajin], :types => [:string, :string, :string, :string, :string])
+        sheet.add_row([phone, name, id_card, jajin, created_time], :types => [:string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true  
       file.serialize("#{logs_folder}/#{filename}")
@@ -179,7 +180,6 @@ class LogProcess
 
     write_rows = []
 
-    phones << "18516107607"
     phones.each do |phone|
       user = User.find_by(phone: phone)
 
