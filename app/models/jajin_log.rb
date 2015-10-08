@@ -81,7 +81,7 @@ class JajinLog < ActiveRecord::Base
       message.reload
 
       begin
-        send_wechat_notification message
+        # send_wechat_notification message
         send_xg_notification message  
       rescue Exception => e
         logger.info " Exception is #{e}"
@@ -89,21 +89,21 @@ class JajinLog < ActiveRecord::Base
     end
 
     def send_wechat_notification message
-      user = customer.try(:user)
-      if user.present?
-        url = "http://bjj.dingzhiweixin.com/mobilebjj/pushcri"
-        params = {
-          phone: user.phone,
-          merchant_name: merchant.try(:sys_name),
-          amount: message.amount,
-          company: message.company,
-          price: message.price,
-          trade_time: message.trade_time
-        }
-        conn = Faraday.new(url: url)
-        response = conn.post url, params
-        logger.info "sended wechat notification, response is: #{response.inspect}"
-      end
+      # user = customer.try(:user)
+      # if user.present?
+      #   url = "http://bjj.dingzhiweixin.com/mobilebjj/pushcri"
+      #   params = {
+      #     phone: user.phone,
+      #     merchant_name: merchant.try(:sys_name),
+      #     amount: message.amount,
+      #     company: message.company,
+      #     price: message.price,
+      #     trade_time: message.trade_time
+      #   }
+      #   conn = Faraday.new(url: url)
+      #   response = conn.post url, params
+      #   logger.info "sended wechat notification, response is: #{response.inspect}"
+      # end
     end
 
     def send_xg_notification message
