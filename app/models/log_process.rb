@@ -205,4 +205,44 @@ class LogProcess
     return "#{logs_folder}/#{filename}.xlsx", write_rows.size
   end
 
+  def self.export_tl_trade_repeat start_time, end_time
+    logs = MemberCardPointLog.where(created_at: start_time..end_time)
+    member_cards = logs.group(:member_card_id).pluck(:member_card_id)
+    logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
+    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    filename = "#{start_time.strftime("%m%d")}到#{end_time.strftime("%m%d")}重复兑换情况"
+    write_rows = []
+
+    member_cards.each do |card_id|
+      member_card = MemberCard.find_by(id: card_id)
+      next unless member_card.present?
+      next unless member_card.member_card_point_logs.present?
+
+      log_size = member_card.member_card_point_logs.where(created_at: start_time..end_time).size
+      next if log_size <= 1
+
+      phone = member_card.try(:customer).try(:user).try(:phone)
+      name = member_card.try(:customer).try(:customer_reg_info).try(:name)
+      id_card = member_card.try(:customer).try(:customer_reg_info).try(:id_card)
+      jajin = member_card.try(:customer).try(:jajin).try(:got)
+
+      write_rows << [phone, name, id_card, jajin]
+    end
+
+    write_rows.uniq!
+        
+    file = Axlsx::Package.new
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["手机号", "姓名", "身份证号码", "小金", "重复兑换次数"]
+
+      write_rows.each do |row|
+        sheet.add_row(row, :types => [:string, :string, :string, :string, :string])
+      end
+
+      file.use_shared_strings = true  
+      file.serialize("#{logs_folder}/#{filename}.xlsx")
+    end
+
+    return "#{logs_folder}/#{filename}.xlsx", write_rows.size
+  end
 end
