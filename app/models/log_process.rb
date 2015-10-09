@@ -133,6 +133,7 @@ class LogProcess
     return "#{logs_folder}/#{filename}.xlsx", write_rows.size
   end
 
+  # LogProcess.export_zjht_data
   def self.export_zjht_data
     logs = JajinVerifyLog.where(merchant_id: 136)
     logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
