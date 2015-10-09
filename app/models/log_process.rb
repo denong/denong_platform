@@ -145,7 +145,7 @@ class LogProcess
       name = log.try(:customer).try(:customer_reg_info).try(:name)
       id_card = log.try(:customer).try(:customer_reg_info).try(:id_card)
       phone = log.try(:customer).try(:user).try(:phone)
-      jajin = log.try(:customer).try(:jajin).try(:got)
+      jajin = log.try(:customer).try(:reward_logs).where(merchant_id: 136).sum(:amount)
       write_rows << [name, id_card, phone, jajin]
     end
     
