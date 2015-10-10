@@ -20,6 +20,7 @@ class LogProcess
     "#{logs_folder}/#{key}.xlsx"
   end
 
+  # LogProcess.export_member_card_log DateTime.new(2015, , ), DateTime.new(2015, , )
   def self.export_member_card_log start_time, end_time
     logs = MemberCardPointLog.where(created_at: start_time..end_time)
     logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
