@@ -246,4 +246,126 @@ class LogProcess
 
     return "#{logs_folder}/#{filename}.xlsx", write_rows.size
   end
+
+  def self.get_verify_time phones
+    write_rows = []
+
+    phones.each do |phone|
+      user = User.find_by(phone: phone)
+      next unless user.present?
+      identity_verifies = user.try(:customer).try(:identity_verifies)
+      next unless identity_verifies.present?
+      time = identity_verifies.find_by(verify_state: 2).try(:updated_at).strftime("%Y%m%d")
+      row = [phone, time]
+      write_rows << row
+    end
+
+    logs_folder = File.join("public", "logs", "#{Time.now.to_date}")
+    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    filename = "用户开户数据"
+
+    write_rows.uniq!
+
+    file = Axlsx::Package.new
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["手机号", "开户时间"]
+
+      write_rows.each do |row|
+        sheet.add_row(row, :types => [:string, :string])
+      end
+
+      file.use_shared_strings = true  
+      file.serialize("#{logs_folder}/#{filename}.xlsx")
+    end
+
+    return "#{logs_folder}/#{filename}.xlsx", write_rows.size
+  end
+
+  # 姓名  手机  身份证   积分  小金   兑换时间（年月日）   唯一ID  失败原因
+  # LogProcess.generate_member_log
+  def self.generate_member_log
+    write_rows = []
+    member_card_point_logs = MemberCardPointLog.where(created_at: 1.day.ago..DateTime.now)
+    member_card_point_logs.each do |log|
+      customer = log.try(:customer)
+
+      next unless customer.present?
+
+      name = customer.try(:customer_reg_info).try(:name)
+      phone = customer.try(:user).try(:phone)
+      id_card = customer.try(:customer_reg_info).try(:id_card)
+      jajin = customer.try(:jajin).try(:got)
+      trade_time = log.try(:created_at).strftime("%Y%m%d")
+      unique_ind = log.try(:unique_ind)
+
+      write_rows << [name, phone, id_card, jajin, trade_time, unique_ind]
+    end
+
+    path = File.join("public", "logs", "#{Time.now.to_date}")
+    filename = "#{DateTime.now.strftime("%Y%m%d")}-success"
+    head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID"]
+    head_format = [:string, :string, :string, :string, :string, :string]
+    
+    write_file path, filename, head, head_format, write_rows.uniq!
+
+    return "#{path}/#{filename}.xlsx", write_rows.size
+  end
+
+  # LogProcess.generate_point_log_errors
+  def self.generate_point_log_errors
+    write_rows = []
+    error_infos = PointLogFailureInfo.where(created_at: 1.day.ago..DateTime.now)
+    error_infos.each do |log|
+
+      trade_time = log.try(:created_at).strftime("%Y%m%d")
+
+      case log.error_code.to_i
+      when 10001 
+        reason = "签名验证失败"
+      when 10002
+        reason = "数据缺失"
+      when 10003
+        reason = "注册失败"
+      when 10004
+        reason = "身份信息错误"
+      when 10005
+        reason = "用户实名制认证失败"
+      when 10006
+        reason = "用户实名制认证失败"
+      when 10007
+        reason = "唯一标示已经存在"
+      when 10008
+        reason = "积分记录创建失败"
+      when 10009
+        reason = "用户已存在"
+      end
+      write_rows << [log.name, log.phone, log.id_card, log.point, trade_time, log.unique_ind, reason]
+    end
+
+    path = File.join("public", "logs", "#{Time.now.to_date}")
+    filename = "#{DateTime.now.strftime("%Y%m%d")}-failure"
+    head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID", "错误原因"]
+    head_format = [:string, :string, :string, :string, :string, :string, :string]
+    
+    write_file path, filename, head, head_format, write_rows.uniq!
+    return "#{path}/#{filename}.xlsx", write_rows.size
+  end
+
+  def self.write_file path, filename, head, head_format, content
+    FileUtils.makedirs(path) unless File.exist?(path)
+    
+    file = Axlsx::Package.new
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row head
+
+      if content.present?
+        content.each do |row|
+          sheet.add_row(row, :types => head_format)
+        end
+      end
+
+      file.use_shared_strings = true  
+      file.serialize("#{path}/#{filename}.xlsx")
+    end
+  end
 end
