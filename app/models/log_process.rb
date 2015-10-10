@@ -393,4 +393,44 @@ class LogProcess
     write_file path1, filename, head, head_format, write_rows
     return "#{path}/#{filename}.xlsx", write_rows.size
   end
+
+  def self.get_custoemr_info
+    write_rows = []
+    users = User.where(created_at: 1.week.ago..DateTime.now)
+
+    users_size = users.size
+    verify_num = 0
+    pension_num = 0
+    users.each do |user|
+      if user.try(:customer).try(:customer_reg_info).try(:verify_state) == "verified"
+        verify_num += 1
+      end
+      got = user.try(:customer).try(:jajin).try(:got)
+      pension_num += got if got.present?
+    end
+
+    activity_user_size = users.where(user_source: 2).size
+
+    source_ids = users.group(:source_id).pluck(:source_id)
+    source_ids.delete 3
+
+    hash = {}
+    source_ids.each do |source_id|
+      agent = Agent.find_by(id: source_id)
+      hash[agent.name] = users.where(source_id: source_id).size
+    end
+
+    head = ["总新增用户", "实名认证用户", "养老金总数量", "活动新增用户"]+hash.keys
+    row = [users_size, verify_num, ((pension_num.to_f)/100).to_s, activity_user_size]+hash.values
+    write_rows = []
+    write_rows << row
+
+
+    path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "用户数据统计"
+    head_format = [:string, :string, :string, :string]+[:string]*hash.size
+
+    write_file path, filename, head, head_format, write_rows
+    return "#{path}/#{filename}.xlsx"
+  end
 end
