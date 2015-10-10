@@ -125,7 +125,7 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10007, "唯一标示已经存在"
   	end
 
-    bexist = CustomerRegInfo.exists? id_card: id_card, verify_state: 2
+    bexist = CustomerRegInfo.exists? id_card: id_card
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"
     end
