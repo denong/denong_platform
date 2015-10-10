@@ -306,8 +306,8 @@ class LogProcess
     filename = "#{DateTime.now.strftime("%Y%m%d")}-success"
     head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID"]
     head_format = [:string, :string, :string, :string, :string, :string]
-    
-    write_file path, filename, head, head_format, write_rows.uniq!
+    write_rows.uniq!
+    write_file path, filename, head, head_format, write_rows
 
     return "#{path}/#{filename}.xlsx", write_rows.size
   end
@@ -347,12 +347,13 @@ class LogProcess
     filename = "#{DateTime.now.strftime("%Y%m%d")}-failure"
     head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID", "错误原因"]
     head_format = [:string, :string, :string, :string, :string, :string, :string]
-    
-    write_file path, filename, head, head_format, write_rows.uniq!
+    write_rows.uniq!
+    write_file path, filename, head, head_format, write_rows
     return "#{path}/#{filename}.xlsx", write_rows.size
   end
 
   def self.write_file path, filename, head, head_format, content
+    puts content.class
     FileUtils.makedirs(path) unless File.exist?(path)
     
     file = Axlsx::Package.new
@@ -368,5 +369,28 @@ class LogProcess
       file.use_shared_strings = true  
       file.serialize("#{path}/#{filename}.xlsx")
     end
+  end
+
+  # LogProcess
+  def self.get_jajin
+    write_rows = []
+    path = File.join("public", "success.xls")
+    data = Spreadsheet.open path
+    sheet = data.worksheet 0
+    sheet.each do |row|
+      user = User.find_by(phone: row[0].to_s)
+      next unless user.present?
+      jajin = user.try(:customer).try(:jajin).try(:got)
+      row << jajin
+      write_rows << row
+    end
+
+    path1 = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "用户小金"
+    head = ["手机", "姓名", "身份证", "性别", "小金"]
+    head_format = [:string, :string, :string, :string, :string]
+    write_rows.uniq!
+    write_file path1, filename, head, head_format, write_rows
+    return "#{path}/#{filename}.xlsx", write_rows.size
   end
 end
