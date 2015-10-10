@@ -350,14 +350,14 @@ resource "积分转小金记录" do
       string
     end
 
-    parameter :api_key, "商户的唯一编号", required: true, scope: :member_card_point_log
-    parameter :id_card, "用户身份证号码", required: true, scope: :member_card_point_log
-    parameter :name, "用户姓名", required: true, scope: :member_card_point_log
-    parameter :phone, "用户手机号码", required: true, scope: :member_card_point_log
-    parameter :point, "积分分值", required: true, scope: :member_card_point_log
-    parameter :unique_ind, "流水号（交易的唯一标示）", required: true, scope: :member_card_point_log
-    parameter :sign, "签名认证", required: true, scope: :member_card_point_log
-    parameter :timestamp, "时间戳", required: true, scope: :member_card_point_log
+    parameter :api_key, "商户的唯一编号", required: true
+    parameter :id_card, "用户身份证号码", required: true
+    parameter :name, "用户姓名", required: true
+    parameter :phone, "用户手机号码", required: true
+    parameter :point, "积分分值", required: true
+    parameter :unique_ind, "流水号（交易的唯一标示）", required: true
+    parameter :sign, "签名认证", required: true
+    parameter :timestamp, "时间戳", required: true
 
     response_field :error_code, "错误码"
     response_field :reason, "错误原因"

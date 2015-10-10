@@ -119,14 +119,14 @@ class MemberCardPointLog < ActiveRecord::Base
     point = data[:point] || data['兑换积分数']
     merchant_id = data[:merchant_id]
     
-    member_card_point_log = MemberCardPointLog.find_by(unique_ind: unique_ind)
-    if member_card_point_log.present?
+    bexist = MemberCardPointLog.exists? unique_ind: unique_ind
+    if bexist
       # 已经存在
       return error_process datetime, data, 10007, "唯一标示已经存在"
   	end
 
-    customer_reg_info = CustomerRegInfo.find_by(id_card: id_card, verify_state: 2)
-    if customer_reg_info.present?
+    bexist = CustomerRegInfo.exists? id_card: id_card, verify_state: 2
+    if bexist
     	return error_process datetime, data, 10009, "用户已存在"
     end
 
