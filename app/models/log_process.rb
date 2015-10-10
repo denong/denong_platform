@@ -427,7 +427,7 @@ class LogProcess
 
 
     path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
-    filename = "用户数据统计"
+    filename = "#{Time.now.strftime("%Y%m%d")}用户数据统计"
     head_format = [:string, :string, :string, :string]+[:string]*hash.size
 
     write_file path, filename, head, head_format, write_rows
