@@ -301,7 +301,7 @@ class LogProcess
       write_rows << [name, phone, id_card, jajin, trade_time, unique_ind]
     end
 
-    path = File.join("public", "logs", "#{Time.now.to_date}")
+    path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
     filename = "#{DateTime.now.strftime("%Y%m%d")}-success"
     head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID"]
     head_format = [:string, :string, :string, :string, :string, :string]
@@ -342,7 +342,7 @@ class LogProcess
       write_rows << [log.name, log.phone, log.id_card, log.point, trade_time, log.unique_ind, reason]
     end
 
-    path = File.join("public", "logs", "#{Time.now.to_date}")
+    path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
     filename = "#{DateTime.now.strftime("%Y%m%d")}-failure"
     head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID", "错误原因"]
     head_format = [:string, :string, :string, :string, :string, :string, :string]
