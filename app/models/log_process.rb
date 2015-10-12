@@ -353,7 +353,6 @@ class LogProcess
   end
 
   def self.write_file path, filename, head, head_format, content
-    puts content.class
     FileUtils.makedirs(path) unless File.exist?(path)
     
     file = Axlsx::Package.new
@@ -396,7 +395,7 @@ class LogProcess
 
   def self.get_customer_info
     write_rows = []
-    users = User.where(created_at: 1.week.ago..DateTime.now)
+    users = User.where(created_at: 1.week.ago.to_date..DateTime.now.to_date)
 
     users_size = users.size
 
