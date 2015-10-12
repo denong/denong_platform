@@ -400,7 +400,7 @@ class LogProcess
 
     users_size = users.size
 
-    verify_num, pension_num = LogProcess.get_pi_count users
+    pension_num, verify_num = LogProcess.get_pi_count users
 
     activity_user_size = users.where(user_source: 2).size
 
