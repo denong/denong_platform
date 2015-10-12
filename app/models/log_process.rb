@@ -399,15 +399,8 @@ class LogProcess
     users = User.where(created_at: 1.week.ago..DateTime.now)
 
     users_size = users.size
-    verify_num = 0
-    pension_num = 0
-    users.each do |user|
-      if user.try(:customer).try(:customer_reg_info).try(:verify_state) == "verified"
-        verify_num += 1
-      end
-      got = user.try(:customer).try(:jajin).try(:got)
-      pension_num += got if got.present?
-    end
+
+    verify_num, pension_num = LogProcess.get_pi_count users
 
     activity_user_size = users.where(user_source: 2).size
 
@@ -417,7 +410,11 @@ class LogProcess
     hash = {}
     source_ids.each do |source_id|
       agent = Agent.find_by(id: source_id)
-      hash[agent.name] = users.where(source_id: source_id).size
+      source_user = users.where(source_id: source_id)
+      hash["#{agent.name}新增用户"] = source_user.size
+      source_pension, source_verify = get_pi_count source_user
+      hash["#{agent.name}养老金总数量"] = source_pension
+      hash["#{agent.name}实名认证用户"] = source_verify
     end
 
     head = ["总新增用户", "实名认证用户", "养老金总数量", "活动新增用户"]+hash.keys
@@ -433,4 +430,20 @@ class LogProcess
     write_file path, filename, head, head_format, write_rows
     return "#{path}/#{filename}.xlsx"
   end
+
+  def self.get_pi_count users
+    verify_num = 0
+    pension_num = 0
+
+    users.each do |user|
+      if user.try(:customer).try(:customer_reg_info).try(:verify_state) == "verified"
+        verify_num += 1
+      end
+      got = user.try(:customer).try(:jajin).try(:got)
+      pension_num += got if got.present?
+    end
+
+    return pension_num, verify_num
+  end
+
 end
