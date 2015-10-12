@@ -418,7 +418,7 @@ class LogProcess
     end
 
     head = ["总新增用户", "实名认证用户", "养老金总数量", "活动新增用户"]+hash.keys
-    row = [users_size, verify_num, ((pension_num.to_f)/100).to_s, activity_user_size]+hash.values
+    row = [users_size, verify_num, pension_num, activity_user_size]+hash.values
     write_rows = []
     write_rows << row
 
@@ -443,7 +443,7 @@ class LogProcess
       pension_num += got if got.present?
     end
 
-    return pension_num, verify_num
+    return ((pension_num.to_f)/100).to_s, verify_num
   end
 
 end
