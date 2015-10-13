@@ -296,7 +296,7 @@ class LogProcess
       phone = customer.try(:user).try(:phone)
       id_card = customer.try(:customer_reg_info).try(:id_card)
       jajin = customer.try(:jajin).try(:got)
-      trade_time = log.try(:created_at).strftime("%Y%m%d")
+      trade_time = log.try(:created_at).gmtime.strftime("%Y%m%d")
       unique_ind = log.try(:unique_ind)
 
       write_rows << [name, phone, id_card, jajin, trade_time, unique_ind]
@@ -318,7 +318,7 @@ class LogProcess
     error_infos = PointLogFailureInfo.where(created_at: 1.day.ago..DateTime.now)
     error_infos.each do |log|
 
-      trade_time = log.try(:created_at).strftime("%Y%m%d")
+      trade_time = log.try(:created_at).gmtime.strftime("%Y%m%d")
 
       case log.error_code.to_i
       when 10001 
@@ -390,7 +390,7 @@ class LogProcess
     head_format = [:string, :string, :string, :string, :string]
     write_rows.uniq!
     write_file path1, filename, head, head_format, write_rows
-    return "#{path}/#{filename}.xlsx", write_rows.size
+    return "#{path1}/#{filename}.xlsx", write_rows.size
   end
 
   def self.get_customer_info
@@ -444,5 +444,68 @@ class LogProcess
 
     return ((pension_num.to_f)/100).to_s, verify_num
   end
+  # LogProcess.jajin_process
+  def jajin_process
+      
+    write_rows = []
 
+    # 获取到所有有错误的用户
+    customer_ids = []
+    Customer.all.each do |c|
+      jt = c.try(:jajin).try(:got)
+      next unless jt.present?
+      jls = c.try(:jajin_logs)
+      next unless jls.present?
+
+      jl = jls.sum(:amount)
+      if jl!=jt
+        
+        member_card_logs = c.try(:member_card_point_logs)
+        reward_logs = c.try(:reward_logs)
+        ticket_logs = c.try(:ticket)
+        jajin_verify_logs = c.try(:jajin_verify_logs)
+        exchange_logs = c.try(:exchange_logs)
+        tl_trades = c.try(:tl_trades)
+
+
+        # 手机号、姓名、
+        phone = c.try(:user).try(:phone)
+        name = c.try(:customer_reg_info).try(:name)
+
+        # jajin_logs.num、积分记录、奖励记录、小票、验证码、exchange、通联、
+        jajin_log_num =jls.try(:size)
+        member_card_point_log_num = member_card_logs.try(:size)
+        reward_log_num = reward_logs.try(:size)
+        ticket_log_num = ticket_logs.try(:size)
+        jajin_verify_log_num = jajin_verify_logs.try(:size)
+        exchange_log_num = exchange_logs.try(:size)
+        tl_trade_num = tl_trades.try(:size)
+
+        # 积分记录小金、奖励记录小金、小票小金、验证码小金、exchange小金、通联小金
+        member_card_log_sum = member_card_logs.try(:sum, :jajin)
+        reward_log_sum = reward_logs.try(:sum, :amount)
+        ticket_sum = 0
+        jajin_verify_log_sum = jajin_verify_logs.try(:sum, :amount)
+        exchange_log_sum = exchange_logs.try(:sum, :amount)
+        # tl_trade_sum = tl_trades.sum((:price * 100 * ratio).ceil)
+        tl_trade_sum = 0
+        if tl_trades.present?
+          tl_trades.each do |tl_trade|
+            tl_trade_sum += (tl_trade.price * 100 * (tl_trade.try(:merchant).try(:ratio)||0.01)).ceil
+          end
+        end
+        # 手机号、姓名、  积分记录、      奖励记录、        小票、           验证码、               exchange、         通联、         got小金数、记录小金总数、积分记录小金、奖励记录小金、小票小金、验证码小金、exchange小金、通联小金
+        write_rows << [ phone, name, jajin_log_num, reward_log_num, ticket_log_num, jajin_verify_log_num, exchange_log_num, tl_trade_num, jt, jl, member_card_log_sum, reward_log_sum, ticket_sum, jajin_verify_log_sum, exchange_log_sum, tl_trade_sum]
+      end
+    end
+
+    path1 = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "错误数据"
+    head = ["手机号", "姓名", "小金记录总数", "积分记录", "奖励记录", "小票", "验证码", "exchange", "通联", "got小金数", "记录小金总数", "积分记录小金", "奖励记录小金", "小票小金", "验证码小金", "exchange小金", "通联小金"]
+    head_format = [:string]*17
+    write_rows.uniq!
+    write_file path1, filename, head, head_format, write_rows
+    # 手机号、姓名、jajin_logs.num、积分记录、奖励记录、小票、验证码、exchange、通联、小金总数、积分记录小金、奖励记录小金、小票小金、验证码小金、exchange小金、通联小金
+    return "#{path1}/#{filename}.xlsx"
+  end
 end
