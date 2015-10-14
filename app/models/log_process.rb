@@ -296,7 +296,7 @@ class LogProcess
       phone = customer.try(:user).try(:phone)
       id_card = customer.try(:customer_reg_info).try(:id_card)
       jajin = customer.try(:jajin).try(:got)
-      trade_time = log.try(:created_at).gmtime.strftime("%Y%m%d")
+      trade_time = log.try(:created_at).strftime("%Y%m%d%H%M%S")
       unique_ind = log.try(:unique_ind)
 
       write_rows << [name, phone, id_card, jajin, trade_time, unique_ind]
@@ -318,7 +318,7 @@ class LogProcess
     error_infos = PointLogFailureInfo.where(created_at: 1.day.ago..DateTime.now)
     error_infos.each do |log|
 
-      trade_time = log.try(:created_at).gmtime.strftime("%Y%m%d")
+      trade_time = log.try(:created_at).strftime("%Y%m%d%H%M%S")
 
       case log.error_code.to_i
       when 10001 
