@@ -508,4 +508,25 @@ class LogProcess
     # 手机号、姓名、jajin_logs.num、积分记录、奖励记录、小票、验证码、exchange、通联、小金总数、积分记录小金、奖励记录小金、小票小金、验证码小金、exchange小金、通联小金
     return "#{path1}/#{filename}.xlsx"
   end
+
+  def self.gdtelecom_info start_time, end_time
+    write_rows = []
+    time = start_time
+    while time < end_time
+      logs = MemberCardPointLog.where(created_at: time..time+1.day)
+      user_num = logs.group(:customer_id).pluck(:customer_id).size
+      jajin_num = logs.sum(:jajin)
+      write_rows << [time.strftime("%Y%m%d"), user_num, jajin_num]
+      time += 1.day
+    end
+    path1 = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "兑换数据"
+    head = ["时间", "兑换人数", "积分总数"]
+    head_format = [:string]*3
+    write_rows.uniq!
+    write_file path1, filename, head, head_format, write_rows
+    
+    return "#{path1}/#{filename}.xlsx"
+  end
+
 end
