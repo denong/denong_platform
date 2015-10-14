@@ -512,9 +512,16 @@ class LogProcess
   def self.gdtelecom_info start_time, end_time
     write_rows = []
     time = start_time
+    last_num = 0
+    all_array = []
     while time < end_time
       logs = MemberCardPointLog.where(created_at: time..time+1.day)
-      user_num = logs.group(:customer_id).pluck(:customer_id).size
+      customer_arrays = logs.group(:customer_id).pluck(:customer_id)
+      all_array.concat customer_arrays
+      all_array.uniq!
+      puts "#{all_array.size}, #{last_num}"
+      user_num = all_array.size - last_num
+      last_num += user_num
       jajin_num = logs.sum(:jajin)
       write_rows << [time.strftime("%Y%m%d"), user_num, jajin_num]
       time += 1.day
@@ -525,7 +532,7 @@ class LogProcess
     head_format = [:string]*3
     write_rows.uniq!
     write_file path1, filename, head, head_format, write_rows
-    
+
     return "#{path1}/#{filename}.xlsx"
   end
 
