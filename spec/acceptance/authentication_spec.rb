@@ -124,7 +124,8 @@ resource "用户鉴权" do
     parameter :phone, "用户注册的手机号码"
 
     response_field :exists, "用户是否已经注册"
-
+    response_field :reset, "是否调用重置密码接口"
+    
     user_attrs = FactoryGirl.attributes_for :user
     let(:phone) { user_attrs[:phone] }
 

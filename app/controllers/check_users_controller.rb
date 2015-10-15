@@ -6,6 +6,8 @@ class CheckUsersController < ApplicationController
   def show
     phone = params[:phone]
     @check_user = User.exists? phone: phone
+    # 部分用户做特殊处理
+    @reset = User.exists? phone: phone, source_id: 28
   end
 
   def reset
