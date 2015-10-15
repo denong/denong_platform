@@ -388,15 +388,14 @@ class MemberCardPointLog < ActiveRecord::Base
       # send_hash[:money] = money
       # send_hash[:phone] = phone
       # send_hash[:secret] = phone[-8..-1]
-
-      content = "尊敬的用户，您已成功兑换#{money}元消费养老金，账号#{phone}，初始密码#{phone[-8..-1]}，点击http://xqx.com/active/gd.html 快速查询！"
+      content = "尊敬的广东电信用户，感谢您参加翼尝金喜活动。您已成功获赠#{money}元消费养老金，关注“CCPP消费养老”公众号，用本机登录，可快速查询！"
     else
       # 非首次兑换
       # 需发送金额
       # tpl = 948587
       # send_hash[:money] = money
       # 尊敬的用户，您已成功兑换20.0元消费养老金，账号18923418382，初始密码23418382，点击http://xqx.com/active/gd.html 快速查询！
-      content = "尊敬的用户，您已成功兑换#{money}元消费养老金，点击http://xqx.com/active/gd.html 快速查询！"
+      content = "尊敬的广东电信用户，感谢您参加翼尝金喜活动。您已成功获赠#{money}元消费养老金，关注“CCPP消费养老”公众号，用本机登录，可快速查询！"
     end
     # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
     # result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
