@@ -2,8 +2,8 @@ class TextMessage
 
   # 企业代码  用户ID  密码  企业签名  适用范围
   # dnwl  80560   dnwl2015  【CCPP合格计划】  触发类短信
-  # dlwl66  80508   dlwl66    【小确幸】 触发类短信 (一般用这个)
-  # dlwl  805081  dnxfyl    【小确幸】 会员短信
+  # dlwl66  80508   dlwl66    【小确幸】 触发类短信 (一般用这个) （功能）
+  # dlwl  805081  dnxfyl    【小确幸】 会员短信 （营销）
   # enum content_type: { ccpp: 0, xqx: 1, xqx_member: 2 }
 
   # dnwl  80560
@@ -14,7 +14,8 @@ class TextMessage
 
   # dlwl  805081
   # expid: 
-  
+    
+  # TextMessage.send_cancel_msg phone, 3
   def self.send_cancel_msg phone, expid
     content = "亲爱的用户，您的“小确幸”账号已被注销。如有任何问题，可咨询微信公众号“CCPP消费养老”。祝您生活愉快，工作顺利！"
     send_msg 1, content, phone, expid

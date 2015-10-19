@@ -519,7 +519,6 @@ class LogProcess
       customer_arrays = logs.group(:customer_id).pluck(:customer_id)
       all_array.concat customer_arrays
       all_array.uniq!
-      puts "#{all_array.size}, #{last_num}"
       user_num = all_array.size - last_num
       last_num += user_num
       jajin_num = logs.sum(:jajin)
