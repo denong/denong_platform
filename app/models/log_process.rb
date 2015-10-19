@@ -393,9 +393,9 @@ class LogProcess
     return "#{path1}/#{filename}.xlsx", write_rows.size
   end
 
-  def self.get_customer_info
+  def self.get_customer_info date_time
     write_rows = []
-    users = User.where(created_at: 1.week.ago.to_date..DateTime.now.to_date)
+    users = User.where(created_at: 1.week.ago.to_date..date_time.to_date)
 
     users_size = users.size
 
