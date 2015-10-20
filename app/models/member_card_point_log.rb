@@ -126,6 +126,7 @@ class MemberCardPointLog < ActiveRecord::Base
   	end
 
     bexist = CustomerRegInfo.exists? id_card: id_card
+		bexist ||= PointLogFailureInfo.exists? id_card: id_card
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"
     end
@@ -134,10 +135,22 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10002, "数据缺失"
     end
 
+    # 获得小金
+		if point.to_i.abs < 1000
+			point = 500
+		elsif point.to_i.abs >= 1000
+			point = 1000
+		end
+
     user, result = User.build_by_phone(phone)
     # 如果有错误，则增加错误信息
     if user.errors.present?
-      return error_process datetime, data, 10003, user.errors.full_messages.to_s
+    	tu = TelecomUser.create(phone: phone, name: name, id_card: id_card, point: point, unique_ind: unique_ind)
+    	if tu.errors.present?
+    		return error_process datetime, data, 10003, user.errors.full_messages.to_s 
+    	else
+    		return 0, "成功"
+    	end
     end
 
     if check_id_card_info name, id_card
@@ -175,12 +188,7 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10006, member_card.errors.full_messages.to_s
     end
 
-    # 获得小金
-		if point.to_i.abs < 1000
-			point = 500
-		elsif point.to_i.abs >= 1000
-			point = 1000
-		end
+
 	  member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
 	
     if member_card_point_log.errors.present?
@@ -233,8 +241,14 @@ class MemberCardPointLog < ActiveRecord::Base
     end
     $redis.hset("error_logs_#{datetime}", "#{key}", data)
 
-    PointLogFailureInfo.create(id_card: data[:id_card], name: data[:name],
-      phone: data[:phone], point: data[:point], unique_ind: data[:unique_ind],
+    phone = data[:phone] || data['手机号']
+    name = data[:name] || data['姓名']
+    id_card = data[:id_card] || data['身份证号']
+    unique_ind = data[:unique_ind] || data['交易的唯一标示']
+    point = data[:point] || data['兑换积分数']
+
+    PointLogFailureInfo.create(id_card: id_card, name: name,
+      phone: phone, point: point, unique_ind: unique_ind,
       merchant_id: data[:merchant_id], error_code: data[:error_code])
   end
 
