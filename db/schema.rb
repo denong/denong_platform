@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918035135) do
+ActiveRecord::Schema.define(version: 20151020090832) do
 
   create_table "account", primary_key: "account_id", force: true do |t|
     t.string   "username",   limit: 200
@@ -190,6 +190,15 @@ ActiveRecord::Schema.define(version: 20150918035135) do
     t.float    "u_android_count", limit: 24, default: 0.0
     t.float    "u_other_count",   limit: 24, default: 0.0
   end
+
+  create_table "devices", force: true do |t|
+    t.string   "name"
+    t.integer  "pattern_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "devices", ["pattern_id"], name: "index_devices_on_pattern_id", using: :btree
 
   create_table "exchange_logs", force: true do |t|
     t.integer  "customer_id"
@@ -719,6 +728,16 @@ ActiveRecord::Schema.define(version: 20150918035135) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "telecom_users", force: true do |t|
+    t.string   "phone"
+    t.string   "name"
+    t.string   "id_card"
+    t.float    "point",      limit: 24
+    t.string   "unique_ind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "thfund_accounts", force: true do |t|
     t.integer  "sn"

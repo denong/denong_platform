@@ -1,5 +1,12 @@
 require 'rack/test'
-FactoryGirl.define do  factory :point_log_failure_info do
+FactoryGirl.define do  factory :telecom_user do
+    phone "MyString"
+name "MyString"
+id_card "MyString"
+point 1.5
+unique_ind "MyString"
+  end
+  factory :point_log_failure_info do
     id_card "MyString"
 name "MyString"
 phone "MyString"
