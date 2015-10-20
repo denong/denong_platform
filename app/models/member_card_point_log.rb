@@ -120,14 +120,14 @@ class MemberCardPointLog < ActiveRecord::Base
     merchant_id = data[:merchant_id]
     
     bexist = MemberCardPointLog.exists? unique_ind: unique_ind
-    bexist ||= PointLogFailureInfo.exists? unique_ind: unique_ind
+    bexist ||= TelecomUser.exists? unique_ind: unique_ind
     if bexist
       # 已经存在
       return error_process datetime, data, 10007, "唯一标示已经存在"
   	end
 
     bexist = CustomerRegInfo.exists? id_card: id_card
-		bexist ||= PointLogFailureInfo.exists? id_card: id_card
+		bexist ||= TelecomUser.exists? id_card: id_card
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"
     end
