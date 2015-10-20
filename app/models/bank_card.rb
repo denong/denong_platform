@@ -257,7 +257,7 @@ class BankCard < ActiveRecord::Base
       cert_type: "a",
       cert_no: personal_info[:id_card],
       card_no: personal_info[:card],
-      user_mobile: personal_info[:phone] || ""
+      user_mobile: "" #personal_info[:phone] || ""
     }
     json_params = params.to_json
     signature = EncryptRsa.process(json_params, "key/dq/private_key4.pem").delete("\n")
