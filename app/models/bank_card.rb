@@ -43,7 +43,7 @@ class BankCard < ActiveRecord::Base
   scope :success, -> { where(stat_code: ["00", "02"]) }
 
   def self.verify_bank_card params
-    bank_card = BankCard.find_or_create_by(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i, customer_id: params[:customer_id], bankcard_no: params[:card])
+    bank_card = BankCard.find_or_create_by(bank_id: params[:bank_id], bank_card_type: params[:bank_card_type].to_i, customer_id: params[:customer_id], bankcard_no: params[:card], phone: params[:phone])
 
     # 数据是否完整
     unless params[:name].present? && params[:id_card].present? && params[:card].present?
@@ -257,7 +257,7 @@ class BankCard < ActiveRecord::Base
       cert_type: "a",
       cert_no: personal_info[:id_card],
       card_no: personal_info[:card],
-      user_mobile: ""
+      user_mobile: personal_info[:phone]
     }
     json_params = params.to_json
     signature = EncryptRsa.process(json_params, "key/dq/private_key4.pem").delete("\n")
