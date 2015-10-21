@@ -295,7 +295,7 @@ class LogProcess
       name = customer.try(:customer_reg_info).try(:name)
       phone = customer.try(:user).try(:phone)
       id_card = customer.try(:customer_reg_info).try(:id_card)
-      jajin = customer.try(:jajin).try(:got)
+      jajin = log.try(:jajin)
       trade_time = log.try(:created_at).strftime("%Y%m%d%H%M%S")
       unique_ind = log.try(:unique_ind)
 
@@ -609,5 +609,23 @@ class LogProcess
     write_file path, filename, head, head_format, write_rows
 
     return "#{path}/#{filename}.xlsx", write_rows.size
+  end
+
+  def self.point_logs_sum 
+    write_rows = []
+    (8..22).each do |day|
+      logs_5 = MemberCardPointLog.where(created_at: DateTime.new(2015,10,day,0,5)..DateTime.new(2015,10,day+1,0,5), jajin: 500)
+      logs_10 = MemberCardPointLog.where(created_at: DateTime.new(2015,10,day,0,5)..DateTime.new(2015,10,day+1,0,5), jajin: 1000)
+
+
+      write_rows << [day.to_s, logs_5.size+logs_10.size, logs_5.sum(:jajin)+logs_10.sum(:jajin), logs_5.size, logs_5.sum(:jajin), logs_10.size, logs_10.sum(:jajin)]
+    end
+
+    path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "#{DateTime.now.strftime("%Y%m%d")}-everyday-sum"
+    head = ["时间", "总条数", "总积分数", "5元条数", "5元积分总数", "10元条数", "10元积分总数"]
+    head_format = [:string, :string, :string, :string, :string, :string]
+    write_rows.uniq!
+    write_file path, filename, head, head_format, write_rows
   end
 end

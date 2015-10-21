@@ -127,6 +127,7 @@ class MemberCardPointLog < ActiveRecord::Base
   	end
 
     bexist = CustomerRegInfo.exists? id_card: id_card
+    bexist ||= $redis.hexists "user_infomation_cache", id_card
 		bexist ||= TelecomUser.exists? id_card: id_card
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"

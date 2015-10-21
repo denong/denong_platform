@@ -127,4 +127,16 @@ class User < ActiveRecord::Base
     self.create_customer
   end
 
+  def self.add_user_data_to_redis
+
+    User.all.each do |user|
+      data = {}
+      phone = user.try(:phone)
+      next if user.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
+      data["name"] = user.try(:customer).try(:customer_reg_info).try(:name)
+      data["id_card"] = user.try(:customer).try(:customer_reg_info).try(:id_card)
+      data["phone"] = phone
+      $redis.hset("user_infomation_cache", "#{data["id_card"]}", data)
+    end
+  end
 end
