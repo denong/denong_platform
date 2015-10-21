@@ -370,7 +370,7 @@ class LogProcess
     end
   end
 
-  # LogProcess
+  # LogProcess.get_jajin
   def self.get_jajin
     write_rows = []
     path = File.join("public", "success.xls")
@@ -393,9 +393,9 @@ class LogProcess
     return "#{path1}/#{filename}.xlsx", write_rows.size
   end
 
-  def self.get_customer_info date_time
+  def get_customer_info start_time, end_time
     write_rows = []
-    users = User.where(created_at: 1.week.ago.to_date..date_time.to_date)
+    users = User.where(created_at: start_time.to_date..end_time.to_date)
 
     users_size = users.size
 
@@ -535,4 +535,79 @@ class LogProcess
     return "#{path1}/#{filename}.xlsx"
   end
 
+  def get_customer_info_by_merchant
+    source_ids = User.group(:source_id).pluck(:source_id)
+
+    info = {}
+    source_ids.each do |source_id|
+      sys_name = Merchant.find_by(id: source_id).try(:sys_reg_info).try(:sys_name)
+      info[sys_name] = {}
+
+      (5..10).each do |index|
+        info[sys_name][index] = {}
+        start_time, end_time = DateTime.new(2015,index,1), DateTime.new(2015,index+1,1)
+        users = User.where(source_id: source_id, created_at: start_time..end_time)
+        info[sys_name][index]["user_num"] = users.size
+
+        real_user = 0
+        real_user_jajin = 0
+        user_jajin = 0
+        users.each do |user|
+          customer = user.try(:customer)
+          next unless customer.present?
+          customer_reg_info = customer.try(:customer_reg_info)
+          next unless customer_reg_info.present?
+          if customer_reg_info.verify_state == "verified"
+            real_user += 1 
+            real_user_jajin += (customer.try(:jajin).try(:got) || 0)
+          end
+          user_jajin += (customer.try(:jajin).try(:got) || 0)
+        end
+        info[sys_name][index]["real_user"] = real_user
+        info[sys_name][index]["real_user"] = real_user
+        info[sys_name][index]["real_user_jajin"] = real_user_jajin
+        info[sys_name][index]["user_jajin"] = user_jajin
+      end
+    end
+
+    write_rows = []
+    info.each_with_index do |data, index|
+      info_hash = data.last
+      info_hash.each do |month, info|
+        write_rows << [index+1, month, data.first, info["user_num"], info["user_jajin"], info["real_user"], info["real_user_jajin"]]
+      end
+    end
+    path1 = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "用户统计数据区分渠道"
+    head = ["编号", "商户名称", "用户总数", "用户小金数", "实名制用户数", "实名制用户小金"]
+    head_format = [:string]*6
+    write_rows.uniq!
+    write_file path1, filename, head, head_format, write_rows
+  end
+
+  # 姓名  手机  身份证   积分  小金   兑换时间（年月日）   唯一ID
+  # LogProcess.generate_telecom_user
+  def self.generate_telecom_user
+    write_rows = []
+    telecom_users = TelecomUser.where(created_at: 1.day.ago..DateTime.now)
+    telecom_users.each do |telecom_user|
+      name = telecom_user.try(:name)
+      phone = telecom_user.try(:phone)
+      id_card = telecom_user.try(:id_card)
+      point = telecom_user.try(:point)
+      trade_time = telecom_user.try(:created_at).strftime("%Y%m%d%H%M%S")
+      unique_ind = telecom_user.try(:unique_ind)
+
+      write_rows << [name, phone, id_card, point, trade_time, unique_ind]
+    end
+
+    path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    filename = "#{DateTime.now.strftime("%Y%m%d")}-telecom"
+    head = ["姓名", "手机", "身份证", "积分(小金)", "兑换时间", "唯一ID"]
+    head_format = [:string, :string, :string, :string, :string, :string]
+    write_rows.uniq!
+    write_file path, filename, head, head_format, write_rows
+
+    return "#{path}/#{filename}.xlsx", write_rows.size
+  end
 end
