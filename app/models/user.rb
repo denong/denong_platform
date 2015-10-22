@@ -132,9 +132,12 @@ class User < ActiveRecord::Base
     User.all.each_with_index do |user, index|
       data = {}
       phone = user.try(:phone)
+
       next if user.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
+      id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
+      next if $redis.hexists "user_infomation_cache", id_card
       data["name"] = user.try(:customer).try(:customer_reg_info).try(:name)
-      data["id_card"] = user.try(:customer).try(:customer_reg_info).try(:id_card)
+      data["id_card"] = id_card
       data["phone"] = phone
       $redis.hset("user_infomation_cache", "#{data["id_card"]}", data)
       puts "#{index} of #{all_size}"
