@@ -138,6 +138,7 @@ class User < ActiveRecord::Base
       data["phone"] = phone
       $redis.hset("user_infomation_cache", "#{data["id_card"]}", data)
       puts "#{index} of #{all_size}"
+      sleep 0.01
     end
   end
 end
