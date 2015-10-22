@@ -128,8 +128,8 @@ class User < ActiveRecord::Base
   end
 
   def self.add_user_data_to_redis
-
-    User.all.each do |user|
+    all_size = User.all.size
+    User.all.each_with_index do |user, index|
       data = {}
       phone = user.try(:phone)
       next if user.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
@@ -137,6 +137,7 @@ class User < ActiveRecord::Base
       data["id_card"] = user.try(:customer).try(:customer_reg_info).try(:id_card)
       data["phone"] = phone
       $redis.hset("user_infomation_cache", "#{data["id_card"]}", data)
+      puts "#{index} of #{all_size}"
     end
   end
 end
