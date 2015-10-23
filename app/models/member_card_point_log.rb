@@ -163,9 +163,7 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     # 校验用户是否实名制认证
-		tstart = Time.now.to_f
     customer_reg_info = CustomerRegInfo.get_reg_info_by_phone(phone: phone, name: name, id_card: id_card)
-    logger.info "verify identify time is #{Time.now.to_f-tstart}"
     if customer_reg_info.errors.present?
       return error_process datetime, data, 10004, customer_reg_info.errors.full_messages.to_s
     end
@@ -197,11 +195,6 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10008, member_card_point_log.errors.full_messages.to_s
     end
 
-    params = {}
-    params[:customer_id] = user.try(:customer).id
-    params[:point] = point
-    key = "#{datetime}_processed"
-    $redis.hset(key, "#{data['交易的唯一标示']}", data)
     tstart = Time.now.to_f
     MemberCardPointLog.send_sms_notification phone, point
     logger.info "send_sms_notification time is #{Time.now.to_f-tstart}"
