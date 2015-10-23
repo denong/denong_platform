@@ -196,7 +196,7 @@ class MemberCardPointLog < ActiveRecord::Base
     end
 
     tstart = Time.now.to_f
-    MemberCardPointLog.send_sms_notification phone, point
+    # MemberCardPointLog.send_sms_notification phone, point
     logger.info "send_sms_notification time is #{Time.now.to_f-tstart}"
     return 0, "成功"
   end
