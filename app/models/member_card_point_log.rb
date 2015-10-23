@@ -203,7 +203,7 @@ class MemberCardPointLog < ActiveRecord::Base
     key = "#{datetime}_processed"
     $redis.hset(key, "#{data['交易的唯一标示']}", data)
     tstart = Time.now.to_f
-    MemberCardPointLog.send_sms_notification params
+    MemberCardPointLog.send_sms_notification phone, point
     logger.info "send_sms_notification time is #{Time.now.to_f-tstart}"
     return 0, "成功"
   end
@@ -387,29 +387,11 @@ class MemberCardPointLog < ActiveRecord::Base
     self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
   end
 
-  def self.send_sms_notification params
-    customer = Customer.find_by_id(params[:customer_id])
-    user = customer.try(:user)
-    unless user.present?
-      return
-    end
-
-    phone = user.phone
-    money = params[:point].to_f.abs.to_f/100
-
-    tpl = 948587
-    send_hash = {}
+  def self.send_sms_notification phone, point
+    money = point.to_f.abs.to_f/100
 
     # 刚完成注册之后，第一次兑换
-    # 需发送金额、手机号、手机号后八位
-    # tpl = 948573
-    # send_hash[:money] = money
-    # send_hash[:phone] = phone
-    # send_hash[:secret] = phone[-8..-1]
     content = "尊敬的广东电 信用户，感谢您参加翼尝金喜活动。您已成功获赠#{money}元消费养老金，关注“CCPP消费养老”公众号，用本机登录，可快速查询！"
-
-    # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
-    # result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
     TextMessage.send_msg 2, content, phone, 1
   end
 end
