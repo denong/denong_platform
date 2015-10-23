@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
       next if user.try(:customer).try(:customer_reg_info).try(:verify_state) != "verified"
       id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
       next if $redis.hexists "user_infomation_cache", id_card
-      $redis.hset("user_infomation_cache", "#{data["id_card"]}", 1)
+      $redis.hset("user_infomation_cache", "#{id_card}", 1)
       puts "#{index} of #{all_size}"
       sleep 0.01
     end
