@@ -60,15 +60,18 @@ class User < ActiveRecord::Base
   after_create :add_customer
   
   
-  def self.build_by_phone(phone)
-    exist = true
-    user = User.where(phone: phone).first
-    unless user.present?
-      user = User.create(phone: phone, password: phone[-8..-1], user_source: 0, source_id: 28, sms_token: "989898")
-      exist = false
+  def self.build_by_phone phone
+    puts "phons is #{phone}, #{phone.class}"
+
+    user = User.create(phone: phone, password: phone[-8..-1], sms_token: "989898")
+    unless user.errors.present?
+      user.user_source = 0
+      user.source_id = 28
+      user.sms_token = "989898"
+      user.save
     end
-    # 返回用户对象， exist表示用户是否之前存在
-    return user, exist
+    #返回用户对象
+    user
   end
 
   def self.find_or_create_by_phone phone

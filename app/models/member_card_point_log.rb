@@ -126,8 +126,8 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10007, "唯一标示已经存在"
   	end
 
-    bexist = CustomerRegInfo.exists? id_card: id_card
-    bexist ||= $redis.hexists "user_infomation_cache", id_card
+    # bexist = CustomerRegInfo.exists? id_card: id_card
+    bexist = $redis.hexists "user_infomation_cache", id_card
 		bexist ||= TelecomUser.exists? id_card: id_card
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"
@@ -144,15 +144,16 @@ class MemberCardPointLog < ActiveRecord::Base
 			point = 1000
 		end
 
-    user, result = User.build_by_phone(phone)
+    user = User.build_by_phone(phone)
     # 如果有错误，则增加错误信息
     if user.errors.present?
-    	tu = TelecomUser.create(phone: phone, name: name, id_card: id_card, point: point, unique_ind: unique_ind)
-    	if tu.errors.present?
-    		return error_process datetime, data, 10003, user.errors.full_messages.to_s 
-    	else
-    		return 0, "成功"
+    	if phone.size != 11
+    		tu = TelecomUser.find_or_create_by(phone: phone, name: name, id_card: id_card, point: point, unique_ind: unique_ind)
+    		unless tu.errors.present?
+					return 0, "成功"
+    		end
     	end
+    	return error_process datetime, data, 10003, user.errors.full_messages.to_s 
     end
 
     if check_id_card_info name, id_card
@@ -179,10 +180,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
     # 用户是否授权会员卡
     if merchant_id.present? && user.present? && user.try(:customer).present?
-      member_card = MemberCard.find_by(merchant_id: merchant_id, customer_id: user.try(:customer).try(:id))
-      unless member_card.present?
-        member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant_id: merchant_id, user_name: name, passwd: id_card, point: 0)
-      end
+    	member_card = MemberCard.find_or_create_by(customer: user.try(:customer), merchant_id: merchant_id, user_name: name, passwd: id_card, point: 0)
     end
 
     # 如果有错误，则增加错误信息
@@ -202,7 +200,7 @@ class MemberCardPointLog < ActiveRecord::Base
     params[:point] = point
     key = "#{datetime}_processed"
     $redis.hset(key, "#{data['交易的唯一标示']}", data)
-    MemberCardPointLog.send_sms_notification params, !result unless member_card_point_log.errors.present?
+    MemberCardPointLog.send_sms_notification params
     return 0, "成功"
   end
 
@@ -385,7 +383,7 @@ class MemberCardPointLog < ActiveRecord::Base
     self.create_jajin_log customer: customer, amount: jajin, merchant_id:merchant_id
   end
 
-  def self.send_sms_notification params, first_time
+  def self.send_sms_notification params
     customer = Customer.find_by_id(params[:customer_id])
     user = customer.try(:user)
     unless user.present?
@@ -397,22 +395,15 @@ class MemberCardPointLog < ActiveRecord::Base
 
     tpl = 948587
     send_hash = {}
-    if first_time
-      # 刚完成注册之后，第一次兑换
-      # 需发送金额、手机号、手机号后八位
-      # tpl = 948573
-      # send_hash[:money] = money
-      # send_hash[:phone] = phone
-      # send_hash[:secret] = phone[-8..-1]
-      content = "尊敬的广东电 信用户，感谢您参加翼尝金喜活动。您已成功获赠#{money}元消费养老金，关注“CCPP消费养老”公众号，用本机登录，可快速查询！"
-    else
-      # 非首次兑换
-      # 需发送金额
-      # tpl = 948587
-      # send_hash[:money] = money
-      # 尊敬的用户，您已成功兑换20.0元消费养老金，账号18923418382，初始密码23418382，点击http://xqx.com/active/gd.html 快速查询！
-      content = "尊敬的广东电 信用户，感谢您参加翼尝金喜活动。您已成功获赠#{money}元消费养老金，关注“CCPP消费养老”公众号，用本机登录，可快速查询！"
-    end
+
+    # 刚完成注册之后，第一次兑换
+    # 需发送金额、手机号、手机号后八位
+    # tpl = 948573
+    # send_hash[:money] = money
+    # send_hash[:phone] = phone
+    # send_hash[:secret] = phone[-8..-1]
+    content = "尊敬的广东电 信用户，感谢您参加翼尝金喜活动。您已成功获赠#{money}元消费养老金，关注“CCPP消费养老”公众号，用本机登录，可快速查询！"
+
     # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
     # result = ChinaSMS.to user.phone, send_hash, {tpl_id: tpl}
     TextMessage.send_msg 2, content, phone, 1
