@@ -139,12 +139,7 @@ class IdentityVerify < ActiveRecord::Base
     self.processing!
 
     # 将用户的身份信息加入到redis
-    phone = self.customer.try(:user).try(:phone)
-    data = {}
-    data["phone"] = phone
-    data["id_card"] = id_card
-    data["name"] = name
-    $redis.hset("user_infomation_cache", "#{id_card}", data)
+    $redis.hset("user_infomation_cache", "#{id_card}", 1)
   end
 
   def set_state
