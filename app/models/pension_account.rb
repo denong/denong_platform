@@ -142,7 +142,7 @@ class PensionAccount < ActiveRecord::Base
 
   def send_sms_notification
     user = customer.try(:user)
-    if user.present?
+    if user.present? && user.try(:source_id) != 28
       # company = "德浓消费养老"
       # ChinaSMS.use :yunpian, password: "6eba427ea91dab9558f1c5e7077d0a3e"
       # account_string = id.to_s.rjust(10, '0')
