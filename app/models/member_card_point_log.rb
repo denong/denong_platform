@@ -195,9 +195,7 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10008, member_card_point_log.errors.full_messages.to_s
     end
 
-    tstart = Time.now.to_f
     # MemberCardPointLog.send_sms_notification phone, point
-    logger.info "send_sms_notification time is #{Time.now.to_f-tstart}"
     return 0, "成功"
   end
 
