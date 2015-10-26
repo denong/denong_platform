@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020090832) do
+ActiveRecord::Schema.define(version: 20151026074504) do
 
   create_table "account", primary_key: "account_id", force: true do |t|
     t.string   "username",   limit: 200
@@ -738,6 +738,9 @@ ActiveRecord::Schema.define(version: 20151020090832) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "telecom_users", ["id_card"], name: "index_telecom_users_on_id_card", using: :btree
+  add_index "telecom_users", ["unique_ind"], name: "index_telecom_users_on_unique_ind", using: :btree
 
   create_table "thfund_accounts", force: true do |t|
     t.integer  "sn"
