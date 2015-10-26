@@ -119,7 +119,7 @@ class MemberCardPointLog < ActiveRecord::Base
     point = data[:point] || data['兑换积分数']
     merchant_id = data[:merchant_id]
     
-    start_time = DateTime.now.strftime('%Q')
+    start_time = DateTime.now.strftime('%Q').to_i
     bexist = MemberCardPointLog.exists? unique_ind: unique_ind
     bexist ||= TelecomUser.exists? unique_ind: unique_ind
     if bexist
@@ -133,7 +133,7 @@ class MemberCardPointLog < ActiveRecord::Base
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"
     end
-    check_exist_time = DateTime.now.strftime('%Q')
+    check_exist_time = DateTime.now.strftime('%Q').to_i
     logger.info "check exist time is #{check_exist_time-start_time}"
 
     unless phone.present? && name.present? && id_card.present? && unique_ind.present? && point.present? && merchant_id.present?
@@ -158,7 +158,7 @@ class MemberCardPointLog < ActiveRecord::Base
     	end
     	return error_process datetime, data, 10003, user.errors.full_messages.to_s 
     end
-    create_user_time  = DateTime.now.strftime('%Q')
+    create_user_time  = DateTime.now.strftime('%Q').to_i
     logger.info "create user time is #{create_user_time-check_exist_time}"
 
     if check_id_card_info name, id_card
@@ -166,7 +166,7 @@ class MemberCardPointLog < ActiveRecord::Base
     else
     	PersonalInfo.find_or_create_by(name: name, id_card: id_card, result: 1)
     end
-    check_id_card_time  = DateTime.now.strftime('%Q')
+    check_id_card_time  = DateTime.now.strftime('%Q').to_i
     logger.info "check id card is #{check_id_card_time-create_user_time}"
 
     # 校验用户是否实名制认证
@@ -174,7 +174,7 @@ class MemberCardPointLog < ActiveRecord::Base
     if customer_reg_info.errors.present?
       return error_process datetime, data, 10004, customer_reg_info.errors.full_messages.to_s
     end
-    customer_reg_info_time  = DateTime.now.strftime('%Q')
+    customer_reg_info_time  = DateTime.now.strftime('%Q').to_i
     logger.info "cusomer reg info is #{customer_reg_info_time-check_id_card_time}"
 
     if customer_reg_info.verify_state != "verified"
@@ -187,7 +187,7 @@ class MemberCardPointLog < ActiveRecord::Base
       end
     end
 
-    identity_verify_time  = DateTime.now.strftime('%Q')
+    identity_verify_time  = DateTime.now.strftime('%Q').to_i
     logger.info "identify verify time is #{identity_verify_time-customer_reg_info_time}"
 
     # 用户是否授权会员卡
@@ -199,7 +199,7 @@ class MemberCardPointLog < ActiveRecord::Base
     if member_card.errors.present?
       return error_process datetime, data, 10006, member_card.errors.full_messages.to_s
     end
-    member_card_time  = DateTime.now.strftime('%Q')
+    member_card_time  = DateTime.now.strftime('%Q').to_i
     logger.info "member card time is #{member_card_time-identity_verify_time}"
 
 	  member_card_point_log = member_card.member_card_point_logs.create(point: (-1)*point.to_i, member_card: member_card, unique_ind: unique_ind, customer: user.try(:customer))
@@ -208,9 +208,9 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10008, member_card_point_log.errors.full_messages.to_s
     end
 
-    member_card_log_time  = DateTime.now.strftime('%Q')
+    member_card_log_time  = DateTime.now.strftime('%Q').to_i
     logger.info "log time is #{member_card_log_time-member_card_time}"
-    
+
     # 掩盖真相
     customer_reg_info.unverified!
     # MemberCardPointLog.send_sms_notification phone, point
