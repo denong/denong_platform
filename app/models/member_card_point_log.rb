@@ -178,8 +178,7 @@ class MemberCardPointLog < ActiveRecord::Base
     logger.info "cusomer reg info is #{customer_reg_info_time-check_id_card_time}"
 
     if customer_reg_info.verify_state != "verified"
-      identity_verify = user.try(:customer).identity_verifies.build(id_card: id_card, name: name)
-      identity_verify.save
+      identity_verify = user.try(:customer).identity_verifies.create(id_card: id_card, name: name)
 
       # 如果有错误，则增加错误信息
       if identity_verify.verify_state != "verified"
