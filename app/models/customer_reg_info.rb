@@ -15,7 +15,7 @@
 #
 
 class CustomerRegInfo < ActiveRecord::Base
-  self.primary_key = "id_card"
+  # self.primary_key = "id_card"
   enum verify_state: [:unverified, :wait_verify, :verified, :verified_fail]
   enum account_state: [ :processing, :success, :fail, :not_created]
 
