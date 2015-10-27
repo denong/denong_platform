@@ -53,6 +53,7 @@ GEM
       sass (>= 3.2.19)
     builder (3.2.2)
     china_sms (0.0.7)
+    chinese_pid (0.0.3)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -302,6 +303,7 @@ DEPENDENCIES
   axlsx
   bootstrap-sass (~> 3.3.4)
   china_sms
+  chinese_pid
   coffee-rails (~> 4.0.0)
   devise
   devise-ios-rails

@@ -33,7 +33,7 @@ class IdentityVerify < ActiveRecord::Base
 
   # 如何身份证符合规则，则直接接收，否则直接拒绝
   def auto_validate!
-    if (id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/) && (IdentityVerify.idcard_verify? name, id_card)
+    if (ChinesePid.new(id_card.to_s).valid?) && (IdentityVerify.idcard_verify? name, id_card)
       accept!
     else
       reject!
@@ -125,8 +125,8 @@ class IdentityVerify < ActiveRecord::Base
     customer_reg_info.name = name
     customer_reg_info.id_card = id_card
 
-    if (id_card.size == 18 && id_card[-2].to_i % 2 == 1) || 
-      (id_card.size == 15 && id_card[-1].to_i % 2 == 1)
+    gender = ChinesePid.new(id_card).gender
+    if gender.present? && gender == 1
       customer_reg_info.male!
     else
       customer_reg_info.female!

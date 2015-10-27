@@ -61,8 +61,6 @@ class User < ActiveRecord::Base
   
   
   def self.build_by_phone phone
-    puts "phons is #{phone}, #{phone.class}"
-
     user = User.create(phone: phone, password: phone[-8..-1], sms_token: "989898")
     unless user.errors.present?
       user.user_source = 0

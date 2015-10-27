@@ -45,6 +45,9 @@ gem 'whenever', :require => false
 # SMS
 gem 'china_sms'
 
+# identity verify
+gem 'chinese_pid'
+
 # File upload
 gem "paperclip", "~> 4.2"
 

@@ -225,8 +225,7 @@ class MemberCardPointLog < ActiveRecord::Base
 
   def self.check_id_card_info name, id_card
 		return false if name =~ /\p{Lt}|\p{Ll}|\p{Lm}|\p{Lt}|\p{Lu}|\p{N}|\p{P}|广场\z|办公室\z|医院\z|公司\z|小学\z/
-		return false unless (id_card =~ /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/) && !(id_card =~ /\p{P}/)
-		return true
+    return ChinesePid.new(id_card.to_s).valid?
   end
 
   # 开线程 
