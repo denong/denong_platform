@@ -38,6 +38,7 @@ class Merchant < ActiveRecord::Base
   has_many :member_cards
   has_many :tl_trades
   has_many :yl_trades, dependent: :destroy
+  has_many :lakala_trades, dependent: :destroy
   has_many :merchant_messages, dependent: :destroy
   has_many :merchant_giving_logs, dependent: :destroy
   has_many :jajin_logs, dependent: :destroy

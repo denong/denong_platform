@@ -1,5 +1,18 @@
 require 'rack/test'
-FactoryGirl.define do  factory :telecom_user do
+FactoryGirl.define do  factory :lakala_trade do
+    phone "MyString"
+card "MyString"
+price 1.5
+pos_ind "MyString"
+shop_ind "MyString"
+trade_ind "MyString"
+trade_time "MyString"
+pos_machine nil
+shop nil
+customer nil
+merchant nil
+  end
+  factory :telecom_user do
     phone "MyString"
 name "MyString"
 id_card "MyString"

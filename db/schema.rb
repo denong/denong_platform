@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026074504) do
+ActiveRecord::Schema.define(version: 20151028095435) do
 
   create_table "account", primary_key: "account_id", force: true do |t|
     t.string   "username",   limit: 200
@@ -346,6 +346,27 @@ ActiveRecord::Schema.define(version: 20151026074504) do
   end
 
   add_index "jajins", ["customer_id"], name: "index_jajins_on_customer_id", using: :btree
+
+  create_table "lakala_trades", force: true do |t|
+    t.string   "phone"
+    t.string   "card"
+    t.float    "price",          limit: 24
+    t.string   "pos_ind"
+    t.string   "shop_ind"
+    t.string   "trade_ind"
+    t.string   "trade_time"
+    t.integer  "pos_machine_id"
+    t.integer  "shop_id"
+    t.integer  "customer_id"
+    t.integer  "merchant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lakala_trades", ["customer_id"], name: "index_lakala_trades_on_customer_id", using: :btree
+  add_index "lakala_trades", ["merchant_id"], name: "index_lakala_trades_on_merchant_id", using: :btree
+  add_index "lakala_trades", ["pos_machine_id"], name: "index_lakala_trades_on_pos_machine_id", using: :btree
+  add_index "lakala_trades", ["shop_id"], name: "index_lakala_trades_on_shop_id", using: :btree
 
   create_table "member_card_point_logs", force: true do |t|
     t.float    "point",          limit: 24
