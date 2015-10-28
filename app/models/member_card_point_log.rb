@@ -127,8 +127,7 @@ class MemberCardPointLog < ActiveRecord::Base
       return error_process datetime, data, 10007, "唯一标示已经存在"
   	end
 
-    bexist = CustomerRegInfo.exists? id_card: id_card
-    bexist ||= $redis.hexists "user_infomation_cache", id_card
+    bexist = $redis.hexists "user_infomation_cache", id_card
 		bexist ||= TelecomUser.exists? id_card: id_card
     if bexist
     	return error_process datetime, data, 10009, "用户已存在"
@@ -212,6 +211,8 @@ class MemberCardPointLog < ActiveRecord::Base
 
     # 掩盖真相
     customer_reg_info.unverified!
+    customer_reg_info.not_created!
+    customer_reg_info.save
     # MemberCardPointLog.send_sms_notification phone, point
     return 0, "成功"
   end
