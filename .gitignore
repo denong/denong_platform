@@ -53,3 +53,5 @@ denong_platform_test
 
 config/unicorn.rb
 config/unicorn_init.sh
+
+/public
