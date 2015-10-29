@@ -135,6 +135,8 @@ Rails.application.routes.draw do
 
   # 通联交易列表
   resources :tl_trades, only: [:create]
+  # 拉卡拉交易列表
+  resources :lakala_trades, only: [:create]
 
   # 小金消费通知
   resources :consume_messages, only: [:show]

@@ -346,7 +346,8 @@ resource "积分转小金记录" do
       end
       params_array.sort!
       sign_string = params_array.join
-      string = EncryptRsa.encode sign_string, "private_key3.pem"
+      puts "sign_string is #{sign_string}"
+      string = EncryptRsa.encode sign_string, "key/guangdong_telecom/private_key.pem"
       string
     end
 
@@ -374,6 +375,7 @@ resource "积分转小金记录" do
 
     example "Open API接口" do
       do_request
+      puts "response is #{response_body}"
       expect(status).to eq 200
     end
   end

@@ -1,4 +1,4 @@
-class LakalaTradeController < ApplicationController
+class LakalaTradesController < ApplicationController
   respond_to :json
 
   def create
