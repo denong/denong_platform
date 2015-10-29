@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028095435) do
+ActiveRecord::Schema.define(version: 20151029082425) do
 
   create_table "account", primary_key: "account_id", force: true do |t|
     t.string   "username",   limit: 200
@@ -361,6 +361,7 @@ ActiveRecord::Schema.define(version: 20151028095435) do
     t.integer  "merchant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "amount",         limit: 24
   end
 
   add_index "lakala_trades", ["customer_id"], name: "index_lakala_trades_on_customer_id", using: :btree
