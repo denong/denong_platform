@@ -8,7 +8,7 @@ resource "代理商" do
 
     def generate_sign
       origin = {}
-      origin[:phone] = "17749725507"
+      origin[:phone] = "13312341234"
       origin[:card] = "6214AAAAAAAA9161"
       origin[:price] = 100
       origin[:pos_ind] = "pi123456"
@@ -35,7 +35,7 @@ resource "代理商" do
     parameter :trade_time, "交易时间", required: true
     parameter :sign, "签名认证", required: true
 
-    let(:phone) { "17749725507" }
+    let(:phone) { "13312341234" }
     let(:card) { "6214AAAAAAAA9161" }
     let(:price) { 100 }
     let(:pos_ind) { "pi123456" }
