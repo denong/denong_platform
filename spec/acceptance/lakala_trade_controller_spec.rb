@@ -5,9 +5,6 @@ resource "代理商" do
   header "Content-Type", "application/json"
 
   post "/lakala_trades" do
-    before(:each) do
-
-    end
 
     def generate_sign
       origin = {}
@@ -25,7 +22,6 @@ resource "代理商" do
       end
       params_array.sort!
       sign_string = params_array.join
-      puts "sign_string is #{sign_string}"
       string = EncryptRsa.encode sign_string, "key/lakala/private_key.pem"
       string
     end
@@ -54,7 +50,6 @@ resource "代理商" do
 
     example "拉卡拉交易记录" do
       do_request
-      puts "response is #{response_body}"
       expect(status).to eq(200)
     end
   end
