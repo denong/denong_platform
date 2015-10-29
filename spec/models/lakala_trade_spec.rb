@@ -16,6 +16,7 @@
 #  merchant_id    :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  amount         :float(24)
 #
 
 require 'rails_helper'
