@@ -21,8 +21,8 @@ class EncryptRsa
   def create_key path
     key = OpenSSL::PKey::RSA.new 1024
     FileUtils.makedirs(path) unless File.exist?(path)
-    File.open("#{path}/private_key3.pem", 'w') { |io| io.write key.to_pem }
-    File.open("#{path}/public_key3.pem", 'w') { |io| io.write key.public_key.to_pem }
+    File.open("#{path}/private_key.pem", 'w') { |io| io.write key.to_pem }
+    File.open("#{path}/public_key.pem", 'w') { |io| io.write key.public_key.to_pem }
   end
 
   def self.encode str, path
@@ -75,8 +75,8 @@ class EncryptRsa
   end
 
   def initialize()
-    @private_key = File.read('private_key3.pem')#.gsub("\\n", "\n")
-    @public_key = File.read('public_key3.pem')
+    # @private_key = File.read('private_key3.pem')#.gsub("\\n", "\n")
+    # @public_key = File.read('public_key3.pem')
     # @public_key = public_key.gsub("\\n", "\n")
     nil
   end
