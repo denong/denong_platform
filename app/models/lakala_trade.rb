@@ -23,4 +23,9 @@ class LakalaTrade < ActiveRecord::Base
   belongs_to :shop
   belongs_to :customer
   belongs_to :merchant
+
+  def self.process params
+    
+  end
+  
 end
