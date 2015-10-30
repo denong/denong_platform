@@ -15,6 +15,7 @@ resource "代理商" do
       origin[:shop_ind] = "si123456"
       origin[:trade_ind] = "ti123456"
       origin[:trade_time] = "20150801142903"
+      origin[:time_stamp] = "20150801142910"
 
       params_array = []
       origin.to_a.each do |par_info|
@@ -22,7 +23,8 @@ resource "代理商" do
       end
       params_array.sort!
       sign_string = params_array.join
-      string = EncryptRsa.encode sign_string, "key/lakala/private_key.pem"
+      string = Digest::MD5.hexdigest(sign_string)
+      puts string
       string
     end
 
@@ -33,6 +35,7 @@ resource "代理商" do
     parameter :shop_ind, "商户编号", required: true
     parameter :trade_ind, "交易流水号", required: true
     parameter :trade_time, "交易时间", required: true
+    parameter :time_stamp, "请求时间戳", required: true
     parameter :sign, "签名认证", required: true
 
     let(:phone) { "13312341234" }
@@ -42,6 +45,7 @@ resource "代理商" do
     let(:shop_ind) { "si123456" }
     let(:trade_ind) { "ti123456" }
     let(:trade_time) { "20150801142903" }
+    let(:time_stamp) { "20150801142910" }
     let(:sign) { generate_sign }
     let(:raw_post) { params.to_json }
 
@@ -50,6 +54,7 @@ resource "代理商" do
 
     example "拉卡拉交易记录" do
       do_request
+      puts "response is #{response_body}"
       expect(status).to eq(200)
     end
   end

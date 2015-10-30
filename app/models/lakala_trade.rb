@@ -67,7 +67,7 @@ class LakalaTrade < ActiveRecord::Base
 
     params_array.sort!
     origin_string = params_array.join
-    result = EncryptRsa.verify hash["sign"], origin_string, "key/lakala/public_key.pem"
+    result = (Digest::MD5.hexdigest(origin_string) == hash["sign"])
     result
   end
 
