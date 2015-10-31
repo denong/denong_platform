@@ -16,6 +16,9 @@ class TelecomUser < ActiveRecord::Base
   validates_uniqueness_of :phone
   validates_presence_of :phone
 
+  validates_uniqueness_of :id_card
+  validates_presence_of :id_card
+  
   validate :check_phone_length
   validate :check_personal_info
 
