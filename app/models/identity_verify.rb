@@ -131,9 +131,10 @@ class IdentityVerify < ActiveRecord::Base
     else
       customer_reg_info.female!
     end
-
-    customer_reg_info.verified!
-    customer_reg_info.processing!
+    if self.customer.try(:user).try(:source_id) != 28
+      customer_reg_info.verified!
+      customer_reg_info.processing!
+    end
     customer_reg_info.save
     self.verified!
     self.processing!

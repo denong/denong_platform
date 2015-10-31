@@ -203,10 +203,6 @@ class MemberCardPointLog < ActiveRecord::Base
     member_card_log_time  = DateTime.now.strftime('%Q').to_i
     logger.info "log time is #{member_card_log_time-member_card_time}"
 
-    # 掩盖真相
-    customer_reg_info.unverified!
-    customer_reg_info.not_created!
-    customer_reg_info.save
     # MemberCardPointLog.send_sms_notification phone, point
     return 0, "成功"
   end
