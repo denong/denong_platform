@@ -543,7 +543,7 @@ class LogProcess
     write_file path, filename, head, head_format, write_rows
   end
 
-  def self.export_user_info
+  def self.generate_user_info
     filename = "#{DateTime.now.strftime("%Y%m%d")}-user"
     path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
     FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)

@@ -31,6 +31,7 @@ every 1.day, :at => '00:05' do
   runner "LogProcess.generate_member_log"
   runner "LogProcess.generate_point_log_errors"
   runner "LogProcess.generate_telecom_user"
+  runner "LogProcess.generate_user_info"
 end
 
 every 1.day, :at => '15:20' do
