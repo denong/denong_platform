@@ -546,7 +546,7 @@ class LogProcess
   def self.generate_user_info
     filename = "#{DateTime.now.strftime("%Y%m%d")}-user"
     path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
-    FileUtils.makedirs(logs_folder) unless File.exist?(logs_folder)
+    FileUtils.makedirs(path) unless File.exist?(path)
     file = Axlsx::Package.new
 
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
@@ -564,9 +564,9 @@ class LogProcess
         sheet.add_row([phone, user_source, name, id_card, jajin, created_time], :types => [:string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true  
-      file.serialize("#{logs_folder}/#{filename}")
+      file.serialize("#{path}/#{filename}")
     end
-    return "#{logs_folder}/#{filename}"#, users.size
+    return "#{path}/#{filename}"#, users.size
   end
 
 
