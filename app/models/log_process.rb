@@ -544,7 +544,7 @@ class LogProcess
   end
 
   def self.generate_user_info
-    filename = "#{DateTime.now.strftime("%Y%m%d")}-user"
+    filename = "#{DateTime.now.strftime("%Y%m%d")}-user.xlsx"
     path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
     FileUtils.makedirs(path) unless File.exist?(path)
     file = Axlsx::Package.new
