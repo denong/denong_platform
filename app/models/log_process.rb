@@ -561,7 +561,7 @@ class LogProcess
         jajin = user.try(:customer).try(:jajin).try(:got)
         created_time = user.try(:created_at).strftime("%Y%m%d%H%M%S")
 
-        sheet.add_row([phone, user_source, name, id_card, jajin, created_time], :types => [:string, :string, :string, :string, :string])
+        sheet.add_row([phone, user_source, name, id_card, jajin, created_time], :types => [:string, :string, :string, :string, :string, :string])
       end
       file.use_shared_strings = true  
       file.serialize("#{path}/#{filename}")
