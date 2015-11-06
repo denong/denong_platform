@@ -501,9 +501,9 @@ class LogProcess
 
   # 姓名  手机  身份证   积分  小金   兑换时间（年月日）   唯一ID
   # LogProcess.generate_telecom_user
-  def self.generate_telecom_user
+  def self.generate_telecom_user start_time, end_time
     write_rows = []
-    telecom_users = TelecomUser.where(created_at: 1.day.ago..DateTime.now)
+    telecom_users = TelecomUser.where(created_at: start_time..end_time)
     telecom_users.each do |telecom_user|
       name = telecom_user.try(:name)
       phone = telecom_user.try(:phone)
@@ -543,7 +543,7 @@ class LogProcess
     write_file path, filename, head, head_format, write_rows
   end
 
-  def self.generate_user_info
+  def self.generate_user_info start_time, end_time
     filename = "#{DateTime.now.strftime("%Y%m%d")}-user.xlsx"
     path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
     FileUtils.makedirs(path) unless File.exist?(path)
@@ -552,7 +552,7 @@ class LogProcess
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
       sheet.add_row ["手机号", "来源", "姓名", "身份证", "小金", "注册时间"]
 
-      users = User.where(created_at: 1.day.ago..DateTime.now)
+      users = User.where(created_at: start_time..end_time)
       users.each_with_index do |user, index|
         phone = user.try(:phone)
         user_source = user.try(:source_id)
@@ -572,9 +572,9 @@ class LogProcess
 
   # 姓名  手机  身份证   积分  小金   兑换时间（年月日）   唯一ID  失败原因
   # LogProcess.generate_member_log
-  def self.generate_member_log
+  def self.generate_member_log start_time, end_time
     write_rows = []
-    member_card_point_logs = MemberCardPointLog.where(created_at: 1.day.ago..DateTime.now)
+    member_card_point_logs = MemberCardPointLog.where(created_at: start_time..end_time)
     member_card_point_logs.each do |log|
       customer = log.try(:customer)
 
@@ -601,9 +601,9 @@ class LogProcess
   end
 
   # LogProcess.generate_point_log_errors
-  def self.generate_point_log_errors
+  def self.generate_point_log_errors start_time, end_time
     write_rows = []
-    error_infos = PointLogFailureInfo.where(created_at: 1.day.ago..DateTime.now)
+    error_infos = PointLogFailureInfo.where(created_at: start_time..end_time)
     error_infos.each do |log|
 
       trade_time = log.try(:created_at).strftime("%Y%m%d%H%M%S")
@@ -656,5 +656,15 @@ class LogProcess
       file.use_shared_strings = true  
       file.serialize("#{path}/#{filename}.xlsx")
     end
+  end
+
+  def self.generate_guangdong_telecom_data
+    start_time = 1.day.ago
+    end_time = DateTime.now
+    member_log = generate_member_log start_time, end_time
+    point_log = generate_point_log_errors start_time, end_time
+    telecom_user = generate_telecom_user start_time, end_time
+    user_info = generate_user_info start_time, end_time
+    return [member_log, point_log, telecom_user, user_info]
   end
 end
