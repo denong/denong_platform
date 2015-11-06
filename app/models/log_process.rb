@@ -543,8 +543,8 @@ class LogProcess
     write_file path, filename, head, head_format, write_rows
   end
 
-  def self.generate_user_info start_time, end_time
-    filename = "#{DateTime.now.strftime("%Y%m%d")}-user.xlsx"
+  def self.generate_user_info start_time, end_time, filename = nil
+    filename = filename || "#{DateTime.now.strftime("%Y%m%d")}-user.xlsx"
     path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
     FileUtils.makedirs(path) unless File.exist?(path)
     file = Axlsx::Package.new
