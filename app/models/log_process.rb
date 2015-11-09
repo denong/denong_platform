@@ -676,15 +676,15 @@ class LogProcess
 
     file = Axlsx::Package.new
     file.workbook.add_worksheet(:name => "sheet1") do |sheet|
-      sheet.add_row ["手机号", "来源", "姓名", "身份证", "小金", "注册时间"]
+      sheet.add_row ["手机号", "开户状态", "姓名", "身份证", "小金", "注册时间"]
 
       counts.each do |count|
         next if count == 0
-        users = User.where(sign_in_count: count)
+        users = User.where(sign_in_count: count, created_at: DateTime.new(2015,1,1)..DateTime.new(2015,10,15))
 
         users.each_with_index do |user, index|
           phone = user.try(:phone)
-          user_source = user.try(:source_id)
+          user_source = user.try(:customer).try(:customer_reg_info).try(:account_state)
           name = user.try(:customer).try(:customer_reg_info).try(:name)
           id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
           jajin = user.try(:customer).try(:jajin).try(:got)
