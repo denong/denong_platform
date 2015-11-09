@@ -667,4 +667,35 @@ class LogProcess
     user_info = generate_user_info start_time, end_time
     return [member_log, point_log, telecom_user, user_info]
   end
+
+  def self.get_user_login_info filename
+    counts = User.all.group(:sign_in_count).pluck(:sign_in_count)
+    
+    path = File.join("public", "logs", "#{Time.now.strftime("%Y%m%d")}")
+    FileUtils.makedirs path unless File.exist? path
+
+    file = Axlsx::Package.new
+    file.workbook.add_worksheet(:name => "sheet1") do |sheet|
+      sheet.add_row ["手机号", "来源", "姓名", "身份证", "小金", "注册时间"]
+
+      counts.each do |count|
+        next if count == 0
+        users = User.where(sign_in_count: count)
+
+        users.each_with_index do |user, index|
+          phone = user.try(:phone)
+          user_source = user.try(:source_id)
+          name = user.try(:customer).try(:customer_reg_info).try(:name)
+          id_card = user.try(:customer).try(:customer_reg_info).try(:id_card)
+          jajin = user.try(:customer).try(:jajin).try(:got)
+          created_time = user.try(:created_at).strftime("%Y%m%d%H%M%S")
+
+          sheet.add_row([phone, user_source, name, id_card, jajin, created_time], :types => [:string]*6)
+        end
+      end
+      file.use_shared_strings = true  
+      file.serialize("#{path}/#{filename}")
+    end
+    return "#{path}/#{filename}"
+  end
 end

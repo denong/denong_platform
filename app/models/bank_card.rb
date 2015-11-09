@@ -153,7 +153,7 @@ class BankCard < ActiveRecord::Base
 
     # result = BankCard.new.verify_bank_card_from_xt params
 
-    logger.info "bank card bind result is: #{result}"
+    puts "bank card bind result is: #{result}"
     if result.present? && result["result"].present?
 
       if params[:auth_type].to_i == 1
@@ -181,7 +181,7 @@ class BankCard < ActiveRecord::Base
       bank_card.res_code = result["result"]["resCode"] if result["result"]["resCode"]
       bank_card.save
 
-      logger.info "bank card is:#{bank_card}"
+      puts "bank card is:#{bank_card}"
     end
     bank_card
   end
@@ -267,7 +267,7 @@ class BankCard < ActiveRecord::Base
     result = MultiJson.load response.body
     data = URI::decode result["data"]
     hash_data = MultiJson.load data
-    logger.info "daqian response result is: #{hash_data}"
+    puts "daqian response result is: #{hash_data}"
     hash_data
   end
 

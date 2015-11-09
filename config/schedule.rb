@@ -26,8 +26,8 @@ every 1.minutes do
 end
 
 every 1.day, :at => '00:05' do
-  runner "DataReport.new.process"
-  runner "MerchantLog.new.process"
+  # runner "DataReport.new.process"
+  # runner "MerchantLog.new.process"
   runner "LogProcess.generate_guangdong_telecom_data"
 end
 
