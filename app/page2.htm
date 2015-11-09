@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="gbk" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="author" content="Tencent-CP" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<!-- 设计：cp  | 重构：cp | 创建：2015/11/3 | 更新：| 团队博客：http://tgideas.qq.com/ -->
+<title>消费养老金红包 速来领取</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+	<h1 class="hide">免费领取消费养老金</h1>
+</header>
+<div class="page2">
+	<img src="images/s2_bg1.jpg" width="320" height="307" alt="消费养老金">
+	<img src="images/s2_bg2.jpg" width="320" height="308" alt="消费养老金" class="mt13">	
+	<img src="images/s2_bg3.jpg" width="320" height="245" alt="消费养老金" class="mt13">	
+	<img src="images/s2_bg4.jpg" width="320" height="285" alt="消费养老金">	
+	<img src="images/s2_bg5.jpg" width="320" height="310" alt="消费养老金">	
+	<img src="images/s2_bg6.jpg" width="320" height="265" alt="消费养老金">
+	<img src="images/s2_bg7.jpg" width="320" height="203" alt="消费养老金">
+	<a href="index.htm" class="tips">
+		<span class="icon-arrow-up"></span>
+	</a>
+</div>
+<script src="js/zepto.min.js"></script>
+<script>
+// 大于320屏幕设备缩放页面
+var winw=$(window).width(),
+	winh=$(window).height(),
+	scale=winw/320;
+autoScale(scale);
+$(window).resize(function(){
+	winw=$(window).width();
+	winh=$(window).height();
+	scale=winw/320;
+	autoScale(scale);
+});
+function autoScale(is){
+	$('.page2').css({
+		'width':'320px',
+		'height':'1985px',
+		'overflow':'hidden',
+		'-webkit-transform':'scale('+is+')',
+		'transform':'scale('+is+')',
+		'-webkit-transform-origin':'0px 0px 0px',
+		'transform-origin':'0px 0px 0px'
+	});
+	$('html,body').css(
+		'height',$('.page2').height()
+	);
+}
+
+</script>
+</body>
+</html>
